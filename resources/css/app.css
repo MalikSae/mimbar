@@ -1,0 +1,57 @@
+@import 'tailwindcss';
+
+@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
+@source '../../storage/framework/views/*.php';
+@source '../**/*.blade.php';
+@source '../**/*.js';
+
+@theme {
+    /* ─── Brand Colors ─── */
+    --color-primary:          #8B1A4A;
+    --color-primary-dark:     #6B1238;
+    --color-primary-light:    #F5E8EE;
+    --color-accent:           #D4AF37;   /* gold — dipakai di badge/quote Banani */
+    --color-misi-bg:          #F4F1E6;   /* warm cream — background section misi/sinopsis */
+    --color-page-bg:          #FDFCF0;   /* warm white — background halaman detail */
+
+    /* ─── Neutral ─── */
+    --color-gray-900:         #1A1A1A;
+    --color-gray-600:         #555555;
+    --color-gray-400:         #9CA3AF;
+    --color-border:           #E5E7EB;
+    --color-muted:            #F5F5F5;
+    --color-white:            #FFFFFF;
+
+    /* ─── Semantic ─── */
+    --color-success:          #22863A;
+    --color-success-surface:  #EAF3DE;
+    --color-warning:          #E36209;
+    --color-warning-surface:  #FAEEDA;
+    --color-danger:           #C0392B;
+    --color-danger-surface:   #FCEBEB;
+    --color-info:             #185FA5;
+    --color-info-surface:     #E6F1FB;
+
+    /* ─── Footer ─── */
+    --color-footer:           #4A0E28;
+
+    /* ─── Typography ─── */
+    --font-heading:           'Plus Jakarta Sans', sans-serif;
+    --font-body:              'Inter', sans-serif;
+    --font-arabic:            'Amiri', serif;
+
+    /* ─── Border Radius ─── */
+    --radius-sm:              4px;
+    --radius-md:              6px;
+    --radius-lg:              8px;
+    --radius-xl:              12px;
+    --radius-2xl:             16px;
+    --radius-full:            9999px;
+
+    /* ─── Shadow ─── */
+    --shadow-card:            0 1px 3px rgba(0, 0, 0, 0.08);
+    --shadow-md:              0 4px 12px rgba(0, 0, 0, 0.10);
+
+    /* ─── Spacing tambahan ─── */
+    --container-max:          1200px;
+}
