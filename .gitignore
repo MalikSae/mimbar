@@ -23,3 +23,13 @@ _ide_helper.php
 Homestead.json
 Homestead.yaml
 Thumbs.db
+
+# File temporary & debug (jangan commit)
+banani_export_*.jsx
+db_schema.php
+replace*.php
+routes.txt
+test.txt
+verification.txt
+*.tmp
+*.bak
