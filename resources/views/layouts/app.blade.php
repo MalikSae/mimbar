@@ -1,5 +1,7 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="{{ app()->getLocale() }}"
+      dir="{{ app()->getLocale() === 'ar' ? 'rtl' : 'ltr' }}"
+      class="{{ app()->getLocale() === 'ar' ? 'rtl' : '' }}">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -20,7 +22,19 @@
         [x-cloak] { display: none !important; }
         body { font-family: var(--font-body); background-color: var(--color-muted); color: var(--color-gray-900); }
         h1, h2, h3, h4, h5, h6, .font-heading { font-family: var(--font-heading); }
-        .font-arabic, [dir="rtl"] { font-family: var(--font-arabic); }
+        .font-arabic { font-family: var(--font-arabic); }
+        
+        /* Override untuk bahasa Arab (RTL) */
+        html[dir="rtl"] body { font-family: var(--font-arabic); }
+        html[dir="rtl"] h1, 
+        html[dir="rtl"] h2, 
+        html[dir="rtl"] h3, 
+        html[dir="rtl"] h4, 
+        html[dir="rtl"] h5, 
+        html[dir="rtl"] h6, 
+        html[dir="rtl"] .font-heading { 
+            font-family: var(--font-arabic); 
+        }
     </style>
     @stack('head')
 </head>

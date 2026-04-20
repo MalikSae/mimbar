@@ -40,3 +40,7 @@ test.txt
 verification.txt
 *.tmp
 *.bak
+test_*.php
+add-translations.php
+UPDATE_REPORT.md
+CONTEXT.md

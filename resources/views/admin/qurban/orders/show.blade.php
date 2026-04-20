@@ -141,7 +141,7 @@
                 {{ $statusLabel }}
             </div>
 
-            <div x-data="{ confirmVerify: false, confirmReject: false }">
+            <div x-data="{ confirmVerify: false, confirmReject: false, selectedBank: '' }">
                 <div style="margin-bottom:12px;">
                     <label style="display:block;font-size:12px;font-weight:600;color:var(--color-gray-700);margin-bottom:6px;">
                         Catatan (Opsional)
@@ -178,11 +178,31 @@
                         <p style="font-size:13px;color:var(--color-gray-600);margin:0 0 20px;">
                             Pesanan <strong>{{ $order->order_number }}</strong> dari <strong>{{ $order->is_anonymous ? 'Hamba Allah' : $order->donor_name }}</strong> akan dikonfirmasi.
                         </p>
+
+                        {{-- Dropdown Rekening (Opsional) --}}
+                        <div style="margin-bottom:20px;">
+                            <label style="display:block;font-size:12px;font-weight:600;
+                                         color:var(--color-gray-700);margin-bottom:6px;"
+                            >Rekening Penerima <span style="font-weight:400;color:var(--color-gray-400);">(Opsional)</span></label>
+                            <select x-model="selectedBank"
+                                    style="width:100%;padding:9px 12px;border:1px solid var(--color-border);
+                                           border-radius:var(--radius-lg);font-size:13px;font-family:var(--font-body);
+                                           outline:none;color:var(--color-gray-900);background:white;">
+                                <option value="">— Pilih rekening —</option>
+                                @foreach($bankAccounts as $bank)
+                                <option value="{{ $bank->bank_name }} — {{ $bank->account_number }}">
+                                    {{ $bank->bank_name }} — {{ $bank->account_number }}
+                                </option>
+                                @endforeach
+                            </select>
+                        </div>
+
                         <div style="display:flex;gap:10px;justify-content:flex-end;">
                             <button @click="confirmVerify = false" style="padding:8px 16px;font-size:13px;border:1px solid var(--color-border);color:var(--color-gray-600);background:white;border-radius:var(--radius-lg);cursor:pointer;font-family:var(--font-body);">Batal</button>
                             <form method="POST" action="{{ route('admin.qurban.orders.verify', $order->id) }}">
                                 @csrf @method('PATCH')
                                 <input type="hidden" name="notes" :value="document.getElementById('qurban-notes-input').value">
+                                <input type="hidden" name="bank_destination" :value="selectedBank">
                                 <button type="submit" style="padding:8px 16px;font-size:13px;font-weight:600;background:var(--color-success);color:white;border:none;border-radius:var(--radius-lg);cursor:pointer;font-family:var(--font-body);">Ya, Konfirmasi</button>
                             </form>
                         </div>
@@ -211,6 +231,13 @@
                     </div>
                     </div>
                 </div>
+            </div>
+            @endif
+            
+            @if($order->bank_destination)
+            <div style="margin-top: 12px; padding-top: 12px; border-top: 1px solid var(--color-border);">
+                <p style="font-size: 12px; color: var(--color-gray-600); margin-bottom: 4px;">Rekening Penerima</p>
+                <p style="font-size: 14px; color: var(--color-gray-900); font-weight: 500;">{{ $order->bank_destination }}</p>
             </div>
             @endif
         </div>

@@ -1,90 +1,157 @@
-<footer class="bg-footer text-white py-16 relative overflow-hidden">
-    <!-- Decorative Pattern Overlay -->
-    <div class="absolute inset-0 opacity-5 pointer-events-none" style="background-image: repeating-linear-gradient(45deg, #fff 0, #fff 1px, transparent 1px, transparent 24px), repeating-linear-gradient(-45deg, #fff 0, #fff 1px, transparent 1px, transparent 24px);"></div>
+<style>
+    .footer-grid {
+        display: grid;
+        grid-template-columns: 1fr 1.6fr 1.1fr 1fr 1fr;
+        gap: 32px;
+        padding-bottom: 48px;
+    }
 
-    <div class="max-w-[1200px] mx-auto px-4 sm:px-6 relative z-10">
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
-            <!-- Col 1: Logo & Vision -->
-            <div class="space-y-6">
-                <img src="{{ asset('storage/images/logo/LOGO-MIMBAR-DARK-MODE.png') }}" 
-                     alt="Mimbar Al-Tauhid" 
-                     class="h-12 w-auto">
-                <p class="text-white/80 text-sm leading-relaxed max-w-xs">
-                    Yayasan Mimbar Al-Tauhid hadir membumikan ajaran Islam berdasarkan Al-Qur'an dan As-Sunnah melalui dakwah, sosial, dan pendidikan.
-                </p>
-                <div class="flex gap-3">
-                    <a href="#" class="w-9 h-9 rounded-full border border-white/20 flex items-center justify-center hover:bg-white hover:text-primary transition-all">
-                        <iconify-icon icon="lucide:facebook" width="16"></iconify-icon>
+    @media (max-width: 1023px) {
+        .footer-grid {
+            grid-template-columns: 1fr !important;
+            gap: 32px !important;
+            text-align: left;
+        }
+        .footer-col {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start !important;
+        }
+        .footer-col h4 {
+            margin-bottom: 12px !important; /* 2. Jarak judul dan konten diperkecil */
+        }
+        .footer-col ul {
+            gap: 8px !important; /* 3. Jarak antar menu diperkecil */
+        }
+        .footer-logo {
+            margin-left: 0;
+            margin-right: 0;
+        }
+        .footer-sosmed {
+            justify-content: flex-start !important;
+        }
+        .footer-contact-list {
+            align-items: flex-start !important;
+        }
+        .footer-map-container {
+            width: 100%;
+            max-width: 100%;
+            margin: 0;
+        }
+    }
+</style>
+
+<footer style="background-color: var(--color-primary, #8b1a4a); color: white; position: relative; overflow: hidden;">
+    <!-- Geometric Pattern Overlay -->
+    <div style="position: absolute; inset: 0; opacity: 0.07; background-image: repeating-linear-gradient(45deg, #fff 0px, #fff 1px, transparent 1px, transparent 30px), repeating-linear-gradient(-45deg, #fff 0px, #fff 1px, transparent 1px, transparent 30px); pointer-events: none;"></div>
+
+    <div style="max-width: 1200px; margin: 0 auto; padding: 64px 24px 0; position: relative; z-index: 1;">
+        <div class="footer-grid">
+
+            <!-- Col 1: Logo & Sosmed -->
+            <div class="footer-col">
+                <img src="{{ asset('storage/images/logo/LOGO-MIMBAR-DARK-MODE.png') }}"
+                     alt="Yayasan Mimbar Al-Tauhid"
+                     class="footer-logo"
+                     style="height: 64px; width: auto; margin-bottom: 24px; display: block;">
+                <!-- Social Icons -->
+                <div class="footer-sosmed" style="display: flex; gap: 12px; margin-bottom: 24px;">
+                    <a href="https://wa.me/6282311119499" target="_blank" style="width: 36px; height: 36px; border-radius: 50%; background: rgba(255,255,255,0.12); display: flex; align-items: center; justify-content: center; color: white; text-decoration: none; transition: background 0.2s;" onmouseover="this.style.background='rgba(255,255,255,0.25)'" onmouseout="this.style.background='rgba(255,255,255,0.12)'">
+                        <iconify-icon icon="mdi:whatsapp" style="font-size: 18px;"></iconify-icon>
                     </a>
-                    <a href="#" class="w-9 h-9 rounded-full border border-white/20 flex items-center justify-center hover:bg-white hover:text-primary transition-all">
-                        <iconify-icon icon="lucide:instagram" width="16"></iconify-icon>
+                    <a href="https://www.facebook.com/mimbartauhid" target="_blank" style="width: 36px; height: 36px; border-radius: 50%; background: rgba(255,255,255,0.12); display: flex; align-items: center; justify-content: center; color: white; text-decoration: none; transition: background 0.2s;" onmouseover="this.style.background='rgba(255,255,255,0.25)'" onmouseout="this.style.background='rgba(255,255,255,0.12)'">
+                        <iconify-icon icon="mdi:facebook" style="font-size: 18px;"></iconify-icon>
                     </a>
-                    <a href="#" class="w-9 h-9 rounded-full border border-white/20 flex items-center justify-center hover:bg-white hover:text-primary transition-all">
-                        <iconify-icon icon="lucide:youtube" width="16"></iconify-icon>
+                    <a href="https://www.youtube.com/@mimbartauhid" target="_blank" style="width: 36px; height: 36px; border-radius: 50%; background: rgba(255,255,255,0.12); display: flex; align-items: center; justify-content: center; color: white; text-decoration: none; transition: background 0.2s;" onmouseover="this.style.background='rgba(255,255,255,0.25)'" onmouseout="this.style.background='rgba(255,255,255,0.12)'">
+                        <iconify-icon icon="mdi:youtube" style="font-size: 18px;"></iconify-icon>
                     </a>
+                    <a href="https://www.instagram.com/mimbartauhid" target="_blank" style="width: 36px; height: 36px; border-radius: 50%; background: rgba(255,255,255,0.12); display: flex; align-items: center; justify-content: center; color: white; text-decoration: none; transition: background 0.2s;" onmouseover="this.style.background='rgba(255,255,255,0.25)'" onmouseout="this.style.background='rgba(255,255,255,0.12)'">
+                        <iconify-icon icon="mdi:instagram" style="font-size: 18px;"></iconify-icon>
+                    </a>
+                    <a href="https://t.me/mimbartauhid" target="_blank" style="width: 36px; height: 36px; border-radius: 50%; background: rgba(255,255,255,0.12); display: flex; align-items: center; justify-content: center; color: white; text-decoration: none; transition: background 0.2s;" onmouseover="this.style.background='rgba(255,255,255,0.25)'" onmouseout="this.style.background='rgba(255,255,255,0.12)'">
+                        <iconify-icon icon="mdi:telegram" style="font-size: 18px;"></iconify-icon>
+                    </a>
+                </div>
+                <div style="font-size: 13px; color: rgba(255,255,255,0.7); display: flex; flex-wrap: wrap; gap: 20px;">
+                    @php
+                        $total = is_callable($totalVisitors) ? $totalVisitors() : $totalVisitors;
+                        $today = is_callable($todayVisitors) ? $todayVisitors() : $todayVisitors;
+                    @endphp
+                    <div>
+                        <span style="font-weight: 600; color: rgba(255,255,255,0.9);">{{ __('app.footer.visitor') }}: </span>
+                        <span>{{ number_format($total, 0, ',', '.') }}</span>
+                    </div>
+                    <div>
+                        <span style="font-weight: 600; color: rgba(255,255,255,0.9);">{{ __('app.footer.today') }}: </span>
+                        <span>{{ number_format($today, 0, ',', '.') }}</span>
+                    </div>
                 </div>
             </div>
 
-            <!-- Col 2: Info Kontak -->
-            <div>
-                <h4 class="font-heading font-bold text-lg mb-6">Kontak Kami</h4>
-                <ul class="space-y-4 text-sm text-white/80">
-                    <li class="flex items-start gap-3">
-                        <iconify-icon icon="lucide:map-pin" class="mt-0.5 text-primary-light" width="18"></iconify-icon>
-                        <span>Kp. Bobojong, RT. 001/003, Kelurahaan Caringin, Kecamatan Caringin, Kabupaten Sukabumi, Jawa Barat</span>
-                    </li>
-                    <li class="flex items-center gap-3">
-                        <iconify-icon icon="lucide:phone" class="text-primary-light" width="18"></iconify-icon>
-                        <span>+62 823 1111 9499</span>
-                    </li>
-                    <li class="flex items-center gap-3">
-                        <iconify-icon icon="lucide:mail" class="text-primary-light" width="18"></iconify-icon>
-                        <span>info@mimbar.or.id</span>
-                    </li>
-                </ul>
-            </div>
-
-            <!-- Col 3: Navigasi Cepat -->
-            <div>
-                <h4 class="font-heading font-bold text-lg mb-6">Navigasi</h4>
-                <ul class="space-y-3 text-sm text-white/80">
-                    <li><a href="{{ url('/') }}" class="hover:text-white hover:translate-x-1 transition-all inline-block">Beranda</a></li>
-                    <li><a href="{{ route('about.index') }}" class="hover:text-white hover:translate-x-1 transition-all inline-block">Tentang Kami</a></li>
-                    <li><a href="{{ route('program.index') }}" class="hover:text-white hover:translate-x-1 transition-all inline-block">Program Kerja</a></li>
-                    <li><a href="{{ route('ebooks.index') }}" class="hover:text-white hover:translate-x-1 transition-all inline-block">Pustaka Digital</a></li>
-                    <li><a href="{{ route('donations.index') }}" class="hover:text-white hover:translate-x-1 transition-all inline-block">Donasi</a></li>
-                </ul>
-            </div>
-
-            <!-- Col 4: Unit Media -->
-            <div>
-                <h4 class="font-heading font-bold text-lg mb-6">Unit Media</h4>
-                <div class="space-y-4">
-                    <div class="flex items-center gap-3 bg-white/5 p-3 rounded-xl border border-white/10">
-                        <iconify-icon icon="lucide:tv" class="text-primary-light" width="24"></iconify-icon>
-                        <div>
-                            <div class="font-semibold text-sm">Mimbar TV</div>
-                            <div class="text-[11px] text-white/60">Live Kajian & Digital Dakwah</div>
-                        </div>
-                    </div>
-                    <div class="flex items-center gap-3 bg-white/5 p-3 rounded-xl border border-white/10">
-                        <iconify-icon icon="lucide:radio" class="text-primary-light" width="24"></iconify-icon>
-                        <div>
-                            <div class="font-semibold text-sm">Radio Cahaya FM</div>
-                            <div class="text-[11px] text-white/60">105.3 MHz Sukabumi</div>
-                        </div>
-                    </div>
+            <!-- Col 2: Google Maps -->
+            <div class="footer-col">
+                <h4 style="font-family: var(--font-heading, inherit); font-size: 16px; font-weight: 700; margin-bottom: 16px; color: white;">{{ __('app.footer.lokasi') }}</h4>
+                <div class="footer-map-container" style="border-radius: 10px; overflow: hidden; border: 2px solid rgba(255,255,255,0.15);">
+                    <iframe
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3961.0464083742136!2d106.7996108!3d-6.8850447!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e68316c5a90247d%3A0x3aa1977e79690a69!2sYayasan%20Mimbar%20Al-Tauhid!5e0!3m2!1sen!2sid!4v1776374056622!5m2!1sen!2sid"
+                        width="100%"
+                        height="160"
+                        style="border:0; display:block;"
+                        allowfullscreen=""
+                        loading="lazy"
+                        referrerpolicy="no-referrer-when-downgrade">
+                    </iframe>
                 </div>
+            </div>
+
+            <!-- Col 3: Informasi Kontak -->
+            <div class="footer-col">
+                <h4 style="font-family: var(--font-heading, inherit); font-size: 16px; font-weight: 700; margin-bottom: 20px; color: white;">{{ __('app.footer.kontak') }}</h4>
+                <ul class="footer-contact-list" style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 12px;">
+                    <li style="display: flex; align-items: center; gap: 10px; font-size: 14px; color: rgba(255,255,255,0.8);">
+                        <iconify-icon icon="lucide:phone" style="font-size: 15px; flex-shrink: 0;"></iconify-icon>
+                        <span dir="ltr">+62 266-6545-616</span>
+                    </li>
+                    <li style="display: flex; align-items: center; gap: 10px; font-size: 14px; color: rgba(255,255,255,0.8);">
+                        <iconify-icon icon="lucide:phone" style="font-size: 15px; flex-shrink: 0;"></iconify-icon>
+                        <span dir="ltr">+62 823-1111-9499</span>
+                    </li>
+                    <li style="display: flex; align-items: center; gap: 10px; font-size: 14px; color: rgba(255,255,255,0.8);">
+                        <iconify-icon icon="lucide:mail" style="font-size: 15px; flex-shrink: 0;"></iconify-icon>
+                        <span dir="ltr">info@mimbar.or.id</span>
+                    </li>
+
+                </ul>
+            </div>
+
+            <!-- Col 4: Media & Pendidikan -->
+            <div class="footer-col">
+                <h4 style="font-family: var(--font-heading, inherit); font-size: 16px; font-weight: 700; margin-bottom: 20px; color: white;">{{ __('app.footer.media') }}</h4>
+                <ul style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 10px;">
+                    <li><a href="https://www.youtube.com/@mimbartvid" target="_blank" style="font-size: 14px; color: rgba(255,255,255,0.8); text-decoration: none; transition: color 0.2s;" onmouseover="this.style.color='white'" onmouseout="this.style.color='rgba(255,255,255,0.8)'">Mimbar TV</a></li>
+                    <li><a href="https://www.instagram.com/markaz_ibnutaimiyah" target="_blank" style="font-size: 14px; color: rgba(255,255,255,0.8); text-decoration: none; transition: color 0.2s;" onmouseover="this.style.color='white'" onmouseout="this.style.color='rgba(255,255,255,0.8)'">Markaz Ibnu Taimiyah</a></li>
+                    <li><a href="#" style="font-size: 14px; color: rgba(255,255,255,0.8); text-decoration: none; transition: color 0.2s;" onmouseover="this.style.color='white'" onmouseout="this.style.color='rgba(255,255,255,0.8)'">Markaz Muadz Bin Jabal</a></li>
+                    <li><a href="https://www.instagram.com/mahad_alqurannuroh" target="_blank" style="font-size: 14px; color: rgba(255,255,255,0.8); text-decoration: none; transition: color 0.2s;" onmouseover="this.style.color='white'" onmouseout="this.style.color='rgba(255,255,255,0.8)'">Ma'had Al-Quran Nuroh</a></li>
+                </ul>
+            </div>
+
+            <!-- Col 5: Program -->
+            <div class="footer-col">
+                <h4 style="font-family: var(--font-heading, inherit); font-size: 16px; font-weight: 700; margin-bottom: 20px; color: white;">{{ __('app.footer.program') }}</h4>
+                <ul style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 10px;">
+                    <li><a href="{{ route('program.dakwah') }}" style="font-size: 14px; color: rgba(255,255,255,0.8); text-decoration: none; transition: color 0.2s;" onmouseover="this.style.color='white'" onmouseout="this.style.color='rgba(255,255,255,0.8)'">Dakwah</a></li>
+                    <li><a href="{{ route('program.sosial') }}" style="font-size: 14px; color: rgba(255,255,255,0.8); text-decoration: none; transition: color 0.2s;" onmouseover="this.style.color='white'" onmouseout="this.style.color='rgba(255,255,255,0.8)'">Sosial</a></li>
+                    <li><a href="{{ route('program.pendidikan') }}" style="font-size: 14px; color: rgba(255,255,255,0.8); text-decoration: none; transition: color 0.2s;" onmouseover="this.style.color='white'" onmouseout="this.style.color='rgba(255,255,255,0.8)'">Pendidikan</a></li>
+                    <li><a href="{{ route('program.pembangunan') }}" style="font-size: 14px; color: rgba(255,255,255,0.8); text-decoration: none; transition: color 0.2s;" onmouseover="this.style.color='white'" onmouseout="this.style.color='rgba(255,255,255,0.8)'">Pembangunan</a></li>
+                </ul>
             </div>
         </div>
 
-        <!-- Botttom Row -->
-        <div class="pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-white/40">
-            <p>Â© {{ date('Y') }} â€” Yayasan Mimbar Al-Tauhid. Seluruh hak cipta dilindungi.</p>
-            <div class="flex gap-6">
-                <a href="#" class="hover:text-white">Kebijakan Privasi</a>
-                <a href="#" class="hover:text-white">Syarat & Ketentuan</a>
-            </div>
+        <!-- Bottom Bar -->
+        <div style="border-top: 1px solid rgba(255,255,255,0.15); padding: 20px 0; text-align: center;">
+            <p style="font-size: 13px; color: rgba(255,255,255,0.55); margin: 0;">
+                &copy; {{ date('Y') }} &middot; Yayasan Mimbar Al-Tauhid. {{ app()->getLocale() === 'ar' ? 'جميع الحقوق محفوظة.' : 'All rights reserved.' }}
+            </p>
         </div>
     </div>
 </footer>

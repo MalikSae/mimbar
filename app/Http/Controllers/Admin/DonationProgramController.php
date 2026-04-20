@@ -35,6 +35,8 @@ class DonationProgramController extends Controller
             'deadline_date'    => 'nullable|date',
             'department'       => 'nullable|string|max:100',
             'specs'            => 'nullable|string',
+            'name_ar'          => 'nullable|string|max:255',
+            'description_ar'   => 'nullable|string',
         ]);
 
         // Generate unique slug
@@ -56,6 +58,8 @@ class DonationProgramController extends Controller
             'department'       => $request->department,
             'collected_amount' => 0,
             'donor_count'      => 0,
+            'name_ar'          => $request->name_ar,
+            'description_ar'   => $request->description_ar,
         ];
 
         // Specs: validasi JSON dan simpan
@@ -95,6 +99,8 @@ class DonationProgramController extends Controller
             'deadline_date'    => 'nullable|date',
             'department'       => 'nullable|string|max:100',
             'specs'            => 'nullable|string',
+            'name_ar'          => 'nullable|string|max:255',
+            'description_ar'   => 'nullable|string',
         ]);
 
         // Slug hanya diperbarui jika nama berubah
@@ -116,6 +122,8 @@ class DonationProgramController extends Controller
             'category_id'      => $request->category_id,
             'deadline_date'    => $request->boolean('no_deadline') ? null : $request->deadline_date,
             'department'       => $request->department,
+            'name_ar'          => $request->name_ar,
+            'description_ar'   => $request->description_ar,
         ];
 
         if ($request->filled('specs')) {

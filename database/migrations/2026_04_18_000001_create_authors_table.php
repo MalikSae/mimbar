@@ -8,19 +8,19 @@ return new class extends Migration
 {
     public function up(): void
     {
-        Schema::create('faqs', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->text('question');
-            $table->text('answer');
-            $table->string('category'); // 'donasi', 'qurban', 'umum'
-            $table->unsignedTinyInteger('order')->default(0);
+        Schema::create('authors', function (Blueprint $table) {
+            $table->id();
+            $table->string('name');
+            $table->string('email')->unique();
+            $table->string('password');
             $table->boolean('is_active')->default(true);
+            $table->rememberToken();
             $table->timestamps();
         });
     }
 
     public function down(): void
     {
-        Schema::dropIfExists('faqs');
+        Schema::dropIfExists('authors');
     }
 };

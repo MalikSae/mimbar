@@ -191,12 +191,56 @@
                         </a>
 
                         @if($log->want_donate && (is_null($log->payment_status) || $log->payment_status === 'pending'))
-                        <button type="button" @click="confirmAction({{ $log->id }}, 'verify')" title="Verifikasi Pembayaran" style="display:flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:8px;background:var(--color-success-surface);color:var(--color-success);border:1px solid var(--color-success);cursor:pointer;">
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                        </button>
-                        <button type="button" @click="confirmAction({{ $log->id }}, 'reject')" title="Tolak" style="display:flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:8px;background:white;color:var(--color-danger);border:1px solid var(--color-border);cursor:pointer;">
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
-                        </button>
+                        <div x-data="{ showVerify: false, showReject: false, selectedBank: '' }" style="display:inline-flex;gap:6px;">
+                            <button type="button" @click="showVerify = true" title="Verifikasi Pembayaran" style="display:flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:8px;background:var(--color-success-surface);color:var(--color-success);border:1px solid var(--color-success);cursor:pointer;">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                            </button>
+                            <button type="button" @click="showReject = true" title="Tolak" style="display:flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:8px;background:white;color:var(--color-danger);border:1px solid var(--color-border);cursor:pointer;">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                            </button>
+
+                            {{-- Modal Verify --}}
+                            <div x-show="showVerify" x-cloak style="position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,0.45);text-align:left;" @keydown.escape.window="showVerify = false">
+                                <div style="display:flex;align-items:center;justify-content:center;width:100%;height:100%;">
+                                    <div style="background:white;border-radius:var(--radius-2xl);padding:28px;width:380px;max-width:90vw;box-shadow:var(--shadow-md);">
+                                        <h3 style="font-family:var(--font-heading);font-size:16px;font-weight:700;color:var(--color-gray-900);margin:0 0 8px;">Konfirmasi Verifikasi Infaq?</h3>
+                                        <p style="font-size:13px;color:var(--color-gray-600);margin:0 0 20px;white-space:normal;">
+                                            Infaq sebesar <strong>Rp {{ number_format($log->total_transfer ?? $log->donation_amount, 0, ',', '.') }}</strong> dari <strong>{{ $log->name }}</strong> akan diverifikasi.
+                                        </p>
+                                        
+                                        {{-- Dropdown Rekening (Opsional) --}}
+                                        <div style="margin-bottom:20px;">
+                                            <label style="display:block;font-size:12px;font-weight:600;color:var(--color-gray-700);margin-bottom:6px;">Rekening Penerima <span style="font-weight:400;color:var(--color-gray-400);">(Opsional)</span></label>
+                                            <select x-model="selectedBank" style="width:100%;padding:9px 12px;border:1px solid var(--color-border);border-radius:var(--radius-lg);font-size:13px;font-family:var(--font-body);outline:none;color:var(--color-gray-900);background:white;">
+                                                <option value="">— Pilih rekening —</option>
+                                                @foreach($bankAccounts ?? [] as $bank)
+                                                <option value="{{ $bank->bank_name }} — {{ $bank->account_number }}">{{ $bank->bank_name }} — {{ $bank->account_number }}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+
+                                        <div style="display:flex;gap:10px;justify-content:flex-end;">
+                                            <button @click="showVerify = false" style="padding:8px 16px;font-size:13px;border:1px solid var(--color-border);color:var(--color-gray-600);background:white;border-radius:var(--radius-lg);cursor:pointer;font-family:var(--font-body);">Batal</button>
+                                            <button @click="confirmAction({{ $log->id }}, 'verify', selectedBank)" style="padding:8px 16px;font-size:13px;font-weight:600;background:var(--color-success);color:white;border:none;border-radius:var(--radius-lg);cursor:pointer;font-family:var(--font-body);">Ya, Verifikasi</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            {{-- Modal Reject --}}
+                            <div x-show="showReject" x-cloak style="position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,0.45);text-align:left;" @keydown.escape.window="showReject = false">
+                                <div style="display:flex;align-items:center;justify-content:center;width:100%;height:100%;">
+                                    <div style="background:white;border-radius:var(--radius-2xl);padding:28px;width:380px;max-width:90vw;box-shadow:var(--shadow-md);">
+                                        <h3 style="font-family:var(--font-heading);font-size:16px;font-weight:700;color:var(--color-gray-900);margin:0 0 8px;">Tolak Infaq?</h3>
+                                        <p style="font-size:13px;color:var(--color-gray-600);margin:0 0 20px;white-space:normal;">Infaq dari <strong>{{ $log->name }}</strong> akan ditolak.</p>
+                                        <div style="display:flex;gap:10px;justify-content:flex-end;">
+                                            <button @click="showReject = false" style="padding:8px 16px;font-size:13px;border:1px solid var(--color-border);color:var(--color-gray-600);background:white;border-radius:var(--radius-lg);cursor:pointer;font-family:var(--font-body);">Batal</button>
+                                            <button @click="confirmAction({{ $log->id }}, 'reject', '')" style="padding:8px 16px;font-size:13px;font-weight:600;background:var(--color-danger);color:white;border:none;border-radius:var(--radius-lg);cursor:pointer;font-family:var(--font-body);">Ya, Tolak</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                         @endif
                         
                     </div>
@@ -223,9 +267,8 @@
 <script>
 document.addEventListener('alpine:init', () => {
     Alpine.data('verificationHandler', () => ({
-        confirmAction(id, action) {
-            const verb = action === 'verify' ? 'memverifikasi' : 'menolak';
-            if(!confirm(`Yakin ingin ${verb} pembayaran infaq ini?`)) return;
+        confirmAction(id, action, bank_destination = '') {
+            const payload = action === 'verify' ? { bank_destination } : {};
 
             fetch(`/admin/ebook-logs/${id}/${action}`, {
                 method: 'PATCH',
@@ -233,7 +276,8 @@ document.addEventListener('alpine:init', () => {
                     'Content-Type': 'application/json',
                     'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content,
                     'Accept': 'application/json'
-                }
+                },
+                body: JSON.stringify(payload)
             })
             .then(res => res.json())
             .then(data => {

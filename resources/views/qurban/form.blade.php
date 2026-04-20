@@ -40,15 +40,15 @@
 <div class="max-w-3xl mx-auto px-4 md:px-6 py-10 pb-32">
 
     {{-- RINGKASAN PILIHAN --}}
-    <section class="bg-primary rounded-2xl p-6 md:p-8 relative overflow-hidden shadow-lg mb-8">
+    <section class="bg-primary rounded-2xl p-4 md:p-8 relative overflow-hidden shadow-lg mb-6 md:mb-8">
         <div class="absolute inset-0 opacity-10" style="background-image: url('https://www.transparenttextures.com/patterns/arabesque.png');"></div>
         <div class="relative z-10 flex flex-col md:flex-row md:justify-between md:items-end gap-4">
             <div>
-                <p class="text-white/80 text-sm mb-2 font-medium">Hewan Qurban Anda</p>
-                <div class="font-heading text-2xl md:text-[28px] font-bold text-white mb-2 leading-tight">
+                <p class="text-white/80 text-xs md:text-sm mb-1.5 font-medium">Hewan Qurban Anda</p>
+                <div class="font-heading text-xl md:text-[28px] font-bold text-white mb-1.5 leading-tight">
                     1x {{ $item->name }}
                 </div>
-                <div class="font-heading text-xl font-bold text-accent">
+                <div class="font-heading text-base md:text-xl font-bold text-accent">
                     Rp {{ number_format($item->price, 0, ',', '.') }}
                 </div>
             </div>
@@ -74,10 +74,10 @@
 
         {{-- DATA PEKURBAN --}}
         <section class="mb-8">
-            <h2 class="font-heading text-xl font-bold text-primary mb-2">
+            <h2 class="font-heading text-base md:text-xl font-bold text-primary mb-2">
                 Data Nama Pekurban
             </h2>
-            <div class="flex items-start gap-2 bg-accent/10 border border-accent/20 text-gray-700 px-4 py-3 rounded-lg text-sm mb-5">
+            <div class="flex items-start gap-2 bg-accent/10 border border-accent/20 text-gray-700 px-3 py-2.5 rounded-lg text-xs md:text-sm mb-4 md:mb-5">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-accent shrink-0 mt-0.5"><circle cx="12" cy="12" r="10"/><line x1="12" x2="12" y1="8" y2="12"/><line x1="12" x2="12.01" y1="16" y2="16"/></svg>
                 <span>Satu ekor domba berlaku untuk atas nama 1 orang. Jika Anda memilih patungan sapi, form akan menyediakan 7 baris input nama.</span>
             </div>
@@ -116,8 +116,8 @@
         </section>
 
         {{-- INFORMASI KONTAK --}}
-        <section class="bg-white rounded-2xl p-6 md:p-8 shadow-sm border border-border mb-8">
-            <h2 class="font-heading text-xl font-bold text-gray-900 mb-6 pb-4 border-b border-border">
+        <section class="bg-white rounded-2xl p-4 md:p-8 shadow-sm border border-border mb-6 md:mb-8">
+            <h2 class="font-heading text-base md:text-xl font-bold text-gray-900 mb-4 md:mb-6 pb-3 md:pb-4 border-b border-border">
                 Informasi Kontak
             </h2>
 
@@ -173,8 +173,8 @@
                     <input type="checkbox" name="is_anonymous" value="1" {{ old('is_anonymous') ? 'checked' : '' }}
                         class="w-4 h-4 rounded border-gray-300 text-primary focus:ring-primary mt-0.5 cursor-pointer">
                     <div>
-                        <span class="text-sm text-gray-900 font-bold block mb-0.5">Tampilkan sebagai Hamba Allah</span>
-                        <span class="text-[13px] text-gray-500 block leading-snug">Nama Anda tidak akan dipublikasikan di daftar donatur.</span>
+                        <span class="text-xs md:text-sm text-gray-900 font-bold block mb-0.5">Tampilkan sebagai Hamba Allah</span>
+                        <span class="text-[11px] md:text-[13px] text-gray-500 block leading-snug">Nama Anda tidak akan dipublikasikan di daftar donatur.</span>
                     </div>
                 </label>
             </div>
@@ -182,15 +182,15 @@
 
         {{-- DOA & HARAPAN --}}
         <section class="mb-8">
-            <h2 class="font-heading text-xl font-bold text-gray-900 mb-4">
-                Doa & Harapan <span class="text-gray-400 font-normal text-base">(Opsional)</span>
+            <h2 class="font-heading text-base md:text-xl font-bold text-gray-900 mb-3 md:mb-4">
+                Doa & Harapan <span class="text-gray-400 font-normal text-sm md:text-base">(Opsional)</span>
             </h2>
             <textarea name="prayer" rows="4" placeholder="Tulis doa atau niat khusus Anda di sini..."
                 class="w-full px-4 py-3 rounded-xl border border-border text-gray-900 placeholder-gray-400 bg-white focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all resize-none mb-3 @error('prayer') border-danger @enderror">{{ old('prayer') }}</textarea>
             @error('prayer')
                 <span class="text-danger text-xs flex items-center gap-1 mb-3">{{ $message }}</span>
             @enderror
-            <p class="text-sm text-gray-600 italic flex items-start gap-2 bg-gray-50 p-4 rounded-xl border border-border">
+            <p class="text-xs md:text-sm text-gray-600 italic flex items-start gap-2 bg-gray-50 p-3 md:p-4 rounded-xl border border-border">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-accent shrink-0 mt-0.5 opacity-60"><path d="M3 21c3 0 7-1 7-8V5c0-1.25-.756-2.017-2-2H4c-1.25 0-2 .75-2 1.972V11c0 1.25.75 2 2 2 1 0 1 0 1 1v1c0 1-1 2-2 2s-1 .008-1 1.031V20c0 1 0 1 1 1z"/><path d="M15 21c3 0 7-1 7-8V5c0-1.25-.757-2.017-2-2h-4c-1.25 0-2 .75-2 1.972V11c0 1.25.75 2 2 2h.75c0 2.25.25 4-2.75 4v3c0 1 0 1 1 1z"/></svg>
                 <span>"Semoga setiap helai bulu hewan qurban menjadi pemberat timbangan kebaikan di akhirat kelak."</span>
             </p>
@@ -198,12 +198,14 @@
 
         {{-- STICKY FOOTER --}}
         <div class="fixed bottom-0 left-0 right-0 bg-white border-t border-border shadow-[0_-4px_20px_rgba(0,0,0,0.07)] z-40">
-            <div class="max-w-3xl mx-auto px-4 md:px-6 py-4 flex items-center justify-between gap-4">
-                <div>
-                    <div class="text-[11px] text-gray-500 font-bold uppercase tracking-wider mb-0.5">Total Pembayaran</div>
-                    <div class="font-heading text-xl md:text-2xl font-bold text-primary">Rp {{ number_format($item->price, 0, ',', '.') }}</div>
+            <div class="max-w-3xl mx-auto px-4 md:px-6 py-3 md:py-4 flex flex-col md:flex-row md:items-center md:justify-between gap-2 md:gap-4">
+                <div class="flex items-center justify-between md:block">
+                    <div class="text-[10px] md:text-[11px] text-gray-500 font-bold uppercase tracking-wider">Total Pembayaran</div>
+                    <div class="font-heading text-base md:text-2xl font-bold text-primary">Rp {{ number_format($item->price, 0, ',', '.') }}</div>
                 </div>
-                <button type="submit" class="inline-flex items-center justify-center gap-2 px-6 md:px-10 py-3.5 bg-primary text-white font-bold font-heading text-sm rounded-lg shadow-md hover:bg-primary-dark transition-colors shrink-0">
+                <button type="submit"
+                    style="width: auto; flex-shrink: 0;"
+                    class="inline-flex items-center justify-center gap-2 px-6 md:px-8 py-3 md:py-2.5 bg-primary text-white font-bold font-heading text-sm rounded-lg shadow-md hover:bg-primary-dark transition-colors">
                     Lanjutkan ke Pembayaran
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
                 </button>

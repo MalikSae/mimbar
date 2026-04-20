@@ -13,7 +13,7 @@ class ArticleController extends Controller
             ->whereHas('articles', fn($q) => $q->where('status', 'published'))
             ->orderBy('name')->get();
 
-        $query = Article::with('category')
+        $query = Article::with('category', 'author')
             ->where('status', 'published')
             ->orderByDesc('created_at');
 
@@ -37,7 +37,7 @@ class ArticleController extends Controller
 
     public function show(string $slug)
     {
-        $article = Article::with('category')
+        $article = Article::with('category', 'author')
             ->where('slug', $slug)
             ->where('status', 'published')
             ->firstOrFail();
@@ -45,7 +45,7 @@ class ArticleController extends Controller
         $readingTime = $article->reading_time
             ?? max(1, (int) ceil(str_word_count(strip_tags($article->content)) / 200));
 
-        $related = Article::with('category')
+        $related = Article::with('category', 'author')
             ->where('category_id', $article->category_id)
             ->where('id', '!=', $article->id)
             ->where('status', 'published')

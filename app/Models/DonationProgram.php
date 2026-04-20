@@ -11,6 +11,8 @@ class DonationProgram extends Model
         'target_amount', 'collected_amount', 'status', 'sort_order',
         'category_id', 'featured_image', 'specs',
         'deadline_date', 'donor_count', 'department', 'gallery',
+        // Terjemahan Arab
+        'name_ar', 'description_ar',
     ];
 
     protected $casts = [

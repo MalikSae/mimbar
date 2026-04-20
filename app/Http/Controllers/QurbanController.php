@@ -24,13 +24,12 @@ class QurbanController extends Controller
                 ->value('value') ?? '2017-2024',
         ];
 
-        $faqs = DB::table('faqs')
-            ->where('category', 'qurban')
-            ->where('is_active', true)
+        $galleries = DB::table('program_galleries')
+            ->where('program_type', 'qurban')
             ->orderBy('order')
             ->get();
 
-        return view('qurban.index', compact('items', 'stats', 'faqs'));
+        return view('qurban.index', compact('items', 'stats', 'galleries'));
     }
 
     public function form($itemId)
@@ -119,10 +118,10 @@ class QurbanController extends Controller
             ->orderBy('order_position')
             ->pluck('shohibul_name');
 
-        $bankAccount = DB::table('bank_accounts')
+        $bankAccounts = DB::table('bank_accounts')
             ->where('is_active', true)
-            ->first();
+            ->get();
 
-        return view('qurban.instruction', compact('order', 'totalTransfer', 'shohibulNames', 'bankAccount'));
+        return view('qurban.instruction', compact('order', 'totalTransfer', 'shohibulNames', 'bankAccounts'));
     }
 }

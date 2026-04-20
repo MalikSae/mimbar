@@ -21,27 +21,27 @@
   
   <section class="bg-white py-16">
     <div class="max-w-6xl mx-auto px-6">
-      <div class="bg-primary rounded-2xl shadow-md p-8 md:p-12 flex flex-col lg:flex-row justify-between items-center gap-10 relative overflow-hidden">
+      <div class="bg-accent rounded-2xl shadow-md p-8 md:p-12 flex flex-col lg:flex-row justify-between items-center gap-10 relative overflow-hidden">
         <div class="absolute inset-0 opacity-5 bg-[url('https://www.transparenttextures.com/patterns/arabesque.png')]"></div>
         
         <div class="relative z-10 lg:max-w-2xl">
-          <div class="inline-block bg-accent text-gray-900 px-4 py-1.5 rounded-full text-xs font-bold font-heading uppercase tracking-wider mb-5 shadow-sm">
+          <div class="inline-block bg-primary text-white px-4 py-1.5 rounded-full text-xs font-bold font-heading uppercase tracking-wider mb-5 shadow-sm">
             PROGRAM KHUSUS QURBAN
           </div>
-          <h2 class="font-heading text-3xl md:text-4xl font-bold text-white mb-4 leading-snug">
+          <h2 class="font-heading text-3xl md:text-4xl font-bold text-gray-900 mb-4 leading-snug">
             Tebar Qurban: Kirim Kebahagiaan ke Pelosok
           </h2>
-          <p class="text-white/80 text-lg leading-relaxed">
+          <p class="text-gray-800 text-lg leading-relaxed font-medium">
             Bantu saudara-saudara kita di wilayah terpencil yang jarang menikmati daging qurban karena keterbatasan ekonomi. Berikan kurban terbaik Anda tahun ini.
           </p>
         </div>
         
         <div class="relative z-10 flex flex-col items-center lg:items-end shrink-0 gap-5">
-          <div class="bg-white/10 border border-white/20 px-6 py-3 rounded-xl backdrop-blur-sm text-center w-full">
-            <span class="block text-white font-bold font-heading text-2xl">{{ $qurbanHighlight }}</span>
-            <span class="text-white/80 text-sm font-medium">Hewan Tersalurkan</span>
+          <div class="bg-white/30 border border-white/50 px-6 py-3 rounded-xl backdrop-blur-sm text-center w-full">
+            <span class="block text-gray-900 font-bold font-heading text-2xl">{{ $qurbanHighlight }}</span>
+            <span class="text-gray-800 text-sm font-medium">Hewan Tersalurkan</span>
           </div>
-          <a href="{{ Route::has('qurban.index') ? route('qurban.index') : '#' }}" class="bg-white text-primary px-8 h-12 rounded-lg font-heading font-bold text-base hover:bg-gray-50 transition-colors shadow-sm w-full whitespace-nowrap flex justify-center items-center gap-2">
+          <a href="{{ Route::has('qurban.index') ? route('qurban.index') : '#' }}" class="bg-primary text-white px-8 h-12 rounded-lg font-heading font-bold text-base hover:opacity-90 transition-opacity shadow-sm w-full whitespace-nowrap flex justify-center items-center gap-2">
             Cek Paket Qurban
             <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
           </a>
@@ -50,45 +50,6 @@
     </div>
   </section>
 
-  
-  <section class="bg-misi-bg py-20">
-    <div class="max-w-6xl mx-auto px-6">
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-        
-        <div class="bg-white p-8 rounded-xl shadow-sm border border-border text-center flex flex-col items-center hover:-translate-y-1 transition-transform duration-300">
-          <div class="w-16 h-16 bg-primary-light rounded-full flex items-center justify-center text-primary mb-6 shadow-inner">
-            <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="8" r="6"/><path d="M18.09 10.37A6 6 0 1 1 10.34 18"/><path d="M7 6h1v4"/><path d="m16.71 13.88.7.71-2.82 2.82"/></svg>
-          </div>
-          <h3 class="font-heading text-xl font-bold text-gray-900 mb-3">Zakat Mal/Fitrah</h3>
-          <p class="text-gray-600 leading-relaxed">
-            Membersihkan harta dan mensucikan jiwa secara syar'i sesuai ketentuan Islam.
-          </p>
-        </div>
-        
-        
-        <div class="bg-white p-8 rounded-xl shadow-sm border border-border text-center flex flex-col items-center hover:-translate-y-1 transition-transform duration-300">
-          <div class="w-16 h-16 bg-primary-light rounded-full flex items-center justify-center text-primary mb-6 shadow-inner">
-            <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="2"/><path d="M22 12c-2.8-5.3-7.4-8.8-10-8.8-2.6 0-7.2 3.5-10 8.8 2.8 5.3 7.4 8.8 10 8.8 2.6 0 7.2-3.5 10-8.8Z"/></svg>
-          </div>
-          <h3 class="font-heading text-xl font-bold text-gray-900 mb-3">Infaq Dakwah & Media</h3>
-          <p class="text-gray-600 leading-relaxed">
-            Dukung operasional dakwah pelosok dan pengembangan syiar melalui Mimbar TV.
-          </p>
-        </div>
-
-        
-        <div class="bg-white p-8 rounded-xl shadow-sm border border-border text-center flex flex-col items-center hover:-translate-y-1 transition-transform duration-300">
-          <div class="w-16 h-16 bg-primary-light rounded-full flex items-center justify-center text-primary mb-6 shadow-inner">
-            <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="16" height="20" x="4" y="2" rx="2" ry="2"/><path d="M9 22v-4h6v4"/><path d="M8 6h.01"/><path d="M16 6h.01"/><path d="M12 6h.01"/><path d="M12 10h.01"/><path d="M12 14h.01"/><path d="M16 10h.01"/><path d="M16 14h.01"/><path d="M8 10h.01"/><path d="M8 14h.01"/></svg>
-          </div>
-          <h3 class="font-heading text-xl font-bold text-gray-900 mb-3">Sedekah Jariyah</h3>
-          <p class="text-gray-600 leading-relaxed">
-            Wakaf pembangunan fisik (masjid, sumur) yang pahalanya tak terputus.
-          </p>
-        </div>
-      </div>
-    </div>
-  </section>
 
   
   <section id="program-list" class="bg-white py-20 scroll-mt-20">

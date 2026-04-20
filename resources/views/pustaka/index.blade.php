@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Pustaka Digital â€” Yayasan Mimbar Al-Tauhid')
+@section('title', __('app.pustaka.title'))
 
 @push('head')
 <style>
@@ -301,7 +301,7 @@
 }
 @media (max-width: 1024px) { .ebook-grid { grid-template-columns: repeat(3, 1fr); } }
 @media (max-width: 768px)  { .ebook-grid { grid-template-columns: repeat(2, 1fr); } }
-@media (max-width: 480px)  { .ebook-grid { grid-template-columns: 1fr; } }
+@media (max-width: 480px)  { .ebook-grid { grid-template-columns: repeat(2, 1fr); gap: 16px; } }
 
 .ebook-card {
     background: var(--color-white);
@@ -432,47 +432,86 @@
 
 /* ---- SUPPORT CTA ---- */
 .section-cta {
-    background: var(--color-white);
-    border-top: 1px solid var(--color-border);
-    padding: 48px 0;
+    background: transparent;
+    padding: 64px 0;
 }
 .cta-inner {
+    background: var(--color-primary);
+    border-radius: var(--radius-2xl);
+    padding: 40px;
     display: flex;
     flex-direction: column;
     gap: 24px;
     align-items: center;
-    text-align: center;
+    justify-content: space-between;
+    box-shadow: 0 12px 40px rgba(0,0,0,0.12);
+    position: relative;
+    overflow: hidden;
 }
 @media (min-width: 768px) {
-    .cta-inner {
-        flex-direction: row;
-        justify-content: space-between;
-        text-align: left;
-    }
+    .cta-inner { flex-direction: row; }
+}
+.cta-inner::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    opacity: 0.08;
+    background-image: radial-gradient(var(--color-white) 1px, transparent 1px);
+    background-size: 18px 18px;
+}
+.cta-text-group {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 16px;
+    max-width: 600px;
+}
+@media (min-width: 768px) {
+    .cta-text-group { flex-direction: row; align-items: flex-start; text-align: left; }
 }
 .cta-icon-wrap {
     width: 48px;
     height: 48px;
     border-radius: var(--radius-full);
-    background: var(--color-primary-light);
-    color: var(--color-primary);
+    background: rgba(255,255,255,0.1);
+    color: var(--color-accent, #D4AF37);
     display: flex;
     align-items: center;
     justify-content: center;
     flex-shrink: 0;
 }
-.cta-text-group {
-    display: flex;
-    align-items: center;
-    gap: 16px;
-    max-width: 600px;
-}
 .cta-text-group p {
-    font-size: 17px;
+    font-size: 16px;
     font-weight: 500;
-    color: var(--color-gray-900);
-    line-height: 1.5;
+    color: var(--color-white);
+    line-height: 1.6;
+    margin-bottom: 0;
 }
+.cta-btn-gold {
+    position: relative;
+    z-index: 1;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--color-accent, #D4AF37);
+    color: var(--color-gray-900);
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 15px;
+    padding: 14px 28px;
+    border-radius: var(--radius-lg);
+    border: none;
+    cursor: pointer;
+    white-space: nowrap;
+    box-shadow: var(--shadow-md);
+    flex-shrink: 0;
+    text-decoration: none;
+    transition: all 0.15s;
+}
+.cta-btn-gold:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(212,175,55,0.3); }
 
 /* ---- FOOTER ---- */
 .site-footer {
@@ -583,225 +622,90 @@
     overflow-y: auto;
 }
 .modal-header {
-    padding: 20px 24px;
+    padding: 16px 20px;
     border-bottom: 1px solid var(--color-border);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+    display: flex; justify-content: space-between; align-items: center;
     background: var(--color-white);
-    position: sticky;
-    top: 0;
-    z-index: 10;
+    position: sticky; top: 0; z-index: 10;
     border-radius: var(--radius-2xl) var(--radius-2xl) 0 0;
 }
-.modal-header-left {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-}
+.modal-header-left { display: flex; align-items: center; gap: 12px; }
 .modal-header-icon {
-    width: 40px;
-    height: 40px;
-    border-radius: var(--radius-full);
-    background: var(--color-primary-light);
-    color: var(--color-primary);
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    width: 36px; height: 36px; border-radius: var(--radius-full);
+    background: var(--color-primary-light); color: var(--color-primary);
+    display: flex; align-items: center; justify-content: center;
 }
-.modal-header h2 {
-    font-family: var(--font-heading);
-    font-size: 20px;
-    font-weight: 700;
-    color: var(--color-gray-900);
-}
+.modal-header h2 { font-family: var(--font-heading); font-size: 18px; font-weight: 700; color: var(--color-gray-900); }
 .modal-close {
-    width: 32px;
-    height: 32px;
-    background: var(--color-muted);
-    border: none;
-    border-radius: var(--radius-full);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: var(--color-gray-400);
-    cursor: pointer;
-    transition: all 0.15s ease;
+    width: 28px; height: 28px; background: var(--color-muted); border: none;
+    border-radius: var(--radius-full); display: flex; align-items: center; justify-content: center;
+    color: var(--color-gray-400); cursor: pointer; transition: all 0.15s;
 }
 .modal-close:hover { background: var(--color-border); color: var(--color-gray-900); }
-
-.modal-body { padding: 24px 24px 8px; }
-.input-group { margin-bottom: 16px; }
-.input-label {
-    display: block;
-    font-size: 13px;
-    font-weight: 700;
-    color: var(--color-gray-900);
-    margin-bottom: 6px;
-}
+.modal-body { padding: 16px 20px 8px; }
+.input-group { margin-bottom: 12px; }
+.input-label { display: block; font-size: 13px; font-weight: 700; color: var(--color-gray-900); margin-bottom: 4px; }
 .input-field {
-    width: 100%;
-    border: 1px solid var(--color-border);
-    border-radius: var(--radius-xl);
-    padding: 12px 16px;
-    font-size: 14px;
-    color: var(--color-gray-900);
-    font-family: var(--font-body);
-    outline: none;
-    transition: border-color 0.15s;
+    width: 100%; border: 1px solid var(--color-border); border-radius: var(--radius-xl);
+    padding: 10px 14px; font-size: 14px; color: var(--color-gray-900);
+    font-family: var(--font-body); outline: none; transition: border-color 0.15s;
     background: var(--color-white);
 }
 .input-field:focus { border-color: var(--color-primary); box-shadow: 0 0 0 2px var(--color-primary-light); }
 .input-wa-wrap {
-    display: flex;
-    border: 1px solid var(--color-border);
-    border-radius: var(--radius-xl);
-    overflow: hidden;
-    transition: border-color 0.15s;
+    display: flex; border: 1px solid var(--color-border); border-radius: var(--radius-xl);
+    overflow: hidden; transition: border-color 0.15s;
 }
 .input-wa-wrap:focus-within { border-color: var(--color-primary); box-shadow: 0 0 0 2px var(--color-primary-light); }
-.input-wa-prefix {
-    background: var(--color-muted);
-    border-right: 1px solid var(--color-border);
-    padding: 12px 14px;
-    font-size: 13px;
-    font-weight: 700;
-    color: var(--color-gray-600);
-    flex-shrink: 0;
-}
-.input-wa-field {
-    flex: 1;
-    border: none;
-    outline: none;
-    padding: 12px 16px;
-    font-size: 14px;
-    color: var(--color-gray-900);
-    font-family: var(--font-body);
-    background: var(--color-white);
-}
-.input-hint {
-    display: flex;
-    align-items: flex-start;
-    gap: 6px;
-    font-size: 12px;
-    color: var(--color-gray-400);
-    margin-top: 8px;
-}
-
+.input-wa-prefix { background: var(--color-muted); border-right: 1px solid var(--color-border); padding: 10px 14px; font-size: 13px; font-weight: 700; color: var(--color-gray-600); flex-shrink: 0; }
+.input-wa-field { flex: 1; border: none; outline: none; padding: 10px 14px; font-size: 14px; color: var(--color-gray-900); font-family: var(--font-body); background: var(--color-white); }
+.input-hint { display: flex; align-items: flex-start; gap: 6px; font-size: 11px; color: var(--color-gray-400); margin-top: 6px; }
 .donate-checkbox-wrap {
-    margin: 0 24px 16px;
-    padding: 16px;
+    margin: 0 20px 12px;
+    padding: 12px 16px;
     background: var(--color-page-bg);
     border-radius: var(--radius-xl);
-    display: flex;
-    align-items: flex-start;
-    gap: 12px;
+    display: flex; align-items: flex-start; gap: 10px;
     border: 1px solid rgba(212,175,55,0.4);
-    cursor: pointer;
-    transition: background 0.15s;
+    cursor: pointer; transition: background 0.15s;
 }
 .donate-checkbox-wrap:hover { background: #FAF3D0; }
 .checkbox-indicator {
-    width: 20px;
-    height: 20px;
-    border-radius: 4px;
-    border: 2px solid var(--color-border);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-    margin-top: 2px;
-    transition: all 0.15s;
+    width: 18px; height: 18px; border-radius: 4px;
+    border: 2px solid var(--color-border); background: var(--color-white);
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0; margin-top: 2px; transition: all 0.15s;
 }
-.checkbox-indicator.checked {
-    background: var(--color-primary);
-    border-color: var(--color-primary);
-    color: var(--color-white);
-}
-.donate-label h4 {
-    font-family: var(--font-heading);
-    font-size: 14px;
-    font-weight: 700;
-    color: var(--color-gray-900);
-    margin-bottom: 4px;
-}
-.donate-label p {
-    font-size: 12px;
-    color: var(--color-gray-600);
-    line-height: 1.5;
-}
-
-.nominal-section {
-    padding: 20px 24px 0;
-    border-top: 1px dashed rgba(212,175,55,0.5);
-    margin: 0 24px;
-}
-.nominal-section-label {
-    font-size: 13px;
-    font-weight: 700;
-    color: var(--color-gray-900);
-    margin-bottom: 12px;
-}
-.nominal-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 10px;
-}
+.checkbox-indicator.checked { background: var(--color-primary); border-color: var(--color-primary); color: var(--color-white); }
+.donate-label h4 { font-family: var(--font-heading); font-size: 13px; font-weight: 700; color: var(--color-gray-900); margin-bottom: 2px; }
+.donate-label p { font-size: 12px; color: var(--color-gray-600); line-height: 1.4; }
+.nominal-section { padding: 16px 20px 0; border-top: 1px dashed rgba(212,175,55,0.5); margin: 0 20px; }
+.nominal-section-label { font-size: 13px; font-weight: 700; color: var(--color-gray-900); margin-bottom: 10px; }
+.nominal-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
 .nominal-btn {
-    padding: 12px 8px;
-    border-radius: var(--radius-xl);
-    border: 1px solid var(--color-border);
-    background: var(--color-white);
-    color: var(--color-gray-900);
-    font-family: var(--font-heading);
-    font-weight: 700;
-    font-size: 13px;
-    cursor: pointer;
-    text-align: center;
-    box-shadow: var(--shadow-card);
-    transition: all 0.15s ease;
+    padding: 10px 8px; border-radius: var(--radius-xl); border: 1px solid var(--color-border);
+    background: var(--color-white); color: var(--color-gray-900);
+    font-family: var(--font-heading); font-weight: 700; font-size: 13px;
+    cursor: pointer; text-align: center; box-shadow: var(--shadow-card); transition: all 0.15s;
 }
 .nominal-btn:hover { border-color: var(--color-primary); color: var(--color-primary); }
-.nominal-btn.active-nominal {
-    border-color: var(--color-primary);
-    border-width: 2px;
-    background: var(--color-primary-light);
-    color: var(--color-primary);
-}
+.nominal-btn.active-nominal { border-color: var(--color-primary); border-width: 2px; background: var(--color-primary-light); color: var(--color-primary); }
 .nominal-btn.nominal-other { font-weight: 500; color: var(--color-gray-600); }
-.custom-amount-field {
-    margin-top: 10px;
-}
-.custom-amount-field .input-field {
-    text-align: right;
-    font-weight: 700;
-}
-
+.custom-amount-field { margin-top: 10px; }
+.custom-amount-field .input-field { text-align: center; font-weight: 700; padding: 10px 14px; }
 .modal-footer {
-    padding: 20px 24px;
-    background: var(--color-white);
-    position: sticky;
-    bottom: 0;
+    padding: 12px 20px 16px; background: var(--color-white);
+    position: sticky; bottom: 0;
     border-radius: 0 0 var(--radius-2xl) var(--radius-2xl);
-    margin-top: 8px;
+    margin-top: 4px;
 }
 .btn-modal-submit {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    width: 100%;
-    padding: 16px;
-    background: var(--color-primary);
-    color: var(--color-white);
-    font-family: var(--font-heading);
-    font-size: 16px;
-    font-weight: 700;
-    border: none;
-    border-radius: var(--radius-lg);
-    cursor: pointer;
-    box-shadow: var(--shadow-md);
-    transition: background 0.15s;
+    display: flex; align-items: center; justify-content: center; gap: 8px;
+    width: 100%; padding: 12px 16px;
+    background: var(--color-primary); color: var(--color-white);
+    font-family: var(--font-heading); font-size: 15px; font-weight: 700;
+    border: none; border-radius: var(--radius-lg); cursor: pointer;
+    box-shadow: var(--shadow-md); transition: background 0.15s;
 }
 .btn-modal-submit:hover { background: var(--color-primary-dark); }
 .btn-modal-submit:disabled { opacity: 0.55; cursor: not-allowed; }
@@ -1140,6 +1044,47 @@
     from { transform: translateY(20px); opacity: 0; }
     to   { transform: translateY(0); opacity: 1; }
 }
+
+/* ---- RESPONSIVE MEDIA QUERIES ---- */
+@media (max-width: 768px) {
+    .hero-pustaka {
+        padding: 56px 0 64px 0;
+    }
+    .hero-pustaka-inner h1 { font-size: 28px; }
+    .hero-pustaka-inner p { font-size: 15px; }
+
+    .featured-card {
+        grid-template-columns: 1fr;
+        padding: 32px 24px;
+        gap: 32px;
+    }
+    .featured-cover-wrap {
+        margin: 0 auto;
+        width: 180px;
+    }
+    .catalog-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+    }
+    .footer-grid {
+        grid-template-columns: repeat(2, 1fr) !important;
+    }
+}
+@media (max-width: 480px) {
+    .modal-body { padding: 20px 16px 8px; }
+    .donate-checkbox-wrap { margin: 0 16px 16px; padding: 12px; }
+    .nominal-section { margin: 0 16px; padding: 16px 16px 0; }
+    .modal-header, .modal-footer { padding: 16px; }
+
+    .ebook-card { padding: 16px; }
+    .ebook-card .ebook-cover-wrap { width: 100%; max-width: 140px; }
+    
+    .footer-grid {
+        grid-template-columns: 1fr !important;
+        gap: 32px;
+    }
+}
 </style>
 @endpush
 
@@ -1149,6 +1094,7 @@
         showModal: false,
         showSuccess: false,
         showInfaqInstructions: false,
+        showFreeDownloadSuccess: false,
         ebookSlug: '',
         ebookTitle: '',
         name: '',
@@ -1179,7 +1125,7 @@
             this.loading = true;
             try {
                 const amount = this.wantDonate
-                    ? (this.donationAmount === 'custom' ? parseInt(this.customAmount) || 0 : this.donationAmount)
+                    ? (this.donationAmount === 'custom' ? parseInt((this.customAmount || '').toString().replace(/\./g, '')) || 0 : this.donationAmount)
                     : 0;
 
                 const res = await fetch('/pustaka/' + this.ebookSlug + '/download', {
@@ -1201,9 +1147,8 @@
 
                 if (data.status === 'success') {
                     this.showModal = false;
-                    window.open(data.download_url, '_blank');
-                    this.showSuccess = true;
-                    setTimeout(() => { this.showSuccess = false; }, 4000);
+                    this.infaqData = data || {};
+                    this.showFreeDownloadSuccess = true;
                 } else if (data.status === 'infaq') {
                     this.showModal = false;
                     this.infaqData = data;
@@ -1249,6 +1194,13 @@
             const msg = 'Assalamualaikum, saya sudah transfer infaq untuk e-book ' + (d.ebook_title || '') + '. Nama: ' + (this.name || '') + ', No. Transfer: Rp ' + this.formatRupiah(d.total_transfer);
             const wa = (d.wa_admin || '').replace(/[^0-9]/g, '');
             return 'https://wa.me/' + wa + '?text=' + encodeURIComponent(msg);
+        },
+
+        buildFreeWaMessage() {
+            const msg = 'Assalamu\'alaikum Admin, saya ingin mengonfirmasi pengiriman link download e-book gratis %22' + (this.ebookTitle || '') + '%22 atas nama ' + (this.name || '') + '. Terima kasih.';
+            const waRaw = (this.infaqData && this.infaqData.wa_admin) ? this.infaqData.wa_admin : '6282311119499';
+            const wa = String(waRaw).replace(/[^0-9]/g, '');
+            return 'https://wa.me/' + wa + '?text=' + msg;
         }
      }"
 >
@@ -1256,13 +1208,13 @@
 
 {{-- ======================== HERO ======================== --}}
 <section class="hero-pustaka">
-    <div class="hero-pustaka-inner">
-        <h1>Pustaka Digital &amp; Literatur Islami</h1>
-        <p>Unduh gratis e-book panduan kehidupan Islami dan kajian akademis resmi dari Yayasan Mimbar Al-Tauhid.</p>
+    <div class="hero-pustaka-inner" @if(app()->getLocale() === 'ar') dir="rtl" @endif>
+        <h1>{{ __('app.pustaka.hero_title') }}</h1>
+        <p>{{ __('app.pustaka.hero_desc') }}</p>
         <div class="breadcrumb-hero">
-            <span>Beranda</span>
-            <iconify-icon icon="lucide:chevron-right" width="14"></iconify-icon>
-            <span>Pustaka Digital</span>
+            <span>{{ __('app.pustaka.breadcrumb_home') }}</span>
+            <iconify-icon icon="{{ app()->getLocale() === 'ar' ? 'lucide:chevron-left' : 'lucide:chevron-right' }}" width="14"></iconify-icon>
+            <span>{{ __('app.pustaka.breadcrumb_current') }}</span>
         </div>
     </div>
 </section>
@@ -1274,7 +1226,7 @@
         <form method="GET" action="{{ route('ebooks.index') }}" style="display:flex;align-items:center;gap:16px;flex:1;flex-wrap:wrap;">
             <div class="search-box" style="flex:1;min-width:240px;">
                 <iconify-icon icon="lucide:search" width="18"></iconify-icon>
-                <input type="text" name="cari" value="{{ request('cari') }}" placeholder="Cari judul buku atau topik kajian...">
+                <input type="text" name="cari" value="{{ request('cari') }}" placeholder="{{ __('app.pustaka.search_placeholder') }}">
             </div>
             @if(request('kategori') && request('kategori') !== 'semua')
                 <input type="hidden" name="kategori" value="{{ request('kategori') }}">
@@ -1283,10 +1235,10 @@
         </form>
 
         {{-- Filter Tabs --}}
-        <div class="filter-tabs">
+        <div class="filter-tabs" @if(app()->getLocale() === 'ar') dir="rtl" @endif>
             <a href="{{ route('ebooks.index', array_merge(request()->except('kategori', 'page'), ['kategori' => 'semua'])) }}"
                class="filter-tab {{ request('kategori', 'semua') === 'semua' ? 'active-tab' : '' }}">
-                Semua
+                {{ __('app.pustaka.filter_all') }}
             </a>
             @foreach($categories as $cat)
             <a href="{{ route('ebooks.index', array_merge(request()->except('kategori', 'page'), ['kategori' => $cat])) }}"
@@ -1301,8 +1253,8 @@
 {{-- ======================== FEATURED / REKOMENDASI ======================== --}}
 @if($featured)
 <section class="section-featured">
-    <div class="section-container">
-        <h2 class="section-title-bordered">Rekomendasi Bulan Ini</h2>
+    <div class="section-container" @if(app()->getLocale() === 'ar') dir="rtl" @endif>
+        <h2 class="section-title-bordered">{{ __('app.pustaka.featured_title') }}</h2>
 
         <div class="featured-card">
             {{-- Cover --}}
@@ -1314,22 +1266,22 @@
             </div>
 
             {{-- Info --}}
-            <div>
+            <div @if(app()->getLocale() === 'ar') dir="rtl" @endif>
                 @if($featured->category)
                 <span class="category-badge">{{ $featured->category }}</span>
                 @endif
-                <h3 class="featured-title">{{ $featured->title }}</h3>
+                <h3 class="featured-title"><bdi>{{ $featured->title }}</bdi></h3>
                 <p class="featured-author">
                     <iconify-icon icon="lucide:pen-tool" width="16"></iconify-icon>
-                    Penulis: {{ $featured->author ?? 'Tim Penulis Mimbar Al-Tauhid' }}
+                    {{ __('app.pustaka.featured_author_prefix') }} {{ $featured->author ?? __('app.pustaka.featured_author_default') }}
                 </p>
                 @if($featured->description)
-                <p class="featured-desc">{{ Str::limit($featured->description, 220) }}</p>
+                <p class="featured-desc"><bdi>{{ Str::limit($featured->description, 220) }}</bdi></p>
                 @endif
                 <button class="btn-primary-lg"
                         @click="openModal('{{ $featured->slug }}', '{{ addslashes($featured->title) }}')">
                     <iconify-icon icon="lucide:download" width="18"></iconify-icon>
-                    Unduh PDF{{ $featured->file_size ? ' (' . $featured->file_size . ')' : '' }}
+                    {{ __('app.pustaka.btn_download') }}{{ $featured->file_size ? ' (' . $featured->file_size . ')' : '' }}
                 </button>
             </div>
         </div>
@@ -1340,17 +1292,17 @@
 {{-- ======================== KATALOG GRID ======================== --}}
 <section class="section-catalog">
     <div class="section-container">
-        <div class="catalog-header">
-            <h2>Katalog E-Book</h2>
+        <div class="catalog-header" @if(app()->getLocale() === 'ar') dir="rtl" @endif>
+            <h2>{{ __('app.pustaka.catalog_title') }}</h2>
             @if($ebooks->total() > 0)
             <div class="catalog-count">
-                Menampilkan {{ $ebooks->firstItem() }}â€“{{ $ebooks->lastItem() }} dari {{ $ebooks->total() }} buku
+                {{ __('app.pustaka.catalog_showing') }} {{ $ebooks->firstItem() }}–{{ $ebooks->lastItem() }} {{ __('app.pustaka.catalog_of') }} {{ $ebooks->total() }} {{ __('app.pustaka.catalog_books') }}
             </div>
             @endif
         </div>
 
         @if($ebooks->count() > 0)
-        <div class="ebook-grid">
+        <div class="ebook-grid" @if(app()->getLocale() === 'ar') dir="rtl" @endif>
             @foreach($ebooks as $ebook)
             <div class="ebook-card">
                 <div class="ebook-cover-wrap">
@@ -1362,11 +1314,11 @@
                 <div class="ebook-category-badge">{{ $ebook->category }}</div>
                 @endif
                 <h4 class="ebook-title">
-                    <a href="{{ route('ebooks.show', $ebook->slug) }}">{{ $ebook->title }}</a>
+                    <a href="{{ route('ebooks.show', $ebook->slug) }}"><bdi>{{ $ebook->title }}</bdi></a>
                 </h4>
                 <a href="{{ route('ebooks.show', $ebook->slug) }}" class="btn-outline-primary" style="text-decoration: none; display: inline-flex; justify-content: center; align-items: center;">
                     <iconify-icon icon="lucide:eye" width="14"></iconify-icon>
-                    Lihat Detail
+                    {{ __('app.pustaka.btn_detail') }}
                 </a>
             </div>
             @endforeach
@@ -1380,7 +1332,7 @@
         @else
         <div style="text-align:center;padding:80px 24px;color:var(--color-gray-400);">
             <iconify-icon icon="lucide:book-open" width="48" style="margin-bottom:16px;opacity:0.4;"></iconify-icon>
-            <p style="font-size:16px;font-weight:500;">Belum ada e-book yang tersedia.</p>
+            <p style="font-size:16px;font-weight:500;">{{ __('app.pustaka.empty') }}</p>
         </div>
         @endif
     </div>
@@ -1389,16 +1341,16 @@
 {{-- ======================== CTA BAWAH ======================== --}}
 <section class="section-cta">
     <div class="section-container">
-        <div class="cta-inner">
+        <div class="cta-inner" @if(app()->getLocale() === 'ar') dir="rtl" @endif>
             <div class="cta-text-group">
                 <div class="cta-icon-wrap">
                     <iconify-icon icon="lucide:book-heart" width="24"></iconify-icon>
                 </div>
-                <p>Titipkan amal jariyahmu untuk mencetak dan menyebarkan lebih banyak literatur dakwah bagi umat.</p>
+                <p>{{ __('app.pustaka.cta_text') }}</p>
             </div>
-            <a href="{{ route('donations.index') }}" class="btn-nav" style="flex-shrink:0;">
-                Donasi Program Dakwah
-                <iconify-icon icon="lucide:arrow-right" width="16"></iconify-icon>
+            <a href="{{ route('donations.index') }}" class="cta-btn-gold">
+                {{ __('app.pustaka.cta_btn') }}
+                <iconify-icon icon="{{ app()->getLocale() === 'ar' ? 'lucide:arrow-left' : 'lucide:arrow-right' }}" width="16"></iconify-icon>
             </a>
         </div>
     </div>
@@ -1416,12 +1368,12 @@
          x-transition:enter-start="opacity-0 scale-95" x-transition:enter-end="opacity-100 scale-100">
 
         {{-- Header --}}
-        <div class="modal-header">
+        <div class="modal-header" @if(app()->getLocale() === 'ar') dir="rtl" @endif>
             <div class="modal-header-left">
                 <div class="modal-header-icon">
                     <iconify-icon icon="lucide:file-text" width="20"></iconify-icon>
                 </div>
-                <h2>Unduh Literatur Digital</h2>
+                <h2>{{ __('app.pustaka.modal_title') }}</h2>
             </div>
             <button class="modal-close" @click="showModal = false">
                 <iconify-icon icon="lucide:x" width="18"></iconify-icon>
@@ -1429,40 +1381,41 @@
         </div>
 
         {{-- Body --}}
-        <div class="modal-body">
+        <div class="modal-body" @if(app()->getLocale() === 'ar') dir="rtl" @endif>
             <div class="input-group">
-                <label class="input-label">Nama Lengkap</label>
+                <label class="input-label">{{ __('app.pustaka.modal_name') }}</label>
                 <input type="text" class="input-field" x-model="name" placeholder="Hamba Allah">
             </div>
             <div class="input-group">
-                <label class="input-label">Nomor WhatsApp</label>
-                <div class="input-wa-wrap">
-                    <span class="input-wa-prefix">+62</span>
-                    <input type="tel" class="input-wa-field" x-model="whatsapp" placeholder="81234567890">
+                <label class="input-label">{{ __('app.pustaka.modal_wa') }}</label>
+                <div class="input-wa-wrap" @if(app()->getLocale() === 'ar') dir="ltr" @endif>
+                    <span class="input-wa-prefix" @if(app()->getLocale() === 'ar') style="border-right:none;border-left:1px solid var(--color-border);" @endif>+62</span>
+                    <input type="tel" class="input-wa-field" x-model="whatsapp" placeholder="81234567890" @if(app()->getLocale() === 'ar') style="text-align:right;" @endif>
                 </div>
                 <p class="input-hint">
                     <iconify-icon icon="lucide:info" width="13" style="flex-shrink:0;margin-top:1px;"></iconify-icon>
-                    <span>Link download akan dikirimkan otomatis ke WhatsApp Anda.</span>
+                    <span>{{ __('app.pustaka.modal_wa_hint') }}</span>
                 </p>
             </div>
         </div>
 
         {{-- Checkbox Infaq --}}
-        <div class="donate-checkbox-wrap" @click="wantDonate = !wantDonate">
+        <div class="donate-checkbox-wrap" @click="wantDonate = !wantDonate" @if(app()->getLocale() === 'ar') dir="rtl" @endif>
             <div class="checkbox-indicator" :class="{ 'checked': wantDonate }">
                 <iconify-icon x-show="wantDonate" icon="lucide:check" width="13"></iconify-icon>
             </div>
             <div class="donate-label">
-                <h4>Saya ingin mendukung program tebar buku Islam (Dukung Dakwah)</h4>
-                <p>Bantu kami mencetak dan mendistribusikan buku dakwah gratis ke pelosok negeri.</p>
+                <h4>{{ __('app.pustaka.modal_donate_title') }}</h4>
+                <p>{{ __('app.pustaka.modal_donate_desc') }}</p>
             </div>
         </div>
 
         {{-- Pilihan Nominal (muncul jika centang) --}}
         <div x-show="wantDonate" x-cloak class="nominal-section"
              x-transition:enter="transition ease-out duration-150"
-             x-transition:enter-start="opacity-0 -translate-y-2" x-transition:enter-end="opacity-100 translate-y-0">
-            <p class="nominal-section-label">Pilih Nominal Infaq Terbaik</p>
+             x-transition:enter-start="opacity-0 -translate-y-2" x-transition:enter-end="opacity-100 translate-y-0"
+             @if(app()->getLocale() === 'ar') dir="rtl" @endif>
+            <p class="nominal-section-label">{{ __('app.pustaka.modal_nominal_label') }}</p>
             <div class="nominal-grid">
                 <button class="nominal-btn" :class="{ 'active-nominal': donationAmount === 25000 }"
                         @click="donationAmount = 25000">Rp 25.000</button>
@@ -1471,23 +1424,25 @@
                 <button class="nominal-btn" :class="{ 'active-nominal': donationAmount === 100000 }"
                         @click="donationAmount = 100000">Rp 100.000</button>
                 <button class="nominal-btn nominal-other" :class="{ 'active-nominal': donationAmount === 'custom' }"
-                        @click="donationAmount = 'custom'">Nominal Lain</button>
+                        @click="donationAmount = 'custom'">{{ __('app.pustaka.modal_nominal_other') }}</button>
             </div>
             <div x-show="donationAmount === 'custom'" class="custom-amount-field" x-cloak>
-                <input type="number" class="input-field" x-model="customAmount" placeholder="Masukkan nominal (Rp)" min="0">
+                <input type="text" class="input-field" x-model="customAmount" 
+                       @input="customAmount = customAmount.toString().replace(/\D/g, '').replace(/\B(?=(\d{3})+(?!\d))/g, '.')"
+                       placeholder="{{ __('app.pustaka.modal_nominal_placeholder') }}">
             </div>
         </div>
 
         {{-- Footer --}}
-        <div class="modal-footer">
+        <div class="modal-footer" @if(app()->getLocale() === 'ar') dir="rtl" @endif>
             <button class="btn-modal-submit"
                     @click="submitDownload()"
                     :disabled="loading || !name || !whatsapp">
                 <span x-show="loading">
                     <iconify-icon icon="lucide:loader-2" width="18" style="animation:spin 1s linear infinite;"></iconify-icon>
-                    Memproses...
+                    {{ __('app.pustaka.modal_processing') }}
                 </span>
-                <span x-show="!loading" x-text="wantDonate ? 'Lanjutkan Berinfaq &amp; Unduh PDF â†’' : 'Unduh PDF Gratis â†’'"></span>
+                <span x-show="!loading" x-text="wantDonate ? '{{ __('app.pustaka.modal_btn_donate') }}' : '{{ __('app.pustaka.modal_btn_free') }}'"></span>
             </button>
         </div>
     </div>
@@ -1504,87 +1459,115 @@
             <div class="infaq-status-icon">
                 <iconify-icon icon="lucide:check" width="40"></iconify-icon>
             </div>
-            <h1 class="infaq-heading">Jazakumullah Khairan atas Dukungan Anda</h1>
-            <p class="infaq-subtext">Niat baik Anda untuk mendukung program cetak dan tebar buku Islam telah kami catat. Silakan selesaikan infaq Anda.</p>
-        </div>
-
-        {{-- Payment Card --}}
+            <h1 class="infaq-heading">{{ __('app.pustaka.infaq_heading') }}</h1>
+            <p class="infaq-subtext">{{ __('app.pustaka.infaq_subtext') }}</p>
+        <        {{-- Payment Card --}}
         <div class="payment-card">
             <div class="payment-card-topbar"></div>
-            <p class="payment-total-label">Total yang Harus Ditransfer</p>
+            <p class="payment-total-label">{{ __('app.pustaka.infaq_total_label') }}</p>
             <h2 class="payment-total-amount">Rp <span x-text="formatRupiah(infaqData.total_transfer)"></span></h2>
 
             <div style="display:flex;justify-content:center;margin-bottom:32px;">
-                <div class="unique-code-badge">
+                <div class="unique-code-badge" @if(app()->getLocale() === 'ar') dir="rtl" @endif>
                     <iconify-icon icon="lucide:info" width="15" style="flex-shrink:0;margin-top:2px;"></iconify-icon>
-                    <span>*Terdapat kode unik (<strong x-text="infaqData.unique_code"></strong>) untuk mempercepat verifikasi otomatis.</span>
+                    <span><strong x-text="infaqData.unique_code"></strong> {!! str_replace('*', '', __('app.pustaka.infaq_unique_code')) !!}</span>
                 </div>
             </div>
 
             <hr class="payment-divider">
 
-            <p class="bank-label">Transfer ke Rekening Tujuan:</p>
-            <div class="bank-box">
+            <p class="bank-label" @if(app()->getLocale() === 'ar') dir="rtl" @endif>{{ __('app.pustaka.infaq_bank_label') }}</p>
+            <div class="bank-box" @if(app()->getLocale() === 'ar') dir="rtl" @endif>
                 <div class="bank-header">
-                    <div class="bank-logo-box" x-text="infaqData.bank_code || 'BSI'"></div>
+                    <div class="bank-logo-box" x-text="infaqData.bank_code || 'BSI'" @if(app()->getLocale() === 'ar') dir="ltr" @endif></div>
                     <div class="bank-name-wrap">
                         <h4 x-text="infaqData.bank_name"></h4>
-                        <p>Kode Bank: <span x-text="infaqData.bank_code"></span></p>
+                        <p>{{ __('app.pustaka.infaq_bank_code') }} <span x-text="infaqData.bank_code"></span></p>
                     </div>
                 </div>
 
-                <div class="account-number-row">
-                    <span class="account-number-text" x-text="infaqData.account_number"></span>
+                <div class="account-number-row" @if(app()->getLocale() === 'ar') dir="rtl" @endif>
+                    <span class="account-number-text" x-text="infaqData.account_number" @if(app()->getLocale() === 'ar') dir="ltr" @endif></span>
                     <button class="btn-copy" @click="navigator.clipboard.writeText(infaqData.account_number)">
                         <iconify-icon icon="lucide:copy" width="15"></iconify-icon>
-                        Salin No. Rekening
+                        {{ __('app.pustaka.infaq_copy') }}
                     </button>
                 </div>
 
-                <div class="account-name-row">
+                <div class="account-name-row" @if(app()->getLocale() === 'ar') dir="rtl" @endif>
                     <iconify-icon icon="lucide:user" width="15" style="color:var(--color-gray-400);flex-shrink:0;"></iconify-icon>
-                    <span>Atas Nama: <strong x-text="infaqData.account_name"></strong></span>
+                    <span>{{ __('app.pustaka.infaq_account_name') }} <strong x-text="infaqData.account_name"></strong></span>
                 </div>
             </div>
 
-            <div class="countdown-wrap" style="margin-top:20px;">
+            <div class="countdown-wrap" style="margin-top:20px;" @if(app()->getLocale() === 'ar') dir="rtl" @endif>
                 <iconify-icon icon="lucide:clock" width="20"></iconify-icon>
-                <span class="countdown-countdown">Selesaikan pembayaran dalam: <strong class="countdown-value" x-text="countdownDisplay"></strong></span>
+                <span class="countdown-countdown">{{ __('app.pustaka.infaq_countdown') }} <strong class="countdown-value" x-text="countdownDisplay" @if(app()->getLocale() === 'ar') dir="ltr" @endif></strong></span>
             </div>
         </div>
 
         {{-- Ebook Status Card --}}
-        <div class="ebook-status-card">
+        <div class="ebook-status-card" @if(app()->getLocale() === 'ar') dir="rtl" @endif>
             <div class="ebook-status-icon">
                 <iconify-icon icon="lucide:download-cloud" width="28"></iconify-icon>
             </div>
-            <h3>Bagaimana dengan E-Book Saya?</h3>
+            <h3>{{ __('app.pustaka.infaq_ebook_question') }}</h3>
             <p>
-                Link unduhan PDF "<strong x-text="infaqData.ebook_title"></strong>" akan dikirimkan otomatis ke WhatsApp Anda setelah infaq diverifikasi.
+                <bdi>"<strong x-text="infaqData.ebook_title"></strong>"</bdi> {{ __('app.pustaka.infaq_ebook_answer') }}
             </p>
-            <p class="ebook-status-note">Jika dalam 1 jam link belum masuk atau Anda ingin konfirmasi manual, silakan hubungi admin kami.</p>
+            <p class="ebook-status-note">{{ __('app.pustaka.infaq_ebook_note') }}</p>
             <a class="btn-wa" :href="buildWaMessage()" target="_blank" rel="noopener noreferrer">
                 <iconify-icon icon="lucide:message-circle" width="20"></iconify-icon>
-                Konfirmasi via WhatsApp
+                {{ __('app.pustaka.infaq_wa_confirm') }}
             </a>
         </div>
 
         {{-- Hadits Quote --}}
-        <div class="hadits-quote-card">
+        <div class="hadits-quote-card" @if(app()->getLocale() === 'ar') dir="rtl" @endif>
             <div class="quote-icon-float">
                 <iconify-icon icon="lucide:quote" width="16"></iconify-icon>
             </div>
-            <p class="hadits-text">"Apabila manusia itu meninggal dunia maka terputuslah segala amalnya kecuali tiga: yaitu sedekah jariyah, ilmu yang bermanfaat, dan anak sholeh yang mendoakan kepadanya."</p>
-            <p class="hadits-source">(HR. Muslim)</p>
+            <p class="hadits-text">{{ __('app.pustaka.infaq_hadits') }}</p>
+            <p class="hadits-source">{{ __('app.pustaka.infaq_hadits_source') }}</p>
         </div>
 
         <p style="text-align:center;color:var(--color-gray-600);font-size:16px;font-weight:500;">
-            Semoga dukungan Anda menjadi pendorong tersebarnya ilmu yang bermanfaat bagi umat.
+            {{ __('app.pustaka.infaq_closing') }}
         </p>
 
         <div style="text-align:center;margin-top:32px;">
-            <a href="{{ route('ebooks.index') }}" class="btn-outline-primary" style="width:auto;display:inline-flex;padding:12px 32px;">
-                â† Kembali ke Katalog
+            <a href="{{ route('ebooks.index') }}" class="btn-outline-primary" style="width:auto;display:inline-flex;padding:12px 32px;" @if(app()->getLocale() === 'ar') dir="rtl" @endif>
+                {!! __('app.pustaka.infaq_back') !!}
+            </a>
+        </div>     </div>
+    </div>
+</div>
+
+{{-- ======================== FREE DOWNLOAD SUCCESS ======================== --}}
+<div x-show="showFreeDownloadSuccess" x-cloak class="infaq-overlay"
+     x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100">
+    <div class="infaq-overlay-inner">
+        <div style="text-align:center;margin-bottom:32px;" @if(app()->getLocale() === 'ar') dir="rtl" @endif>
+            <div class="infaq-status-icon">
+                <iconify-icon icon="lucide:check" width="40"></iconify-icon>
+            </div>
+            <h1 class="infaq-heading">{{ __('app.pustaka.free_heading') }}</h1>
+            <p class="infaq-subtext">{{ __('app.pustaka.free_subtext_prefix') }} "<strong><span x-text="ebookTitle" @if(app()->getLocale() === 'ar') dir="ltr" @endif></span></strong>" {{ __('app.pustaka.free_subtext_suffix') }}</p>
+            
+            <div style="margin-top: 32px;">
+                <button @click="showFreeDownloadSuccess = false" class="btn-modal-submit" style="display:inline-flex; width:auto; padding:14px 40px; font-size:16px;">
+                    {{ __('app.pustaka.free_close') }}
+                </button>
+            </div>
+        </div>
+
+        <div style="text-align:center; border-top: 1px dashed var(--color-border); padding-top: 24px; margin-top: 24px;" @if(app()->getLocale() === 'ar') dir="rtl" @endif>
+            <p style="font-size:14px; color:var(--color-gray-500); margin-bottom:12px;">
+                {{ __('app.pustaka.free_not_received') }}
+            </p>
+            <a :href="buildFreeWaMessage()" target="_blank" rel="noopener noreferrer" style="display:inline-flex; align-items:center; gap:6px; color:var(--color-success); font-weight:600; font-size:14px; text-decoration:none;">
+                <iconify-icon icon="simple-icons:whatsapp" width="16"></iconify-icon>
+                {{ __('app.pustaka.free_contact_admin') }}
             </a>
         </div>
     </div>
@@ -1595,9 +1578,10 @@
      x-transition:enter="transition ease-out duration-300"
      x-transition:enter-start="opacity-0 translate-y-4" x-transition:enter-end="opacity-100 translate-y-0"
      x-transition:leave="transition ease-in duration-200"
-     x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0">
+     x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0"
+     @if(app()->getLocale() === 'ar') dir="rtl" @endif>
     <iconify-icon icon="lucide:check-circle" width="20"></iconify-icon>
-    Jazakumullah khairan! File sedang diunduh.
+    {{ __('app.pustaka.toast_success') }}
 </div>
 
 </div><!-- end pustaka-page -->

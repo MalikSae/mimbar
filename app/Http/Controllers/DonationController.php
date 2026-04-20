@@ -123,10 +123,10 @@ class DonationController extends Controller
         $totalTransfer = $donation->amount + $donation->unique_code;
 
         // Rekening bank aktif
-        $bankAccount = DB::table('bank_accounts')
+        $bankAccounts = DB::table('bank_accounts')
             ->where('is_active', true)
-            ->first();
+            ->get();
 
-        return view('donasi.instruction', compact('donation', 'totalTransfer', 'bankAccount'));
+        return view('donasi.instruction', compact('donation', 'totalTransfer', 'bankAccounts'));
     }
 }

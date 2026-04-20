@@ -63,7 +63,32 @@
 </div>
 @endif
 
-{{-- Filter Bar --}}
+{{-- Filter Tabs: Semua | Menunggu Review --}}
+<div style="display: flex; gap: 4px; margin-bottom: 16px;">
+    <a href="{{ route('admin.articles.index', array_merge(request()->except('tab'), ['tab' => ''])) }}"
+       style="padding: 8px 16px; border-radius: var(--radius-lg); font-size: 13px; font-weight: 500;
+              text-decoration: none;
+              {{ request('tab') !== 'pending' ? 'background: var(--color-primary); color: white;' : 'background: white; border: 1px solid var(--color-border); color: var(--color-gray-600);' }}">
+        Semua
+    </a>
+    <a href="{{ route('admin.articles.index', array_merge(request()->except('tab'), ['tab' => 'pending'])) }}"
+       style="display: inline-flex; align-items: center; gap: 8px;
+              padding: 8px 16px; border-radius: var(--radius-lg); font-size: 13px; font-weight: 500;
+              text-decoration: none;
+              {{ request('tab') === 'pending' ? 'background: var(--color-warning); color: white;' : 'background: white; border: 1px solid var(--color-border); color: var(--color-gray-600);' }}">
+        Menunggu Review
+        @if ($pendingCount > 0)
+        <span style="display: inline-flex; align-items: center; justify-content: center;
+                     min-width: 18px; height: 18px; padding: 0 5px;
+                     background: var(--color-danger); color: white;
+                     border-radius: 999px; font-size: 11px; font-weight: 700;
+                     line-height: 1; font-family: var(--font-heading);">
+            {{ $pendingCount }}
+        </span>
+        @endif
+    </a>
+</div>
+
 <form method="GET" style="background: white; border: 1px solid var(--color-border);
             border-radius: var(--radius-xl); box-shadow: var(--shadow-card);
             padding: 16px 20px; margin-bottom: 20px;
@@ -234,7 +259,11 @@
                 </td>
                 {{-- Penulis --}}
                 <td style="padding: 12px 16px; font-size: 12px; color: var(--color-gray-600);">
-                    {{ $item->author_name ?: '—' }}
+                    @if ($item->author)
+                        <span>{{ $item->author->name }}</span>
+                    @else
+                        <span style="color: var(--color-gray-400);">Admin</span>
+                    @endif
                 </td>
                 {{-- Status toggle --}}
                 <td style="padding: 12px 16px;">
@@ -250,61 +279,100 @@
                 </td>
                 {{-- Aksi --}}
                 <td style="padding: 12px 16px; text-align: right;">
-                    <div style="display: flex; gap: 6px; justify-content: flex-end;">
+                    <div style="display: flex; gap: 6px; justify-content: flex-end; align-items: center;">
+
+                        @if ($item->status === 'pending_review')
+                        {{-- Pending: hanya tombol Review — approve/tolak ada di halaman review --}}
                         <a href="{{ route('admin.articles.edit', $item->id) }}"
-                           style="padding: 5px 12px; font-size: 12px; font-weight: 500;
-                                  background: var(--color-info-surface); color: var(--color-info);
-                                  border: 1px solid var(--color-info); border-radius: var(--radius-md);
-                                  text-decoration: none;">
-                            Edit
+                           style="display: inline-flex; align-items: center; gap: 6px;
+                                  padding: 6px 14px; font-size: 12px; font-weight: 600;
+                                  background: #fffbeb; color: #92400e;
+                                  border: 1px solid #f59e0b; border-radius: var(--radius-md);
+                                  text-decoration: none; font-family: var(--font-heading);">
+                            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7z"/>
+                                <circle cx="12" cy="12" r="3"/>
+                            </svg>
+                            Review
                         </a>
+
+                        @else
+                        {{-- Non-pending: ikon Edit + ikon Hapus --}}
+                        <a href="{{ route('admin.articles.edit', $item->id) }}"
+                           title="Edit artikel"
+                           style="display: inline-flex; align-items: center; justify-content: center;
+                                  width: 32px; height: 32px;
+                                  background: var(--color-muted); color: var(--color-gray-600);
+                                  border: 1px solid var(--color-border); border-radius: var(--radius-md);
+                                  text-decoration: none; transition: all 0.15s;"
+                           onmouseover="this.style.background='var(--color-info-surface)';this.style.color='var(--color-info)';this.style.borderColor='var(--color-info)'"
+                           onmouseout="this.style.background='var(--color-muted)';this.style.color='var(--color-gray-600)';this.style.borderColor='var(--color-border)'">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/>
+                                <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/>
+                            </svg>
+                        </a>
+                        @endif
+
+                        {{-- Hapus (selalu ada) --}}
                         <div x-data="{ confirm: false }">
-                            <button @click="confirm = true"
-                                    style="padding: 5px 12px; font-size: 12px; font-weight: 500;
-                                           background: var(--color-danger-surface); color: var(--color-danger);
-                                           border: 1px solid var(--color-danger); border-radius: var(--radius-md);
-                                           cursor: pointer; font-family: var(--font-body);">
-                                Hapus
+                            <button @click="confirm = true" title="Hapus artikel"
+                                    style="display: inline-flex; align-items: center; justify-content: center;
+                                           width: 32px; height: 32px;
+                                           background: var(--color-muted); color: var(--color-gray-600);
+                                           border: 1px solid var(--color-border); border-radius: var(--radius-md);
+                                           cursor: pointer; transition: all 0.15s;"
+                                    onmouseover="this.style.background='var(--color-danger-surface)';this.style.color='var(--color-danger)';this.style.borderColor='var(--color-danger)'"
+                                    onmouseout="this.style.background='var(--color-muted)';this.style.color='var(--color-gray-600)';this.style.borderColor='var(--color-border)'">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <polyline points="3 6 5 6 21 6"/>
+                                    <path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/>
+                                    <path d="M10 11v6"/><path d="M14 11v6"/>
+                                    <path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"/>
+                                </svg>
                             </button>
-                            {{-- Confirm dialog --}}
+                            <template x-teleport="body">
                             <div x-show="confirm" x-cloak
                                  style="position: fixed; inset: 0; z-index: 9999;
-                                        display: flex; align-items: center; justify-content: center;
                                         background: rgba(0,0,0,0.45);"
                                  @keydown.escape.window="confirm = false">
-                                <div style="background: white; border-radius: var(--radius-2xl);
-                                            padding: 28px; width: 380px; max-width: 90vw;
-                                            box-shadow: var(--shadow-md);">
-                                    <h3 style="font-family: var(--font-heading); font-size: 16px;
-                                               font-weight: 700; color: var(--color-gray-900);
-                                               margin: 0 0 8px;">Hapus Artikel?</h3>
-                                    <p style="font-size: 13px; color: var(--color-gray-600);
-                                              margin: 0 0 20px;">
-                                        "<strong>{{ Str::limit($item->title, 50) }}</strong>" akan dihapus permanen.
-                                    </p>
-                                    <div style="display: flex; gap: 10px; justify-content: flex-end;">
-                                        <button @click="confirm = false"
-                                                style="padding: 8px 16px; font-size: 13px;
-                                                       border: 1px solid var(--color-border);
-                                                       color: var(--color-gray-600); background: white;
-                                                       border-radius: var(--radius-lg); cursor: pointer;
-                                                       font-family: var(--font-body);">
-                                            Batal
-                                        </button>
-                                        <form method="POST"
-                                              action="{{ route('admin.articles.destroy', $item->id) }}">
-                                            @csrf @method('DELETE')
-                                            <button type="submit"
-                                                    style="padding: 8px 16px; font-size: 13px; font-weight: 600;
-                                                           background: var(--color-danger); color: white;
-                                                           border: none; border-radius: var(--radius-lg);
-                                                           cursor: pointer; font-family: var(--font-body);">
-                                                Ya, Hapus
+                                <div style="width: 100%; height: 100%;
+                                            display: flex; align-items: center; justify-content: center;">
+                                    <div style="background: white; border-radius: var(--radius-2xl);
+                                                padding: 32px 28px; width: 380px; max-width: 90vw;
+                                                box-shadow: var(--shadow-md); text-align: center;">
+                                        <h3 style="font-family: var(--font-heading); font-size: 16px;
+                                                   font-weight: 700; color: var(--color-gray-900);
+                                                   margin: 0 0 8px;">Hapus Artikel?</h3>
+                                        <p style="font-size: 13px; color: var(--color-gray-600);
+                                                  margin: 0 0 24px;">
+                                            "<strong>{{ Str::limit($item->title, 50) }}</strong>" akan dihapus permanen.
+                                        </p>
+                                        <div style="display: flex; gap: 10px; justify-content: center;">
+                                            <button @click="confirm = false"
+                                                    style="padding: 8px 20px; font-size: 13px;
+                                                           border: 1px solid var(--color-border);
+                                                           color: var(--color-gray-600); background: white;
+                                                           border-radius: var(--radius-lg); cursor: pointer;
+                                                           font-family: var(--font-body);">
+                                                Batal
                                             </button>
-                                        </form>
+                                            <form method="POST"
+                                                  action="{{ route('admin.articles.destroy', $item->id) }}">
+                                                @csrf @method('DELETE')
+                                                <button type="submit"
+                                                        style="padding: 8px 20px; font-size: 13px; font-weight: 600;
+                                                               background: var(--color-danger); color: white;
+                                                               border: none; border-radius: var(--radius-lg);
+                                                               cursor: pointer; font-family: var(--font-body);">
+                                                    Ya, Hapus
+                                                </button>
+                                            </form>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
+                            </template>
                         </div>
                     </div>
                 </td>

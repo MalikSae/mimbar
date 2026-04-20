@@ -9,7 +9,8 @@ class QurbanOrder extends Model
     protected $fillable = [
         'item_id', 'order_number', 'reference_code', 'donor_name', 'whatsapp', 'phone',
         'email', 'is_anonymous', 'prayer', 'unique_code',
-        'quantity', 'status', 'expired_at', 'shohibul_name', 'total_amount'
+        'quantity', 'status', 'expired_at', 'shohibul_name', 'total_amount',
+        'bank_destination', 'notes'
     ];
 
     protected $casts = [

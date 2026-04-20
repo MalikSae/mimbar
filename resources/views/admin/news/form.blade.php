@@ -15,7 +15,7 @@
     transition: all 0.1s;
 }
 .tiptap-toolbar-btn:hover { background: var(--color-muted); }
-#tiptap-editor {
+#tiptap-editor, #tiptap-editor-ar {
     min-height: 420px;
     padding: 16px;
     outline: none;
@@ -24,13 +24,13 @@
     line-height: 1.7;
     color: var(--color-gray-900);
 }
-#tiptap-editor p { margin: 0 0 12px; }
-#tiptap-editor h2 { font-size: 22px; font-weight: 700; margin: 20px 0 10px; font-family: var(--font-heading); }
-#tiptap-editor h3 { font-size: 18px; font-weight: 600; margin: 16px 0 8px; font-family: var(--font-heading); }
-#tiptap-editor ul { padding-left: 24px; margin: 0 0 12px; list-style-type: disc; }
-#tiptap-editor ol { padding-left: 24px; margin: 0 0 12px; list-style-type: decimal; }
-#tiptap-editor li { margin-bottom: 4px; display: list-item; }
-#tiptap-editor blockquote {
+#tiptap-editor p, #tiptap-editor-ar p { margin: 0 0 12px; }
+#tiptap-editor h2, #tiptap-editor-ar h2 { font-size: 22px; font-weight: 700; margin: 20px 0 10px; font-family: var(--font-heading); }
+#tiptap-editor h3, #tiptap-editor-ar h3 { font-size: 18px; font-weight: 600; margin: 16px 0 8px; font-family: var(--font-heading); }
+#tiptap-editor ul, #tiptap-editor-ar ul { padding-left: 24px; margin: 0 0 12px; list-style-type: disc; }
+#tiptap-editor ol, #tiptap-editor-ar ol { padding-left: 24px; margin: 0 0 12px; list-style-type: decimal; }
+#tiptap-editor li, #tiptap-editor-ar li { margin-bottom: 4px; display: list-item; }
+#tiptap-editor blockquote, #tiptap-editor-ar blockquote {
     border-left: 4px solid var(--color-primary);
     padding: 8px 16px;
     margin: 16px 0;
@@ -39,18 +39,18 @@
     font-style: italic;
     color: var(--color-gray-600);
 }
-#tiptap-editor a { cursor: text; pointer-events: none; }
-#tiptap-editor hr { border: none; border-top: 2px solid var(--color-border); margin: 20px 0; }
-#tiptap-editor strong { font-weight: 700; }
-#tiptap-editor em { font-style: italic; }
-#tiptap-editor s { text-decoration: line-through; }
+#tiptap-editor a, #tiptap-editor-ar a { cursor: text; pointer-events: none; }
+#tiptap-editor hr, #tiptap-editor-ar hr { border: none; border-top: 2px solid var(--color-border); margin: 20px 0; }
+#tiptap-editor strong, #tiptap-editor-ar strong { font-weight: 700; }
+#tiptap-editor em, #tiptap-editor-ar em { font-style: italic; }
+#tiptap-editor s, #tiptap-editor-ar s { text-decoration: line-through; }
 .tiptap.ProseMirror-focused { outline: none; }
 /* ── Gambar di editor bisa diklik ───────────────────────────── */
 .tiptap-image { cursor: pointer; max-width: 100%; border-radius: 6px; transition: outline 0.15s; }
 .ProseMirror img.ProseMirror-selectednode { outline: 3px solid var(--color-primary); outline-offset: 2px; }
 .ProseMirror p:has(img) { position: relative; display: inline-block; width: 100%; }
 /* ── Sticky Toolbar ─────────────────────────────────────── */
-#tiptap-toolbar {
+#tiptap-toolbar, #tiptap-toolbar-ar {
     position: sticky;
     top: -28px; /* kompensasi padding main (28px) agar tepat di tepi atas */
     z-index: 200;
@@ -60,15 +60,15 @@
     margin: 0;
     border-radius: var(--radius-xl) var(--radius-xl) 0 0;
 }
-#tiptap-toolbar .toolbar-label {
+#tiptap-toolbar .toolbar-label, #tiptap-toolbar-ar .toolbar-label {
     padding: 14px 20px 8px;
     font-size: 13px;
     font-weight: 600;
     color: var(--color-gray-900);
     background: #ffffff;
 }
-#tiptap-toolbar .toolbar-label span { color: var(--color-danger); }
-#tiptap-toolbar .toolbar-buttons {
+#tiptap-toolbar .toolbar-label span, #tiptap-toolbar-ar .toolbar-label span { color: var(--color-danger); }
+#tiptap-toolbar .toolbar-buttons, #tiptap-toolbar-ar .toolbar-buttons {
     padding: 8px 12px;
     background: var(--color-muted);
     border-top: 1px solid var(--color-border);
@@ -180,6 +180,90 @@ p.is-editor-empty:first-child::before {
             @error('content')
             <div style="padding: 8px 16px; color: var(--color-danger); font-size: 12px;">{{ $message }}</div>
             @enderror
+        </div>
+
+        {{-- ===== TERJEMAHAN ARAB ===== --}}
+        <div class="mt-8 border-t border-gray-200 pt-6">
+            <div class="flex items-center gap-3 mb-4">
+                <span class="text-lg">🌐</span>
+                <div>
+                    <h3 class="text-base font-semibold text-gray-800">Terjemahan Arab</h3>
+                    <p class="text-sm text-gray-500">
+                        Isi manual oleh admin atau penulis yang memahami bahasa Arab.
+                        Konten Arab akan tampil otomatis saat pengunjung memilih bahasa AR.
+                    </p>
+                </div>
+            </div>
+
+            <div class="space-y-5 bg-amber-50 border border-amber-200 rounded-xl p-5" dir="rtl">
+
+                {{-- Title AR --}}
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 text-right mb-1">
+                        عنوان الخبر <span class="text-red-500">*</span>
+                        <span class="text-xs font-normal text-gray-400 mr-2">(Judul Berita)</span>
+                    </label>
+                    <input type="text"
+                           name="title_ar"
+                           value="{{ old('title_ar', $news->title_ar ?? '') }}"
+                           class="w-full border border-gray-300 rounded-lg px-4 py-2.5 text-right text-lg focus:ring-2 focus:ring-amber-300 focus:border-amber-400"
+                           style="font-family: 'Amiri', 'Scheherazade New', serif;"
+                           placeholder="أدخل عنوان الخبر بالعربية" />
+                </div>
+
+                {{-- Excerpt AR --}}
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 text-right mb-1">
+                        مقتطف الخبر
+                        <span class="text-xs font-normal text-gray-400 mr-2">(Ringkasan Berita)</span>
+                    </label>
+                    <textarea name="excerpt_ar"
+                              rows="3"
+                              class="w-full border border-gray-300 rounded-lg px-4 py-2.5 text-right focus:ring-2 focus:ring-amber-300 focus:border-amber-400"
+                              style="font-family: 'Amiri', 'Scheherazade New', serif; font-size: 1rem; line-height: 1.8;"
+                              placeholder="أدخل مقتطفاً للخبر">{{ old('excerpt_ar', $news->excerpt_ar ?? '') }}</textarea>
+                </div>
+
+                {{-- Content AR — TipTap RTL --}}
+                <div style="background: white; border-radius: var(--radius-xl); border: 1px solid var(--color-border); box-shadow: var(--shadow-card);">
+                    {{-- AR Toolbar --}}
+                    <div id="tiptap-toolbar-ar">
+                        <div class="toolbar-label" style="text-align: right; width: 100%;">
+                            محتوى الخبر (Rich text editor Arab RTL)
+                        </div>
+                        <div class="toolbar-buttons" dir="rtl">
+                            <button type="button" class="tiptap-toolbar-btn" data-editor-action="bold" title="Bold (Ctrl+B)"><strong>B</strong></button>
+                            <button type="button" class="tiptap-toolbar-btn" data-editor-action="italic" title="Italic (Ctrl+I)"><em>I</em></button>
+                            <button type="button" class="tiptap-toolbar-btn" data-editor-action="strike" title="Strikethrough"><s>S</s></button>
+                            <div style="width: 1px; height: 20px; background: var(--color-border); margin: 0 4px;"></div>
+                            <button type="button" class="tiptap-toolbar-btn" data-editor-action="h2" title="Heading 2" style="font-weight: 700; font-size: 12px;">H2</button>
+                            <button type="button" class="tiptap-toolbar-btn" data-editor-action="h3" title="Heading 3" style="font-weight: 600; font-size: 12px;">H3</button>
+                            <div style="width: 1px; height: 20px; background: var(--color-border); margin: 0 4px;"></div>
+                            <button type="button" class="tiptap-toolbar-btn" data-editor-action="bulletList" title="Bullet List">• List</button>
+                            <button type="button" class="tiptap-toolbar-btn" data-editor-action="orderedList" title="Numbered List">1. List</button>
+                            <button type="button" class="tiptap-toolbar-btn" data-editor-action="blockquote" title="Blockquote">❝ Quote</button>
+                            <button type="button" class="tiptap-toolbar-btn" data-editor-action="horizontalRule" title="Horizontal Rule">— HR</button>
+                            <button type="button" class="tiptap-toolbar-btn" data-editor-action="link" title="Tambah/Edit Hyperlink">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline;vertical-align:middle;"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg> Link
+                            </button>
+                            <button type="button" class="tiptap-toolbar-btn" data-editor-action="image" title="Sisipkan Gambar">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline;vertical-align:middle;"><rect width="18" height="18" x="3" y="3" rx="2" ry="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/></svg> Image
+                            </button>
+                            <div style="width: 1px; height: 20px; background: var(--color-border); margin: 0 4px;"></div>
+                            <button type="button" class="tiptap-toolbar-btn" data-editor-action="undo" title="Undo (Ctrl+Z)">↩ Undo</button>
+                            <button type="button" class="tiptap-toolbar-btn" data-editor-action="redo" title="Redo (Ctrl+Y)">↪ Redo</button>
+                            <div style="width: 1px; height: 20px; background: var(--color-border); margin: 0 4px;"></div>
+                            <button type="button" class="tiptap-toolbar-btn" data-editor-action="rtl" title="Kanan ke Kiri (Arab/Urdu)" style="font-size: 12px; letter-spacing: 0;">⇐ RTL</button>
+                            <button type="button" class="tiptap-toolbar-btn" data-editor-action="ltr" title="Kiri ke Kanan (Indonesia/Inggris)" style="font-size: 12px; letter-spacing: 0;">LTR ⇒</button>
+                        </div>
+                    </div>
+                    
+                    {{-- AR Editor Area --}}
+                    <div id="tiptap-editor-ar" style="border-bottom: 1px solid var(--color-border);"></div>
+                    <input type="hidden" name="content_ar" id="content-input-ar" value="{{ old('content_ar', $news->content_ar ?? '') }}">
+                </div>
+
+            </div>
         </div>
 
     </div>
@@ -486,9 +570,21 @@ p.is-editor-empty:first-child::before {
     });
 
     document.addEventListener('DOMContentLoaded', () => {
+        // TipTap Editor (ID)
         const contentInput = document.getElementById('content-input');
         if (contentInput && typeof window.createEditor === 'function') {
             window.createEditor(contentInput.value, 'content-input');
+        }
+        
+        // TipTap Editor (AR)
+        const contentInputAr = document.getElementById('content-input-ar');
+        if (contentInputAr && typeof window.createEditor === 'function') {
+            window.createEditor(contentInputAr.value, 'content-input-ar', {
+                editorId: 'tiptap-editor-ar',
+                toolbarId: 'tiptap-toolbar-ar',
+                rtl: true,
+                placeholder: 'أدخل محتوى الخبر الكامل بالعربية هنا...'
+            });
         }
     });
 </script>

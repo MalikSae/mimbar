@@ -30,14 +30,17 @@
 .article-prose strong, .prose-content strong { font-weight: 700; }
 .article-prose em, .prose-content em     { font-style: italic; }
 .article-prose hr, .prose-content hr { border: none; border-top: 2px solid var(--color-border); margin: 40px 0; }
+@media (max-width: 767px) {
+    header.navbar { display: none !important; }
+}
 </style>
 @endpush
 
 @section('content')
-<div class="font-body text-gray-900 leading-relaxed antialiased min-h-screen pb-20 pt-6" style="background: var(--color-muted);">
+<div class="font-body text-gray-900 leading-relaxed antialiased min-h-screen pb-24 md:pb-20 md:pt-6" style="background: var(--color-muted);">
 
     <!-- BREADCRUMB -->
-    <section class="pb-5 max-w-[1200px] mx-auto px-6">
+    <section class="hidden md:block pb-5 max-w-[1200px] mx-auto px-6">
         <div class="flex items-center gap-2 text-gray-500 text-sm mb-2 font-medium">
             <a href="/" class="hover:text-gray-900">Beranda</a>
             <iconify-icon icon="lucide:chevron-right" width="14"></iconify-icon>
@@ -48,13 +51,22 @@
     </section>
 
     <!-- MAIN CONTENT GRID -->
-    <section class="max-w-[1200px] mx-auto px-6 pb-20">
-        <div class="grid grid-cols-1 lg:grid-cols-[60%_40%] gap-10 relative">
+    <section class="max-w-[1200px] mx-auto px-0 md:px-6 pb-8 md:pb-20">
+        <div class="grid grid-cols-1 lg:grid-cols-[60%_40%] gap-8 md:gap-10 relative">
             
             <!-- KOLOM KIRI: Card Konten (Gambar, Judul, Tabs) -->
-            <div class="bg-white rounded-[24px] shadow-sm border border-gray-100 overflow-hidden flex flex-col">
+            <div class="bg-white md:rounded-[24px] md:shadow-sm md:border md:border-gray-100 overflow-hidden flex flex-col">
                 <!-- HERO CAMPAIGN (Main Image) -->
-                <div class="w-full aspect-[16/9] relative">
+                <div class="w-full aspect-[4/3] md:aspect-[16/9] relative">
+                    <!-- Mobile Header Actions (Back & Share) -->
+                    <div class="md:hidden absolute top-4 left-0 w-full px-4 z-10 flex justify-between items-center pointer-events-none">
+                        <a href="{{ route('donations.index') }}" class="w-10 h-10 bg-white/90 shadow-sm backdrop-blur-sm rounded-full flex items-center justify-center text-gray-800 pointer-events-auto active:scale-95 transition-transform">
+                            <iconify-icon icon="lucide:arrow-left" width="20"></iconify-icon>
+                        </a>
+                        <button class="w-10 h-10 bg-white/90 shadow-sm backdrop-blur-sm rounded-full flex items-center justify-center text-gray-800 pointer-events-auto active:scale-95 transition-transform" onclick="if(navigator.share){ navigator.share({title: '{{ $program->name }}', url: window.location.href}); }">
+                            <iconify-icon icon="lucide:share-2" width="20"></iconify-icon>
+                        </button>
+                    </div>
                     <img src="{{ $program->featured_image ? asset('storage/' . $program->featured_image) : 'https://placehold.co/800x450/e5e7eb/9ca3af' }}" alt="{{ $program->name }}" class="w-full h-full object-cover" />
                 </div>
 
@@ -66,7 +78,7 @@
                     </div>
                     @endif
 
-                    <h1 class="font-headings text-3xl lg:text-4xl font-bold text-gray-900 leading-snug mb-8">
+                    <h1 class="font-headings text-xl lg:text-4xl font-bold text-gray-900 leading-tight mb-8">
                         {{ $program->name }}
                     </h1>
 
@@ -143,15 +155,15 @@
             </div> <!-- END KOLOM KIRI -->
 
             <!-- KOLOM KANAN: Panel Donasi Utama -->
-            <div class="relative w-full h-full">
-                <div class="sticky top-28 bg-white rounded-xl shadow-md border border-gray-100 p-6 lg:p-8 flex flex-col gap-6">
+            <div class="relative w-full h-full px-4 md:px-0">
+                <div class="sticky top-28 bg-white rounded-xl shadow-md border border-gray-100 p-4 md:p-6 lg:p-8 flex flex-col gap-4 md:gap-6 max-w-sm mx-auto md:max-w-none">
                     <div>
                         <!-- Struktur Standar: Terkumpul & Persentase (Sejajar) -->
                         <div class="flex justify-between items-center mb-3">
-                            <span class="text-sm text-gray-600">
-                                Terkumpul <span class="text-xl md:text-2xl font-bold text-gray-900 font-headings ml-1">Rp {{ number_format($program->collected_amount, 0, ',', '.') }}</span>
+                            <span class="text-xs md:text-sm text-gray-600">
+                                Terkumpul <span class="text-base md:text-2xl font-bold text-gray-900 font-headings ml-1 whitespace-nowrap">Rp {{ number_format($program->collected_amount, 0, ',', '.') }}</span>
                             </span>
-                            <span class="bg-primary-light text-primary px-3 py-1.5 rounded-md text-xs font-bold font-headings">
+                            <span class="bg-primary-light text-primary px-2 py-1 md:px-3 md:py-1.5 rounded-md text-xs font-bold font-headings">
                                 {{ $program->progress_percentage }}%
                             </span>
                         </div>
@@ -162,7 +174,7 @@
                         </div>
 
                         <!-- Struktur Standar: Target (Kanan Bawah) -->
-                        <div class="text-right text-xs text-gray-500 font-medium mb-6">
+                        <div class="text-right text-xs text-gray-500 font-medium mb-4 md:mb-6">
                             Target: Rp {{ number_format($program->target_amount, 0, ',', '.') }}
                         </div>
 
@@ -171,7 +183,7 @@
                         @endphp
 
                         <!-- Info Donatur & Waktu -->
-                        <div class="flex justify-between items-center text-sm font-medium border-b border-gray-100 pb-6 mb-2">
+                        <div class="flex justify-between items-center text-sm font-medium border-b border-gray-100 pb-4 md:pb-6 mb-2">
                             <div class="flex items-center gap-2 text-gray-700">
                                 <iconify-icon icon="lucide:users" width="16" class="text-[#D4AF37]"></iconify-icon>
                                 <span><strong>{{ $program->donor_count ?? 0 }}</strong> Donatur</span>
@@ -187,11 +199,11 @@
                         </div>
                     </div>
 
-                    <a href="{{ route('donations.form', $program->slug) }}" class="w-full inline-flex items-center justify-center py-4 text-lg shadow-sm bg-primary text-white font-bold font-headings rounded-lg hover:bg-primary-dark transition-colors">
+                    <a href="{{ route('donations.form', $program->slug) }}" class="w-full inline-flex items-center justify-center py-3 md:py-4 text-base md:text-lg shadow-sm bg-primary text-white font-bold font-headings rounded-lg hover:bg-primary-dark transition-colors">
                         Donasi Sekarang
                     </a>
                     
-                    <div class="flex items-center justify-center gap-4 mt-2">
+                    <div class="flex items-center justify-center gap-3 md:gap-4">
                         <span class="text-sm font-medium text-gray-500">Bagikan Program:</span>
                         <button class="w-8 h-8 rounded-full bg-gray-50 border border-gray-200 text-gray-600 flex items-center justify-center hover:bg-[#25D366] hover:text-white hover:border-[#25D366] transition-colors" title="Bagikan ke WhatsApp">
                             <iconify-icon icon="mdi:whatsapp" width="18"></iconify-icon>
@@ -213,49 +225,50 @@
         $related = \App\Models\DonationProgram::where('id', '!=', $program->id)->where('status', 'active')->take(3)->get();
     @endphp
     @if($related->count() > 0)
-    <section class="py-20 bg-white border-t border-gray-200">
-        <div class="max-w-[1200px] mx-auto px-6 lg:px-20">
-            <h2 class="font-headings text-3xl font-bold text-gray-900 mb-10 text-center">
+    <section class="py-20 bg-muted border-t border-gray-200">
+        <div class="max-w-[1200px] mx-auto px-6">
+            <h2 class="font-headings text-2xl md:text-3xl font-bold text-gray-900 mb-8 md:mb-10 text-center">
                 Lanjutkan Estafet Kebaikan Lainnya
             </h2>
 
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div style="display: flex; gap: 24px; overflow-x: auto; padding-bottom: 16px; padding-top: 8px; margin-left: -8px; padding-left: 8px; scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch; scrollbar-width: none;">
                 @foreach($related as $row)
                 @php $rPercent = $row->target_amount > 0 ? min(100, round(($row->collected_amount / $row->target_amount) * 100)) : 0; @endphp
-                <div class="bg-white rounded-xl border border-gray-200 overflow-hidden flex flex-col shadow-sm hover:shadow-md transition-shadow">
-                    <div class="relative w-full aspect-[4/3]">
-                        <img src="{{ $row->featured_image ? asset('storage/' . $row->featured_image) : 'https://placehold.co/600x400/e5e7eb/9ca3af' }}" alt="{{ $row->name }}" class="w-full h-full object-cover" />
-                        @if($row->category)
-                        <div class="absolute top-4 left-4 bg-white/90 backdrop-blur-sm text-primary px-3 py-1 rounded-full text-xs font-bold font-headings uppercase tracking-wider shadow-sm">
-                            {{ $row->category->name }}
-                        </div>
+                <div style="min-width: 300px; max-width: 300px; flex-shrink: 0; scroll-snap-align: start; background: white; border-radius: 12px; border: 1px solid var(--color-border, #e5e7eb); overflow: hidden; box-shadow: 0 1px 3px rgba(0,0,0,0.05); display: flex; flex-direction: column; transition: box-shadow 0.2s;">
+                    <!-- Image -->
+                    <img src="{{ $row->featured_image ? asset('storage/' . $row->featured_image) : 'https://placehold.co/400x300/e5e7eb/9ca3af' }}" alt="{{ $row->name }}" style="width: 100%; height: 200px; object-fit: cover; display: block;">
+                    <!-- Body -->
+                    <div style="padding: 24px; flex: 1; display: flex; flex-direction: column;">
+                        @if($row->is_featured)
+                        <div style="background-color: var(--color-primary-light, #f5e8ee); color: var(--color-primary, #8b1a4a); font-family: var(--font-heading, inherit); font-weight: 700; text-transform: uppercase; border-radius: 9999px; margin-bottom: 12px; font-size: 11px; padding: 4px 12px; display: inline-block; letter-spacing: 0.1em; width: fit-content;">Prioritas Utama</div>
+                        @else
+                        <div style="margin-bottom: 12px; height: 23px;"></div>
                         @endif
-                    </div>
-                    <div class="p-5 flex flex-col flex-1">
-                        <h3 class="font-headings text-lg font-bold text-gray-900 mb-2 leading-snug line-clamp-2">
-                            <a href="{{ route('donations.show', $row->slug) }}" class="text-gray-900 hover:text-primary transition-colors">
-                                {{ $row->name }}
-                            </a>
+
+                        <h3 style="font-family: var(--font-heading, inherit); font-size: 18px; color: #1a1a1a; margin-bottom: 8px; font-weight: 700; line-height: 1.3; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">
+                            <a href="{{ route('donations.show', $row->slug) }}" style="text-decoration: none; color: inherit;">{{ $row->name }}</a>
                         </h3>
-                        <p class="text-sm text-gray-600 line-clamp-2 mb-6">
+                        <p style="font-size: 14px; color: #555555; line-height: 1.6; margin-bottom: 24px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">
                             {{ Str::limit(strip_tags($row->description), 100) }}
                         </p>
-                        <div class="mt-auto">
-                            <div class="flex justify-between items-center mb-2">
-                                <span class="text-xs text-gray-600">
-                                    Terkumpul <span class="text-sm font-bold text-gray-900 font-headings">Rp {{ number_format($row->collected_amount, 0, ',', '.') }}</span>
+
+                        <!-- Progress -->
+                        <div style="margin-top: auto;">
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                                <span style="font-size: 12px; color: #555555;">
+                                    Terkumpul <span style="font-size: 14px; font-weight: 700; color: #1a1a1a; font-family: var(--font-heading, inherit);">Rp {{ number_format($row->collected_amount, 0, ',', '.') }}</span>
                                 </span>
-                                <span class="bg-primary-light text-primary px-2 py-1 rounded text-[10px] font-bold font-headings">
-                                    {{ $row->progress_percentage }}%
+                                <span style="background-color: var(--color-primary-light, #f5e8ee); color: var(--color-primary, #8b1a4a); padding: 2px 8px; border-radius: 4px; font-size: 10px; font-weight: 700; font-family: var(--font-heading, inherit);">
+                                    {{ $rPercent }}%
                                 </span>
                             </div>
-                            <div class="bg-border rounded-full h-1.5 overflow-hidden w-full mb-1 flex-shrink-0">
-                                <div class="bg-primary h-full rounded-full" style="width: {{ $row->progress_percentage }}%;"></div>
+                            <div style="background-color: var(--color-border, #e5e7eb); border-radius: 9999px; height: 6px; overflow: hidden; width: 100%; margin-bottom: 4px;">
+                                <div style="background-color: var(--color-primary, #8b1a4a); height: 100%; border-radius: 9999px; width: {{ $rPercent }}%;"></div>
                             </div>
-                            <div class="text-right text-[11px] text-gray-500 mb-5">
+                            <div style="text-align: right; font-size: 11px; color: #9ca3af; margin-bottom: 20px;">
                                 Target: Rp {{ number_format($row->target_amount, 0, ',', '.') }}
                             </div>
-                            <a href="{{ route('donations.show', $row->slug) }}" class="w-full h-10 shadow-sm inline-flex items-center justify-center rounded-lg font-semibold text-sm font-headings whitespace-nowrap gap-2 bg-primary text-white hover:bg-primary-dark transition-colors border border-transparent">
+                            <a href="{{ route('donations.show', $row->slug) }}" style="width: 100%; height: 40px; display: inline-flex; align-items: center; justify-content: center; border-radius: 8px; font-weight: 600; font-size: 14px; font-family: var(--font-heading, inherit); background-color: var(--color-primary, #8b1a4a); color: white; text-decoration: none; border: none; transition: opacity 0.2s; box-shadow: 0 1px 2px rgba(0,0,0,0.05);">
                                 Donasi Sekarang
                             </a>
                         </div>
@@ -269,7 +282,15 @@
 
 
 
+    <!-- STICKY BUTTON MOBILE -->
+    <div class="md:hidden fixed bottom-0 left-0 w-full bg-white border-t border-gray-200 p-3 pb-4 z-50 shadow-[0_-4px_20px_rgba(0,0,0,0.06)]">
+        <a href="{{ route('donations.form', $program->slug) }}" class="w-full inline-flex items-center justify-center py-3 text-[15px] shadow-sm bg-primary text-white font-bold font-headings rounded-lg hover:bg-primary-dark transition-colors">
+            Donasi Sekarang
+        </a>
+    </div>
+
 </div>
 
 <script src="{{ asset('js/prose-grid.js') }}"></script>
 @endsection
+

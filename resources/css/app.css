@@ -55,3 +55,66 @@
     /* ─── Spacing tambahan ─── */
     --container-max:          1200px;
 }
+
+/* ===== RTL LIST FIX untuk konten Arab ===== */
+
+/* Bullet list RTL */
+[dir="rtl"] ul,
+[dir="rtl"] .prose ul {
+    padding-right: 2rem;
+    padding-left: 0;
+    list-style-position: outside;
+    text-align: right;
+}
+
+[dir="rtl"] ul li,
+[dir="rtl"] .prose ul li {
+    text-align: right;
+    direction: rtl;
+}
+
+[dir="rtl"] ul li::marker,
+[dir="rtl"] .prose ul li::marker {
+    unicode-bidi: isolate;
+}
+
+/* Numbered list RTL */
+[dir="rtl"] ol,
+[dir="rtl"] .prose ol {
+    padding-right: 2rem;
+    padding-left: 0;
+    list-style-position: outside;
+    text-align: right;
+}
+
+[dir="rtl"] ol li,
+[dir="rtl"] .prose ol li {
+    text-align: right;
+    direction: rtl;
+}
+
+/* Prose wrapper RTL — pastikan semua elemen dalam prose ikut RTL */
+.prose[dir="rtl"] *,
+.prose[dir="rtl"] p,
+.prose[dir="rtl"] h1,
+.prose[dir="rtl"] h2,
+.prose[dir="rtl"] h3,
+.prose[dir="rtl"] blockquote,
+[dir="rtl"] .article-prose *,
+[dir="rtl"] .news-prose * {
+    text-align: right;
+    direction: rtl;
+}
+
+/* Blockquote RTL — border di kanan bukan kiri */
+[dir="rtl"] .prose blockquote,
+.prose[dir="rtl"] blockquote,
+[dir="rtl"] .article-prose blockquote,
+[dir="rtl"] .news-prose blockquote {
+    border-right: 4px solid var(--color-primary);
+    border-left: none;
+    padding-right: 1.2rem;
+    padding-left: 0;
+}
+
+/* ===== END RTL LIST FIX ===== */

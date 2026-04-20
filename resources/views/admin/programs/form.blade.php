@@ -170,6 +170,57 @@ p.is-editor-empty:first-child::before {
                 <p style="font-size:11px;color:var(--color-danger);margin:4px 0 0;">{{ $message }}</p>
                 @enderror
             </div>
+
+            {{-- ===== TERJEMAHAN ARAB ===== --}}
+            <div class="mt-8 border-t border-gray-200 pt-6">
+                <div class="flex items-center gap-3 mb-4">
+                    <span class="text-lg">🌐</span>
+                    <div>
+                        <h3 class="text-base font-semibold text-gray-800">Terjemahan Arab</h3>
+                        <p class="text-sm text-gray-500">
+                            Isi manual oleh admin yang memahami bahasa Arab.
+                            Konten Arab akan tampil saat pengunjung memilih bahasa AR.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="space-y-5 bg-amber-50 border border-amber-200 rounded-xl p-5" dir="rtl">
+
+                    {{-- Name AR --}}
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 text-right mb-1">
+                            اسم البرنامج
+                            <span class="text-xs font-normal text-gray-400 mr-2">(Nama Program)</span>
+                        </label>
+                        <input type="text"
+                               name="name_ar"
+                               value="{{ old('name_ar', $program->name_ar ?? '') }}"
+                               class="w-full border border-gray-300 rounded-lg px-4 py-2.5 text-right text-lg focus:ring-2 focus:ring-amber-300 focus:border-amber-400"
+                               style="font-family: 'Amiri', 'Scheherazade New', serif;"
+                               placeholder="أدخل اسم البرنامج بالعربية" />
+                    </div>
+
+                    {{-- Description AR --}}
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 text-right mb-1">
+                            وصف البرنامج
+                            <span class="text-xs font-normal text-gray-400 mr-2">(Deskripsi Program)</span>
+                        </label>
+                        <div class="border border-gray-300 rounded-lg overflow-hidden bg-white">
+                            <div class="bg-gray-50 border-b border-gray-200 px-3 py-2 text-xs text-gray-500 text-right">
+                                محرر النص — Rich text editor Arab (RTL)
+                            </div>
+                            <textarea name="description_ar"
+                                      rows="10"
+                                      class="w-full px-4 py-3 text-right focus:outline-none focus:ring-2 focus:ring-amber-300"
+                                      style="font-family: 'Amiri', 'Scheherazade New', serif; font-size: 1.1rem; line-height: 2; direction: rtl;"
+                                      placeholder="أدخل وصف البرنامج بالعربية هنا...">{{ old('description_ar', $program->description_ar ?? '') }}</textarea>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            
         </div>
 
         {{-- KOLOM KANAN --}}
@@ -363,19 +414,6 @@ p.is-editor-empty:first-child::before {
                         </div>
                     </div>
 
-                    <div>
-                        <label style="display:block;font-size:12px;font-weight:600;color:var(--color-gray-700);margin-bottom:6px;">
-                            Departemen
-                        </label>
-                        <input type="text" name="department"
-                               value="{{ old('department', $program->department ?? '') }}"
-                               placeholder="Departemen Konstruksi"
-                               style="width:100%;box-sizing:border-box;padding:9px 12px;border:1px solid var(--color-border);
-                                      border-radius:var(--radius-lg);font-size:13px;font-family:var(--font-body);outline:none;">
-                        @error('department')
-                        <p style="font-size:11px;color:var(--color-danger);margin:4px 0 0;">{{ $message }}</p>
-                        @enderror
-                    </div>
 
                 </div>
             </div>

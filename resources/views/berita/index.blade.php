@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Berita Terbaru - Yayasan Mimbar Al-Tauhid')
+@section('title', __('app.berita.title'))
 
 @push('head')
 <style>
@@ -103,15 +103,15 @@
   {{-- HERO --}}
   <section class="ba-hero" style="height: 300px;">
     <div class="ba-hero-overlay"></div>
-    <div class="ba-hero-content">
-      <h1 class="ba-hero-title">Berita & Kabar Yayasan</h1>
+    <div class="ba-hero-content" @if(app()->getLocale() === 'ar') dir="rtl" @endif>
+      <h1 class="ba-hero-title">{{ __('app.berita.hero_title') }}</h1>
       <p style="color: rgba(255,255,255,0.85); font-size: 16px; max-width: 560px; margin: 0 auto 20px auto; line-height: 1.6;">
-        Informasi terkini mengenai kegiatan, program penyaluran, dan berbagai dokumentasi aktivitas sosial dari Yayasan Mimbar Al-Tauhid.
+        {{ __('app.berita.hero_desc') }}
       </p>
       <div class="ba-breadcrumb">
-        <a href="/" style="color: inherit; text-decoration: none;">Beranda</a>
-        <iconify-icon icon="lucide:chevron-right" width="14"></iconify-icon>
-        <span>Berita</span>
+        <a href="/" style="color: inherit; text-decoration: none;">{{ __('app.berita.breadcrumb_home') }}</a>
+        <iconify-icon icon="{{ app()->getLocale() === 'ar' ? 'lucide:chevron-left' : 'lucide:chevron-right' }}" width="14"></iconify-icon>
+        <span>{{ __('app.berita.breadcrumb_current') }}</span>
       </div>
     </div>
   </section>
@@ -120,11 +120,11 @@
     <div class="ba-container">
 
       {{-- TABS FILTER & SEARCH --}}
-      <div style="display: flex; justify-content: space-between; align-items: center; gap: 24px; flex-wrap: wrap; margin-bottom: 32px;">
+      <div style="display: flex; justify-content: space-between; align-items: center; gap: 24px; flex-wrap: wrap; margin-bottom: 32px;" @if(app()->getLocale() === 'ar') dir="rtl" @endif>
         <div class="ba-tabs" style="margin-bottom: 0; padding-bottom: 0; flex-grow: 1; max-width: 100%; min-width: 0; align-items: center;">
           <a href="{{ route('berita.index') }}?kategori=semua"
              class="ba-tab {{ request('kategori', 'semua') === 'semua' ? 'active' : '' }}">
-            Semua Kabar
+            {{ __('app.berita.filter_all') }}
           </a>
           @foreach($categories as $cat)
           <a href="{{ route('berita.index') }}?kategori={{ $cat->slug }}"
@@ -138,34 +138,34 @@
           @if(request('kategori') && request('kategori') !== 'semua')
             <input type="hidden" name="kategori" value="{{ request('kategori') }}">
           @endif
-          <input type="text" name="q" placeholder="Cari berita..." value="{{ request('q') }}" style="flex-grow: 1; background: white; border: 1px solid var(--color-border); padding: 10px 16px; border-radius: var(--radius-full); font-size: 14px; outline: none; focus:border-color: var(--color-primary);">
+          <input type="text" name="q" placeholder="{{ __('app.berita.search_placeholder') }}" value="{{ request('q') }}" style="flex-grow: 1; background: white; border: 1px solid var(--color-border); padding: 10px 16px; border-radius: var(--radius-full); font-size: 14px; outline: none; focus:border-color: var(--color-primary);">
           <button type="submit" style="background: var(--color-primary); color: white; border: none; padding: 10px 20px; border-radius: var(--radius-full); cursor: pointer; font-size: 14px; font-weight: 600; display: flex; align-items: center; gap: 6px;">
-            <iconify-icon icon="lucide:search"></iconify-icon> Cari
+            <iconify-icon icon="lucide:search"></iconify-icon> {{ __('app.berita.btn_search') }}
           </button>
         </form>
       </div>
 
       {{-- GRID --}}
       @if($news->count() > 0)
-      <div class="ba-grid">
+      <div class="ba-grid" @if(app()->getLocale() === 'ar') dir="rtl" @endif>
         @foreach($news as $item)
         <a href="{{ route('berita.show', $item->slug) }}" class="ba-card">
           <div class="ba-card-img-wrap">
             <img src="{{ $item->featured_image ? asset('storage/' . $item->featured_image) : 'https://placehold.co/600x400/e5e7eb/9ca3af' }}"
                  alt="{{ $item->title }}" class="ba-card-img">
-            <div class="ba-card-badge">{{ $item->category ? $item->category->name : 'Berita' }}</div>
+            <div class="ba-card-badge">{{ $item->category ? $item->category->name : __('app.berita.default_badge') }}</div>
           </div>
           <div class="ba-card-body">
             <div class="ba-card-date">
               <iconify-icon icon="lucide:calendar"></iconify-icon>
               {{ ($item->published_at ?? $item->created_at)->format('d M Y') }}
             </div>
-            <h3 class="ba-card-title">{{ $item->title }}</h3>
-            <div class="ba-card-excerpt">{{ Str::words(strip_tags($item->content), 30, '...') }}</div>
+            <h3 class="ba-card-title"><bdi>{{ $item->title }}</bdi></h3>
+            <div class="ba-card-excerpt"><bdi>{{ Str::words(strip_tags($item->content), 30, '...') }}</bdi></div>
             <div class="ba-card-footer">
               <span class="ba-card-readmore">
-                Selengkapnya
-                <iconify-icon icon="lucide:arrow-right" width="14"></iconify-icon>
+                {{ __('app.berita.readmore') }}
+                <iconify-icon icon="{{ app()->getLocale() === 'ar' ? 'lucide:arrow-left' : 'lucide:arrow-right' }}" width="14"></iconify-icon>
               </span>
             </div>
           </div>
@@ -178,7 +178,7 @@
       @else
       <div style="text-align:center;padding:48px;background:white;border-radius:var(--radius-lg);border:1px dashed var(--color-border);color:var(--color-gray-400);">
         <iconify-icon icon="lucide:inbox" style="font-size:48px;margin-bottom:16px;opacity:0.5;display:inline-block;"></iconify-icon>
-        <div style="font-size:16px;font-weight:500;">Belum ada berita di kategori ini.</div>
+        <div style="font-size:16px;font-weight:500;">{{ __('app.berita.empty') }}</div>
       </div>
       @endif
     </div>
@@ -186,13 +186,13 @@
 
   {{-- NEWSLETTER --}}
   <section class="ba-newsletter">
-    <div class="ba-container">
-      <h2 class="ba-newsletter-title">Dapatkan Pembaruan Melalui Email</h2>
-      <p class="ba-newsletter-desc">Ikuti buletin digital kami untuk mendapatkan kabar terbaru langsung di kotak masuk Anda.</p>
+    <div class="ba-container" @if(app()->getLocale() === 'ar') dir="rtl" @endif>
+      <h2 class="ba-newsletter-title">{{ __('app.berita.newsletter_title') }}</h2>
+      <p class="ba-newsletter-desc">{{ __('app.berita.newsletter_desc') }}</p>
       <form action="#" method="POST" class="ba-newsletter-form">
         @csrf
-        <input type="email" name="email" placeholder="Masukkan alamat email Anda..." class="ba-newsletter-input" required>
-        <button type="submit" class="ba-newsletter-btn">Berlangganan</button>
+        <input type="email" name="email" placeholder="{{ __('app.berita.newsletter_placeholder') }}" class="ba-newsletter-input" required>
+        <button type="submit" class="ba-newsletter-btn">{{ __('app.berita.newsletter_btn') }}</button>
       </form>
     </div>
   </section>

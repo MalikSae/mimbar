@@ -4,7 +4,9 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Article;
+use App\Models\Author;
 use App\Models\Category;
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
@@ -13,7 +15,12 @@ class ArticleController extends Controller
 {
     public function index(Request $request)
     {
-        $query = Article::with('category')->latest();
+        $query = Article::with('category', 'author')->latest();
+
+        // Filter tab: pending review
+        if ($request->input('tab') === 'pending') {
+            $query->where('status', 'pending_review');
+        }
 
         if ($request->filled('search')) {
             $query->where('title', 'like', '%' . $request->search . '%');
@@ -25,16 +32,24 @@ class ArticleController extends Controller
             $query->where('status', $request->status);
         }
 
-        $articles   = $query->paginate(20)->withQueryString();
-        $categories = Category::where('type', 'article')->orderBy('name')->get();
+        $articles     = $query->paginate(20)->withQueryString();
+        $categories   = Category::where('type', 'article')->orderBy('name')->get();
+        $pendingCount = Article::where('status', 'pending_review')->count();
 
-        return view('admin.articles.index', compact('articles', 'categories'));
+        return view('admin.articles.index', compact('articles', 'categories', 'pendingCount'));
     }
 
     public function create()
     {
-        $categories = Category::where('type', 'article')->orderBy('name')->get();
-        return view('admin.articles.form', compact('categories'));
+        $categories    = Category::where('type', 'article')->orderBy('name')->get();
+        $activeAuthors = Author::where('is_active', true)->orderBy('name')->get();
+        $authorsJson = htmlspecialchars($activeAuthors->map(fn($a) => [
+            'id'     => $a->id,
+            'name'   => $a->name,
+            'avatar' => $a->avatar ? Storage::url($a->avatar) : null,
+            'bio'    => $a->bio ?? '',
+        ])->values()->toJson(), ENT_QUOTES, 'UTF-8');
+        return view('admin.articles.form', compact('categories', 'activeAuthors', 'authorsJson'));
     }
 
     public function store(Request $request)
@@ -50,6 +65,9 @@ class ArticleController extends Controller
             'reading_time' => 'nullable|integer|min:1',
             'tags'         => 'nullable|string',
             'featured_image' => 'nullable|image|max:4096',
+            'title_ar'     => 'nullable|string|max:255',
+            'excerpt_ar'   => 'nullable|string',
+            'content_ar'   => 'nullable|string',
         ]);
 
         // Generate unique slug
@@ -73,6 +91,9 @@ class ArticleController extends Controller
             'tags'         => $request->tags
                 ? json_encode(array_values(array_filter(array_map('trim', explode(',', $request->tags)))))
                 : null,
+            'title_ar'     => $request->title_ar,
+            'excerpt_ar'   => $request->excerpt_ar,
+            'content_ar'   => $request->content_ar,
         ];
 
         if ($request->hasFile('featured_image')) {
@@ -90,9 +111,16 @@ class ArticleController extends Controller
 
     public function edit($id)
     {
-        $article    = Article::findOrFail($id);
-        $categories = Category::where('type', 'article')->orderBy('name')->get();
-        return view('admin.articles.form', compact('article', 'categories'));
+        $article       = Article::findOrFail($id);
+        $categories    = Category::where('type', 'article')->orderBy('name')->get();
+        $activeAuthors = Author::where('is_active', true)->orderBy('name')->get();
+        $authorsJson = htmlspecialchars($activeAuthors->map(fn($a) => [
+            'id'     => $a->id,
+            'name'   => $a->name,
+            'avatar' => $a->avatar ? Storage::url($a->avatar) : null,
+            'bio'    => $a->bio ?? '',
+        ])->values()->toJson(), ENT_QUOTES, 'UTF-8');
+        return view('admin.articles.form', compact('article', 'categories', 'activeAuthors', 'authorsJson'));
     }
 
     public function update(Request $request, $id)
@@ -110,6 +138,9 @@ class ArticleController extends Controller
             'reading_time' => 'nullable|integer|min:1',
             'tags'         => 'nullable|string',
             'featured_image' => 'nullable|image|max:4096',
+            'title_ar'     => 'nullable|string|max:255',
+            'excerpt_ar'   => 'nullable|string',
+            'content_ar'   => 'nullable|string',
         ]);
 
         $data = [
@@ -123,6 +154,9 @@ class ArticleController extends Controller
             'tags'         => $request->tags
                 ? json_encode(array_values(array_filter(array_map('trim', explode(',', $request->tags)))))
                 : null,
+            'title_ar'     => $request->title_ar,
+            'excerpt_ar'   => $request->excerpt_ar,
+            'content_ar'   => $request->content_ar,
         ];
 
         if ($request->status === 'published' && !$article->published_at) {
@@ -178,6 +212,20 @@ class ArticleController extends Controller
     public function toggleStatus($id)
     {
         return $this->toggle($id);
+    }
+
+    // Approve artikel dari penulis
+    public function approve(Article $article)
+    {
+        $article->update(['status' => 'published', 'published_at' => now()]);
+        return back()->with('success', 'Artikel berhasil dipublish.');
+    }
+
+    // Tolak/kembalikan artikel ke draft
+    public function reject(Article $article)
+    {
+        $article->update(['status' => 'draft']);
+        return back()->with('success', 'Artikel dikembalikan ke draft.');
     }
 
     public function storeCategory(Request $request)

@@ -50,6 +50,9 @@ class NewsController extends Controller
             'tags'           => 'nullable|string',
             'featured_image' => 'nullable|image|max:4096',
             'gallery.*'      => 'nullable|image|max:4096',
+            'title_ar'       => 'nullable|string|max:255',
+            'excerpt_ar'     => 'nullable|string',
+            'content_ar'     => 'nullable|string',
         ]);
 
         // Generate unique slug
@@ -72,6 +75,9 @@ class NewsController extends Controller
             'tags'         => $request->tags
                 ? json_encode(array_values(array_filter(array_map('trim', explode(',', $request->tags)))))
                 : null,
+            'title_ar'     => $request->title_ar,
+            'excerpt_ar'   => $request->excerpt_ar,
+            'content_ar'   => $request->content_ar,
         ];
 
         if ($request->hasFile('featured_image')) {
@@ -125,6 +131,9 @@ class NewsController extends Controller
             'tags'           => 'nullable|string',
             'featured_image' => 'nullable|image|max:4096',
             'gallery.*'      => 'nullable|image|max:4096',
+            'title_ar'       => 'nullable|string|max:255',
+            'excerpt_ar'     => 'nullable|string',
+            'content_ar'     => 'nullable|string',
         ]);
 
         $data = [
@@ -137,6 +146,9 @@ class NewsController extends Controller
             'tags'        => $request->tags
                 ? json_encode(array_values(array_filter(array_map('trim', explode(',', $request->tags)))))
                 : null,
+            'title_ar'    => $request->title_ar,
+            'excerpt_ar'  => $request->excerpt_ar,
+            'content_ar'  => $request->content_ar,
         ];
 
         if ($request->status === 'published' && !$news->published_at) {

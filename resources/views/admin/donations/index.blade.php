@@ -44,37 +44,26 @@
 @endif
 
 {{-- Summary Cards --}}
-<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:20px;">
-    <div style="background:white;border:1px solid var(--color-border);border-radius:var(--radius-xl);
-                box-shadow:var(--shadow-card);padding:18px;border-left:4px solid var(--color-success);">
-        <p style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;
-                  color:var(--color-gray-600);margin:0 0 6px;">Total Terverifikasi</p>
-        <p style="font-size:20px;font-weight:700;font-family:var(--font-heading);
-                  color:var(--color-success);margin:0;">
-            Rp {{ number_format($summary['total_verified'], 0, ',', '.') }}
-        </p>
+<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:24px;">
+    @php
+        $cardData = [
+            ['label' => 'Total Terverifikasi', 'count' => 'Rp ' . number_format($summary['total_verified'], 0, ',', '.'), 'color' => 'var(--color-success)', 'desc' => 'Nominal donasi tervalidasi'],
+            ['label' => 'Menunggu Verifikasi', 'count' => $summary['total_pending'], 'color' => 'var(--color-warning)', 'desc' => 'Transaksi pending konfirmasi'],
+            ['label' => 'Ditolak', 'count' => $summary['total_rejected'], 'color' => 'var(--color-danger)', 'desc' => 'Transaksi dibatalkan/ditolak'],
+            ['label' => 'Total Donasi', 'count' => $summary['total_all'], 'color' => 'var(--color-primary)', 'desc' => 'Seluruh riwayat transaksi'],
+        ];
+    @endphp
+    @foreach ($cardData as $card)
+    <div style="background: white; border: 1px solid var(--color-border); border-radius: var(--radius-xl); box-shadow: var(--shadow-card); padding: 20px;">
+        <div style="font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: .06em; color: var(--color-gray-600); margin-bottom: 8px;">
+            {{ $card['label'] }}
+        </div>
+        <div style="font-family: var(--font-heading); font-size: {{ str_contains($card['count'], 'Rp') ? '20px' : '28px' }}; font-weight: 700; color: {{ $card['color'] }}; margin-bottom: 4px;">
+            {{ $card['count'] }}
+        </div>
+        <div style="font-size: 12px; color: var(--color-gray-400);">{{ $card['desc'] }}</div>
     </div>
-    <div style="background:white;border:1px solid var(--color-border);border-radius:var(--radius-xl);
-                box-shadow:var(--shadow-card);padding:18px;border-left:4px solid var(--color-warning);">
-        <p style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;
-                  color:var(--color-gray-600);margin:0 0 6px;">Menunggu Verifikasi</p>
-        <p style="font-size:28px;font-weight:700;font-family:var(--font-heading);
-                  color:var(--color-warning);margin:0;">{{ $summary['total_pending'] }}</p>
-    </div>
-    <div style="background:white;border:1px solid var(--color-border);border-radius:var(--radius-xl);
-                box-shadow:var(--shadow-card);padding:18px;border-left:4px solid var(--color-danger);">
-        <p style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;
-                  color:var(--color-gray-600);margin:0 0 6px;">Ditolak</p>
-        <p style="font-size:28px;font-weight:700;font-family:var(--font-heading);
-                  color:var(--color-danger);margin:0;">{{ $summary['total_rejected'] }}</p>
-    </div>
-    <div style="background:white;border:1px solid var(--color-border);border-radius:var(--radius-xl);
-                box-shadow:var(--shadow-card);padding:18px;border-left:4px solid var(--color-primary);">
-        <p style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;
-                  color:var(--color-gray-600);margin:0 0 6px;">Total Donasi</p>
-        <p style="font-size:28px;font-weight:700;font-family:var(--font-heading);
-                  color:var(--color-primary);margin:0;">{{ $summary['total_all'] }}</p>
-    </div>
+    @endforeach
 </div>
 
 {{-- Filter Bar --}}

@@ -133,7 +133,7 @@
                 <th style="padding: 12px 16px; text-align: left; font-size: 11px; font-weight: 500; color: var(--color-gray-600); text-transform: uppercase; letter-spacing: 0.06em; width: 72px;">Gambar</th>
                 <th style="padding: 12px 16px; text-align: left; font-size: 11px; font-weight: 500; color: var(--color-gray-600); text-transform: uppercase; letter-spacing: 0.06em;">Judul</th>
                 <th style="padding: 12px 16px; text-align: left; font-size: 11px; font-weight: 500; color: var(--color-gray-600); text-transform: uppercase; letter-spacing: 0.06em; width: 130px;">Kategori</th>
-                <th style="padding: 12px 16px; text-align: left; font-size: 11px; font-weight: 500; color: var(--color-gray-600); text-transform: uppercase; letter-spacing: 0.06em; width: 140px;">Lokasi</th>
+
                 <th style="padding: 12px 16px; text-align: left; font-size: 11px; font-weight: 500; color: var(--color-gray-600); text-transform: uppercase; letter-spacing: 0.06em; width: 100px;">Status</th>
                 <th style="padding: 12px 16px; text-align: left; font-size: 11px; font-weight: 500; color: var(--color-gray-600); text-transform: uppercase; letter-spacing: 0.06em; width: 110px;">Tanggal</th>
                 <th style="padding: 12px 16px; text-align: right; font-size: 11px; font-weight: 500; color: var(--color-gray-600); text-transform: uppercase; letter-spacing: 0.06em; width: 110px;">Aksi</th>
@@ -215,10 +215,6 @@
                     <span style="font-size: 12px; color: var(--color-gray-400);">—</span>
                     @endif
                 </td>
-                {{-- Lokasi --}}
-                <td style="padding: 12px 16px; font-size: 12px; color: var(--color-gray-600);">
-                    {{ $item->location ?: '—' }}
-                </td>
                 {{-- Status toggle --}}
                 <td style="padding: 12px 16px;">
                     <button @click="toggle()" :disabled="loading" title="Klik untuk ubah status"
@@ -249,44 +245,48 @@
                                            cursor: pointer; font-family: var(--font-body);">
                                 Hapus
                             </button>
+                            <template x-teleport="body">
                             <div x-show="confirm" x-cloak
                                  style="position: fixed; inset: 0; z-index: 9999;
-                                        display: flex; align-items: center; justify-content: center;
                                         background: rgba(0,0,0,0.45);"
                                  @keydown.escape.window="confirm = false">
-                                <div style="background: white; border-radius: var(--radius-2xl);
-                                            padding: 28px; width: 380px; max-width: 90vw;
-                                            box-shadow: var(--shadow-md);">
-                                    <h3 style="font-family: var(--font-heading); font-size: 16px;
-                                               font-weight: 700; color: var(--color-gray-900); margin: 0 0 8px;">
-                                        Hapus Berita?
-                                    </h3>
-                                    <p style="font-size: 13px; color: var(--color-gray-600); margin: 0 0 20px;">
-                                        "<strong>{{ Str::limit($item->title, 50) }}</strong>" akan dihapus permanen beserta semua foto galeri.
-                                    </p>
-                                    <div style="display: flex; gap: 10px; justify-content: flex-end;">
-                                        <button @click="confirm = false"
-                                                style="padding: 8px 16px; font-size: 13px;
-                                                       border: 1px solid var(--color-border);
-                                                       color: var(--color-gray-600); background: white;
-                                                       border-radius: var(--radius-lg); cursor: pointer;
-                                                       font-family: var(--font-body);">
-                                            Batal
-                                        </button>
-                                        <form method="POST"
-                                              action="{{ route('admin.news.destroy', $item->id) }}">
-                                            @csrf @method('DELETE')
-                                            <button type="submit"
-                                                    style="padding: 8px 16px; font-size: 13px; font-weight: 600;
-                                                           background: var(--color-danger); color: white;
-                                                           border: none; border-radius: var(--radius-lg);
-                                                           cursor: pointer; font-family: var(--font-body);">
-                                                Ya, Hapus
+                                <div style="width: 100%; height: 100%;
+                                            display: flex; align-items: center; justify-content: center;">
+                                    <div style="background: white; border-radius: var(--radius-2xl);
+                                                padding: 32px 28px; width: 380px; max-width: 90vw;
+                                                box-shadow: var(--shadow-md); text-align: center;">
+                                        <h3 style="font-family: var(--font-heading); font-size: 16px;
+                                                   font-weight: 700; color: var(--color-gray-900); margin: 0 0 8px;">
+                                            Hapus Berita?
+                                        </h3>
+                                        <p style="font-size: 13px; color: var(--color-gray-600); margin: 0 0 24px;">
+                                            "<strong>{{ Str::limit($item->title, 50) }}</strong>" akan dihapus permanen beserta semua foto galeri.
+                                        </p>
+                                        <div style="display: flex; gap: 10px; justify-content: center;">
+                                            <button @click="confirm = false"
+                                                    style="padding: 8px 20px; font-size: 13px;
+                                                           border: 1px solid var(--color-border);
+                                                           color: var(--color-gray-600); background: white;
+                                                           border-radius: var(--radius-lg); cursor: pointer;
+                                                           font-family: var(--font-body);">
+                                                Batal
                                             </button>
-                                        </form>
+                                            <form method="POST"
+                                                  action="{{ route('admin.news.destroy', $item->id) }}">
+                                                @csrf @method('DELETE')
+                                                <button type="submit"
+                                                        style="padding: 8px 20px; font-size: 13px; font-weight: 600;
+                                                               background: var(--color-danger); color: white;
+                                                               border: none; border-radius: var(--radius-lg);
+                                                               cursor: pointer; font-family: var(--font-body);">
+                                                    Ya, Hapus
+                                                </button>
+                                            </form>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
+                            </template>
                         </div>
                     </div>
                 </td>

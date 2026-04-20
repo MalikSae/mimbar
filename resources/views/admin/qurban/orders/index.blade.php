@@ -29,27 +29,26 @@
 @endif
 
 {{-- Summary Cards --}}
-<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:20px;">
-    <div style="background:white;border:1px solid var(--color-border);border-radius:var(--radius-xl);
-                box-shadow:var(--shadow-card);padding:18px;border-left:4px solid var(--color-warning);">
-        <p style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:var(--color-gray-600);margin:0 0 6px;">Menunggu Pembayaran</p>
-        <p style="font-size:28px;font-weight:700;font-family:var(--font-heading);color:var(--color-warning);margin:0;">{{ $summary['total_pending'] }}</p>
+<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:24px;">
+    @php
+        $cardData = [
+            ['label' => 'Menunggu Pembayaran', 'count' => $summary['total_pending'], 'color' => 'var(--color-warning)', 'desc' => 'Order belum dilunasi'],
+            ['label' => 'Terkonfirmasi', 'count' => $summary['total_verified'], 'color' => 'var(--color-success)', 'desc' => 'Transaksi valid & lunas'],
+            ['label' => 'Ditolak', 'count' => $summary['total_rejected'], 'color' => 'var(--color-danger)', 'desc' => 'Order dibatalkan'],
+            ['label' => 'Total Pesanan', 'count' => $summary['total_all'], 'color' => 'var(--color-primary)', 'desc' => 'Keseluruhan riwayat order'],
+        ];
+    @endphp
+    @foreach ($cardData as $card)
+    <div style="background: white; border: 1px solid var(--color-border); border-radius: var(--radius-xl); box-shadow: var(--shadow-card); padding: 20px;">
+        <div style="font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: .06em; color: var(--color-gray-600); margin-bottom: 8px;">
+            {{ $card['label'] }}
+        </div>
+        <div style="font-family: var(--font-heading); font-size: 28px; font-weight: 700; color: {{ $card['color'] }}; margin-bottom: 4px;">
+            {{ $card['count'] }}
+        </div>
+        <div style="font-size: 12px; color: var(--color-gray-400);">{{ $card['desc'] }}</div>
     </div>
-    <div style="background:white;border:1px solid var(--color-border);border-radius:var(--radius-xl);
-                box-shadow:var(--shadow-card);padding:18px;border-left:4px solid var(--color-success);">
-        <p style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:var(--color-gray-600);margin:0 0 6px;">Terkonfirmasi</p>
-        <p style="font-size:28px;font-weight:700;font-family:var(--font-heading);color:var(--color-success);margin:0;">{{ $summary['total_verified'] }}</p>
-    </div>
-    <div style="background:white;border:1px solid var(--color-border);border-radius:var(--radius-xl);
-                box-shadow:var(--shadow-card);padding:18px;border-left:4px solid var(--color-danger);">
-        <p style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:var(--color-gray-600);margin:0 0 6px;">Ditolak</p>
-        <p style="font-size:28px;font-weight:700;font-family:var(--font-heading);color:var(--color-danger);margin:0;">{{ $summary['total_rejected'] }}</p>
-    </div>
-    <div style="background:white;border:1px solid var(--color-border);border-radius:var(--radius-xl);
-                box-shadow:var(--shadow-card);padding:18px;border-left:4px solid var(--color-primary);">
-        <p style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:var(--color-gray-600);margin:0 0 6px;">Total Pesanan</p>
-        <p style="font-size:28px;font-weight:700;font-family:var(--font-heading);color:var(--color-primary);margin:0;">{{ $summary['total_all'] }}</p>
-    </div>
+    @endforeach
 </div>
 
 {{-- Filter Bar --}}

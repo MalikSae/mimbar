@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('title', $news->title . ' — Yayasan Mimbar Al-Tauhid')
+@section('title', localized($news, 'title') . ' — Yayasan Mimbar Al-Tauhid')
 
 @push('head')
 <style>
@@ -120,10 +120,12 @@
     @endif
 
     {{-- Judul --}}
-    <h1 style="font-family: var(--font-heading); font-size: 40px;
-               font-weight: 700; color: var(--color-gray-900);
-               line-height: 1.4; margin: 0 0 32px;">
-      {{ $news->title }}
+    <h1 @if(app()->getLocale() === 'ar') 
+          dir="rtl" style="font-family: 'Amiri', 'Scheherazade New', serif; text-align: right; font-size: 40px; font-weight: 700; color: var(--color-gray-900); line-height: 1.4; margin: 0 0 32px;"
+        @else 
+          style="font-family: var(--font-heading); font-size: 40px; font-weight: 700; color: var(--color-gray-900); line-height: 1.4; margin: 0 0 32px;"
+        @endif>
+      {{ localized($news, 'title') }}
     </h1>
 
     {{-- Meta Row --}}
@@ -156,7 +158,7 @@
 
       {{-- Share --}}
       <div x-data="{ copied: false }" style="display: flex; align-items: center; gap: 8px;">
-        <a href="https://wa.me/?text={{ urlencode($news->title . ' — ' . request()->fullUrl()) }}"
+        <a href="https://wa.me/?text={{ urlencode(localized($news, 'title') . ' — ' . request()->fullUrl()) }}"
            target="_blank" rel="noopener"
            class="share-btn share-btn-wa" title="Bagikan ke WhatsApp">
           <iconify-icon icon="lucide:message-circle" width="16"></iconify-icon>
@@ -185,7 +187,7 @@
     <div style="border-radius: var(--radius-xl); overflow: hidden;
                 box-shadow: var(--shadow-md); border: 1px solid var(--color-border); background: white;">
       <img src="{{ $news->featured_image ? asset('storage/' . $news->featured_image) : 'https://placehold.co/1000x450/e5e7eb/9ca3af?text=Mimbar+Al-Tauhid' }}"
-           alt="{{ $news->title }}"
+           alt="{{ localized($news, 'title') }}"
            style="width: 100%; height: 450px; object-fit: cover; display: block;">
       <div style="background: var(--color-muted); border-top: 1px solid var(--color-border);
                   padding: 12px 24px;">
@@ -203,8 +205,15 @@
 {{-- ════════════════════════════════════ --}}
 <section style="padding-bottom: 40px;">
   <div style="max-width: 800px; margin: 0 auto; padding: 0 24px;">
-    <div class="news-prose prose-content">
-      {!! $news->content !!}
+    <div class="news-prose prose-content"
+         @if(app()->getLocale() === 'ar')
+             dir="rtl"
+             style="font-family: 'Amiri', 'Scheherazade New', serif;
+                    font-size: 1.2rem;
+                    line-height: 2;
+                    text-align: right;"
+         @endif>
+      {!! localized($news, 'content') !!}
     </div>
   </div>
 </section>

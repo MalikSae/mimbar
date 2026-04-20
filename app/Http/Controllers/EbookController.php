@@ -91,7 +91,7 @@ class EbookController extends Controller
         }
 
         // Jika mau infaq → return data instruksi pembayaran
-        $bankAccount = DB::table('bank_accounts')->where('is_active', true)->first();
+        $bankAccounts = DB::table('bank_accounts')->where('is_active', true)->get();
 
         return response()->json([
             'status'          => 'infaq',
@@ -100,10 +100,12 @@ class EbookController extends Controller
             'donation_amount' => $request->donation_amount,
             'ebook_title'     => $ebook->title,
             'whatsapp'        => $request->whatsapp,
-            'bank_name'       => $bankAccount->bank_name    ?? 'Bank Syariah Indonesia',
-            'bank_code'       => $bankAccount->bank_code    ?? '451',
-            'account_number'  => $bankAccount->account_number ?? '777-300-777-7',
-            'account_name'    => $bankAccount->account_name ?? 'Yayasan Mimbar Al-Tauhid',
+            'bank_accounts'   => $bankAccounts->map(fn($b) => [
+                'bank_name'      => $b->bank_name,
+                'bank_code'      => $b->bank_code ?? '',
+                'account_number' => $b->account_number,
+                'account_name'   => $b->account_name,
+            ])->toArray(),
             'expired_at'      => now()->addHours(24)->toISOString(),
             'wa_admin'        => DB::table('settings')->where('key', 'admin_wa')->value('value') ?? '+62 823 1111 9499',
         ]);

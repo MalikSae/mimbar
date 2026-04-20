@@ -17,7 +17,7 @@
 .tiptap-toolbar-btn:hover {
     background: var(--color-muted);
 }
-#tiptap-editor {
+#tiptap-editor, #tiptap-editor-ar {
     min-height: 420px;
     padding: 16px;
     outline: none;
@@ -26,13 +26,13 @@
     line-height: 1.7;
     color: var(--color-gray-900);
 }
-#tiptap-editor p { margin: 0 0 12px; }
-#tiptap-editor h2 { font-size: 22px; font-weight: 700; margin: 20px 0 10px; font-family: var(--font-heading); }
-#tiptap-editor h3 { font-size: 18px; font-weight: 600; margin: 16px 0 8px; font-family: var(--font-heading); }
-#tiptap-editor ul { padding-left: 24px; margin: 0 0 12px; list-style-type: disc; }
-#tiptap-editor ol { padding-left: 24px; margin: 0 0 12px; list-style-type: decimal; }
-#tiptap-editor li { margin-bottom: 4px; display: list-item; }
-#tiptap-editor blockquote {
+#tiptap-editor p, #tiptap-editor-ar p { margin: 0 0 12px; }
+#tiptap-editor h2, #tiptap-editor-ar h2 { font-size: 22px; font-weight: 700; margin: 20px 0 10px; font-family: var(--font-heading); }
+#tiptap-editor h3, #tiptap-editor-ar h3 { font-size: 18px; font-weight: 600; margin: 16px 0 8px; font-family: var(--font-heading); }
+#tiptap-editor ul, #tiptap-editor-ar ul { padding-left: 24px; margin: 0 0 12px; list-style-type: disc; }
+#tiptap-editor ol, #tiptap-editor-ar ol { padding-left: 24px; margin: 0 0 12px; list-style-type: decimal; }
+#tiptap-editor li, #tiptap-editor-ar li { margin-bottom: 4px; display: list-item; }
+#tiptap-editor blockquote, #tiptap-editor-ar blockquote {
     border-left: 4px solid var(--color-primary);
     padding: 8px 16px;
     margin: 16px 0;
@@ -41,18 +41,18 @@
     font-style: italic;
     color: var(--color-gray-600);
 }
-#tiptap-editor a { cursor: text; pointer-events: none; }
-#tiptap-editor hr { border: none; border-top: 2px solid var(--color-border); margin: 20px 0; }
-#tiptap-editor strong { font-weight: 700; }
-#tiptap-editor em { font-style: italic; }
-#tiptap-editor s { text-decoration: line-through; }
+#tiptap-editor a, #tiptap-editor-ar a { cursor: text; pointer-events: none; }
+#tiptap-editor hr, #tiptap-editor-ar hr { border: none; border-top: 2px solid var(--color-border); margin: 20px 0; }
+#tiptap-editor strong, #tiptap-editor-ar strong { font-weight: 700; }
+#tiptap-editor em, #tiptap-editor-ar em { font-style: italic; }
+#tiptap-editor s, #tiptap-editor-ar s { text-decoration: line-through; }
 .tiptap.ProseMirror-focused { outline: none; }
 /* ── Gambar di editor bisa diklik ───────────────────────────── */
 .tiptap-image { cursor: pointer; max-width: 100%; border-radius: 6px; transition: outline 0.15s; }
 .ProseMirror img.ProseMirror-selectednode { outline: 3px solid var(--color-primary); outline-offset: 2px; }
 .ProseMirror p:has(img) { position: relative; display: inline-block; width: 100%; }
 /* ── Sticky Toolbar ─────────────────────────────────────── */
-#tiptap-toolbar {
+#tiptap-toolbar, #tiptap-toolbar-ar {
     position: sticky;
     top: -28px; /* kompensasi padding main (28px) agar tepat di tepi atas */
     z-index: 200;
@@ -62,15 +62,15 @@
     margin: 0 -0px;
     border-radius: var(--radius-xl) var(--radius-xl) 0 0;
 }
-#tiptap-toolbar .toolbar-label {
+#tiptap-toolbar .toolbar-label, #tiptap-toolbar-ar .toolbar-label {
     padding: 14px 20px 8px;
     font-size: 13px;
     font-weight: 600;
     color: var(--color-gray-900);
     background: #ffffff;
 }
-#tiptap-toolbar .toolbar-label span { color: var(--color-danger); }
-#tiptap-toolbar .toolbar-buttons {
+#tiptap-toolbar .toolbar-label span, #tiptap-toolbar-ar .toolbar-label span { color: var(--color-danger); }
+#tiptap-toolbar .toolbar-buttons, #tiptap-toolbar-ar .toolbar-buttons {
     padding: 8px 12px;
     background: var(--color-muted);
     border-top: 1px solid var(--color-border);
@@ -106,6 +106,75 @@ p.is-editor-empty:first-child::before {
         </p>
     </div>
 </div>
+
+{{-- === BANNER REVIEW (hanya tampil untuk artikel pending_review) === --}}
+@if (isset($article) && $article->status === 'pending_review')
+<div style="background: #fffbeb; border: 2px solid #f59e0b;
+            border-radius: var(--radius-xl); padding: 20px 24px;
+            margin-bottom: 24px; display: flex;
+            align-items: center; justify-content: space-between;
+            gap: 20px; flex-wrap: wrap;">
+    <div style="display: flex; align-items: center; gap: 14px;">
+        <div style="width: 40px; height: 40px; border-radius: 50%;
+                    background: #fde68a; color: #92400e; flex-shrink: 0;
+                    display: flex; align-items: center; justify-content: center;">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"/>
+                <polyline points="12 6 12 12 16 14"/>
+            </svg>
+        </div>
+        <div>
+            <div style="font-size: 13px; font-weight: 700; color: #92400e; margin-bottom: 2px;">
+                Artikel Menunggu Review
+            </div>
+            <div style="font-size: 12px; color: #a16207; line-height: 1.5;">
+                Dikirim oleh <strong>{{ $article->author?->name ?? 'Penulis' }}</strong>
+                · {{ $article->updated_at->translatedFormat('d F Y, H:i') }}
+                · Baca isi artikel di bawah sebelum membuat keputusan
+            </div>
+        </div>
+    </div>
+    <div style="display: flex; gap: 10px; flex-shrink: 0;">
+        <form method="POST" action="{{ route('admin.artikel.approve', $article) }}">
+            @csrf @method('PATCH')
+            <button type="submit"
+                    style="display: inline-flex; align-items: center; gap: 8px;
+                           padding: 9px 20px; font-size: 13px; font-weight: 600;
+                           background: var(--color-success); color: white;
+                           border: none; border-radius: var(--radius-lg);
+                           cursor: pointer; font-family: var(--font-heading);">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="20 6 9 17 4 12"/>
+                </svg>
+                Approve & Publish
+            </button>
+        </form>
+        <form method="POST" action="{{ route('admin.artikel.reject', $article) }}">
+            @csrf @method('PATCH')
+            <button type="submit"
+                    style="display: inline-flex; align-items: center; gap: 8px;
+                           padding: 9px 20px; font-size: 13px; font-weight: 600;
+                           background: white; color: #b45309;
+                           border: 2px solid #f59e0b; border-radius: var(--radius-lg);
+                           cursor: pointer; font-family: var(--font-heading);">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="18" y1="6" x2="6" y2="18"/>
+                    <line x1="6" y1="6" x2="18" y2="18"/>
+                </svg>
+                Tolak
+            </button>
+        </form>
+    </div>
+</div>
+@endif
+
+{{-- Data penulis aktif untuk Alpine.js --}}
+<script>window.__authors = {!! json_encode($activeAuthors->map(fn($a) => [
+    'id'     => $a->id,
+    'name'   => $a->name,
+    'avatar' => $a->avatar ? Storage::url($a->avatar) : null,
+    'bio'    => $a->bio ?? '',
+])->values()) !!};</script>
 
 <form method="POST"
       enctype="multipart/form-data"
@@ -184,6 +253,90 @@ p.is-editor-empty:first-child::before {
             @enderror
         </div>
 
+        {{-- ===== TERJEMAHAN ARAB ===== --}}
+        <div class="mt-8 border-t border-gray-200 pt-6">
+            <div class="flex items-center gap-3 mb-4">
+                <span class="text-lg">🌐</span>
+                <div>
+                    <h3 class="text-base font-semibold text-gray-800">Terjemahan Arab</h3>
+                    <p class="text-sm text-gray-500">
+                        Isi manual oleh admin atau penulis yang memahami bahasa Arab.
+                        Konten Arab akan tampil otomatis saat pengunjung memilih bahasa AR.
+                    </p>
+                </div>
+            </div>
+
+            <div class="space-y-5 bg-amber-50 border border-amber-200 rounded-xl p-5" dir="rtl">
+
+                {{-- Title AR --}}
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 text-right mb-1">
+                        عنوان المقال <span class="text-red-500">*</span>
+                        <span class="text-xs font-normal text-gray-400 mr-2">(Judul Artikel)</span>
+                    </label>
+                    <input type="text"
+                           name="title_ar"
+                           value="{{ old('title_ar', $article->title_ar ?? '') }}"
+                           class="w-full border border-gray-300 rounded-lg px-4 py-2.5 text-right text-lg focus:ring-2 focus:ring-amber-300 focus:border-amber-400"
+                           style="font-family: 'Amiri', 'Scheherazade New', serif;"
+                           placeholder="أدخل عنوان المقال بالعربية" />
+                </div>
+
+                {{-- Excerpt AR --}}
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 text-right mb-1">
+                        مقتطف المقال
+                        <span class="text-xs font-normal text-gray-400 mr-2">(Ringkasan)</span>
+                    </label>
+                    <textarea name="excerpt_ar"
+                              rows="3"
+                              class="w-full border border-gray-300 rounded-lg px-4 py-2.5 text-right focus:ring-2 focus:ring-amber-300 focus:border-amber-400"
+                              style="font-family: 'Amiri', 'Scheherazade New', serif; font-size: 1rem; line-height: 1.8;"
+                              placeholder="أدخل مقتطفاً للمقال">{{ old('excerpt_ar', $article->excerpt_ar ?? '') }}</textarea>
+                </div>
+
+                {{-- Content AR — TipTap RTL --}}
+                <div style="background: white; border-radius: var(--radius-xl); border: 1px solid var(--color-border); box-shadow: var(--shadow-card);">
+                    {{-- AR Toolbar --}}
+                    <div id="tiptap-toolbar-ar">
+                        <div class="toolbar-label" style="text-align: right; width: 100%;">
+                            محتوى المقال (Rich text editor Arab RTL)
+                        </div>
+                        <div class="toolbar-buttons" dir="rtl">
+                            <button type="button" class="tiptap-toolbar-btn" data-editor-action="bold" title="Bold (Ctrl+B)"><strong>B</strong></button>
+                            <button type="button" class="tiptap-toolbar-btn" data-editor-action="italic" title="Italic (Ctrl+I)"><em>I</em></button>
+                            <button type="button" class="tiptap-toolbar-btn" data-editor-action="strike" title="Strikethrough"><s>S</s></button>
+                            <div style="width: 1px; height: 20px; background: var(--color-border); margin: 0 4px;"></div>
+                            <button type="button" class="tiptap-toolbar-btn" data-editor-action="h2" title="Heading 2" style="font-weight: 700; font-size: 12px;">H2</button>
+                            <button type="button" class="tiptap-toolbar-btn" data-editor-action="h3" title="Heading 3" style="font-weight: 600; font-size: 12px;">H3</button>
+                            <div style="width: 1px; height: 20px; background: var(--color-border); margin: 0 4px;"></div>
+                            <button type="button" class="tiptap-toolbar-btn" data-editor-action="bulletList" title="Bullet List">• List</button>
+                            <button type="button" class="tiptap-toolbar-btn" data-editor-action="orderedList" title="Numbered List">1. List</button>
+                            <button type="button" class="tiptap-toolbar-btn" data-editor-action="blockquote" title="Blockquote">❝ Quote</button>
+                            <button type="button" class="tiptap-toolbar-btn" data-editor-action="horizontalRule" title="Horizontal Rule">— HR</button>
+                            <button type="button" class="tiptap-toolbar-btn" data-editor-action="link" title="Tambah/Edit Hyperlink">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline;vertical-align:middle;"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg> Link
+                            </button>
+                            <button type="button" class="tiptap-toolbar-btn" data-editor-action="image" title="Sisipkan Gambar">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline;vertical-align:middle;"><rect width="18" height="18" x="3" y="3" rx="2" ry="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/></svg> Image
+                            </button>
+                            <div style="width: 1px; height: 20px; background: var(--color-border); margin: 0 4px;"></div>
+                            <button type="button" class="tiptap-toolbar-btn" data-editor-action="undo" title="Undo (Ctrl+Z)">↩ Undo</button>
+                            <button type="button" class="tiptap-toolbar-btn" data-editor-action="redo" title="Redo (Ctrl+Y)">↪ Redo</button>
+                            <div style="width: 1px; height: 20px; background: var(--color-border); margin: 0 4px;"></div>
+                            <button type="button" class="tiptap-toolbar-btn" data-editor-action="rtl" title="Kanan ke Kiri (Arab/Urdu)" style="font-size: 12px; letter-spacing: 0;">⇐ RTL</button>
+                            <button type="button" class="tiptap-toolbar-btn" data-editor-action="ltr" title="Kiri ke Kanan (Indonesia/Inggris)" style="font-size: 12px; letter-spacing: 0;">LTR ⇒</button>
+                        </div>
+                    </div>
+                    
+                    {{-- AR Editor Area --}}
+                    <div id="tiptap-editor-ar" style="border-bottom: 1px solid var(--color-border);"></div>
+                    <input type="hidden" name="content_ar" id="content-input-ar" value="{{ old('content_ar', $article->content_ar ?? '') }}">
+                </div>
+
+            </div>
+        </div>
+
     </div>
 
     {{-- SIDEBAR COLUMN --}}
@@ -256,61 +409,215 @@ p.is-editor-empty:first-child::before {
         {{-- Info Penulis --}}
         <div style="background: white; border-radius: var(--radius-xl);
                     border: 1px solid var(--color-border);
-                    box-shadow: var(--shadow-card); padding: 20px;">
+                    box-shadow: var(--shadow-card); padding: 20px;"
+             x-data="{
+                open: false,
+                search: '',
+                selectedId: '{{ old('author_id', isset($article) && $article->author_id ? $article->author_id : '') }}',
+                authors: window.__authors,
+                get selected() {
+                    return this.authors.find(a => String(a.id) === String(this.selectedId)) ?? null;
+                },
+                get filtered() {
+                    const q = this.search.toLowerCase();
+                    return q ? this.authors.filter(a => a.name.toLowerCase().includes(q)) : this.authors;
+                },
+                pick(author) {
+                    this.selectedId = String(author.id);
+                    this.open = false;
+                    this.search = '';
+                },
+                clear() {
+                    this.selectedId = '';
+                    this.search = '';
+                    this.open = false;
+                }
+             }"
+             @keydown.escape="open = false"
+             @click.outside="open = false">
+
+            <input type="hidden" name="author_id" :value="selectedId">
+
             <h3 style="font-family: var(--font-heading); font-size: 14px;
-                       font-weight: 600; color: var(--color-gray-900); margin: 0 0 14px;">
+                       font-weight: 600; color: var(--color-gray-900); margin: 0 0 16px;">
                 Info Penulis
             </h3>
 
-            <label style="display: block; font-size: 12px; font-weight: 500;
-                          color: var(--color-gray-600); margin-bottom: 6px;">Nama Penulis</label>
-            <input type="text" name="author_name"
-                   value="{{ old('author_name', $article->author_name ?? '') }}"
-                   placeholder="Nama penulis artikel"
-                   style="width: 100%; padding: 9px 12px; box-sizing: border-box;
-                          border: 1px solid var(--color-border);
-                          border-radius: var(--radius-lg); font-size: 13px;
-                          font-family: var(--font-body); outline: none; margin-bottom: 12px;">
-            @error('author_name')
-                <div style="color: var(--color-danger); font-size: 12px; margin-bottom: 8px;">{{ $message }}</div>
-            @enderror
-
-            <div x-data="{ preview: '{{ isset($article) && $article->author_photo ? Storage::url($article->author_photo) : '' }}' }">
-                <label style="display: block; font-size: 12px; font-weight: 500;
-                              color: var(--color-gray-600); margin-bottom: 6px;">Foto Penulis</label>
-                <div x-show="preview" style="margin-bottom: 8px;">
-                    <img :src="preview" alt="Foto Penulis"
-                         style="width: 60px; height: 60px; border-radius: var(--radius-full);
-                                object-fit: cover; border: 1px solid var(--color-border);">
-                </div>
-                <label style="cursor: pointer;">
-                    <div style="border: 1px dashed var(--color-border);
-                                border-radius: var(--radius-lg); padding: 10px 12px;
-                                font-size: 12px; color: var(--color-gray-600);
-                                background: var(--color-muted); text-align: center;">
-                        <span x-show="!preview">Upload foto penulis</span>
-                        <span x-show="preview">Ganti foto</span>
+            {{-- STATE A: Penulis DB sudah dipilih → tampilkan card --}}
+            <div x-show="selected" x-cloak>
+                <div style="display: flex; align-items: center; gap: 12px;
+                            padding: 12px; border-radius: var(--radius-lg);
+                            border: 1px solid var(--color-primary);
+                            background: var(--color-primary-light);">
+                    {{-- Avatar --}}
+                    <template x-if="selected && selected.avatar">
+                        <img :src="selected.avatar" :alt="selected.name"
+                             style="width: 40px; height: 40px; border-radius: 50%;
+                                    object-fit: cover; border: 2px solid white; flex-shrink: 0;">
+                    </template>
+                    <template x-if="selected && !selected.avatar">
+                        <div style="width: 40px; height: 40px; border-radius: 50%;
+                                    background: var(--color-primary); color: white;
+                                    display: flex; align-items: center; justify-content: center;
+                                    font-size: 16px; font-weight: 700; flex-shrink: 0;"
+                             x-text="selected ? selected.name.charAt(0).toUpperCase() : ''">
+                        </div>
+                    </template>
+                    {{-- Info --}}
+                    <div style="flex: 1; min-width: 0;">
+                        <div style="font-size: 13px; font-weight: 600; color: var(--color-gray-900);"
+                             x-text="selected ? selected.name : ''"></div>
+                        <div style="font-size: 11px; color: var(--color-gray-500);
+                                    margin-top: 2px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;"
+                             x-text="selected && selected.bio ? selected.bio : 'Belum ada bio'"></div>
                     </div>
-                    <input type="file" name="author_photo" accept="image/*" style="display: none;"
-                           @change="preview = $event.target.files[0] ? URL.createObjectURL($event.target.files[0]) : preview">
-                </label>
-                @error('author_photo')
-                    <div style="color: var(--color-danger); font-size: 12px; margin-top: 6px;">{{ $message }}</div>
-                @enderror
+                    {{-- Tombol ganti --}}
+                    <button type="button" @click="clear()"
+                            title="Ganti penulis"
+                            style="display: inline-flex; align-items: center; justify-content: center;
+                                   width: 28px; height: 28px; flex-shrink: 0;
+                                   background: white; border: 1px solid var(--color-border);
+                                   border-radius: var(--radius-md); cursor: pointer;
+                                   color: var(--color-gray-500);">
+                        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+                        </svg>
+                    </button>
+                </div>
             </div>
 
-            <label style="display: block; font-size: 12px; font-weight: 500;
-                          color: var(--color-gray-600); margin-top: 12px; margin-bottom: 6px;">Bio Penulis</label>
-            <textarea name="author_bio" rows="3"
-                      placeholder="Biografi singkat penulis..."
-                      style="width: 100%; padding: 9px 12px; box-sizing: border-box;
-                             border: 1px solid var(--color-border);
-                             border-radius: var(--radius-lg); font-size: 13px;
-                             font-family: var(--font-body); outline: none; resize: vertical;">{{ old('author_bio', $article->author_bio ?? '') }}</textarea>
-            @error('author_bio')
-                <div style="color: var(--color-danger); font-size: 12px; margin-top: 4px;">{{ $message }}</div>
-            @enderror
+            {{-- STATE B: Belum pilih → tampilkan search + form manual --}}
+            <div x-show="!selected">
+                {{-- Label search --}}
+                <label style="display: block; font-size: 11px; font-weight: 600;
+                              color: var(--color-gray-500); text-transform: uppercase;
+                              letter-spacing: 0.05em; margin-bottom: 6px;">
+                    Dari database penulis
+                </label>
+                {{-- Search input --}}
+                <div style="position: relative; margin-bottom: 16px;">
+                    <div style="position: relative;">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                             stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                             style="position: absolute; left: 12px; top: 50%; transform: translateY(-50%);
+                                    pointer-events: none; color: #9ca3af;">
+                            <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+                        </svg>
+                        <input type="text"
+                               x-model="search"
+                               @focus="open = true"
+                               @input="open = true"
+                               placeholder="Cari nama penulis..."
+                               autocomplete="off"
+                               style="width: 100%; padding: 9px 12px 9px 34px; box-sizing: border-box;
+                                      border: 1px solid var(--color-border); border-radius: var(--radius-lg);
+                                      font-size: 13px; font-family: var(--font-body); outline: none;
+                                      color: var(--color-gray-900); background: white; transition: border-color 0.2s;"
+                               onfocus="this.style.borderColor='var(--color-primary)'"
+                               onblur="this.style.borderColor='var(--color-border)'">
+                    </div>
+                    {{-- Dropdown --}}
+                    <div x-show="open" x-cloak
+                         style="position: absolute; top: calc(100% + 4px); left: 0; right: 0;
+                                background: white; border: 1px solid var(--color-border);
+                                border-radius: var(--radius-lg); box-shadow: var(--shadow-md);
+                                z-index: 200; max-height: 200px; overflow-y: auto;">
+                        <template x-if="filtered.length === 0">
+                            <div style="padding: 12px; font-size: 13px; color: var(--color-gray-400); text-align: center;">
+                                Tidak ada penulis ditemukan
+                            </div>
+                        </template>
+                        <template x-for="author in filtered" :key="author.id">
+                            <div @mousedown.prevent="pick(author)"
+                                 style="display: flex; align-items: center; gap: 10px;
+                                        padding: 8px 12px; cursor: pointer; border-radius: 4px;"
+                                 onmouseover="this.style.background='var(--color-muted)'"
+                                 onmouseout="this.style.background='white'">
+                                <template x-if="author.avatar">
+                                    <img :src="author.avatar" :alt="author.name"
+                                         style="width: 26px; height: 26px; border-radius: 50%;
+                                                object-fit: cover; flex-shrink: 0;
+                                                border: 1px solid var(--color-border);">
+                                </template>
+                                <template x-if="!author.avatar">
+                                    <div style="width: 26px; height: 26px; border-radius: 50%; flex-shrink: 0;
+                                                background: var(--color-primary-light); color: var(--color-primary);
+                                                display: flex; align-items: center; justify-content: center;
+                                                font-size: 11px; font-weight: 700;"
+                                         x-text="author.name.charAt(0).toUpperCase()">
+                                    </div>
+                                </template>
+                                <span style="font-size: 13px; color: var(--color-gray-800);" x-text="author.name"></span>
+                            </div>
+                        </template>
+                    </div>
+                </div>
+
+                {{-- Divider --}}
+                <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 16px;">
+                    <div style="flex: 1; height: 1px; background: var(--color-border);"></div>
+                    <span style="font-size: 10px; font-weight: 500; color: var(--color-gray-400); text-transform: uppercase; letter-spacing: 0.04em;">atau isi manual</span>
+                    <div style="flex: 1; height: 1px; background: var(--color-border);"></div>
+                </div>
+
+                {{-- Nama manual --}}
+                <div style="margin-bottom: 12px;">
+                    <label style="display: block; font-size: 12px; font-weight: 500;
+                                  color: var(--color-gray-600); margin-bottom: 6px;">Nama Penulis</label>
+                    <input type="text" name="author_name"
+                           value="{{ old('author_name', $article->author_name ?? '') }}"
+                           placeholder="Nama tulisan"
+                           style="width: 100%; padding: 9px 12px; box-sizing: border-box;
+                                  border: 1px solid var(--color-border); border-radius: var(--radius-lg);
+                                  font-size: 13px; font-family: var(--font-body); outline: none;
+                                  color: var(--color-gray-900); transition: border-color 0.2s;"
+                           onfocus="this.style.borderColor='var(--color-primary)'"
+                           onblur="this.style.borderColor='var(--color-border)'">
+                </div>
+
+                {{-- Foto manual --}}
+                <div x-data="{ preview: '{{ isset($article) && $article->author_photo ? Storage::url($article->author_photo) : '' }}' }"
+                     style="margin-bottom: 12px;">
+                    <label style="display: block; font-size: 12px; font-weight: 500;
+                                  color: var(--color-gray-600); margin-bottom: 6px;">Foto Penulis</label>
+                    <div x-show="preview" style="margin-bottom: 8px;">
+                        <img :src="preview" alt="Foto"
+                             style="width: 44px; height: 44px; border-radius: 50%;
+                                    object-fit: cover; border: 1px solid var(--color-border);">
+                    </div>
+                    <label style="cursor: pointer; display: block;">
+                        <div style="border: 1px dashed var(--color-border); border-radius: var(--radius-lg);
+                                    padding: 10px 12px; font-size: 12px; color: var(--color-gray-500);
+                                    background: var(--color-muted); text-align: center; transition: background 0.2s;"
+                             onmouseover="this.style.background='#f1f5f9'"
+                             onmouseout="this.style.background='var(--color-muted)'">
+                            <span x-show="!preview">Upload foto penulis</span>
+                            <span x-show="preview">Ganti foto</span>
+                        </div>
+                        <input type="file" name="author_photo" accept="image/*" style="display: none;"
+                               @change="preview = $event.target.files[0] ? URL.createObjectURL($event.target.files[0]) : preview">
+                    </label>
+                </div>
+
+                {{-- Bio manual --}}
+                <div>
+                    <label style="display: block; font-size: 12px; font-weight: 500;
+                                  color: var(--color-gray-600); margin-bottom: 6px;">Bio Penulis</label>
+                    <textarea name="author_bio" rows="3"
+                              placeholder="Biografi singkat penulis..."
+                              style="width: 100%; padding: 9px 12px; box-sizing: border-box;
+                                     border: 1px solid var(--color-border); border-radius: var(--radius-lg);
+                                     font-size: 13px; font-family: var(--font-body); outline: none;
+                                     resize: vertical; color: var(--color-gray-900); transition: border-color 0.2s;"
+                              onfocus="this.style.borderColor='var(--color-primary)'"
+                              onblur="this.style.borderColor='var(--color-border)'">{{ old('author_bio', $article->author_bio ?? '') }}</textarea>
+                </div>
+            </div>
+
         </div>
+
+
+
 
         {{-- Detail Tambahan --}}
         <div style="background: white; border-radius: var(--radius-xl);
@@ -452,10 +759,21 @@ p.is-editor-empty:first-child::before {
     });
 
     document.addEventListener('DOMContentLoaded', () => {
-        // TipTap Editor
+        // TipTap Editor (ID)
         const contentInput = document.getElementById('content-input');
         if (contentInput && typeof window.createEditor === 'function') {
             window.createEditor(contentInput.value, 'content-input');
+        }
+        
+        // TipTap Editor (AR)
+        const contentInputAr = document.getElementById('content-input-ar');
+        if (contentInputAr && typeof window.createEditor === 'function') {
+            window.createEditor(contentInputAr.value, 'content-input-ar', {
+                editorId: 'tiptap-editor-ar',
+                toolbarId: 'tiptap-toolbar-ar',
+                rtl: true,
+                placeholder: 'أدخل محتوى المقال الكامل بالعربية هنا...'
+            });
         }
     });
 </script>

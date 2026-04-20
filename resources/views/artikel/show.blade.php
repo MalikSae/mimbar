@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('title', $article->title . ' — Yayasan Mimbar Al-Tauhid')
+@section('title', localized($article, 'title') . ' — Yayasan Mimbar Al-Tauhid')
 
 @push('head')
 <style>
@@ -103,10 +103,12 @@
     @endif
 
     {{-- Judul --}}
-    <h1 style="font-family: var(--font-heading); font-size: 40px;
-               font-weight: 700; color: var(--color-gray-900);
-               line-height: 1.4; margin: 0 0 32px;">
-      {{ $article->title }}
+    <h1 @if(app()->getLocale() === 'ar') 
+          dir="rtl" style="font-family: 'Amiri', 'Scheherazade New', serif; text-align: right; font-size: 40px; font-weight: 700; color: var(--color-gray-900); line-height: 1.4; margin: 0 0 32px;"
+        @else 
+          style="font-family: var(--font-heading); font-size: 40px; font-weight: 700; color: var(--color-gray-900); line-height: 1.4; margin: 0 0 32px;"
+        @endif>
+      {{ localized($article, 'title') }}
     </h1>
 
     {{-- Meta & Social Share --}}
@@ -116,14 +118,30 @@
 
       {{-- Author + Tanggal + Baca --}}
       <div style="display: flex; align-items: center; gap: 14px;">
-        <img src="{{ $article->author_photo ? asset('storage/' . $article->author_photo) : 'https://placehold.co/40x40/e5e7eb/9ca3af' }}"
-             alt="{{ $article->author_name ?? 'Tim Mimbar' }}"
-             style="width: 40px; height: 40px; border-radius: var(--radius-full);
-                    object-fit: cover; border: 1px solid var(--color-border);
-                    box-shadow: var(--shadow-card);">
+        @if($article->author?->avatar)
+          <img src="{{ asset('storage/' . $article->author->avatar) }}"
+               alt="{{ $article->author_name }}"
+               style="width: 40px; height: 40px; border-radius: var(--radius-full);
+                      object-fit: cover; border: 1px solid var(--color-border);
+                      box-shadow: var(--shadow-card);">
+        @elseif($article->author_photo)
+          <img src="{{ asset('storage/' . $article->author_photo) }}"
+               alt="{{ $article->author_name }}"
+               style="width: 40px; height: 40px; border-radius: var(--radius-full);
+                      object-fit: cover; border: 1px solid var(--color-border);
+                      box-shadow: var(--shadow-card);">
+        @else
+          <div style="width: 40px; height: 40px; border-radius: var(--radius-full);
+                      background: var(--color-primary-light); color: var(--color-primary);
+                      display: flex; align-items: center; justify-content: center;
+                      font-size: 16px; font-weight: 700; flex-shrink: 0;
+                      border: 1px solid var(--color-border); box-shadow: var(--shadow-card);">
+            {{ strtoupper(substr($article->author_name, 0, 1)) }}
+          </div>
+        @endif
         <div>
           <div style="font-weight: 700; font-size: 14px; color: var(--color-gray-900);">
-            Oleh: {{ $article->author_name ?? 'Tim Mimbar' }}
+            Oleh: {{ $article->author_name }}
           </div>
           <div style="display: flex; align-items: center; gap: 10px;
                       font-size: 13px; color: var(--color-gray-400); margin-top: 2px;">
@@ -137,7 +155,7 @@
 
       {{-- Share Buttons --}}
       <div x-data="{ copied: false }" style="display: flex; align-items: center; gap: 8px;">
-        <a href="https://wa.me/?text={{ urlencode($article->title . ' — ' . request()->fullUrl()) }}"
+        <a href="https://wa.me/?text={{ urlencode(localized($article, 'title') . ' — ' . request()->fullUrl()) }}"
            target="_blank" rel="noopener"
            class="share-btn share-btn-wa" title="Bagikan ke WhatsApp">
           <iconify-icon icon="lucide:message-circle" width="16"></iconify-icon>
@@ -166,7 +184,7 @@
     <div style="border-radius: var(--radius-xl); overflow: hidden;
                 box-shadow: var(--shadow-md); border: 1px solid var(--color-border);">
       <img src="{{ $article->featured_image ? asset('storage/' . $article->featured_image) : 'https://placehold.co/900x400/e5e7eb/9ca3af?text=Mimbar+Al-Tauhid' }}"
-           alt="{{ $article->title }}"
+           alt="{{ localized($article, 'title') }}"
            style="width: 100%; height: 400px; object-fit: cover; display: block;">
     </div>
   </div>
@@ -177,8 +195,15 @@
 {{-- ════════════════════════════════════ --}}
 <section style="background: white; padding-bottom: 40px;">
   <div style="max-width: 800px; margin: 0 auto; padding: 0 24px;">
-    <div class="article-prose prose-content">
-      {!! $article->content !!}
+    <div class="article-prose prose-content"
+         @if(app()->getLocale() === 'ar')
+             dir="rtl"
+             style="font-family: 'Amiri', 'Scheherazade New', serif;
+                    font-size: 1.2rem;
+                    line-height: 2;
+                    text-align: right;"
+         @endif>
+      {!! localized($article, 'content') !!}
     </div>
   </div>
 </section>
@@ -210,11 +235,28 @@
       <div style="background: var(--color-muted); border: 1px solid var(--color-border);
                   border-radius: var(--radius-xl); padding: 28px 32px;
                   display: flex; gap: 24px; align-items: flex-start; flex-wrap: wrap;">
-        <img src="{{ $article->author_photo ? asset('storage/' . $article->author_photo) : 'https://placehold.co/80x80/e5e7eb/9ca3af?text=P' }}"
-             alt="{{ $article->author_name ?? 'Tim Mimbar' }}"
-             style="width: 80px; height: 80px; border-radius: var(--radius-full);
-                    object-fit: cover; flex-shrink: 0;
-                    border: 1px solid var(--color-border); box-shadow: var(--shadow-card);">
+        {{-- Avatar: foto dari Author model, foto lama admin, atau inisial --}}
+        @if($article->author?->avatar)
+          <img src="{{ asset('storage/' . $article->author->avatar) }}"
+               alt="{{ $article->author_name }}"
+               style="width: 80px; height: 80px; border-radius: var(--radius-full);
+                      object-fit: cover; flex-shrink: 0;
+                      border: 1px solid var(--color-border); box-shadow: var(--shadow-card);">
+        @elseif($article->author_photo)
+          <img src="{{ asset('storage/' . $article->author_photo) }}"
+               alt="{{ $article->author_name }}"
+               style="width: 80px; height: 80px; border-radius: var(--radius-full);
+                      object-fit: cover; flex-shrink: 0;
+                      border: 1px solid var(--color-border); box-shadow: var(--shadow-card);">
+        @else
+          <div style="width: 80px; height: 80px; border-radius: var(--radius-full);
+                      background: var(--color-primary-light); color: var(--color-primary);
+                      display: flex; align-items: center; justify-content: center;
+                      font-size: 32px; font-weight: 700; flex-shrink: 0;
+                      border: 1px solid var(--color-border); box-shadow: var(--shadow-card);">
+            {{ strtoupper(substr($article->author_name, 0, 1)) }}
+          </div>
+        @endif
         <div>
           <div style="font-size: 11px; font-weight: 700; color: var(--color-primary);
                       text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 4px;">
@@ -222,11 +264,11 @@
           </div>
           <h3 style="font-family: var(--font-heading); font-size: 20px;
                      font-weight: 700; color: var(--color-gray-900); margin: 0 0 10px;">
-            {{ $article->author_name ?? 'Tim Mimbar' }}
+            {{ $article->author_name }}
           </h3>
           <p style="font-size: 14px; color: var(--color-gray-600);
                     line-height: 1.7; margin: 0;">
-            {{ $article->author_bio ?? 'Yayasan Mimbar Al-Tauhid hadir dengan program dakwah yang menarik dan inovatif.' }}
+            {{ $article->author_bio }}
           </p>
         </div>
       </div>
@@ -290,7 +332,7 @@
             <div style="display: flex; flex-direction: column;">
               <span style="font-size: 11px; color: var(--color-gray-400); font-weight: 500;">Ditulis oleh</span>
               <span style="font-size: 13px; font-weight: 700; color: var(--color-gray-900);">
-                {{ $item->author_name ?? 'Tim Mimbar' }}
+                {{ $item->author_name }}
               </span>
             </div>
             <span style="font-size: 12px; font-weight: 600; color: var(--color-primary);

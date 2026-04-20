@@ -147,10 +147,11 @@
                             {{ $desc }}
                         </p>
 
-                        {{-- .btn-outline.btn-full: white bg, border, gray text --}}
+                        {{-- .btn-primary.btn-full --}}
                         <a href="{{ route('qurban.form', $item->id) }}"
-                           style="display: flex; width: 100%; height: 40px; align-items: center; justify-content: center; background-color: #FFFFFF; color: var(--color-gray-600); border: 1px solid var(--color-border); border-radius: 8px; font-weight: 600; font-size: 14px; text-decoration: none; font-family: var(--font-heading); cursor: pointer; transition: background-color 0.15s ease;"
-                           onmouseover="this.style.backgroundColor='#f9fafb'" onmouseout="this.style.backgroundColor='#FFFFFF'">
+                           style="display: flex; width: 100%; height: 40px; align-items: center; justify-content: center; background-color: var(--color-primary); color: #FFFFFF; border: none; border-radius: 8px; font-weight: 600; font-size: 14px; text-decoration: none; font-family: var(--font-heading); cursor: pointer; transition: all 0.2s ease; box-shadow: 0 4px 6px rgba(0,0,0,0.1);"
+                           onmouseover="this.style.backgroundColor='var(--color-primary-dark)'; this.style.transform='translateY(-1px)'; this.style.boxShadow='0 6px 10px rgba(0,0,0,0.15)'" 
+                           onmouseout="this.style.backgroundColor='var(--color-primary)'; this.style.transform='none'; this.style.boxShadow='0 4px 6px rgba(0,0,0,0.1)'">
                             Pesan Sekarang
                         </a>
                     </div>
@@ -236,32 +237,26 @@
         </div>
     </section>
 
-    {{-- FAQ --}}
+    {{-- GALERI QURBAN TAHUN LALU --}}
     <section class="py-20 bg-white">
-        <div class="mx-auto px-6" style="max-width: 800px;">
+        <div class="mx-auto px-6" style="max-width: 1200px;">
             <div class="text-center mb-12">
                 <h2 class="font-heading text-gray-900 mb-4" style="font-size: 1.875rem; font-weight: 700;">
-                    Pertanyaan Seputar Qurban
+                    Galeri Qurban Tahun Lalu
                 </h2>
+                <p class="text-gray-600">Dokumentasi kebahagiaan saat pemotongan dan pendistribusian hewan qurban.</p>
             </div>
-            <div class="flex flex-col gap-4">
-                @forelse($faqs as $faq)
-                <div x-data="{ open: false }"
-                     class="rounded-xl overflow-hidden transition-all"
-                     :class="open ? 'border-2 border-primary' : 'border border-border hover:border-primary/50'">
-                    <div @click="open = !open"
-                         class="px-6 py-5 flex justify-between items-center cursor-pointer transition-colors"
-                         :class="open ? 'bg-primary-light border-b border-primary/10' : 'bg-white hover:bg-muted'">
-                        <h4 class="font-heading font-bold pr-4" :class="open ? 'text-primary' : 'text-gray-900'">{{ $faq->question }}</h4>
-                        <svg x-show="!open" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-gray-400 shrink-0"><path d="m6 9 6 6 6-6"/></svg>
-                        <svg x-show="open" style="display:none;" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-primary shrink-0"><path d="m18 15-6-6-6 6"/></svg>
-                    </div>
-                    <div x-show="open" style="display:none;" class="px-6 py-5 bg-white text-gray-600 leading-relaxed" style="font-size: 0.9375rem;">
-                        {{ $faq->answer }}
-                    </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+                @forelse($galleries as $idx => $photo)
+                <div class="rounded-xl overflow-hidden border border-border group relative aspect-[4/3] bg-muted shadow-sm">
+                    <img src="{{ asset('storage/' . $photo->file_path) }}" alt="{{ $photo->caption ?? 'Dokumentasi Qurban ' . ($idx + 1) }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
                 </div>
                 @empty
-                <p class="text-center text-gray-400 py-8">Belum ada FAQ yang tersedia.</p>
+                @for($i = 1; $i <= 6; $i++)
+                <div class="rounded-xl overflow-hidden border border-border group relative aspect-[4/3] bg-muted shadow-sm">
+                    <img src="https://placehold.co/600x450/f0ece0/9ca3af?text=Dokumentasi+{{ $i }}" alt="Dokumentasi Qurban {{ $i }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                </div>
+                @endfor
                 @endforelse
             </div>
         </div>

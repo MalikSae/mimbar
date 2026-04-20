@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\BankAccount;
 use App\Models\Donation;
 use App\Models\DonationProgram;
 use Illuminate\Http\Request;
@@ -33,8 +34,9 @@ class DonationController extends Controller
 
     public function show($id)
     {
-        $donation = Donation::with('program')->findOrFail($id);
-        return view('admin.donations.show', compact('donation'));
+        $donation     = Donation::with('program')->findOrFail($id);
+        $bankAccounts = BankAccount::where('is_active', 1)->orderBy('sort_order')->get();
+        return view('admin.donations.show', compact('donation', 'bankAccounts'));
     }
 
     public function create()
@@ -84,11 +86,16 @@ class DonationController extends Controller
 
     public function verify(Request $request, $id)
     {
+        $request->validate([
+            'bank_destination' => 'nullable|string|max:100',
+        ]);
+
         $donation = Donation::findOrFail($id);
         $donation->update([
-            'status'      => 'verified',
-            'verified_at' => now(),
-            'notes'       => $request->notes,
+            'status'           => 'verified',
+            'verified_at'      => now(),
+            'notes'            => $request->notes,
+            'bank_destination' => $request->bank_destination ?: null,
         ]);
 
         // Update collected_amount dan donor_count di program

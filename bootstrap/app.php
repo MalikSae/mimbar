@@ -12,8 +12,15 @@ return Application::configure(basePath: dirname(__DIR__))
     )
     ->withMiddleware(function (Middleware $middleware): void {
         $middleware->alias([
-            'admin.auth' => \App\Http\Middleware\AdminAuth::class,
+            'admin.auth'  => \App\Http\Middleware\AdminAuth::class,
+            'author.auth' => \App\Http\Middleware\AuthorAuth::class,
         ]);
+
+        // Locale Switcher untuk halaman publik
+        $middleware->appendToGroup('web', \App\Http\Middleware\SetLocale::class);
+
+        // Hitung visitor di semua request web
+        $middleware->appendToGroup('web', \App\Http\Middleware\CountVisitor::class);
     })
     ->withExceptions(function (Exceptions $exceptions): void {
         //

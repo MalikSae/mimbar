@@ -33,8 +33,13 @@ const TextDirection = Extension.create({
 window.Alpine = Alpine;
 Alpine.start();
 
-window.createEditor = function (content, inputId) {
-    const editorEl = document.getElementById('tiptap-editor');
+window.createEditor = function (content, inputId, options = {}) {
+    const editorId = options.editorId || 'tiptap-editor';
+    const toolbarId = options.toolbarId || 'tiptap-toolbar';
+    const rtl = options.rtl === true;
+    const placeholderText = options.placeholder || 'Tulis konten artikel di sini...';
+
+    const editorEl = document.getElementById(editorId);
     const inputEl  = document.getElementById(inputId);
 
     if (!editorEl || !inputEl) return;
@@ -45,7 +50,7 @@ window.createEditor = function (content, inputId) {
             StarterKit,
             TextDirection,
             Placeholder.configure({
-                placeholder: 'Tulis konten artikel di sini...',
+                placeholder: placeholderText,
             }),
             Link.configure({
                 openOnClick: false,
@@ -78,13 +83,23 @@ window.createEditor = function (content, inputId) {
             }),
         ],
         content: content || '',
+        editorProps: rtl ? {
+            attributes: {
+                dir: 'rtl',
+                style: "font-family: 'Amiri', 'Scheherazade New', serif; font-size: 1.1rem; line-height: 2; text-align: right;"
+            }
+        } : {},
         onUpdate({ editor }) {
             inputEl.value = editor.getHTML();
         },
     });
 
     // Simpan referensi global agar bisa diakses oleh Alpine modal
-    window.tiptapEditor = editor;
+    if (!rtl) {
+        window.tiptapEditor = editor;
+    } else {
+        window.tiptapEditorAr = editor;
+    }
 
     // ── Toolbar mini gambar ──────────────────────────────────────
     const proseMirrorEl = editorEl.querySelector('.ProseMirror');
@@ -178,7 +193,10 @@ window.createEditor = function (content, inputId) {
     }
 
     // Toolbar button handlers
-    document.querySelectorAll('[data-editor-action]').forEach(btn => {
+    let toolbarEl = document.getElementById(options.toolbarId || 'tiptap-toolbar');
+    if (!toolbarEl) toolbarEl = document;
+    
+    toolbarEl.querySelectorAll('[data-editor-action]').forEach(btn => {
         btn.addEventListener('click', (e) => {
             e.preventDefault();
             const action = btn.getAttribute('data-editor-action');
@@ -198,16 +216,16 @@ window.createEditor = function (content, inputId) {
                 case 'ltr':            editor.chain().focus().setTextDirection('ltr').run(); break;
                 case 'link':
                     document.dispatchEvent(new CustomEvent('editor:open-link', {
-                        detail: { active: editor.isActive('link'), href: editor.getAttributes('link').href || '' }
+                        detail: { active: editor.isActive('link'), href: editor.getAttributes('link').href || '', isRtl: rtl }
                     }));
                     break;
                 case 'image':
-                    document.dispatchEvent(new CustomEvent('editor:open-image'));
+                    document.dispatchEvent(new CustomEvent('editor:open-image', { detail: { isRtl: rtl } }));
                     break;
             }
 
             // Update active state semua tombol
-            document.querySelectorAll('[data-editor-action]').forEach(b => {
+            toolbarEl.querySelectorAll('[data-editor-action]').forEach(b => {
                 const a = b.getAttribute('data-editor-action');
                 const isActive =
                     (a === 'bold'        && editor.isActive('bold'))        ||

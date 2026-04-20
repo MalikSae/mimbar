@@ -16,6 +16,7 @@ class EbookDownload extends Model
         'total_transfer',
         'payment_status',
         'downloaded_at',
+        'bank_destination',
     ];
 
     protected $casts = [

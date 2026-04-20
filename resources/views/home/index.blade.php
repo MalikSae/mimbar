@@ -221,64 +221,73 @@ h2, h3, h4, h5, h6 { font-weight: 600; }
     color: var(--primary);
   }
 
-.hero {
+/* HERO SPLIT LAYOUT */
+  .hero {
+    display: flex;
+    min-height: 520px;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .hero-left {
+    flex: 0 0 50%;
     background-color: var(--primary);
     position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 64px 56px 48px 56px;
     overflow: hidden;
-    padding: 64px 0 120px;
   }
 
-  .hero-pattern {
+  /* Geometric pattern overlay on left */
+  .hero-left::before {
+    content: '';
     position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    opacity: 0.05;
-    background-image: radial-gradient(#fff 1px, transparent 1px);
-    background-size: 20px 20px;
-  }
-
-  .hero-container {
-    position: relative;
-    z-index: 1;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 64px;
-    align-items: center;
+    inset: 0;
+    background-image:
+      repeating-linear-gradient(
+        45deg,
+        rgba(255,255,255,0.03) 0px,
+        rgba(255,255,255,0.03) 1px,
+        transparent 1px,
+        transparent 30px
+      ),
+      repeating-linear-gradient(
+        -45deg,
+        rgba(255,255,255,0.03) 0px,
+        rgba(255,255,255,0.03) 1px,
+        transparent 1px,
+        transparent 30px
+      );
+    pointer-events: none;
   }
 
   .hero-content {
+    position: relative;
+    z-index: 1;
     color: var(--white);
-  }
-  
-  .hero-badge {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    background: rgba(255, 255, 255, 0.1);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    padding: 6px 16px;
-    border-radius: 999px;
-    font-size: 13px;
-    font-weight: 600;
-    margin-bottom: 24px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
   }
 
   .hero-title {
-    font-size: 52px;
+    font-size: 44px;
     color: var(--white);
-    margin-bottom: 24px;
-    line-height: 1.15;
-    letter-spacing: -0.02em;
+    margin-bottom: 20px;
+    line-height: 1.2;
+    font-weight: 700;
+    letter-spacing: -0.01em;
   }
 
   .hero-desc {
-    font-size: 18px;
-    color: var(--primary-light);
-    margin-bottom: 40px;
-    line-height: 1.6;
-    max-width: 90%;
+    font-size: 16px;
+    color: rgba(255,255,255,0.85);
+    margin-bottom: 36px;
+    line-height: 1.7;
+    max-width: 420px;
   }
 
   .hero-actions {
@@ -287,58 +296,85 @@ h2, h3, h4, h5, h6 { font-weight: 600; }
     align-items: center;
   }
 
-  .hero-image-wrapper {
+  .hero-quote {
     position: relative;
+    z-index: 1;
+    margin-top: 40px;
+    padding-top: 32px;
+    border-top: 1px solid rgba(255,255,255,0.15);
   }
 
-  .hero-image {
-    border-radius: 24px;
+  .hero-quote-text {
+    font-size: 15px;
+    font-style: italic;
+    color: rgba(255,255,255,0.9);
+    line-height: 1.6;
+    margin-bottom: 8px;
+  }
+
+  .hero-quote-source {
+    font-size: 13px;
+    font-weight: 600;
+    color: rgba(255,255,255,0.6);
+  }
+
+  /* RIGHT — Slideshow */
+  .hero-right {
+    flex: 0 0 50%;
+    position: relative;
     overflow: hidden;
-    box-shadow: 0 24px 48px rgba(0, 0, 0, 0.2);
-    border: 4px solid rgba(255, 255, 255, 0.1);
+    background: #111;
   }
 
-  .hero-image img {
+  .hero-slide {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    transition: opacity 1s ease-in-out;
+  }
+
+  .hero-slide.active {
+    opacity: 1;
+  }
+
+  .hero-slide img {
     width: 100%;
     height: 100%;
     object-fit: cover;
+    display: block;
   }
-  
-  .hero-floating-card {
+
+  .hero-slide-overlay {
     position: absolute;
-    bottom: -24px;
-    left: -24px;
-    background: var(--white);
-    border-radius: var(--radius-xl);
-    padding: 16px;
-    box-shadow: 0 12px 24px rgba(0,0,0,0.15);
-    display: flex;
-    align-items: center;
-    gap: 16px;
-    z-index: 2;
-    width: 280px;
+    inset: 0;
+    background: linear-gradient(to right, rgba(0,0,0,0.15), transparent);
   }
-  
-  .hero-float-icon {
-    width: 48px;
-    height: 48px;
-    background: var(--primary-light);
-    color: var(--primary);
+
+  .hero-dots {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 8px;
+    z-index: 10;
+  }
+
+  .hero-dot {
+    width: 8px;
+    height: 8px;
     border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    background: rgba(255,255,255,0.4);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: none;
+    padding: 0;
   }
-  
-  .hero-float-text h4 {
-    font-size: 14px;
-    color: var(--gray-900);
-    margin-bottom: 4px;
-  }
-  
-  .hero-float-text p {
-    font-size: 12px;
-    color: var(--gray-600);
+
+  .hero-dot.active {
+    background: var(--white);
+    width: 24px;
+    border-radius: 4px;
   }
 .stats-section {
     margin-top: -60px;
@@ -1942,46 +1978,87 @@ h2, h3, h4, h5, h6 { font-weight: 600; }
   <main>
 
   <!-- HERO SECTION -->
-  <header class="hero">
-    <div class="hero-pattern"></div>
-    <div class="container hero-container">
+  <header class="hero" id="hero-section">
+    <!-- LEFT: Content -->
+    <div class="hero-left">
       <div class="hero-content">
-        <div class="hero-badge">
-          <div style="width: 16px; height: 16px; display: flex; align-items: center; justify-content: center;">
-            <iconify-icon icon="lucide:sparkles" style="font-size: 16px; color: #F5E8EE"></iconify-icon>
-          </div>
-          Program Ramadhan 1446 H Telah Dibuka
-        </div>
-        <h1 class="hero-title">Bersama Menyebarkan Syiar Islam ke Seluruh Pelosok Negeri</h1>
-        <p class="hero-desc">Yayasan Mimbar Al-Tauhid menghadirkan program-program dakwah yang inovatif dan amanah. Jadilah bagian dari gerakan kebaikan ini untuk umat.</p>
+        <h1 class="hero-title">Menginspirasi Kebaikan, Membangun Generasi Islami</h1>
+        <p class="hero-desc">Bersama <strong>Yayasan Mimbar Al-Tauhid</strong>, kita wujudkan masyarakat Islami yang kuat dan berdaya melalui program dakwah, pendidikan, dan sosial.</p>
         <div class="hero-actions">
-          <div class="btn btn-white" data-media-type="banani-button">Mulai Berdonasi</div>
-          <div class="btn btn-outline-white" data-media-type="banani-button">
-            <div style="width: 20px; height: 20px; display: flex; align-items: center; justify-content: center;">
-              <iconify-icon icon="lucide:play-circle" style="font-size: 20px;"></iconify-icon>
-            </div>
-            Tonton Video
-          </div>
+          <a href="{{ route('program.index') }}" class="btn btn-white">
+            <iconify-icon icon="lucide:arrow-right" style="font-size: 18px;"></iconify-icon>
+            Lihat Program Kami
+          </a>
         </div>
       </div>
-      <div class="hero-image-wrapper">
-        <div class="hero-image">
-          <img data-aspect-ratio="4:3" data-query="mosque studying islamic activity photography warm light indonesia" alt="Islamic study activity" src="https://placehold.co/1200x600">
-        </div>
-        <div class="hero-floating-card">
-          <div class="hero-float-icon">
-            <div style="width: 24px; height: 24px; display: flex; align-items: center; justify-content: center;">
-              <iconify-icon icon="lucide:users" style="font-size: 24px;"></iconify-icon>
-            </div>
-          </div>
-          <div class="hero-float-text">
-            <h4>+15.000 Donatur</h4>
-            <p>Telah bergabung bersama kami</p>
-          </div>
-        </div>
+      <div class="hero-quote">
+        <p class="hero-quote-text">&ldquo;Naungan orang beriman di hari Kiamat adalah sedekahnya&rdquo;</p>
+        <span class="hero-quote-source">- HR Ahmad</span>
+      </div>
+    </div>
+
+    <!-- RIGHT: Slideshow -->
+    <div class="hero-right" id="hero-slideshow">
+      <div class="hero-slide active">
+        <img src="https://placehold.co/900x600/8B6F47/ffffff?text=Masjid+Al-Tauhid" alt="Masjid Al-Tauhid">
+        <div class="hero-slide-overlay"></div>
+      </div>
+      <div class="hero-slide">
+        <img src="https://placehold.co/900x600/5C4A3A/ffffff?text=Program+Dakwah" alt="Program Dakwah">
+        <div class="hero-slide-overlay"></div>
+      </div>
+      <div class="hero-slide">
+        <img src="https://placehold.co/900x600/4A6741/ffffff?text=Beasiswa+Santri" alt="Beasiswa Santri">
+        <div class="hero-slide-overlay"></div>
+      </div>
+      <div class="hero-slide">
+        <img src="https://placehold.co/900x600/2E4A5C/ffffff?text=Distribusi+Al-Quran" alt="Distribusi Al-Quran">
+        <div class="hero-slide-overlay"></div>
+      </div>
+      <!-- Dot indicators -->
+      <div class="hero-dots">
+        <button class="hero-dot active" data-slide="0"></button>
+        <button class="hero-dot" data-slide="1"></button>
+        <button class="hero-dot" data-slide="2"></button>
+        <button class="hero-dot" data-slide="3"></button>
       </div>
     </div>
   </header>
+
+  <script>
+  (function() {
+    var slides = document.querySelectorAll('#hero-slideshow .hero-slide');
+    var dots = document.querySelectorAll('#hero-slideshow .hero-dot');
+    var current = 0;
+    var interval;
+
+    function goTo(idx) {
+      slides[current].classList.remove('active');
+      dots[current].classList.remove('active');
+      current = idx;
+      slides[current].classList.add('active');
+      dots[current].classList.add('active');
+    }
+
+    function next() {
+      goTo((current + 1) % slides.length);
+    }
+
+    function startAuto() {
+      interval = setInterval(next, 4000);
+    }
+
+    dots.forEach(function(dot, i) {
+      dot.addEventListener('click', function() {
+        clearInterval(interval);
+        goTo(i);
+        startAuto();
+      });
+    });
+
+    startAuto();
+  })();
+  </script>
 
   <!-- IMPACT STATS -->
   <section class="stats-section">

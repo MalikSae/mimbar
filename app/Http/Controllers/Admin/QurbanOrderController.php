@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\BankAccount;
 use App\Models\QurbanOrder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -36,15 +37,21 @@ class QurbanOrderController extends Controller
             ->where('qurban_order_id', $id)
             ->orderBy('order_position')
             ->get();
-        return view('admin.qurban.orders.show', compact('order', 'shohibulNames'));
+        $bankAccounts = BankAccount::where('is_active', 1)->orderBy('sort_order')->get();
+        return view('admin.qurban.orders.show', compact('order', 'shohibulNames', 'bankAccounts'));
     }
 
     public function verify(Request $request, $id)
     {
+        $request->validate([
+            'bank_destination' => 'nullable|string|max:100',
+        ]);
+
         $order = QurbanOrder::findOrFail($id);
         $order->update([
-            'status' => 'confirmed',
-            'notes'  => $request->notes,
+            'status'           => 'confirmed',
+            'notes'            => $request->notes,
+            'bank_destination' => $request->bank_destination ?: null,
         ]);
         return back()->with('success', 'Pesanan qurban berhasil dikonfirmasi.');
     }

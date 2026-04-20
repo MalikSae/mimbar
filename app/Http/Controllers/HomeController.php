@@ -7,19 +7,11 @@ use App\Models\DonationProgram;
 use App\Models\Ebook;
 use App\Models\News;
 use App\Models\Video;
-use Illuminate\Support\Facades\DB;
 
 class HomeController extends Controller
 {
     public function index()
     {
-        $stats = [
-            'masjid_dibangun'  => DB::table('settings')->where('key', 'stat_masjid')->value('value') ?? 0,
-            'sumur_dibangun'   => DB::table('settings')->where('key', 'stat_sumur')->value('value') ?? 0,
-            'mushaf_dibagikan' => DB::table('settings')->where('key', 'stat_mushaf')->value('value') ?? 0,
-            'paket_buka_puasa' => DB::table('settings')->where('key', 'stat_paket_buka')->value('value') ?? 0,
-        ];
-
         $programs = DonationProgram::where('status', 'active')
             ->orderByDesc('created_at')
             ->take(4)
@@ -48,14 +40,19 @@ class HomeController extends Controller
             ->take(4)
             ->get();
 
+        $sliderImages = \Illuminate\Support\Facades\DB::table('program_galleries')
+            ->where('program_type', 'slider_home')
+            ->orderByDesc('created_at')
+            ->get();
+
         return view('home', compact(
-            'stats',
             'programs',
             'featuredProgram',
             'videos',
             'ebooks',
             'news',
-            'articles'
+            'articles',
+            'sliderImages'
         ));
     }
 }

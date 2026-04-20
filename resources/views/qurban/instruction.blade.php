@@ -73,6 +73,7 @@
 
                 <div class="flex flex-col gap-5">
                     <p class="text-sm text-gray-500 font-medium">Transfer ke Rekening Resmi Yayasan:</p>
+                    @forelse($bankAccounts as $bankAccount)
                     <div class="bg-gray-50 border border-border rounded-xl p-5 flex flex-col gap-4">
 
                         {{-- Bank Header --}}
@@ -86,11 +87,25 @@
                         </div>
 
                         {{-- Account Number + Copy --}}
-                        <div class="flex flex-col sm:flex-row items-center justify-between bg-white border border-border p-4 rounded-lg gap-3">
+                        <div class="flex flex-col sm:flex-row items-center justify-between bg-white border border-border p-4 rounded-lg gap-3" x-data="{ copied: false }">
                             <div class="font-mono text-xl md:text-2xl font-bold text-gray-900 tracking-wider text-center sm:text-left w-full">
                                 {{ $bankAccount->account_number ?? '-' }}
                             </div>
-                            <button @click="navigator.clipboard.writeText('{{ $bankAccount->account_number ?? '' }}'); copied = true; setTimeout(() => copied = false, 3000)"
+                            <button @click="
+                                let text = '{{ $bankAccount->account_number ?? '' }}';
+                                if (navigator.clipboard && window.isSecureContext) {
+                                    navigator.clipboard.writeText(text);
+                                } else {
+                                    let textArea = document.createElement('textarea');
+                                    textArea.value = text;
+                                    textArea.style.position = 'fixed';
+                                    document.body.appendChild(textArea);
+                                    textArea.select();
+                                    try { document.execCommand('copy'); } catch (err) {}
+                                    document.body.removeChild(textArea);
+                                }
+                                copied = true; setTimeout(() => copied = false, 3000);
+                            "
                                 class="w-full sm:w-auto shrink-0 inline-flex items-center justify-center gap-2 text-primary border border-primary hover:bg-primary-light px-5 py-2.5 rounded-md font-heading font-bold text-sm transition-colors whitespace-nowrap">
                                 <svg x-show="!copied" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
                                 <svg x-show="copied" style="display: none;" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
@@ -104,6 +119,11 @@
                             <span>Atas Nama: <strong class="text-gray-900">{{ $bankAccount->account_name ?? 'Yayasan Mimbar Al-Tauhid' }}</strong></span>
                         </div>
                     </div>
+                    @empty
+                    <div class="bg-gray-50 border border-border rounded-xl p-5 text-center">
+                        <p class="text-gray-600">Hubungi admin untuk informasi rekening.</p>
+                    </div>
+                    @endforelse
 
                     {{-- Ringkasan Qurban --}}
                     <div class="bg-white border border-border rounded-xl p-5 mt-2 shadow-sm relative overflow-hidden">

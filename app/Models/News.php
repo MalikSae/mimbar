@@ -12,6 +12,8 @@ class News extends Model
         'category_id', 'title', 'slug', 'excerpt',
         'content', 'featured_image', 'status', 'published_at',
         'location', 'hijri_date', 'tags',
+        // Terjemahan Arab
+        'title_ar', 'excerpt_ar', 'content_ar',
     ];
 
     protected $casts = ['published_at' => 'datetime'];

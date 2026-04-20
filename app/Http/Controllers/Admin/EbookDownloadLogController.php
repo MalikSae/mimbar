@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\BankAccount;
 use App\Models\EbookDownload;
 use App\Models\Ebook;
 use Illuminate\Http\Request;
@@ -65,21 +66,30 @@ class EbookDownloadLogController extends Controller
             'total_verified' => EbookDownload::where('want_donate', true)->where('payment_status', 'verified')->count()
         ];
 
-        return view('admin.ebook-downloads-global.index', compact('logs', 'ebooks', 'stats'));
+        $bankAccounts = BankAccount::where('is_active', 1)->orderBy('sort_order')->get();
+
+        return view('admin.ebook-downloads-global.index', compact('logs', 'ebooks', 'stats', 'bankAccounts'));
     }
 
     /**
      * Verify Infaq
      */
-    public function verify($id)
+    public function verify(Request $request, $id)
     {
+        $request->validate([
+            'bank_destination' => 'nullable|string|max:100',
+        ]);
+
         $log = EbookDownload::findOrFail($id);
         
         if (!$log->want_donate) {
             return response()->json(['success' => false, 'message' => 'Bukan jenis unduhan infaq.'], 400);
         }
 
-        $log->update(['payment_status' => 'verified']);
+        $log->update([
+            'payment_status'   => 'verified',
+            'bank_destination' => $request->bank_destination ?: null,
+        ]);
 
         return response()->json(['success' => true, 'message' => 'Infaq berhasil diverifikasi.']);
     }

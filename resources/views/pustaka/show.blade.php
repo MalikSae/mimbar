@@ -234,6 +234,49 @@
 }
 .btn-outline-lg:hover { background: var(--color-primary-light); }
 
+/* ---- SHARE SECTION ---- */
+.share-section {
+    margin-top: 32px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 16px;
+    padding-top: 24px;
+    border-top: 1px dashed var(--color-border);
+}
+.share-label {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--color-gray-500);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+.share-buttons {
+    display: flex;
+    gap: 8px;
+}
+.share-btn {
+    width: 36px;
+    height: 36px;
+    border-radius: var(--radius-full);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-white);
+    text-decoration: none;
+    transition: transform 0.2s, box-shadow 0.2s;
+    border: none;
+    cursor: pointer;
+}
+.share-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+.share-wa { background: #25D366; }
+.share-fb { background: #1877F2; }
+.share-tw { background: #000000; }
+.share-copy { background: var(--color-gray-600); }
+
 /* ---- SECTION 2: TABS + CONTENT ---- */
 .section-sinopsis {
     background: var(--color-misi-bg, var(--color-muted));
@@ -248,13 +291,19 @@
 /* Tab navigation */
 .tab-nav {
     display: flex;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
     gap: 6px;
     border-bottom: 1px solid var(--color-border);
-    padding-bottom: 4px;
+    padding-bottom: 12px;
     margin-bottom: 40px;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
 }
+.tab-nav::-webkit-scrollbar { display: none; }
 .tab-btn {
+    white-space: nowrap;
+    flex-shrink: 0;
     padding: 10px 24px;
     border-radius: var(--radius-full);
     font-size: 14px;
@@ -441,7 +490,7 @@
 }
 @media (max-width: 1024px) { .related-grid { grid-template-columns: repeat(3, 1fr); } }
 @media (max-width: 768px)  { .related-grid { grid-template-columns: repeat(2, 1fr); } }
-@media (max-width: 480px)  { .related-grid { grid-template-columns: 1fr; } }
+@media (max-width: 480px)  { .related-grid { grid-template-columns: repeat(2, 1fr); gap: 16px; } }
 
 .related-card {
     background: var(--color-white);
@@ -526,7 +575,7 @@
     max-height: 90vh; overflow-y: auto;
 }
 .modal-header {
-    padding: 20px 24px;
+    padding: 16px 20px;
     border-bottom: 1px solid var(--color-border);
     display: flex; justify-content: space-between; align-items: center;
     background: var(--color-white);
@@ -535,23 +584,23 @@
 }
 .modal-header-left { display: flex; align-items: center; gap: 12px; }
 .modal-header-icon {
-    width: 40px; height: 40px; border-radius: var(--radius-full);
+    width: 36px; height: 36px; border-radius: var(--radius-full);
     background: var(--color-primary-light); color: var(--color-primary);
     display: flex; align-items: center; justify-content: center;
 }
-.modal-header h2 { font-family: var(--font-heading); font-size: 20px; font-weight: 700; color: var(--color-gray-900); }
+.modal-header h2 { font-family: var(--font-heading); font-size: 18px; font-weight: 700; color: var(--color-gray-900); }
 .modal-close {
-    width: 32px; height: 32px; background: var(--color-muted); border: none;
+    width: 28px; height: 28px; background: var(--color-muted); border: none;
     border-radius: var(--radius-full); display: flex; align-items: center; justify-content: center;
     color: var(--color-gray-400); cursor: pointer; transition: all 0.15s;
 }
 .modal-close:hover { background: var(--color-border); color: var(--color-gray-900); }
-.modal-body { padding: 24px 24px 8px; }
-.input-group { margin-bottom: 16px; }
-.input-label { display: block; font-size: 13px; font-weight: 700; color: var(--color-gray-900); margin-bottom: 6px; }
+.modal-body { padding: 16px 20px 8px; }
+.input-group { margin-bottom: 12px; }
+.input-label { display: block; font-size: 13px; font-weight: 700; color: var(--color-gray-900); margin-bottom: 4px; }
 .input-field {
     width: 100%; border: 1px solid var(--color-border); border-radius: var(--radius-xl);
-    padding: 12px 16px; font-size: 14px; color: var(--color-gray-900);
+    padding: 10px 14px; font-size: 14px; color: var(--color-gray-900);
     font-family: var(--font-body); outline: none; transition: border-color 0.15s;
     background: var(--color-white);
 }
@@ -561,33 +610,33 @@
     overflow: hidden; transition: border-color 0.15s;
 }
 .input-wa-wrap:focus-within { border-color: var(--color-primary); box-shadow: 0 0 0 2px var(--color-primary-light); }
-.input-wa-prefix { background: var(--color-muted); border-right: 1px solid var(--color-border); padding: 12px 14px; font-size: 13px; font-weight: 700; color: var(--color-gray-600); flex-shrink: 0; }
-.input-wa-field { flex: 1; border: none; outline: none; padding: 12px 16px; font-size: 14px; color: var(--color-gray-900); font-family: var(--font-body); background: var(--color-white); }
-.input-hint { display: flex; align-items: flex-start; gap: 6px; font-size: 12px; color: var(--color-gray-400); margin-top: 8px; }
+.input-wa-prefix { background: var(--color-muted); border-right: 1px solid var(--color-border); padding: 10px 14px; font-size: 13px; font-weight: 700; color: var(--color-gray-600); flex-shrink: 0; }
+.input-wa-field { flex: 1; border: none; outline: none; padding: 10px 14px; font-size: 14px; color: var(--color-gray-900); font-family: var(--font-body); background: var(--color-white); }
+.input-hint { display: flex; align-items: flex-start; gap: 6px; font-size: 11px; color: var(--color-gray-400); margin-top: 6px; }
 .donate-checkbox-wrap {
-    margin: 0 24px 16px;
-    padding: 16px;
+    margin: 0 20px 12px;
+    padding: 12px 16px;
     background: var(--color-page-bg);
     border-radius: var(--radius-xl);
-    display: flex; align-items: flex-start; gap: 12px;
+    display: flex; align-items: flex-start; gap: 10px;
     border: 1px solid rgba(212,175,55,0.4);
     cursor: pointer; transition: background 0.15s;
 }
 .donate-checkbox-wrap:hover { background: #FAF3D0; }
 .checkbox-indicator {
-    width: 20px; height: 20px; border-radius: 4px;
-    border: 2px solid var(--color-border);
+    width: 18px; height: 18px; border-radius: 4px;
+    border: 2px solid var(--color-border); background: var(--color-white);
     display: flex; align-items: center; justify-content: center;
     flex-shrink: 0; margin-top: 2px; transition: all 0.15s;
 }
 .checkbox-indicator.checked { background: var(--color-primary); border-color: var(--color-primary); color: var(--color-white); }
-.donate-label h4 { font-family: var(--font-heading); font-size: 14px; font-weight: 700; color: var(--color-gray-900); margin-bottom: 4px; }
-.donate-label p { font-size: 12px; color: var(--color-gray-600); line-height: 1.5; }
-.nominal-section { padding: 20px 24px 0; border-top: 1px dashed rgba(212,175,55,0.5); margin: 0 24px; }
-.nominal-section-label { font-size: 13px; font-weight: 700; color: var(--color-gray-900); margin-bottom: 12px; }
-.nominal-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.donate-label h4 { font-family: var(--font-heading); font-size: 13px; font-weight: 700; color: var(--color-gray-900); margin-bottom: 2px; }
+.donate-label p { font-size: 12px; color: var(--color-gray-600); line-height: 1.4; }
+.nominal-section { padding: 16px 20px 0; border-top: 1px dashed rgba(212,175,55,0.5); margin: 0 20px; }
+.nominal-section-label { font-size: 13px; font-weight: 700; color: var(--color-gray-900); margin-bottom: 10px; }
+.nominal-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
 .nominal-btn {
-    padding: 12px 8px; border-radius: var(--radius-xl); border: 1px solid var(--color-border);
+    padding: 10px 8px; border-radius: var(--radius-xl); border: 1px solid var(--color-border);
     background: var(--color-white); color: var(--color-gray-900);
     font-family: var(--font-heading); font-weight: 700; font-size: 13px;
     cursor: pointer; text-align: center; box-shadow: var(--shadow-card); transition: all 0.15s;
@@ -596,18 +645,18 @@
 .nominal-btn.active-nominal { border-color: var(--color-primary); border-width: 2px; background: var(--color-primary-light); color: var(--color-primary); }
 .nominal-btn.nominal-other { font-weight: 500; color: var(--color-gray-600); }
 .custom-amount-field { margin-top: 10px; }
-.custom-amount-field .input-field { text-align: right; font-weight: 700; }
+.custom-amount-field .input-field { text-align: center; font-weight: 700; padding: 10px 14px; }
 .modal-footer {
-    padding: 20px 24px; background: var(--color-white);
+    padding: 12px 20px 16px; background: var(--color-white);
     position: sticky; bottom: 0;
     border-radius: 0 0 var(--radius-2xl) var(--radius-2xl);
-    margin-top: 8px;
+    margin-top: 4px;
 }
 .btn-modal-submit {
     display: flex; align-items: center; justify-content: center; gap: 8px;
-    width: 100%; padding: 16px;
+    width: 100%; padding: 12px 16px;
     background: var(--color-primary); color: var(--color-white);
-    font-family: var(--font-heading); font-size: 16px; font-weight: 700;
+    font-family: var(--font-heading); font-size: 15px; font-weight: 700;
     border: none; border-radius: var(--radius-lg); cursor: pointer;
     box-shadow: var(--shadow-md); transition: background 0.15s;
 }
@@ -738,6 +787,19 @@
 }
 @keyframes slideUp { from { transform: translateY(20px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
 @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+
+/* ---- RESPONSIVE MEDIA QUERIES ---- */
+@media (max-width: 480px) {
+    .modal-body { padding: 20px 16px 8px; }
+    .donate-checkbox-wrap { margin: 0 16px 16px; padding: 12px; }
+    .nominal-section { margin: 0 16px; padding: 16px 16px 0; }
+    .modal-header, .modal-footer { padding: 16px; }
+
+    .related-card { padding: 16px; }
+    .related-card .related-cover-wrap { width: 100%; max-width: 140px; }
+
+    .book-title { font-size: 26px; }
+}
 </style>
 @endpush
 
@@ -762,6 +824,9 @@
         showModal: false,
         showSuccess: false,
         showInfaqInstructions: false,
+        showFreeDownloadSuccess: false,
+        showToast: false,
+        toastMessage: '',
         ebookSlug: '',
         ebookTitle: '',
         name: '',
@@ -793,7 +858,7 @@
             this.loading = true;
             try {
                 const amount = this.wantDonate
-                    ? (this.donationAmount === 'custom' ? parseInt(this.customAmount) || 0 : this.donationAmount)
+                    ? (this.donationAmount === 'custom' ? parseInt((this.customAmount || '').toString().replace(/\./g, '')) || 0 : this.donationAmount)
                     : 0;
 
                 const res = await fetch('/pustaka/' + this.ebookSlug + '/download', {
@@ -815,9 +880,8 @@
 
                 if (data.status === 'success') {
                     this.showModal = false;
-                    window.open(data.download_url, '_blank');
-                    this.showSuccess = true;
-                    setTimeout(() => { this.showSuccess = false; }, 4000);
+                    this.infaqData = data || {};
+                    this.showFreeDownloadSuccess = true;
                 } else if (data.status === 'infaq') {
                     this.showModal = false;
                     this.infaqData = data;
@@ -858,6 +922,31 @@
             const msg = 'Assalamualaikum, saya sudah transfer infaq untuk e-book ' + (d.ebook_title || '') + '. Nama: ' + (this.name || '') + ', No. Transfer: Rp ' + this.formatRupiah(d.total_transfer);
             const wa = (d.wa_admin || '').replace(/[^0-9]/g, '');
             return 'https://wa.me/' + wa + '?text=' + encodeURIComponent(msg);
+        },
+
+        buildFreeWaMessage() {
+            const msg = 'Assalamu\'alaikum Admin, saya ingin mengonfirmasi pengiriman link download e-book gratis %22' + (this.ebookTitle || '') + '%22 atas nama ' + (this.name || '') + '. Terima kasih.';
+            const waRaw = (this.infaqData && this.infaqData.wa_admin) ? this.infaqData.wa_admin : '6282311119499';
+            const wa = String(waRaw).replace(/[^0-9]/g, '');
+            return 'https://wa.me/' + wa + '?text=' + msg;
+        },
+
+        copyLink() {
+            let text = window.location.href;
+            if (navigator.clipboard && window.isSecureContext) {
+                navigator.clipboard.writeText(text).catch(() => {});
+            } else {
+                let textArea = document.createElement('textarea');
+                textArea.value = text;
+                textArea.style.position = 'fixed';
+                document.body.appendChild(textArea);
+                textArea.select();
+                try { document.execCommand('copy'); } catch (err) {}
+                document.body.removeChild(textArea);
+            }
+            this.toastMessage = 'Tautan berhasil disalin!';
+            this.showToast = true;
+            setTimeout(() => { this.showToast = false; }, 3000);
         }
      }"
 >
@@ -938,6 +1027,26 @@
                     Preview / Baca Online
                 </a>
                 @endif
+            </div>
+
+            {{-- Share --}}
+            <div class="share-section">
+                <span class="share-label">Bagikan:</span>
+                <div class="share-buttons">
+                    <a href="https://api.whatsapp.com/send?text={{ rawurlencode('Unduh e-book Islami gratis: ' . $ebook->title . ' di ' . Request::url()) }}" target="_blank" class="share-btn share-wa" title="Bagikan ke WhatsApp">
+                        <iconify-icon icon="simple-icons:whatsapp" width="18"></iconify-icon>
+                    </a>
+                    <a href="https://www.facebook.com/sharer/sharer.php?u={{ urlencode(Request::url()) }}" target="_blank" class="share-btn share-fb" title="Bagikan ke Facebook">
+                        <iconify-icon icon="simple-icons:facebook" width="18"></iconify-icon>
+                    </a>
+                    <a href="https://twitter.com/intent/tweet?text={{ rawurlencode('Unduh e-book Islami gratis: ' . $ebook->title) }}&url={{ urlencode(Request::url()) }}" target="_blank" class="share-btn share-tw" title="Bagikan ke X (Twitter)">
+                        <iconify-icon icon="simple-icons:x" width="16"></iconify-icon>
+                    </a>
+                    <button type="button" class="share-btn share-copy" title="Salin Tautan"
+                            @click="copyLink()">
+                        <iconify-icon icon="lucide:link" width="18"></iconify-icon>
+                    </button>
+                </div>
             </div>
         </div>
     </div>
@@ -1108,7 +1217,9 @@
                 <button class="nominal-btn nominal-other" :class="{ 'active-nominal': donationAmount === 'custom' }" @click="donationAmount = 'custom'">Nominal Lain</button>
             </div>
             <div x-show="donationAmount === 'custom'" class="custom-amount-field" x-cloak>
-                <input type="number" class="input-field" x-model="customAmount" placeholder="Masukkan nominal (Rp)" min="0">
+                <input type="text" class="input-field" x-model="customAmount" 
+                       @input="customAmount = customAmount.toString().replace(/\D/g, '').replace(/\B(?=(\d{3})+(?!\d))/g, '.')"
+                       placeholder="Masukkan nominal (Rp)">
             </div>
         </div>
 
@@ -1151,28 +1262,57 @@
             <hr class="payment-divider">
 
             <p class="bank-label">Transfer ke Rekening Tujuan:</p>
-            <div class="bank-box">
-                <div class="bank-header">
-                    <div class="bank-logo-box" x-text="infaqData.bank_code || 'BSI'"></div>
-                    <div class="bank-name-wrap">
-                        <h4 x-text="infaqData.bank_name"></h4>
-                        <p>Kode Bank: <span x-text="infaqData.bank_code"></span></p>
-                    </div>
-                </div>
+            
+            <template x-if="infaqData.bank_accounts && infaqData.bank_accounts.length > 0">
+                <div style="display:flex; flex-direction:column; gap:16px;">
+                    <template x-for="bank in infaqData.bank_accounts" :key="bank.account_number">
+                        <div class="bank-box">
+                            <div class="bank-header">
+                                <div class="bank-logo-box" x-text="bank.bank_code || bank.bank_name.substring(0,3).toUpperCase()"></div>
+                                <div class="bank-name-wrap">
+                                    <h4 x-text="bank.bank_name"></h4>
+                                    <template x-if="bank.bank_code">
+                                        <p>Kode Bank: <span x-text="bank.bank_code"></span></p>
+                                    </template>
+                                </div>
+                            </div>
 
-                <div class="account-number-row">
-                    <span class="account-number-text" x-text="infaqData.account_number"></span>
-                    <button class="btn-copy" @click="navigator.clipboard.writeText(infaqData.account_number)">
-                        <iconify-icon icon="lucide:copy" width="15"></iconify-icon>
-                        Salin No. Rekening
-                    </button>
-                </div>
+                            <div class="account-number-row" x-data="{ copied: false }">
+                                <span class="account-number-text" x-text="bank.account_number"></span>
+                                <button class="btn-copy" @click="
+                                    let text = bank.account_number;
+                                    if (navigator.clipboard && window.isSecureContext) {
+                                        navigator.clipboard.writeText(text);
+                                    } else {
+                                        let textArea = document.createElement('textarea');
+                                        textArea.value = text;
+                                        textArea.style.position = 'fixed';
+                                        document.body.appendChild(textArea);
+                                        textArea.select();
+                                        try { document.execCommand('copy'); } catch (err) {}
+                                        document.body.removeChild(textArea);
+                                    }
+                                    copied = true; setTimeout(() => copied = false, 3000);
+                                ">
+                                    <iconify-icon x-show="!copied" icon="lucide:copy" width="15"></iconify-icon>
+                                    <iconify-icon x-show="copied" style="display: none;" icon="lucide:check" width="15"></iconify-icon>
+                                    <span x-text="copied ? 'Tersalin!' : 'Salin No. Rekening'"></span>
+                                </button>
+                            </div>
 
-                <div class="account-name-row">
-                    <iconify-icon icon="lucide:user" width="15" style="color:var(--color-gray-400);flex-shrink:0;"></iconify-icon>
-                    <span>Atas Nama: <strong x-text="infaqData.account_name"></strong></span>
+                            <div class="account-name-row">
+                                <iconify-icon icon="lucide:user" width="15" style="color:var(--color-gray-400);flex-shrink:0;"></iconify-icon>
+                                <span>Atas Nama: <strong x-text="bank.account_name"></strong></span>
+                            </div>
+                        </div>
+                    </template>
                 </div>
-            </div>
+            </template>
+            <template x-if="!infaqData.bank_accounts || infaqData.bank_accounts.length === 0">
+                <div class="bank-box text-center" style="align-items: center; justify-content: center; background:var(--color-muted);">
+                    <p class="text-gray-600">Hubungi admin untuk informasi rekening.</p>
+                </div>
+            </template>
 
             <div class="countdown-wrap" style="margin-top:20px;">
                 <iconify-icon icon="lucide:clock" width="20"></iconify-icon>
@@ -1215,12 +1355,50 @@
     </div>
 </div>
 
+{{-- ======================== FREE DOWNLOAD SUCCESS ======================== --}}
+<div x-show="showFreeDownloadSuccess" x-cloak class="infaq-overlay"
+     x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100">
+    <div class="infaq-overlay-inner">
+        <div style="text-align:center;margin-bottom:32px;">
+            <div class="infaq-status-icon">
+                <iconify-icon icon="lucide:check" width="40"></iconify-icon>
+            </div>
+            <h1 class="infaq-heading">Alhamdulillah, Sukses!</h1>
+            <p class="infaq-subtext">Link download e-book "<strong><span x-text="ebookTitle"></span></strong>" akan dikirimkan otomatis melalui pesan WhatsApp ke nomor Anda sesaat lagi.</p>
+            
+            <div style="margin-top: 32px;">
+                <button @click="showFreeDownloadSuccess = false" class="btn-modal-submit" style="display:inline-flex; width:auto; padding:14px 40px; font-size:16px;">
+                    Selesai, Tutup Panel
+                </button>
+            </div>
+        </div>
+
+        <div style="text-align:center; border-top: 1px dashed var(--color-border); padding-top: 24px; margin-top: 24px;">
+            <p style="font-size:14px; color:var(--color-gray-500); margin-bottom:12px;">
+                Belum menerima pesan WA setelah beberapa saat?
+            </p>
+            <a :href="buildFreeWaMessage()" target="_blank" rel="noopener noreferrer" style="display:inline-flex; align-items:center; gap:6px; color:var(--color-success); font-weight:600; font-size:14px; text-decoration:none;">
+                <iconify-icon icon="simple-icons:whatsapp" width="16"></iconify-icon>
+                Hubungi Admin Mimbar
+            </a>
+        </div>
+    </div>
+</div>
+
 {{-- ======================== TOAST SUKSES ======================== --}}
 <div x-show="showSuccess" x-cloak class="toast-success"
      x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0 translate-y-4" x-transition:enter-end="opacity-100 translate-y-0"
      x-transition:leave="transition ease-in duration-200" x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0">
     <iconify-icon icon="lucide:check-circle" width="20"></iconify-icon>
     Jazakumullah khairan! File sedang diunduh.
+</div>
+
+{{-- Toast Share Link --}}
+<div x-show="showToast" x-cloak class="toast-success"
+     x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0 translate-y-4" x-transition:enter-end="opacity-100 translate-y-0"
+     x-transition:leave="transition ease-in duration-200" x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0">
+    <iconify-icon icon="lucide:check-circle" width="20"></iconify-icon>
+    <span x-text="toastMessage"></span>
 </div>
 
 </div>{{-- end pustaka-page --}}

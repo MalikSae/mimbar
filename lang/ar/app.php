@@ -1,0 +1,406 @@
+<?php
+
+return [
+    // Navigasi
+    'nav.home'       => 'الرئيسية',
+    'nav.about'      => 'من نحن',
+    'nav.program'    => 'البرامج',
+    'nav.artikel'    => 'المقالات',
+    'nav.berita'     => 'الأخبار',
+    'nav.donasi'     => 'التبرعات',
+    'nav.kontak'     => 'اتصل بنا',
+    'nav.pustaka'    => 'المكتبة الرقمية',
+    'nav.program.pembangunan' => 'برامج البناء والتشييد',
+    'nav.program.dakwah'      => 'برامج الدعوة',
+    'nav.program.pendidikan'  => 'برامج التعليم',
+    'nav.program.sosial'      => 'برامج الاجتماعي',
+
+    // Hero / CTA
+    'hero.tagline'   => 'إلهام الخير، بناء الجيل الإسلامي',
+    'hero.desc'      => 'مع مؤسسة منبر التوحيد، نبني معاً مجتمعاً إسلامياً قوياً ومزدهراً عبر برامج الدعوة والتعليم والخدمة الاجتماعية.',
+    'hero.cta'       => 'ادعم الدعوة',
+    'hero.quote'     => '"ظِلُّ المُؤمنِ يومَ القيامةِ صدقتُه"',
+    'hero.quote_src' => '- رواه أحمد',
+    'btn.donasi'     => 'تبرع الآن',
+    'btn.selengkapnya' => 'اقرأ المزيد',
+    'btn.semua_video'  => 'عرض جميع الفيديوهات',
+    'btn.baca_blog'    => 'قراءة المدونة',
+    'btn.lihat_kabar'  => 'عرض الأخبار',
+
+    // Section labels
+    'section.about'   => 'عن مؤسسة منبر التوحيد',
+    'section.program' => 'برامج متنوعة لبناء الأمة ونشر المنفعة',
+    'section.berita'  => 'آخر الأخبار',
+    'section.artikel' => 'المقالات الإسلامية',
+    'section.donasi'  => 'برامج التبرع',
+    'section.video'   => 'شاهد أحدث مقاطع الدعوة',
+
+    // About section
+    'about.desc' => 'مؤسسة منبر التوحيد هي مؤسسة لجمع الزكاة وإدارة الوقف تسعى لبناء مجتمع إسلامي من خلال برامج الدعوة والتعليم والخدمة الاجتماعية والاقتصاد الأمي.',
+
+    // Program cards
+    'program.dakwah'           => 'الدعوة',
+    'program.dakwah.desc'      => 'نشر قيم الإسلام من خلال الدروس وإرسال الدعاة وتوزيع المصاحف والدعوة الرقمية لتعزيز إيمان الأمة.',
+    'program.pendidikan'       => 'التعليم',
+    'program.pendidikan.desc'  => 'تعليم الجيل الإسلامي عبر المعاهد الدينية وتحفيظ القرآن وتدريب المهارات وتخريج الدعاة الأخلاقيين.',
+    'program.sosial'           => 'الاجتماعي',
+    'program.sosial.desc'      => 'المشاركة في توزيع السلع الأساسية والأضاحي ومساعدات اجتماعية أخرى لتخفيف أعباء المجتمع.',
+    'program.pembangunan'      => 'البناء والتشييد',
+    'program.pembangunan.desc' => 'مساعدة المجتمع ببناء المساجد والآبار والمرافق العامة لتوفير أماكن العبادة والرفاه.',
+
+    // Stats labels
+    'stats.title'    => 'الحمد لله، آلاف الأعمال الصالحة قد تحققت',
+    'stats.desc'     => 'كل مساهمة قدمتموها أعانتنا على تنفيذ برامج متنوعة ذات أثر حقيقي على الأمة. شكرًا لكم على كونكم جزءًا من هذا التغيير.',
+    'stats.masjid'   => 'مساجد بُنيت',
+    'stats.sumur'    => 'آبار حُفرت',
+    'stats.quran'    => 'مصاحف وُزِّعت',
+    'stats.buku'     => 'كتب إسلامية وُزِّعت',
+    'stats.qurban'   => 'أضاحي وُزِّعت',
+    'stats.dai'      => 'دعاة تم تأهيلهم',
+    'stats.pengajar' => 'معلمو القرآن',
+    'stats.kegiatan' => 'أنشطة دعوية',
+    'stats.digital'  => 'دعوة رقمية',
+    'stats.sembako'  => 'حزم غذائية',
+
+    // Footer
+    'footer.lokasi'  => 'موقعنا',
+    'footer.kontak'  => 'معلومات الاتصال',
+    'footer.media'   => 'الإعلام والتعليم',
+    'footer.program' => 'البرامج',
+    'footer.visitor' => 'إجمالي الزوار',
+    'footer.today'   => 'زوار اليوم',
+    'footer.copy'    => '© %s · مؤسسة منبر التوحيد. جميع الحقوق محفوظة.',
+    'footer.hak_cipta' => 'حقوق النشر',
+
+    // Home Section
+    'home.quote' => '"ظِلُّ المُؤمنِ يومَ القيامةِ صدقتُه"',
+    'home.quote_source' => '- رواه أحمد',
+    'home.about_title' => 'عن مؤسسة منبر التوحيد',
+    'home.stats_title' => 'الحمد لله، آلاف الأعمال الصالحة قد تحققت',
+    'home.stats_desc' => 'كل مساهمة قدمتموها أعانتنا على تنفيذ برامج متنوعة ذات أثر حقيقي على الأمة. شكرًا لكم على كونكم جزءًا من هذا التغيير.',
+    'home.urgent_donation' => 'فرصة صدقة جارية اليوم',
+    'home.urgent_desc' => 'أخرج أفضل صدقاتك للبرامج العاجلة التالية.',
+    'home.target' => 'الهدف',
+    'home.terkumpul' => 'جُمع',
+    'home.all_programs' => 'عرض جميع البرامج',
+    'home.video_title' => 'شاهد أحدث مقاطع الدعوة',
+    'home.video_desc' => 'دروس ومحاضرات وتوثيق برامج مؤسسة منبر التوحيد.',
+    'home.all_videos' => 'عرض جميع الفيديوهات',
+    'home.news_title' => 'أخبار المؤسسة',
+    'home.see_news' => 'عرض الأخبار',
+    'home.article_title' => 'إلهام ومقالات',
+    'home.read_blog' => 'قراءة المدونة',
+    'home.cta_title' => 'تصدَّق، استثمارٌ أبدي للآخرة!',
+    'home.cta_desc' => 'كل صدقة تُقدمها تُصبح وسيلةً لبناء أجيال مسلمة قوية وقادرة في المستقبل.',
+    'home.infaq_now' => 'أنفق الآن',
+
+    // Content Labels
+    'donation.priority' => 'الأولوية القصوى',
+    'donation.target'   => 'الهدف',
+    'donation.collected' => 'جُمع',
+    'video.desc'        => 'دروس ومحاضرات وتوثيق برامج مؤسسة منبر التوحيد.',
+
+    // ===== TENTANG KAMI =====
+    'about.page.title'         => 'مؤسسة منبر التوحيد — من نحن',
+    'about.hero.headline'      => 'التعريف بمؤسسة منبر التوحيد',
+    'about.hero.sub_headline'  => 'مؤسسة دعوية واجتماعية وتعليمية تسعى لتعميق تعاليم الإسلام وفق القرآن الكريم والسنة النبوية في المجتمع.',
+    'about.breadcrumb.home'    => 'الرئيسية',
+    'about.breadcrumb.about'   => 'من نحن',
+    'about.sidebar.title'      => 'عن المؤسسة',
+
+    // Tab labels
+    'about.tab.profil'     => 'الملف الشخصي',
+    'about.tab.visi'       => 'الرؤية',
+    'about.tab.misi'       => 'الرسالة',
+    'about.tab.organisasi' => 'الهيكل التنظيمي',
+
+    // Profil tab
+    'about.profil.badge'    => 'ملف المؤسسة',
+    'about.profil.title'    => 'التعريف بمؤسسة منبر التوحيد',
+    'about.profil.subtitle' => 'مؤسسة دعوية واجتماعية وتعليمية حاضرة في خدمة المجتمع بالتزام تام.',
+    'about.profil.desc'     => '<p>تقدم مؤسسة منبر التوحيد للمجتمع برامج دعوية جذابة ومبتكرة مبنية على نظام إداري متميز، وموارد بشرية محترفة في مجالاتها، أمينة ومسؤولة.</p><p>قامت هذه المؤسسة على أساس روح الدعوة إلى الله لنشر تعاليم الإسلام المستمدة من القرآن الكريم والسنة النبوية وفق فهم السلف الصالح، وتحقيق أعظم النفع للمجتمع على أوسع نطاق.</p>',
+
+    // Visi tab
+    'about.visi.badge'    => 'رؤيتنا',
+    'about.visi.title'    => 'رؤية المؤسسة',
+    'about.visi.subtitle' => 'الطموحات البعيدة المدى التي تُحدد مسار وأهداف جميع برامج المؤسسة.',
+    'about.visi.label'    => 'الرؤية الأساسية',
+    'about.visi.desc'     => '"أن تكون المؤسسة الرائدة في مجال الدعوة والخدمة الاجتماعية والتعليم لخدمة الأمة."',
+
+    // Misi tab
+    'about.misi.badge'    => 'رسالتنا',
+    'about.misi.title'    => 'رسالة المؤسسة',
+    'about.misi.subtitle' => 'الخطوات الاستراتيجية التي تُنفَّذ لتحقيق رؤية المؤسسة.',
+    'about.misi.1'        => 'تعميق فهم وتطبيق تعاليم الإسلام من القرآن والسنة وفق منهج السلف الصالح.',
+    'about.misi.2'        => 'تعزيز أواصر الأخوة الإسلامية في إطار التعاون والتناصح بالحق والصبر.',
+    'about.misi.3'        => 'تقديم الخدمات والمساعدات الاجتماعية للمجتمع بأمانة واحترافية.',
+    'about.misi.4'        => 'إنشاء مؤسسات تعليمية إسلامية ذات جودة عالية وفي متناول جميع شرائح المجتمع.',
+    'about.misi.5'        => 'إدارة وتنمية أصول المؤسسة بشفافية وأمانة واستدامة لمصلحة الأمة.',
+
+    // Organisasi tab
+    'about.org.badge'    => 'الهيكل التنظيمي',
+    'about.org.title'    => 'قائمة المسؤولين',
+    'about.org.subtitle' => 'قائمة المسؤولين والهيكل التنظيمي لمؤسسة منبر التوحيد.',
+    'about.org.empty'    => 'لا توجد بيانات للمسؤولين حتى الآن.',
+
+    // Tujuan section
+    'about.tujuan.badge'  => 'أهدافنا',
+    'about.tujuan.title'  => 'أهداف المؤسسة',
+    'about.tujuan.1'      => 'بناء مجتمع إسلامي وتنمية روح محبة القرآن الكريم والسنة النبوية بجعل المسجد مركزاً للتعليم والدعوة.',
+    'about.tujuan.2'      => 'إعداد دعاة أكفاء ذوي همة عالية، وتربية جيل شباب حافظ للقرآن الكريم ومتميز في طلب العلم.',
+    'about.tujuan.3'      => 'تحقيق تعاون وثيق وقوي بين مؤسسات الدعوة والخدمة الاجتماعية في إندونيسيا، وإنشاء مجتمعات دعوية في خدمة المجتمع.',
+
+    // Quote / Sekapur Sirih section
+    'about.quote.text'   => 'إن نجاح برامج مؤسسة منبر التوحيد في خدمة المجتمع لا يكون إلا بدعم جميع فئات المجتمع (بعد توفيق الله تعالى).',
+    'about.quote.author' => 'Ustadz Rustang Arizal, Lc., MA.',
+    'about.quote.role'   => 'رئيس مجلس الأمناء',
+    'about.foto.alt'     => 'رئيس المؤسسة',
+
+    // --- PROGRAM PEMBANGUNAN ---
+    'program.pembangunan.title' => 'برنامج البناء — مؤسسة منبر التوحيد',
+    'program.pembangunan.breadcrumb' => 'برنامج البناء',
+    'program.pembangunan.badge' => 'برنامج البناء',
+    'program.pembangunan.hero_headline' => 'بناء الحضارة من خلال مرافق العبادة والصرف الصحي اللائق',
+    'program.pembangunan.hero_subtitle' => 'ملتزمون بتوفير مرافق العبادة، والمياه النظيفة، والمرافق العامة المجانية لدعم نشر الإسلام حتى في المناطق النائية.',
+    
+    // Stats
+    'program.pembangunan.stat_1' => 'تم بناء المساجد',
+    'program.pembangunan.stat_2' => 'توفير آبار المياه',
+    'program.pembangunan.stat_3' => 'منتشرة في جميع أنحاء إندونيسيا',
+    
+    // Desc
+    'program.pembangunan.desc_label' => 'ما هو برنامج البناء؟',
+    'program.pembangunan.desc_title' => 'قسم البناء والتشييد في منبر التوحيد',
+    'program.pembangunan.desc_text' => 'هذا القسم مسؤول عن تخطيط وتنفيذ بناء المرافق العامة لدعم الأنشطة الدعوية والاحتياجات الأساسية للمجتمع. من خلال دعم المتبرعين، يتم تقديم كل هذه البرامج مجانًا بمعايير جودة عالية لصالح الأمة في جميع أنحاء إندونيسيا.',
+    
+    // Card 1
+    'program.pembangunan.card1_title' => 'توزيع مساعدات المساجد',
+    'program.pembangunan.card1_desc' => 'برنامج متميز لبناء مساجد استراتيجية تعمل كمراكز للدعوة، والتعليم، ومحركات للتغيير داخل المجتمع.',
+    
+    // Card 2
+    'program.pembangunan.card2_title' => 'توفير المياه النظيفة (الآبار)',
+    'program.pembangunan.card2_desc' => 'حفر الآبار لضمان توفر المياه النظيفة للقرى، والمصليات، والمدارس الإسلامية التي تواجه صعوبات في الوصول إلى المياه.',
+    
+    // Card 3
+    'program.pembangunan.card3_title' => 'بناء مرافق الصرف الصحي',
+    'program.pembangunan.card3_desc' => 'توفير مرافق صرف صحي مناسبة (حمامات ومراحيض) في محيط المساجد والمرافق العامة لتحسين المستويات الصحية للمصلين.',
+    
+    // Pencapaian
+    'program.pembangunan.pencapaian_title' => 'إنجازات برنامج البناء',
+    'program.pembangunan.pencapaian_subtitle' => 'بيانات إنجازات مؤسسة منبر التوحيد 2017 - 2024',
+    'program.pembangunan.achiev_1_label' => 'مسجداً تم بناؤه',
+    'program.pembangunan.achiev_2_label' => 'بئراً ومرفقاً صحياً',
+    'program.pembangunan.achiev_3_val' => '٤ أنواع',
+    'program.pembangunan.achiev_3_label' => 'تصاميم مجانية للمساجد<br>مقدمة للمجتمع',
+    
+    // Galeri
+    'program.pembangunan.galeri_title' => 'توثيق الأنشطة',
+    'program.pembangunan.galeri_empty' => 'سيتم إضافة الصور قريباً',
+    'program.pembangunan.galeri_alt' => 'صورة للمشروع',
+    
+    // CTA
+    'program.pembangunan.cta_title' => 'قدم طلباً للحصول على مساعدة البناء لمنطقتك',
+    'program.pembangunan.cta_subtitle' => 'هل تحتاج منطقتك إلى مساعدة في بناء مسجد أو مرافق مياه نظيفة؟ قدم طلبك إلينا.',
+    'program.pembangunan.cta_btn' => '&larr; تقديم طلب بناء مسجد',
+
+        // --- PROGRAM DAKWAH ---
+    'program.dakwah.title' => 'برنامج الدعوة — مؤسسة منبر التوحيد',
+    'program.dakwah.breadcrumb' => 'برنامج الدعوة',
+    'program.dakwah.badge' => 'قسم الدعوة',
+    'program.dakwah.hero_headline' => 'تخطيط ومتابعة البرامج الدعوية',
+    'program.dakwah.hero_subtitle' => 'الوصول المباشر وغير المباشر لأكثر من 100,000 مصلي في جميع أنحاء إندونيسيا.',
+    'program.dakwah.stat_1' => 'محاضرات وندوات',
+    'program.dakwah.stat_2' => 'مستفيدون من الدعوة',
+    'program.dakwah.stat_3' => 'تأهيل الدعاة',
+    
+    'program.dakwah.desc_label' => 'ما هو برنامج الدعوة؟',
+    'program.dakwah.desc_title' => 'قسم الدعوة بمؤسسة منبر التوحيد',
+    'program.dakwah.desc_text' => 'يقوم قسم الدعوة بمؤسسة منبر التوحيد بتخطيط ومراقبة جميع البرامج الدعوية المباشرة وغير المباشرة. وتشمل هذه البرامج المحاضرات الأسبوعية والشهرية، وحلقات تحسين وتلاوة القرآن، والندوات عبر الإنترنت والمباشرة، وتأهيل الشباب، وتوزيع المصاحف والكتب الإسلامية، وزيارات السجون والمستشفيات، والدعوة في الأماكن العامة.',
+    
+    'program.dakwah.card1_title' => 'المحاضرات والقرآن الكريم',
+    'program.dakwah.card1_desc' => 'المحاضرات الأسبوعية والشهرية، حلقات التحسين، ندوات عبر الإنترنت ومباشرة',
+    'program.dakwah.card2_title' => 'الدعوة الميدانية',
+    'program.dakwah.card2_desc' => 'زيارات السجون، والمستشفيات، والدعوة في الأماكن العامة',
+    'program.dakwah.card3_title' => 'تأهيل الدعاة',
+    'program.dakwah.card3_desc' => 'تأهيل الشباب وإرسال الدعاة إلى المناطق النائية',
+    
+    'program.dakwah.pencapaian_title' => 'إنجازات برنامج الدعوة',
+    'program.dakwah.pencapaian_subtitle' => 'بيانات إنجازات مؤسسة منبر التوحيد 2017 – 2024',
+    'program.dakwah.achiev_1' => 'محاضرات وندوات',
+    'program.dakwah.achiev_2' => 'مستفيدون من الدعوة',
+    'program.dakwah.achiev_3' => 'تأهيل الدعاة',
+    'program.dakwah.achiev_4' => 'المهتدين للإسلام',
+    'program.dakwah.achiev_5' => 'مراكز دعوية',
+    'program.dakwah.achiev_6' => 'كفالة الدعاة',
+    'program.dakwah.achiev_7' => 'دعاة متعاونون',
+    'program.dakwah.achiev_8' => 'توزيع المصاحف',
+    'program.dakwah.achiev_9' => 'توزيع الكتب الإسلامية',
+    
+    'program.dakwah.galeri_title' => 'توثيق الأنشطة',
+    'program.dakwah.galeri_empty' => 'سيتم إضافة الصور قريباً',
+    'program.dakwah.galeri_alt' => 'صورة للمشروع',
+    
+    'program.dakwah.cta_title' => 'ادعم برامجنا الدعوية',
+    'program.dakwah.cta_subtitle' => 'كل تبرع تقدمه يساعد في الوصول إلى المزيد من إخواننا المسلمين الذين يحتاجون إلى التوجيه والعلم.',
+    'program.dakwah.cta_btn' => '&larr; تبرع الآن',
+
+    // --- PROGRAM PENDIDIKAN ---
+    'program.pendidikan.title' => 'برنامج التعليم — مؤسسة منبر التوحيد',
+    'program.pendidikan.breadcrumb' => 'برنامج التعليم',
+    'program.pendidikan.badge' => 'برنامج التعليم',
+    'program.pendidikan.hero_headline' => 'نشأة الجيل القرآني وبناء حضارة العلم',
+    'program.pendidikan.hero_subtitle' => 'إدارة التعليم النظامي وغير النظامي والتدريب الأكاديمي لإعداد جيل موحد ومعرفي وذو أخلاق عالية.',
+    'program.pendidikan.stat_1' => 'مراكز الدعوة والتعليم',
+    'program.pendidikan.stat_2' => 'تأهيل الدعاة',
+    'program.pendidikan.stat_3' => 'كفالة الدعاة',
+    
+    'program.pendidikan.desc_label' => 'ما هو برنامج التعليم؟',
+    'program.pendidikan.desc_title' => 'قسم التعليم والتدريب بمنبر التوحيد',
+    'program.pendidikan.desc_text' => 'يتولى هذا القسم إدارة جميع البرامج التعليمية التابعة لمؤسسة منبر التوحيد، من المعاهد الإسلامية إلى التدريب على المهارات الحياتية. من خلال منهج متكامل، نلتزم بإعداد كوادر من العلماء والدعاة يتمتعون بروح قتالية عالية وجيل شاب من حفظة القرآن المتميزين.',
+    
+    'program.pendidikan.card1_title' => 'تعليم قائم على المعاهد',
+    'program.pendidikan.card1_desc' => 'إقامة المعاهد الإسلامية بتركيزات مختلفة، بدءًا من تعليم اللغة العربية، وتحفيظ القرآن الكري، ووصولاً إلى المراكز الخاصة لتأهيل العلماء والدعاة.',
+    'program.pendidikan.card2_title' => 'تعليم اللغة العربية',
+    'program.pendidikan.card2_desc' => 'دورات لغة عربية منهجية للمجتمع الواسع للمساعدة في فهم العبادات، ودراسة الأدبيات الإسلامية، والتواصل اليومي.',
+    'program.pendidikan.card3_title' => 'التدريب والدراسات الأكاديمية',
+    'program.pendidikan.card3_desc' => 'تنظيم تدريبات أكاديمية متنوعة مع خبراء، بالإضافة إلى نشر الأعمال العلمية لتقديم الفهم الصحيح للإسلام للجمهور.',
+    
+    'program.pendidikan.pencapaian_title' => 'إنجازات برنامج التعليم',
+    'program.pendidikan.pencapaian_subtitle' => 'بيانات إنجازات مؤسسة منبر التوحيد 2017 - 2024',
+    'program.pendidikan.achiev_1' => 'مراكز الدعوة والتعليم',
+    'program.pendidikan.achiev_2' => 'تأهيل الدعاة',
+    'program.pendidikan.achiev_3' => 'مستلمو كفالة الدعاة',
+    
+    'program.pendidikan.galeri_title' => 'توثيق الأنشطة',
+    'program.pendidikan.galeri_empty' => 'سيتم إضافة الصور قريباً',
+    'program.pendidikan.galeri_alt' => 'صورة للمشروع',
+    
+    'program.pendidikan.cta_title' => 'ادعم برامجنا التعليمية',
+    'program.pendidikan.cta_subtitle' => 'دعماً للدراسة التعليمية، ساعدنا على إنتاج المزيد من الأجيال من حفظة القرآن.',
+    'program.pendidikan.cta_btn' => '&larr; تبرع الآن',
+
+    // --- PROGRAM SOSIAL ---
+    'program.sosial.title' => 'البرنامج الاجتماعي — مؤسسة منبر التوحيد',
+    'program.sosial.breadcrumb' => 'البرنامج الاجتماعي',
+    'program.sosial.badge' => 'البرنامج الاجتماعي',
+    'program.sosial.hero_headline' => 'نشر الرعاية وتقديم المنفعة للأمة',
+    'program.sosial.hero_subtitle' => 'نعمل على تقديم الخدمات والمساعدات الاجتماعية بأمانة واحترافية لمساعدة إخواننا المسلمين المحتاجين في مختلف المناطق.',
+    'program.sosial.stat_1' => 'باقات الإفطار',
+    'program.sosial.stat_2' => 'توزيع المواد الغذائية',
+    'program.sosial.stat_3' => 'الأضاحي',
+    
+    'program.sosial.desc_label' => 'ما هو البرنامج الاجتماعي؟',
+    'program.sosial.desc_title' => 'الرعاية الاجتماعية لمؤسسة منبر التوحيد',
+    'program.sosial.desc_text' => 'يهدف البرنامج الاجتماعي لمؤسسة منبر التوحيد إلى مساعدة المحتاجين وتعزيز التضامن بين المسلمين. تشمل هذه الأنشطة توزيع المساعدات الأساسية في المناطق النائية المحتاجة، وتقديم الدعم المعنوي والروحي من خلال زيارات المستشفيات والمؤسسات الإصلاحية.',
+    
+    'program.sosial.card1_title' => 'توزيع المساعدات الأساسية',
+    'program.sosial.card1_desc' => 'توزيع طرود الإفطار في شهر رمضان، وتوزيع المواد الغذائية الأساسية، وتوزيع حيوانات الأضحية على الفقراء والمناطق المعزولة.',
+    'program.sosial.card2_title' => 'زيارات المستشفيات',
+    'program.sosial.card2_desc' => 'زيارات الصداقة الدعوية للمرضى وعائلاتهم، وتقديم الدعم النفسي، وتوصيل رسائل الصبر.',
+    'program.sosial.card3_title' => 'زيارات السجون',
+    'program.sosial.card3_desc' => 'الإرشاد الروحي، والدراسات الإسلامية، وجلسات الأسئلة والأجوبة لتوفير الحافز وتعزيز التفاؤل بين السجناء في منطقة سوكابومي.',
+    
+    'program.sosial.pencapaian_title' => 'إنجازات البرنامج الاجتماعي',
+    'program.sosial.pencapaian_subtitle' => 'بيانات إنجازات مؤسسة منبر التوحيد 2017 - 2024',
+    'program.sosial.achiev_1' => 'باقات الإفطار',
+    'program.sosial.achiev_2' => 'توزيع المواد الغذائية',
+    'program.sosial.achiev_3' => 'توزيع الأضاحي',
+    
+    'program.sosial.galeri_title' => 'توثيق الأنشطة',
+    'program.sosial.galeri_empty' => 'سيتم إضافة الصور قريباً',
+    'program.sosial.galeri_alt' => 'صورة للمشروع',
+    
+    'program.sosial.cta_title' => 'ادعم برامجنا الاجتماعية',
+    'program.sosial.cta_subtitle' => 'كل تبرع تقدمه يساعد في تخفيف العبء عن إخواننا المسلمين المحتاجين.',
+    'program.sosial.cta_btn' => '&larr; تبرع الآن',
+
+    // --- PUSTAKA ---
+    'pustaka.title' => 'المكتبة الرقمية — مؤسسة منبر التوحيد',
+    'pustaka.hero_title' => 'المكتبة الرقمية والأدبيات الإسلامية',
+    'pustaka.hero_desc' => 'حمّل مجاناً الكتب الإلكترونية في الحياة الإسلامية والدراسات الأكاديمية الرسمية من مؤسسة منبر التوحيد.',
+    'pustaka.breadcrumb_home' => 'الرئيسية',
+    'pustaka.breadcrumb_current' => 'المكتبة الرقمية',
+    'pustaka.search_placeholder' => 'ابحث عن عنوان كتاب أو موضوع...',
+    'pustaka.filter_all' => 'الكل',
+    'pustaka.featured_title' => 'توصية هذا الشهر',
+    'pustaka.featured_author_prefix' => 'المؤلف:',
+    'pustaka.featured_author_default' => 'فريق كتّاب منبر التوحيد',
+    'pustaka.btn_download' => 'تحميل PDF',
+    'pustaka.catalog_title' => 'فهرس الكتب الإلكترونية',
+    'pustaka.catalog_showing' => 'عرض',
+    'pustaka.catalog_of' => 'من',
+    'pustaka.catalog_books' => 'كتاب',
+    'pustaka.btn_detail' => 'عرض التفاصيل',
+    'pustaka.empty' => 'لا توجد كتب إلكترونية متاحة حالياً.',
+    'pustaka.cta_text' => 'أودع صدقتك الجارية لطباعة ونشر المزيد من أدبيات الدعوة للأمة.',
+    'pustaka.cta_btn' => 'تبرع لبرنامج الدعوة',
+    'pustaka.modal_title' => 'تحميل الأدبيات الرقمية',
+    'pustaka.modal_name' => 'الاسم الكامل',
+    'pustaka.modal_wa' => 'رقم الواتساب',
+    'pustaka.modal_wa_hint' => 'سيتم إرسال رابط التحميل تلقائياً إلى واتساب الخاص بك.',
+    'pustaka.modal_donate_title' => 'أريد دعم برنامج نشر الكتب الإسلامية (دعم الدعوة)',
+    'pustaka.modal_donate_desc' => 'ساعدنا في طباعة وتوزيع كتب الدعوة المجانية إلى المناطق النائية.',
+    'pustaka.modal_nominal_label' => 'اختر أفضل مبلغ للتبرع',
+    'pustaka.modal_nominal_other' => 'مبلغ آخر',
+    'pustaka.modal_nominal_placeholder' => 'أدخل المبلغ',
+    'pustaka.modal_processing' => 'جاري المعالجة...',
+    'pustaka.modal_btn_donate' => '← تبرع وحمّل PDF',
+    'pustaka.modal_btn_free' => '← حمّل PDF مجاناً',
+    'pustaka.infaq_heading' => 'جزاكم الله خيراً على دعمكم',
+    'pustaka.infaq_subtext' => 'تم تسجيل نيتكم الطيبة لدعم برنامج طباعة ونشر الكتب الإسلامية. يرجى إتمام تبرعكم.',
+    'pustaka.infaq_total_label' => 'إجمالي المبلغ المطلوب تحويله',
+    'pustaka.infaq_unique_code' => '*يوجد رمز فريد لتسريع التحقق التلقائي.',
+    'pustaka.infaq_bank_label' => 'حوّل إلى الحساب التالي:',
+    'pustaka.infaq_bank_code' => 'رمز البنك:',
+    'pustaka.infaq_copy' => 'نسخ رقم الحساب',
+    'pustaka.infaq_account_name' => 'باسم:',
+    'pustaka.infaq_countdown' => 'أكمل الدفع خلال:',
+    'pustaka.infaq_ebook_question' => 'ماذا عن كتابي الإلكتروني؟',
+    'pustaka.infaq_ebook_answer' => 'سيتم إرسالها تلقائياً إلى واتساب الخاص بك بعد التحقق من التبرع.',
+    'pustaka.infaq_ebook_note' => 'إذا لم يصلك الرابط خلال ساعة أو ترغب في التأكيد يدوياً، يرجى التواصل مع المشرف.',
+    'pustaka.infaq_wa_confirm' => 'تأكيد عبر الواتساب',
+    'pustaka.infaq_hadits' => '"إذا مات الإنسان انقطع عنه عمله إلا من ثلاثة: إلا من صدقة جارية، أو علم ينتفع به، أو ولد صالح يدعو له."',
+    'pustaka.infaq_hadits_source' => '(رواه مسلم)',
+    'pustaka.infaq_closing' => 'نسأل الله أن يجعل دعمكم سبباً في نشر العلم النافع للأمة.',
+    'pustaka.infaq_back' => 'العودة إلى الفهرس →',
+    'pustaka.free_heading' => 'الحمد لله، تم بنجاح!',
+    'pustaka.free_subtext_prefix' => 'رابط تحميل الكتاب الإلكتروني',
+    'pustaka.free_subtext_suffix' => 'سيتم إرساله تلقائياً عبر رسالة واتساب إلى رقمك قريباً.',
+    'pustaka.free_close' => 'انتهى، أغلق اللوحة',
+    'pustaka.free_not_received' => 'لم تتلق رسالة واتساب بعد فترة؟',
+    'pustaka.free_contact_admin' => 'تواصل مع مشرف المنبر',
+    'pustaka.toast_success' => 'جزاكم الله خيراً! جاري تحميل الملف.',
+
+    // --- BERITA ---
+    'berita.title' => 'آخر الأخبار - مؤسسة منبر التوحيد',
+    'berita.hero_title' => 'أخبار المؤسسة',
+    'berita.hero_desc' => 'أحدث المعلومات حول الأنشطة وبرامج التوزيع والتوثيق المختلف للأنشطة الاجتماعية من مؤسسة منبر التوحيد.',
+    'berita.breadcrumb_home' => 'الرئيسية',
+    'berita.breadcrumb_current' => 'الأخبار',
+    'berita.filter_all' => 'جميع الأخبار',
+    'berita.search_placeholder' => 'ابحث عن خبر...',
+    'berita.btn_search' => 'بحث',
+    'berita.default_badge' => 'أخبار',
+    'berita.readmore' => 'اقرأ المزيد',
+    'berita.empty' => 'لا توجد أخبار في هذه الفئة.',
+    'berita.newsletter_title' => 'احصل على التحديثات عبر البريد الإلكتروني',
+    'berita.newsletter_desc' => 'تابع نشرتنا الإخبارية الرقمية للحصول على آخر الأخبار مباشرة في بريدك.',
+    'berita.newsletter_placeholder' => 'أدخل بريدك الإلكتروني...',
+    'berita.newsletter_btn' => 'اشترك',
+
+    // --- ARTIKEL ---
+    'artikel.title' => 'مقالات إسلامية - مؤسسة منبر التوحيد',
+    'artikel.hero_title' => 'مقالات إسلامية',
+    'artikel.hero_desc' => 'ارتقِ بثقافتك الإسلامية من خلال مجموعة من الكتابات المليئة بالحكمة ودراسات السنة وأدلة العبادات اليومية.',
+    'artikel.breadcrumb_home' => 'الرئيسية',
+    'artikel.breadcrumb_current' => 'مقالات إسلامية',
+    'artikel.filter_all' => 'جميع المقالات',
+    'artikel.search_placeholder' => 'ابحث عن مقال...',
+    'artikel.btn_search' => 'بحث',
+    'artikel.default_badge' => 'مقال',
+    'artikel.empty' => 'لا توجد مقالات في هذه الفئة.',
+    'artikel.newsletter_title' => 'احصل على التحديثات عبر البريد الإلكتروني',
+    'artikel.newsletter_desc' => 'تابع نشرتنا الإخبارية الرقمية للحصول على أحدث المقالات مباشرة في بريدك.',
+    'artikel.newsletter_placeholder' => 'أدخل بريدك الإلكتروني...',
+    'artikel.newsletter_btn' => 'اشترك',
+];

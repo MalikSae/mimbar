@@ -10,6 +10,8 @@ class Video extends Model
         'title',
         'embed_url',
         'thumbnail',
+        'category',
+        'duration',
         'is_featured',
         'published_at'
     ];

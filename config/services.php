@@ -35,4 +35,9 @@ return [
         ],
     ],
 
+    'libretranslate' => [
+        'url' => env('LIBRETRANSLATE_URL', 'https://translate.fedilab.app'),
+        'key' => env('LIBRETRANSLATE_KEY'),
+    ],
+
 ];
