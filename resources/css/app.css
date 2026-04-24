@@ -118,3 +118,21 @@
 }
 
 /* ===== END RTL LIST FIX ===== */
+
+/* ===== RTL CONTAINER OVERFLOW FIX ===== */
+[dir="rtl"] .ba-container,
+html[dir="rtl"] .ba-container {
+    overflow: hidden !important;
+    box-sizing: border-box !important;
+}
+
+[dir="rtl"] .ba-tabs,
+html[dir="rtl"] .ba-tabs {
+    flex-wrap: wrap !important;
+    overflow: visible !important;
+    overflow-x: visible !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+    box-sizing: border-box !important;
+}
+/* ===== END RTL CONTAINER OVERFLOW FIX ===== */

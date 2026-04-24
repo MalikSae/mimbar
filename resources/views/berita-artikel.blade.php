@@ -5,7 +5,7 @@
 @push('head')
 <style>
   /* Base Layout & Utilities */
-  .ba-container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+  .ba-container { max-width: 1200px; margin: 0 auto; padding: 0 24px; overflow: hidden; box-sizing: border-box; }
   .ba-section { padding: 80px 0; }
   .ba-bg-muted { background-color: var(--color-muted); }
   .ba-bg-white { background-color: white; }
@@ -31,8 +31,7 @@
   .ba-section-desc { font-size: 16px; color: var(--color-gray-600); max-width: 600px; line-height: 1.6; margin-bottom: 32px; }
 
   /* Tabs Navigation */
-  .ba-tabs { display: flex; gap: 12px; overflow-x: auto; padding-bottom: 12px; margin-bottom: 32px; scrollbar-width: none; }
-  .ba-tabs::-webkit-scrollbar { display: none; }
+  .ba-tabs { display: flex !important; flex-wrap: wrap !important; overflow: visible !important; overflow-x: visible !important; gap: 12px; padding-bottom: 12px; margin-bottom: 32px; }
   .ba-tab { padding: 8px 20px; border-radius: var(--radius-full); font-size: 14px; font-weight: 600; text-decoration: none; white-space: nowrap; transition: all 0.2s; background-color: white; color: var(--color-gray-600); border: 1px solid var(--color-border); }
   .ba-tab:hover { background-color: var(--color-muted); }
   .ba-tab.active { background-color: var(--color-primary); color: white; border-color: var(--color-primary); }

@@ -4,7 +4,7 @@
 
 @push('head')
 <style>
-  .ba-container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+  .ba-container { max-width: 1200px; margin: 0 auto; padding: 0 24px; overflow: hidden; box-sizing: border-box; }
   .ba-section { padding: 80px 0; }
   .ba-bg-muted { background-color: var(--color-muted); }
 
@@ -42,8 +42,7 @@
   .ba-section-desc { font-size: 16px; color: var(--color-gray-600); max-width: 600px; line-height: 1.6; margin-bottom: 32px; }
 
   /* Tabs */
-  .ba-tabs { display: flex; gap: 12px; overflow-x: auto; padding-bottom: 12px; margin-bottom: 32px; scrollbar-width: none; }
-  .ba-tabs::-webkit-scrollbar { display: none; }
+  .ba-tabs { display: flex !important; flex-wrap: wrap !important; overflow: visible !important; overflow-x: visible !important; gap: 12px; padding-bottom: 12px; margin-bottom: 32px; }
   .ba-tab { padding: 8px 20px; border-radius: var(--radius-full); font-size: 14px; font-weight: 600; text-decoration: none; white-space: nowrap; transition: all 0.2s; background-color: white; color: var(--color-gray-600); border: 1px solid var(--color-border); }
   .ba-tab:hover { background-color: var(--color-muted); }
   .ba-tab.active { background-color: var(--color-primary); color: white; border-color: var(--color-primary); }
@@ -82,6 +81,9 @@
     .ba-newsletter-form { flex-direction: column; background: transparent; gap: 12px; }
     .ba-newsletter-input { border-radius: var(--radius-md); padding: 14px; border: 1px solid rgba(255,255,255,0.3); }
     .ba-newsletter-btn { border-radius: var(--radius-md); padding: 14px; }
+    .ba-article-grid { grid-template-columns: 1fr !important; }
+    .ba-filter-wrap { gap: 12px !important; }
+    .ba-filter-wrap form { max-width: 100% !important; }
   }
 </style>
 @endpush
@@ -108,8 +110,8 @@
   <div class="ba-container">
 
     {{-- TABS FILTER & SEARCH --}}
-    <div style="display: flex; justify-content: space-between; align-items: center; gap: 24px; flex-wrap: wrap; margin-bottom: 32px;" @if(app()->getLocale() === 'ar') dir="rtl" @endif>
-      <div class="ba-tabs" style="margin-bottom: 0; padding-bottom: 0; flex-grow: 1; max-width: 100%; min-width: 0; align-items: center;">
+    <div class="ba-filter-wrap" style="display: flex; flex-wrap: wrap; gap: 16px; margin-bottom: 32px; max-width: 100%; box-sizing: border-box;" @if(app()->getLocale() === 'ar') dir="rtl" @endif>
+      <div class="ba-tabs" style="margin-bottom: 0; padding-bottom: 0; flex: 1 1 100%; min-width: 0; max-width: 100%; box-sizing: border-box;">
         <a href="{{ route('artikel.index') }}?kategori=semua"
            class="ba-tab {{ request('kategori', 'semua') === 'semua' ? 'active' : '' }}">
           {{ __('app.artikel.filter_all') }}
@@ -122,12 +124,12 @@
         @endforeach
       </div>
 
-      <form action="{{ route('artikel.index') }}" method="GET" style="display: flex; gap: 8px; flex-shrink: 0; width: 100%; max-width: 320px;">
+      <form action="{{ route('artikel.index') }}" method="GET" style="display: flex; gap: 8px; flex-shrink: 0; width: 100%; max-width: 320px; box-sizing: border-box;">
         @if(request('kategori') && request('kategori') !== 'semua')
           <input type="hidden" name="kategori" value="{{ request('kategori') }}">
         @endif
-        <input type="text" name="q" placeholder="{{ __('app.artikel.search_placeholder') }}" value="{{ request('q') }}" style="flex-grow: 1; background: white; border: 1px solid var(--color-border); padding: 10px 16px; border-radius: var(--radius-full); font-size: 14px; outline: none; focus:border-color: var(--color-primary);">
-        <button type="submit" style="background: var(--color-primary); color: white; border: none; padding: 10px 20px; border-radius: var(--radius-full); cursor: pointer; font-size: 14px; font-weight: 600; display: flex; align-items: center; gap: 6px;">
+        <input type="text" name="q" placeholder="{{ __('app.artikel.search_placeholder') }}" value="{{ request('q') }}" style="flex-grow: 1; min-width: 0; background: white; border: 1px solid var(--color-border); padding: 10px 16px; border-radius: var(--radius-full); font-size: 14px; outline: none;">
+        <button type="submit" style="background: var(--color-primary); color: white; border: none; padding: 10px 20px; border-radius: var(--radius-full); cursor: pointer; font-size: 14px; font-weight: 600; display: flex; align-items: center; gap: 6px; white-space: nowrap;">
           <iconify-icon icon="lucide:search"></iconify-icon> {{ __('app.artikel.btn_search') }}
         </button>
       </form>
@@ -135,7 +137,7 @@
 
     {{-- GRID --}}
     @if($articles->count() > 0)
-    <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 24px;" @if(app()->getLocale() === 'ar') dir="rtl" @endif>
+    <div class="ba-article-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(min(340px, 100%), 1fr)); gap: 24px;" @if(app()->getLocale() === 'ar') dir="rtl" @endif>
       @foreach($articles as $item)
       <a href="{{ route('artikel.show', $item->slug) }}" class="ba-article-card">
         <div class="ba-article-card-top">
