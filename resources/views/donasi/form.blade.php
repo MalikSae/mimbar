@@ -56,11 +56,11 @@
         <div class="absolute inset-0 opacity-10" style="background-image: url('https://www.transparenttextures.com/patterns/arabesque.png');"></div>
         <div class="relative z-10 flex flex-col md:flex-row md:justify-between md:items-end gap-4">
             <div>
-                <p class="text-white/80 text-sm mb-2 font-medium">Anda Berdonasi Untuk</p>
-                <div class="font-heading text-2xl md:text-[28px] font-bold text-white mb-2 leading-tight">
+                <p class="text-white/80 text-[13px] md:text-sm mb-1.5 md:mb-2 font-medium">Anda Berdonasi Untuk</p>
+                <div class="font-heading text-xl md:text-[28px] font-bold text-white mb-1.5 md:mb-2 leading-tight">
                     {{ $program->name }}
                 </div>
-                <div class="font-heading text-xl font-bold text-accent" x-text="'Rp ' + new Intl.NumberFormat('id-ID').format(amount === 'custom' ? (customAmount || 0) : amount)"></div>
+                <div class="font-heading text-lg md:text-xl font-bold text-accent" x-text="'Rp ' + new Intl.NumberFormat('id-ID').format(amount === 'custom' ? (customAmount || 0) : amount)"></div>
             </div>
             <a href="{{ route('donations.show', $program->slug) }}" class="self-start md:self-auto inline-flex items-center gap-2 bg-white/10 hover:bg-white/20 border border-white/20 text-white px-4 py-2 rounded-lg text-sm font-bold transition-colors">
                 <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5"/><path d="m12 19-7-7 7-7"/></svg>
@@ -74,18 +74,18 @@
 
         {{-- NOMINAL DONASI --}}
         <section class="mb-8">
-            <h2 class="font-heading text-xl font-bold text-primary mb-2">
+            <h2 class="font-heading text-lg md:text-xl font-bold text-primary mb-2">
                 Nominal Donasi
             </h2>
 
             <div class="flex flex-col gap-4">
                 <div class="flex flex-wrap gap-2.5">
-                    <button type="button" @click="amount = 50000; customAmountFormatted = '50.000'; customAmount = 50000" :class="amount === 50000 ? 'bg-primary text-white border-primary' : 'bg-white text-gray-700 border-gray-200 hover:border-gray-300'" class="px-5 py-2 border rounded-full text-[14px] font-medium transition-colors shadow-sm">50rb</button>
-                    <button type="button" @click="amount = 100000; customAmountFormatted = '100.000'; customAmount = 100000" :class="amount === 100000 ? 'bg-primary text-white border-primary' : 'bg-white text-gray-700 border-gray-200 hover:border-gray-300'" class="px-5 py-2 border rounded-full text-[14px] font-medium transition-colors shadow-sm">100rb</button>
-                    <button type="button" @click="amount = 250000; customAmountFormatted = '250.000'; customAmount = 250000" :class="amount === 250000 ? 'bg-primary text-white border-primary' : 'bg-white text-gray-700 border-gray-200 hover:border-gray-300'" class="px-5 py-2 border rounded-full text-[14px] font-medium transition-colors shadow-sm">250rb</button>
-                    <button type="button" @click="amount = 500000; customAmountFormatted = '500.000'; customAmount = 500000" :class="amount === 500000 ? 'bg-primary text-white border-primary' : 'bg-white text-gray-700 border-gray-200 hover:border-gray-300'" class="px-5 py-2 border rounded-full text-[14px] font-medium transition-colors shadow-sm">500rb</button>
-                    <button type="button" @click="amount = 1000000; customAmountFormatted = '1.000.000'; customAmount = 1000000" :class="amount === 1000000 ? 'bg-primary text-white border-primary' : 'bg-white text-gray-700 border-gray-200 hover:border-gray-300'" class="px-5 py-2 border rounded-full text-[14px] font-medium transition-colors shadow-sm">1jt</button>
-                    <button type="button" @click="amount = 'custom'; customAmountFormatted = ''; customAmount = ''; setTimeout(() => $refs.customAmountInput.focus(), 50)" :class="amount === 'custom' ? 'bg-primary text-white border-primary' : 'bg-white text-gray-700 border-gray-200 hover:border-gray-300'" class="px-5 py-2 border rounded-full text-[14px] font-medium transition-colors shadow-sm">Lainnya...</button>
+                    <button type="button" @click="amount = 50000; customAmountFormatted = '50.000'; customAmount = 50000" :class="amount === 50000 ? 'bg-primary text-white border-primary' : 'bg-white text-gray-700 border-gray-200 hover:border-gray-300'" class="px-4 md:px-5 py-2 border rounded-full text-[13px] md:text-[14px] font-medium transition-colors shadow-sm">50rb</button>
+                    <button type="button" @click="amount = 100000; customAmountFormatted = '100.000'; customAmount = 100000" :class="amount === 100000 ? 'bg-primary text-white border-primary' : 'bg-white text-gray-700 border-gray-200 hover:border-gray-300'" class="px-4 md:px-5 py-2 border rounded-full text-[13px] md:text-[14px] font-medium transition-colors shadow-sm">100rb</button>
+                    <button type="button" @click="amount = 250000; customAmountFormatted = '250.000'; customAmount = 250000" :class="amount === 250000 ? 'bg-primary text-white border-primary' : 'bg-white text-gray-700 border-gray-200 hover:border-gray-300'" class="px-4 md:px-5 py-2 border rounded-full text-[13px] md:text-[14px] font-medium transition-colors shadow-sm">250rb</button>
+                    <button type="button" @click="amount = 500000; customAmountFormatted = '500.000'; customAmount = 500000" :class="amount === 500000 ? 'bg-primary text-white border-primary' : 'bg-white text-gray-700 border-gray-200 hover:border-gray-300'" class="px-4 md:px-5 py-2 border rounded-full text-[13px] md:text-[14px] font-medium transition-colors shadow-sm">500rb</button>
+                    <button type="button" @click="amount = 1000000; customAmountFormatted = '1.000.000'; customAmount = 1000000" :class="amount === 1000000 ? 'bg-primary text-white border-primary' : 'bg-white text-gray-700 border-gray-200 hover:border-gray-300'" class="px-4 md:px-5 py-2 border rounded-full text-[13px] md:text-[14px] font-medium transition-colors shadow-sm">1jt</button>
+                    <button type="button" @click="amount = 'custom'; customAmountFormatted = ''; customAmount = ''; setTimeout(() => $refs.customAmountInput.focus(), 50)" :class="amount === 'custom' ? 'bg-primary text-white border-primary' : 'bg-white text-gray-700 border-gray-200 hover:border-gray-300'" class="px-4 md:px-5 py-2 border rounded-full text-[13px] md:text-[14px] font-medium transition-colors shadow-sm">Lainnya...</button>
                 </div>
                 
                 <div x-show="amount === 'custom'" x-transition style="display: none;" class="flex items-center w-full px-4 py-3 border border-border rounded-xl min-h-[48px] bg-white transition-all focus-within:border-primary focus-within:ring-1 focus-within:ring-primary">
@@ -104,7 +104,7 @@
 
         {{-- INFORMASI KONTAK --}}
         <section class="bg-white rounded-2xl p-6 md:p-8 shadow-sm border border-border mb-8">
-            <h2 class="font-heading text-xl font-bold text-gray-900 mb-6 pb-4 border-b border-border">
+            <h2 class="font-heading text-lg md:text-xl font-bold text-gray-900 mb-5 md:mb-6 pb-4 border-b border-border">
                 Informasi Kontak
             </h2>
 
@@ -143,8 +143,8 @@
 
         {{-- PESAN ATAU DOA --}}
         <section class="mb-8">
-            <h2 class="font-heading text-xl font-bold text-gray-900 mb-4">
-                Pesan atau Doa <span class="text-gray-400 font-normal text-base">(Opsional)</span>
+            <h2 class="font-heading text-lg md:text-xl font-bold text-gray-900 mb-3 md:mb-4">
+                Pesan atau Doa <span class="text-gray-400 font-normal text-sm md:text-base">(Opsional)</span>
             </h2>
             <textarea name="message" x-model="message" rows="4" placeholder="Tulis doa terbaik Anda..."
                 class="w-full px-4 py-3 rounded-xl border border-border text-gray-900 placeholder-gray-400 bg-white focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all resize-none mb-3"></textarea>
@@ -156,14 +156,14 @@
 
         {{-- STICKY FOOTER --}}
         <div class="fixed bottom-0 left-0 right-0 bg-white border-t border-border shadow-[0_-4px_20px_rgba(0,0,0,0.07)] z-40">
-            <div class="max-w-3xl mx-auto px-4 md:px-6 py-4 flex items-center justify-between gap-4">
-                <div>
-                    <div class="text-[11px] text-gray-500 font-bold uppercase tracking-wider mb-0.5">Total Donasi</div>
-                    <div class="font-heading text-xl md:text-2xl font-bold text-primary" x-text="'Rp ' + new Intl.NumberFormat('id-ID').format(amount === 'custom' ? (customAmount || 0) : amount)"></div>
+            <div class="max-w-3xl mx-auto px-4 md:px-6 py-3.5 md:py-4 flex items-center justify-between gap-3 md:gap-4">
+                <div class="min-w-0 overflow-hidden">
+                    <div class="text-[10px] md:text-[11px] text-gray-500 font-bold uppercase tracking-wider mb-0.5 whitespace-nowrap">Total Donasi</div>
+                    <div class="font-heading text-base sm:text-lg md:text-2xl font-bold text-primary leading-none tracking-tight whitespace-nowrap truncate" x-text="'Rp ' + new Intl.NumberFormat('id-ID').format(amount === 'custom' ? (customAmount || 0) : amount)"></div>
                 </div>
-                <button type="submit" class="inline-flex items-center justify-center gap-2 px-6 md:px-10 py-3.5 bg-primary text-white font-bold font-heading text-sm rounded-lg shadow-md hover:bg-primary-dark transition-colors shrink-0">
-                    Lanjut Pembayaran
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+                <button type="submit" class="inline-flex items-center justify-center gap-1.5 md:gap-2 px-4 sm:px-6 md:px-10 py-3 md:py-3.5 bg-primary text-white font-bold font-heading text-[13px] md:text-sm rounded-lg shadow-md hover:bg-primary-dark transition-colors shrink-0">
+                    Lanjut Donasi
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4 md:w-4 md:h-4"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
                 </button>
             </div>
         </div>
