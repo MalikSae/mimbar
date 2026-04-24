@@ -87,6 +87,7 @@ p.is-editor-empty:first-child::before {
     height: 0;
 }
 </style>
+<link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&display=swap" rel="stylesheet">
 @endpush
 
 @section('content')
@@ -196,7 +197,7 @@ p.is-editor-empty:first-child::before {
                           color: var(--color-gray-900); margin-bottom: 8px;">
                 Judul Artikel <span style="color: var(--color-danger);">*</span>
             </label>
-            <input type="text" name="title" id="title-input"
+            <input type="text" name="title" id="title"
                    value="{{ old('title', $article->title ?? '') }}"
                    placeholder="Masukkan judul artikel..."
                    required
@@ -255,10 +256,15 @@ p.is-editor-empty:first-child::before {
 
         {{-- ===== TERJEMAHAN ARAB ===== --}}
         <div class="mt-8 border-t border-gray-200 pt-6">
+            <x-admin.translate-button :fields="[
+                ['id' => 'title', 'type' => 'text'],
+                ['id' => 'excerpt', 'type' => 'text'],
+                ['id' => 'content', 'type' => 'html'],
+            ]" />
             <div class="flex items-center gap-3 mb-4">
                 <span class="text-lg">🌐</span>
                 <div>
-                    <h3 class="text-base font-semibold text-gray-800">Terjemahan Arab</h3>
+                    <h3 class="text-base font-semibold text-gray-800">Versi Arab (اللغة العربية)</h3>
                     <p class="text-sm text-gray-500">
                         Isi manual oleh admin atau penulis yang memahami bahasa Arab.
                         Konten Arab akan tampil otomatis saat pengunjung memilih bahasa AR.
@@ -275,11 +281,12 @@ p.is-editor-empty:first-child::before {
                         <span class="text-xs font-normal text-gray-400 mr-2">(Judul Artikel)</span>
                     </label>
                     <input type="text"
+                           id="title_ar"
                            name="title_ar"
                            value="{{ old('title_ar', $article->title_ar ?? '') }}"
                            class="w-full border border-gray-300 rounded-lg px-4 py-2.5 text-right text-lg focus:ring-2 focus:ring-amber-300 focus:border-amber-400"
                            style="font-family: 'Amiri', 'Scheherazade New', serif;"
-                           placeholder="أدخل عنوان المقال بالعربية" />
+                           placeholder="أدخل عنوان المقال بالعربية" dir="rtl" />
                 </div>
 
                 {{-- Excerpt AR --}}
@@ -288,11 +295,11 @@ p.is-editor-empty:first-child::before {
                         مقتطف المقال
                         <span class="text-xs font-normal text-gray-400 mr-2">(Ringkasan)</span>
                     </label>
-                    <textarea name="excerpt_ar"
+                    <textarea id="excerpt_ar" name="excerpt_ar"
                               rows="3"
                               class="w-full border border-gray-300 rounded-lg px-4 py-2.5 text-right focus:ring-2 focus:ring-amber-300 focus:border-amber-400"
                               style="font-family: 'Amiri', 'Scheherazade New', serif; font-size: 1rem; line-height: 1.8;"
-                              placeholder="أدخل مقتطفاً للمقال">{{ old('excerpt_ar', $article->excerpt_ar ?? '') }}</textarea>
+                              placeholder="أدخل مقتطفاً للمقال" dir="rtl">{{ old('excerpt_ar', $article->excerpt_ar ?? '') }}</textarea>
                 </div>
 
                 {{-- Content AR — TipTap RTL --}}
@@ -331,7 +338,7 @@ p.is-editor-empty:first-child::before {
                     
                     {{-- AR Editor Area --}}
                     <div id="tiptap-editor-ar" style="border-bottom: 1px solid var(--color-border);"></div>
-                    <input type="hidden" name="content_ar" id="content-input-ar" value="{{ old('content_ar', $article->content_ar ?? '') }}">
+                    <input type="hidden" name="content_ar" id="content_ar" value="{{ old('content_ar', $article->content_ar ?? '') }}">
                 </div>
 
             </div>
@@ -766,9 +773,9 @@ p.is-editor-empty:first-child::before {
         }
         
         // TipTap Editor (AR)
-        const contentInputAr = document.getElementById('content-input-ar');
+        const contentInputAr = document.getElementById('content_ar');
         if (contentInputAr && typeof window.createEditor === 'function') {
-            window.createEditor(contentInputAr.value, 'content-input-ar', {
+            window.createEditor(contentInputAr.value, 'content_ar', {
                 editorId: 'tiptap-editor-ar',
                 toolbarId: 'tiptap-toolbar-ar',
                 rtl: true,

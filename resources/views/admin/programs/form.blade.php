@@ -2,6 +2,7 @@
 @section('title', isset($program) ? 'Edit Program Donasi' : 'Tambah Program Donasi')
 
 @push('head')
+<link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&display=swap" rel="stylesheet">
 <style>
 .tiptap-toolbar-btn {
     padding: 5px 10px;
@@ -103,7 +104,7 @@ p.is-editor-empty:first-child::before {
                               text-transform:uppercase;letter-spacing:.06em;margin-bottom:8px;">
                     Nama Program <span style="color:var(--color-danger);">*</span>
                 </label>
-                <input type="text" name="name" value="{{ old('name', $program->name ?? '') }}"
+                <input type="text" name="name" id="name" value="{{ old('name', $program->name ?? '') }}"
                        required placeholder="Contoh: Wakaf Pembangunan Masjid Pelosok"
                        style="width:100%;box-sizing:border-box;padding:10px 14px;border:1px solid var(--color-border);
                               border-radius:var(--radius-lg);font-size:14px;font-family:var(--font-body);outline:none;
@@ -173,13 +174,18 @@ p.is-editor-empty:first-child::before {
 
             {{-- ===== TERJEMAHAN ARAB ===== --}}
             <div class="mt-8 border-t border-gray-200 pt-6">
+                <x-admin.translate-button :fields="[
+                    ['id' => 'name', 'type' => 'text'],
+                    ['id' => 'description', 'type' => 'html'],
+                ]" />
+
                 <div class="flex items-center gap-3 mb-4">
                     <span class="text-lg">🌐</span>
                     <div>
-                        <h3 class="text-base font-semibold text-gray-800">Terjemahan Arab</h3>
+                        <h3 class="text-base font-semibold text-gray-800">Versi Arab (اللغة العربية)</h3>
                         <p class="text-sm text-gray-500">
-                            Isi manual oleh admin yang memahami bahasa Arab.
-                            Konten Arab akan tampil saat pengunjung memilih bahasa AR.
+                            Isi manual atau klik Terjemahkan di atas.
+                            Konten Arab tampil saat pengunjung memilih bahasa AR.
                         </p>
                     </div>
                 </div>
@@ -189,35 +195,38 @@ p.is-editor-empty:first-child::before {
                     {{-- Name AR --}}
                     <div>
                         <label class="block text-sm font-medium text-gray-700 text-right mb-1">
-                            اسم البرنامج
-                            <span class="text-xs font-normal text-gray-400 mr-2">(Nama Program)</span>
+                            اسم البرنامج <span class="text-red-500">*</span>
+                            <span class="text-gray-400 text-xs">(Nama Program)</span>
                         </label>
                         <input type="text"
+                               id="name_ar"
                                name="name_ar"
+                               dir="rtl"
+                               style="font-family: 'Amiri', serif; font-size: 1.1em;"
+                               class="w-full rounded-lg border border-gray-300 px-4 py-2 text-right"
                                value="{{ old('name_ar', $program->name_ar ?? '') }}"
-                               class="w-full border border-gray-300 rounded-lg px-4 py-2.5 text-right text-lg focus:ring-2 focus:ring-amber-300 focus:border-amber-400"
-                               style="font-family: 'Amiri', 'Scheherazade New', serif;"
                                placeholder="أدخل اسم البرنامج بالعربية" />
                     </div>
 
-                    {{-- Description AR --}}
+                    {{-- Description AR — Tiptap RTL --}}
                     <div>
                         <label class="block text-sm font-medium text-gray-700 text-right mb-1">
                             وصف البرنامج
-                            <span class="text-xs font-normal text-gray-400 mr-2">(Deskripsi Program)</span>
+                            <span class="text-gray-400 text-xs">(Deskripsi Program)</span>
                         </label>
-                        <div class="border border-gray-300 rounded-lg overflow-hidden bg-white">
-                            <div class="bg-gray-50 border-b border-gray-200 px-3 py-2 text-xs text-gray-500 text-right">
-                                محرر النص — Rich text editor Arab (RTL)
-                            </div>
-                            <textarea name="description_ar"
-                                      rows="10"
-                                      class="w-full px-4 py-3 text-right focus:outline-none focus:ring-2 focus:ring-amber-300"
-                                      style="font-family: 'Amiri', 'Scheherazade New', serif; font-size: 1.1rem; line-height: 2; direction: rtl;"
-                                      placeholder="أدخل وصف البرنامج بالعربية هنا...">{{ old('description_ar', $program->description_ar ?? '') }}</textarea>
-                        </div>
-                    </div>
 
+                        <div id="tiptap-toolbar-donation-ar" class="flex flex-wrap gap-1 p-2 border border-b-0 border-gray-300 rounded-t-lg bg-gray-50">
+                        </div>
+
+                        <div id="tiptap-editor-donation-ar"
+                             style="min-height:200px; border: 1px solid var(--color-border); border-radius: 0 0 8px 8px; padding: 12px; direction: rtl; font-family: 'Amiri', serif; font-size: 1.1em;">
+                        </div>
+
+                        <input type="hidden"
+                               name="description_ar"
+                               id="description_ar"
+                               value="{{ old('description_ar', $program->description_ar ?? '') }}" />
+                    </div>
                 </div>
             </div>
             
@@ -468,6 +477,17 @@ p.is-editor-empty:first-child::before {
         const descInput = document.getElementById('description-input');
         if (descInput && typeof window.createEditor === 'function') {
             window.createEditor(descInput.value, 'description-input');
+        }
+
+        // TipTap Editor AR — Program Donasi
+        const descArInput = document.getElementById('description_ar');
+        if (descArInput && typeof window.createEditor === 'function') {
+            window.createEditor(descArInput.value, 'description_ar', {
+                editorId: 'tiptap-editor-donation-ar',
+                toolbarId: 'tiptap-toolbar-donation-ar',
+                rtl: true,
+                placeholder: 'أدخل وصف البرنامج بالعربية هنا...'
+            });
         }
     });
 </script>

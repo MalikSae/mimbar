@@ -33,6 +33,9 @@ const TextDirection = Extension.create({
 window.Alpine = Alpine;
 Alpine.start();
 
+// Registry semua instance Tiptap editor
+window.tiptapEditors = window.tiptapEditors || {};
+
 window.createEditor = function (content, inputId, options = {}) {
     const editorId = options.editorId || 'tiptap-editor';
     const toolbarId = options.toolbarId || 'tiptap-toolbar';
@@ -93,6 +96,25 @@ window.createEditor = function (content, inputId, options = {}) {
             inputEl.value = editor.getHTML();
         },
     });
+
+    window.tiptapEditors[inputId] = editor;
+
+    // Listen event set-content dari translate button
+    const editorElRef = document.getElementById(editorId);
+    if (editorElRef) {
+        editorElRef.addEventListener('tiptap:set-content', (e) => {
+            const newContent = e.detail?.content || '';
+            editor.commands.setContent(newContent);
+            // Sync ke hidden input
+            if (inputEl) inputEl.value = editor.getHTML();
+        });
+        // Juga listen di hidden input (cara lama sebagai fallback)
+        inputEl.addEventListener('tiptap:set-content', (e) => {
+            const newContent = e.detail?.content || '';
+            editor.commands.setContent(newContent);
+            if (inputEl) inputEl.value = editor.getHTML();
+        });
+    }
 
     // Simpan referensi global agar bisa diakses oleh Alpine modal
     if (!rtl) {

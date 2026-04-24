@@ -24,6 +24,7 @@ use App\Http\Controllers\Admin\IntegrationController;
 use App\Http\Controllers\Admin\VideoController;
 use App\Http\Controllers\MasjidProposalController;
 use App\Http\Controllers\Admin\MasjidProposalController as AdminMasjidProposalController;
+use App\Http\Controllers\Admin\TranslationController;
 
 // === ADMIN: Manajemen Penulis & Approval ===
 use App\Http\Controllers\Admin\PenulisController;
@@ -99,6 +100,9 @@ Route::prefix('admin')->name('admin.')->group(function () {
 Route::prefix('admin')->name('admin.')->middleware('admin.auth')->group(function () {
     Route::get('/',          [DashboardController::class, 'index'])->name('dashboard');
     Route::get('/dashboard', [DashboardController::class, 'index']);
+
+    // Route Translation
+    Route::post('/translate', [TranslationController::class, 'translate'])->name('translate');
 
     // Route Kategori
     Route::resource('kategori', CategoryController::class)->except(['create', 'show', 'edit']);
