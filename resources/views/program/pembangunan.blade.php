@@ -458,15 +458,6 @@
                     <p>{{ __('app.program.pembangunan.card2_desc') }}</p>
                 </div>
             </div>
-            <div class="program-card"
-                @if(app()->getLocale() === 'ar') dir="rtl" @endif
-            >
-                <div class="card-icon"><img src="{{ asset('storage/images/icon/air.svg') }}" alt="MCK"></div>
-                <div>
-                    <h4>{{ __('app.program.pembangunan.card3_title') }}</h4>
-                    <p>{{ __('app.program.pembangunan.card3_desc') }}</p>
-                </div>
-            </div>
         </div>
     </div>
 </section>
