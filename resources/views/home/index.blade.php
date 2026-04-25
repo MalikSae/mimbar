@@ -2255,7 +2255,7 @@ h2, h3, h4, h5, h6 { font-weight: 600; }
       </p>
       
       <div class="video-wrapper">
-        <iframe class="w-full h-full absolute top-0 left-0" src="https://www.youtube.com/embed/oHnVnvUtYu8?si=WLmgGaY2ZMiWHTUb" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+        <iframe class="w-full h-full absolute top-0 left-0" src="https://www.youtube.com/embed/{{ app()->getLocale() === 'ar' ? 'oHnVnvUtYu8?si=WLmgGaY2ZMiWHTUb' : 'j943KY0fQVI' }}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
       </div>
     </div>
   </section>
@@ -2758,7 +2758,7 @@ h2, h3, h4, h5, h6 { font-weight: 600; }
       </p>
       
       <div class="video-wrapper">
-        <iframe class="w-full h-full absolute top-0 left-0" src="https://www.youtube.com/embed/oHnVnvUtYu8?si=WLmgGaY2ZMiWHTUb" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+        <iframe class="w-full h-full absolute top-0 left-0" src="https://www.youtube.com/embed/{{ app()->getLocale() === 'ar' ? 'oHnVnvUtYu8?si=WLmgGaY2ZMiWHTUb' : 'j943KY0fQVI' }}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
       </div>
     </div>
   </section>

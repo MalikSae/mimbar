@@ -611,6 +611,9 @@
                 parse_str($ytQuery, $ytParams);
                 $ytId = $ytParams['v'] ?? $ytId;
             }
+            if(app()->getLocale() === 'ar') {
+                $ytId = 'oHnVnvUtYu8';
+            }
         @endphp
         <div class="about-hero-video">
             <iframe
