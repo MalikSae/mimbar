@@ -42,11 +42,11 @@
     <!-- BREADCRUMB -->
     <section class="hidden md:block pb-5 max-w-[1200px] mx-auto px-6">
         <div class="flex items-center gap-2 text-gray-500 text-sm mb-2 font-medium">
-            <a href="/" class="hover:text-gray-900">Beranda</a>
+            <a href="/" class="hover:text-gray-900">{{ __('app.donasi.show.breadcrumb_home') }}</a>
             <iconify-icon icon="lucide:chevron-right" width="14"></iconify-icon>
-            <a href="{{ route('donations.index') }}" class="hover:text-gray-900">Donasi</a>
+            <a href="{{ route('donations.index') }}" class="hover:text-gray-900">{{ __('app.donasi.show.breadcrumb_donasi') }}</a>
             <iconify-icon icon="lucide:chevron-right" width="14"></iconify-icon>
-            <span class="text-gray-900">{{ $program->name }}</span>
+            <span class="text-gray-900">{{ localized($program, 'name') }}</span>
         </div>
     </section>
 
@@ -63,7 +63,7 @@
                         <a href="{{ route('donations.index') }}" class="w-10 h-10 bg-white/90 shadow-sm backdrop-blur-sm rounded-full flex items-center justify-center text-gray-800 pointer-events-auto active:scale-95 transition-transform">
                             <iconify-icon icon="lucide:arrow-left" width="20"></iconify-icon>
                         </a>
-                        <button class="w-10 h-10 bg-white/90 shadow-sm backdrop-blur-sm rounded-full flex items-center justify-center text-gray-800 pointer-events-auto active:scale-95 transition-transform" onclick="if(navigator.share){ navigator.share({title: '{{ $program->name }}', url: window.location.href}); }">
+                        <button class="w-10 h-10 bg-white/90 shadow-sm backdrop-blur-sm rounded-full flex items-center justify-center text-gray-800 pointer-events-auto active:scale-95 transition-transform" onclick="if(navigator.share){ navigator.share({title: '{{ localized($program, 'name') }}', url: window.location.href}); }">
                             <iconify-icon icon="lucide:share-2" width="20"></iconify-icon>
                         </button>
                     </div>
@@ -79,26 +79,26 @@
                     @endif
 
                     <h1 class="font-headings text-xl lg:text-4xl font-bold text-gray-900 leading-tight mb-8">
-                        {{ $program->name }}
+                        {{ localized($program, 'name') }}
                     </h1>
 
                     <!-- KONTEN DETAIL (TABS) -->
                     <div x-data="{ tab: 'deskripsi' }">
                         <div class="flex border-b border-gray-200 mb-8 overflow-x-auto overflow-y-hidden [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
                         <button @click="tab = 'deskripsi'" :class="tab === 'deskripsi' ? 'font-bold text-primary border-b-2 border-primary' : 'font-medium text-gray-500 hover:text-gray-900'" class="px-6 py-4 font-headings relative top-[1px] whitespace-nowrap transition-colors">
-                            Deskripsi
+                            {{ __('app.donasi.show.tab_deskripsi') }}
                         </button>
                         <button @click="tab = 'update'" :class="tab === 'update' ? 'font-bold text-primary border-b-2 border-primary' : 'font-medium text-gray-500 hover:text-gray-900'" class="px-6 py-4 font-headings relative top-[1px] whitespace-nowrap transition-colors">
-                            Update Kabar
+                            {{ __('app.donasi.show.tab_update') }}
                         </button>
                         <button @click="tab = 'donatur'" :class="tab === 'donatur' ? 'font-bold text-primary border-b-2 border-primary' : 'font-medium text-gray-500 hover:text-gray-900'" class="px-6 py-4 font-headings relative top-[1px] whitespace-nowrap transition-colors">
-                            Daftar Donatur
+                            {{ __('app.donasi.show.tab_donatur') }}
                         </button>
                     </div>
 
                     <div class="text-[18px] text-[#333333] leading-[1.8] space-y-6">
                         <div x-show="tab === 'deskripsi'" class="article-prose prose-content">
-                            {!! $program->description !!}
+                            {!! localized($program, 'description') !!}
                             
                             @if($program->specs)
                             @php $specs = is_string($program->specs) ? json_decode($program->specs, true) : $program->specs; @endphp
@@ -106,7 +106,7 @@
                             <div class="bg-white border border-gray-200 rounded-xl p-6 shadow-sm my-8 not-prose">
                                 <h4 class="font-headings font-bold text-gray-900 mb-3 text-lg flex items-center gap-2">
                                     <iconify-icon icon="lucide:info" class="text-primary" width="20"></iconify-icon>
-                                    Spesifikasi Detail
+                                    {{ __('app.donasi.show.spesifikasi') }}
                                 </h4>
                                 <ul class="space-y-2 text-[16px] text-gray-700">
                                     @foreach($specs as $key => $val)
@@ -119,7 +119,7 @@
                         </div>
                         
                         <div x-show="tab === 'update'" style="display: none;">
-                            <p class="text-gray-500 italic">Belum ada update kabar terbaru.</p>
+                            <p class="text-gray-500 italic">{{ __('app.donasi.show.no_update') }}</p>
                         </div>
                         
                         <div x-show="tab === 'donatur'" style="display: none;">
@@ -135,7 +135,7 @@
                                                 {{ substr($donor->is_anonymous ? 'HA' : $donor->donor_name, 0, 2) }}
                                             </div>
                                             <div>
-                                                <div class="font-bold text-gray-900">{{ $donor->is_anonymous ? 'Hamba Allah' : $donor->donor_name }}</div>
+                                                <div class="font-bold text-gray-900">{{ $donor->is_anonymous ? __('app.donasi.show.hamba_allah') : $donor->donor_name }}</div>
                                                 <div class="text-sm text-gray-500">{{ $donor->validated_at ? \Carbon\Carbon::parse($donor->validated_at)->format('d M Y') : $donor->created_at->format('d M Y') }}</div>
                                             </div>
                                         </div>
@@ -146,7 +146,7 @@
                                 @endforeach
                                 </ul>
                             @else
-                                <p class="text-gray-500 italic">Belum ada donatur terverifikasi.</p>
+                                <p class="text-gray-500 italic">{{ __('app.donasi.show.no_donatur') }}</p>
                             @endif
                         </div>
                     </div>
@@ -161,7 +161,7 @@
                         <!-- Struktur Standar: Terkumpul & Persentase (Sejajar) -->
                         <div class="flex justify-between items-center mb-3">
                             <span class="text-xs md:text-sm text-gray-600">
-                                Terkumpul <span class="text-base md:text-2xl font-bold text-gray-900 font-headings ml-1 whitespace-nowrap">Rp {{ number_format($program->collected_amount, 0, ',', '.') }}</span>
+                                {{ __('app.donasi.show.terkumpul') }} <span class="text-base md:text-2xl font-bold text-gray-900 font-headings ml-1 whitespace-nowrap">Rp {{ number_format($program->collected_amount, 0, ',', '.') }}</span>
                             </span>
                             <span class="bg-primary-light text-primary px-2 py-1 md:px-3 md:py-1.5 rounded-md text-xs font-bold font-headings">
                                 {{ $program->progress_percentage }}%
@@ -175,7 +175,7 @@
 
                         <!-- Struktur Standar: Target (Kanan Bawah) -->
                         <div class="text-right text-xs text-gray-500 font-medium mb-4 md:mb-6">
-                            Target: Rp {{ number_format($program->target_amount, 0, ',', '.') }}
+                            {{ __('app.donasi.show.target') }}: Rp {{ number_format($program->target_amount, 0, ',', '.') }}
                         </div>
 
                         @php
@@ -186,25 +186,25 @@
                         <div class="flex justify-between items-center text-sm font-medium border-b border-gray-100 pb-4 md:pb-6 mb-2">
                             <div class="flex items-center gap-2 text-gray-700">
                                 <iconify-icon icon="lucide:users" width="16" class="text-[#D4AF37]"></iconify-icon>
-                                <span><strong>{{ $program->donor_count ?? 0 }}</strong> Donatur</span>
+                                <span><strong>{{ $program->donor_count ?? 0 }}</strong> {{ __('app.donasi.show.donatur') }}</span>
                             </div>
                             <div class="flex items-center gap-2 text-gray-700">
                                 <iconify-icon icon="lucide:clock" width="16" class="text-[#D4AF37]"></iconify-icon>
                                 @if($sisaHari === null)
-                                    <span><strong style="font-size:1.1em;">∞</strong> Tanpa Batas</span>
+                                    <span><strong style="font-size:1.1em;">∞</strong> {{ __('app.donasi.show.tanpa_batas') }}</span>
                                 @else
-                                    <span>Sisa <strong>{{ $sisaHari }} Hari</strong></span>
+                                    <span>{{ __('app.donasi.show.sisa_hari', ['days' => $sisaHari]) }}</span>
                                 @endif
                             </div>
                         </div>
                     </div>
 
                     <a href="{{ route('donations.form', $program->slug) }}" class="w-full inline-flex items-center justify-center py-3 md:py-4 text-base md:text-lg shadow-sm bg-primary text-white font-bold font-headings rounded-lg hover:bg-primary-dark transition-colors">
-                        Donasi Sekarang
+                        {{ __('app.donasi.show.btn_donasi') }}
                     </a>
                     
                     <div class="flex items-center justify-center gap-3 md:gap-4">
-                        <span class="text-sm font-medium text-gray-500">Bagikan Program:</span>
+                        <span class="text-sm font-medium text-gray-500">{{ __('app.donasi.show.bagikan') }}</span>
                         <button class="w-8 h-8 rounded-full bg-gray-50 border border-gray-200 text-gray-600 flex items-center justify-center hover:bg-[#25D366] hover:text-white hover:border-[#25D366] transition-colors" title="Bagikan ke WhatsApp">
                             <iconify-icon icon="mdi:whatsapp" width="18"></iconify-icon>
                         </button>
@@ -228,7 +228,7 @@
     <section class="py-20 bg-muted border-t border-gray-200">
         <div class="max-w-[1200px] mx-auto px-6">
             <h2 class="font-headings text-2xl md:text-3xl font-bold text-gray-900 mb-8 md:mb-10 text-center">
-                Lanjutkan Estafet Kebaikan Lainnya
+                {{ __('app.donasi.show.related_title') }}
             </h2>
 
             <div style="display: flex; gap: 24px; overflow-x: auto; padding-bottom: 16px; padding-top: 8px; margin-left: -8px; padding-left: 8px; scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch; scrollbar-width: none;">
@@ -240,23 +240,23 @@
                     <!-- Body -->
                     <div style="padding: 24px; flex: 1; display: flex; flex-direction: column;">
                         @if($row->is_featured)
-                        <div style="background-color: var(--color-primary-light, #f5e8ee); color: var(--color-primary, #8b1a4a); font-family: var(--font-heading, inherit); font-weight: 700; text-transform: uppercase; border-radius: 9999px; margin-bottom: 12px; font-size: 11px; padding: 4px 12px; display: inline-block; letter-spacing: 0.1em; width: fit-content;">Prioritas Utama</div>
+                        <div style="background-color: var(--color-primary-light, #f5e8ee); color: var(--color-primary, #8b1a4a); font-family: var(--font-heading, inherit); font-weight: 700; text-transform: uppercase; border-radius: 9999px; margin-bottom: 12px; font-size: 11px; padding: 4px 12px; display: inline-block; letter-spacing: 0.1em; width: fit-content;">{{ __('app.donasi.show.prioritas') }}</div>
                         @else
                         <div style="margin-bottom: 12px; height: 23px;"></div>
                         @endif
 
                         <h3 style="font-family: var(--font-heading, inherit); font-size: 18px; color: #1a1a1a; margin-bottom: 8px; font-weight: 700; line-height: 1.3; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">
-                            <a href="{{ route('donations.show', $row->slug) }}" style="text-decoration: none; color: inherit;">{{ $row->name }}</a>
+                            <a href="{{ route('donations.show', $row->slug) }}" style="text-decoration: none; color: inherit;">{{ localized($row, 'name') }}</a>
                         </h3>
                         <p style="font-size: 14px; color: #555555; line-height: 1.6; margin-bottom: 24px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">
-                            {{ Str::limit(strip_tags($row->description), 100) }}
+                            {{ Str::limit(strip_tags(localized($row, 'description')), 100) }}
                         </p>
 
                         <!-- Progress -->
                         <div style="margin-top: auto;">
                             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
                                 <span style="font-size: 12px; color: #555555;">
-                                    Terkumpul <span style="font-size: 14px; font-weight: 700; color: #1a1a1a; font-family: var(--font-heading, inherit);">Rp {{ number_format($row->collected_amount, 0, ',', '.') }}</span>
+                                    {{ __('app.donasi.show.terkumpul') }} <span style="font-size: 14px; font-weight: 700; color: #1a1a1a; font-family: var(--font-heading, inherit);">Rp {{ number_format($row->collected_amount, 0, ',', '.') }}</span>
                                 </span>
                                 <span style="background-color: var(--color-primary-light, #f5e8ee); color: var(--color-primary, #8b1a4a); padding: 2px 8px; border-radius: 4px; font-size: 10px; font-weight: 700; font-family: var(--font-heading, inherit);">
                                     {{ $rPercent }}%
@@ -266,10 +266,10 @@
                                 <div style="background-color: var(--color-primary, #8b1a4a); height: 100%; border-radius: 9999px; width: {{ $rPercent }}%;"></div>
                             </div>
                             <div style="text-align: right; font-size: 11px; color: #9ca3af; margin-bottom: 20px;">
-                                Target: Rp {{ number_format($row->target_amount, 0, ',', '.') }}
+                                {{ __('app.donasi.show.target') }}: Rp {{ number_format($row->target_amount, 0, ',', '.') }}
                             </div>
                             <a href="{{ route('donations.show', $row->slug) }}" style="width: 100%; height: 40px; display: inline-flex; align-items: center; justify-content: center; border-radius: 8px; font-weight: 600; font-size: 14px; font-family: var(--font-heading, inherit); background-color: var(--color-primary, #8b1a4a); color: white; text-decoration: none; border: none; transition: opacity 0.2s; box-shadow: 0 1px 2px rgba(0,0,0,0.05);">
-                                Donasi Sekarang
+                                {{ __('app.donasi.show.btn_donasi') }}
                             </a>
                         </div>
                     </div>
@@ -285,7 +285,7 @@
     <!-- STICKY BUTTON MOBILE -->
     <div class="md:hidden fixed bottom-0 left-0 w-full bg-white border-t border-gray-200 p-3 pb-4 z-50 shadow-[0_-4px_20px_rgba(0,0,0,0.06)]">
         <a href="{{ route('donations.form', $program->slug) }}" class="w-full inline-flex items-center justify-center py-3 text-[15px] shadow-sm bg-primary text-white font-bold font-headings rounded-lg hover:bg-primary-dark transition-colors">
-            Donasi Sekarang
+            {{ __('app.donasi.show.btn_donasi') }}
         </a>
     </div>
 

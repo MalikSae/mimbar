@@ -144,8 +144,8 @@
           <span class="ba-article-badge">{{ $item->category ? $item->category->name : __('app.artikel.default_badge') }}</span>
           <span class="ba-article-date">{{ ($item->published_at ?? $item->created_at)->format('d M Y') }}</span>
         </div>
-        <h3 class="ba-article-title"><bdi>{{ $item->title }}</bdi></h3>
-        <div class="ba-article-excerpt"><bdi>{{ Str::words(strip_tags($item->content), 40, '...') }}</bdi></div>
+        <h3 class="ba-article-title"><bdi>{{ localized($item, 'title') }}</bdi></h3>
+        <div class="ba-article-excerpt"><bdi>{{ Str::words(strip_tags(localized($item, 'content')), 40, '...') }}</bdi></div>
         <div class="ba-article-footer">
           <div class="ba-article-author">
             <div class="ba-article-author-icon">

@@ -58,8 +58,9 @@ document.addEventListener('alpine:init', () => {
 
                 let data = await res.json();
 
-                if (data.success && data.results) {
-                    for (let [key, translatedText] of Object.entries(data.results)) {
+                if (data.success) {
+                    const results = data.results || {};
+                    for (let [key, translatedText] of Object.entries(results)) {
                         let targetId = key + '_ar';
                         let f = this.fields.find(x => x.id === key);
 
@@ -99,14 +100,13 @@ document.addEventListener('alpine:init', () => {
                     }
 
                     // Success feedback
-                    let btn = this.$el.querySelector('button');
-                    let span = btn.querySelector('span');
-                    let original = span.innerText;
-                    span.innerText = 'Terjemahan selesai ✓';
-                    setTimeout(() => {
-                        this.loading = false;
-                        span.innerText = original;
-                    }, 2000);
+                    this.loading = false;
+                    const successSpan = this.$el.querySelector('span[x-show]');
+                    if (successSpan) {
+                        const original = successSpan.innerText;
+                        successSpan.innerText = 'Terjemahan selesai ✓';
+                        setTimeout(() => { successSpan.innerText = original; }, 2500);
+                    }
                     return;
                 } else {
                     alert('Terjemahan gagal. Pastikan form awal telah diisi.');

@@ -2578,6 +2578,7 @@
             <div class="ds-tab" :class="{ 'active': activeTab === 'color' }" @click="activeTab = 'color'">Color</div>
             <div class="ds-tab" :class="{ 'active': activeTab === 'typography' }" @click="activeTab = 'typography'">Typography</div>
             <div class="ds-tab" :class="{ 'active': activeTab === 'spacing' }" @click="activeTab = 'spacing'">Spacing & Grid</div>
+            <div class="ds-tab" :class="{ 'active': activeTab === 'responsive' }" @click="activeTab = 'responsive'">Responsive & Mobile</div>
             <div class="ds-tab" :class="{ 'active': activeTab === 'buttons' }" @click="activeTab = 'buttons'">Buttons</div>
             <div class="ds-tab" :class="{ 'active': activeTab === 'forms' }" @click="activeTab = 'forms'">Forms</div>
             <div class="ds-tab" :class="{ 'active': activeTab === 'cards' }" @click="activeTab = 'cards'">Cards</div>
@@ -3199,6 +3200,132 @@
         </div>
       </div>
     </section>
+            </main>
+        </div>
+
+        <div x-show="activeTab === 'responsive'" x-transition>
+            <main>
+                <!-- Responsive Principles Section -->
+                <section class="ds-section">
+                    <div class="ds-section-header">
+                        <h2 class="ds-section-title">Responsive & Mobile Guidelines</h2>
+                    </div>
+                    
+                    <div class="comp-container">
+                        <h3 class="comp-title">Core Breakpoints</h3>
+                        <div class="table-wrapper">
+                            <table class="data-table">
+                                <thead>
+                                    <tr>
+                                        <th>Device / Breakpoint</th>
+                                        <th>Viewport Width</th>
+                                        <th>Tailwind Prefix</th>
+                                        <th>Primary Layout Target</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td class="text-dark">Mobile (Default)</td>
+                                        <td>&lt; 768px</td>
+                                        <td><em>None</em> (Base)</td>
+                                        <td>iPhone / Android (375px base)</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-dark">Tablet</td>
+                                        <td>&ge; 768px</td>
+                                        <td><code>md:</code></td>
+                                        <td>iPad</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-dark">Desktop</td>
+                                        <td>&ge; 1024px</td>
+                                        <td><code>lg:</code></td>
+                                        <td>Laptop / PC</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div class="comp-container">
+                        <h3 class="comp-title">Typography Scaling (Mobile vs Desktop)</h3>
+                        <p class="ds-swatch-usage" style="margin-bottom: 24px;">Gunakan ukuran font yang menyesuaikan layar. Di Tailwind, deklarasikan ukuran mobile terlebih dahulu, lalu ukuran desktop dengan prefix <code>md:</code>.</p>
+                        <div class="table-wrapper">
+                            <table class="data-table">
+                                <thead>
+                                    <tr>
+                                        <th>Element</th>
+                                        <th>Mobile Size (&lt; 768px)</th>
+                                        <th>Desktop Size (&ge; 768px)</th>
+                                        <th>Tailwind Utility Class</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td class="text-dark">Heading 1 (Page Title)</td>
+                                        <td>24px</td>
+                                        <td>32px</td>
+                                        <td><code>text-2xl md:text-4xl</code></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-dark">Heading 2 (Section Title)</td>
+                                        <td>20px</td>
+                                        <td>24px</td>
+                                        <td><code>text-xl md:text-2xl</code></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-dark">Heading 3 (Card Title)</td>
+                                        <td>18px</td>
+                                        <td>20px</td>
+                                        <td><code>text-lg md:text-xl</code></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-dark">Body Text (Paragraph)</td>
+                                        <td>14px</td>
+                                        <td>16px</td>
+                                        <td><code>text-sm md:text-base</code></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div class="comp-container">
+                        <h3 class="comp-title">Spacing & Layout Constraints</h3>
+                        <div class="table-wrapper">
+                            <table class="data-table">
+                                <thead>
+                                    <tr>
+                                        <th>Constraint Type</th>
+                                        <th>Mobile Target</th>
+                                        <th>Desktop Target</th>
+                                        <th>Tailwind Utility Class</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td class="text-dark">Page/Container Padding (Horizontal)</td>
+                                        <td>16px (Kiri-Kanan)</td>
+                                        <td>32px - 64px</td>
+                                        <td><code>px-4 md:px-8</code> / <code>md:px-16</code></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-dark">Section Gap (Vertical Spacing)</td>
+                                        <td>32px</td>
+                                        <td>64px - 80px</td>
+                                        <td><code>py-8 md:py-16</code></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-dark">Grid Stacking</td>
+                                        <td>1 Kolom (Full width)</td>
+                                        <td>2-3 Kolom</td>
+                                        <td><code>grid-cols-1 md:grid-cols-2 lg:grid-cols-3</code></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </section>
             </main>
         </div>
 

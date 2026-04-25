@@ -159,8 +159,8 @@
               <iconify-icon icon="lucide:calendar"></iconify-icon>
               {{ ($item->published_at ?? $item->created_at)->format('d M Y') }}
             </div>
-            <h3 class="ba-card-title"><bdi>{{ $item->title }}</bdi></h3>
-            <div class="ba-card-excerpt"><bdi>{{ Str::words(strip_tags($item->content), 30, '...') }}</bdi></div>
+            <h3 class="ba-card-title"><bdi>{{ localized($item, 'title') }}</bdi></h3>
+            <div class="ba-card-excerpt"><bdi>{{ Str::words(strip_tags(localized($item, 'content')), 30, '...') }}</bdi></div>
             <div class="ba-card-footer">
               <span class="ba-card-readmore">
                 {{ __('app.berita.readmore') }}

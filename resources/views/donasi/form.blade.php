@@ -23,19 +23,19 @@
             <div class="w-8 h-8 rounded-full bg-primary text-white flex items-center justify-center font-bold text-sm shadow-sm ring-4 ring-white">
                 <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
             </div>
-            <span class="text-xs font-bold font-heading text-primary hidden md:block">Pilih Program</span>
+            <span class="text-xs font-bold font-heading text-primary hidden md:block">{{ __('app.donasi.form.step1') }}</span>
         </div>
 
         {{-- Step 2: active --}}
         <div class="relative z-10 flex flex-col items-center gap-1.5">
             <div class="w-8 h-8 rounded-full bg-primary text-white flex items-center justify-center font-bold text-sm shadow-sm ring-4 ring-white">2</div>
-            <span class="text-xs font-bold font-heading text-primary hidden md:block">Isi Data</span>
+            <span class="text-xs font-bold font-heading text-primary hidden md:block">{{ __('app.donasi.form.step2') }}</span>
         </div>
 
         {{-- Step 3: pending --}}
         <div class="relative z-10 flex flex-col items-center gap-1.5">
             <div class="w-8 h-8 rounded-full bg-gray-100 border-2 border-gray-300 text-gray-400 flex items-center justify-center font-bold text-sm ring-4 ring-white">3</div>
-            <span class="text-xs font-bold font-heading text-gray-400 hidden md:block">Instruksi Bayar</span>
+            <span class="text-xs font-bold font-heading text-gray-400 hidden md:block">{{ __('app.donasi.form.step3') }}</span>
         </div>
     </div>
 </div>
@@ -56,15 +56,15 @@
         <div class="absolute inset-0 opacity-10" style="background-image: url('https://www.transparenttextures.com/patterns/arabesque.png');"></div>
         <div class="relative z-10 flex flex-col md:flex-row md:justify-between md:items-end gap-4">
             <div>
-                <p class="text-white/80 text-[13px] md:text-sm mb-1.5 md:mb-2 font-medium">Anda Berdonasi Untuk</p>
+                <p class="text-white/80 text-[13px] md:text-sm mb-1.5 md:mb-2 font-medium">{{ __('app.donasi.form.berdonasi_untuk') }}</p>
                 <div class="font-heading text-xl md:text-[28px] font-bold text-white mb-1.5 md:mb-2 leading-tight">
-                    {{ $program->name }}
+                    {{ localized($program, 'name') }}
                 </div>
                 <div class="font-heading text-lg md:text-xl font-bold text-accent" x-text="'Rp ' + new Intl.NumberFormat('id-ID').format(amount === 'custom' ? (customAmount || 0) : amount)"></div>
             </div>
             <a href="{{ route('donations.show', $program->slug) }}" class="self-start md:self-auto inline-flex items-center gap-2 bg-white/10 hover:bg-white/20 border border-white/20 text-white px-4 py-2 rounded-lg text-sm font-bold transition-colors">
                 <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5"/><path d="m12 19-7-7 7-7"/></svg>
-                Kembali
+                {{ __('app.donasi.form.kembali') }}
             </a>
         </div>
     </section>
@@ -75,7 +75,7 @@
         {{-- NOMINAL DONASI --}}
         <section class="mb-8">
             <h2 class="font-heading text-lg md:text-xl font-bold text-primary mb-2">
-                Nominal Donasi
+                {{ __('app.donasi.form.nominal_donasi') }}
             </h2>
 
             <div class="flex flex-col gap-4">
@@ -85,7 +85,7 @@
                     <button type="button" @click="amount = 250000; customAmountFormatted = '250.000'; customAmount = 250000" :class="amount === 250000 ? 'bg-primary text-white border-primary' : 'bg-white text-gray-700 border-gray-200 hover:border-gray-300'" class="px-4 md:px-5 py-2 border rounded-full text-[13px] md:text-[14px] font-medium transition-colors shadow-sm">250rb</button>
                     <button type="button" @click="amount = 500000; customAmountFormatted = '500.000'; customAmount = 500000" :class="amount === 500000 ? 'bg-primary text-white border-primary' : 'bg-white text-gray-700 border-gray-200 hover:border-gray-300'" class="px-4 md:px-5 py-2 border rounded-full text-[13px] md:text-[14px] font-medium transition-colors shadow-sm">500rb</button>
                     <button type="button" @click="amount = 1000000; customAmountFormatted = '1.000.000'; customAmount = 1000000" :class="amount === 1000000 ? 'bg-primary text-white border-primary' : 'bg-white text-gray-700 border-gray-200 hover:border-gray-300'" class="px-4 md:px-5 py-2 border rounded-full text-[13px] md:text-[14px] font-medium transition-colors shadow-sm">1jt</button>
-                    <button type="button" @click="amount = 'custom'; customAmountFormatted = ''; customAmount = ''; setTimeout(() => $refs.customAmountInput.focus(), 50)" :class="amount === 'custom' ? 'bg-primary text-white border-primary' : 'bg-white text-gray-700 border-gray-200 hover:border-gray-300'" class="px-4 md:px-5 py-2 border rounded-full text-[13px] md:text-[14px] font-medium transition-colors shadow-sm">Lainnya...</button>
+                    <button type="button" @click="amount = 'custom'; customAmountFormatted = ''; customAmount = ''; setTimeout(() => $refs.customAmountInput.focus(), 50)" :class="amount === 'custom' ? 'bg-primary text-white border-primary' : 'bg-white text-gray-700 border-gray-200 hover:border-gray-300'" class="px-4 md:px-5 py-2 border rounded-full text-[13px] md:text-[14px] font-medium transition-colors shadow-sm">{{ __('app.donasi.form.lainnya') }}</button>
                 </div>
                 
                 <div x-show="amount === 'custom'" x-transition style="display: none;" class="flex items-center w-full px-4 py-3 border border-border rounded-xl min-h-[48px] bg-white transition-all focus-within:border-primary focus-within:ring-1 focus-within:ring-primary">
@@ -95,7 +95,7 @@
                         amount = 'custom';
                         customAmount = parseInt(raw) || ''; 
                         customAmountFormatted = raw ? new Intl.NumberFormat('id-ID').format(raw) : '';
-                    " placeholder="Masukkan nominal lainnya..." class="w-full bg-transparent text-gray-900 text-[14px] font-medium outline-none">
+                    " placeholder="{{ __('app.donasi.form.nominal_placeholder') }}" class="w-full bg-transparent text-gray-900 text-[14px] font-medium outline-none">
                 </div>
             </div>
 
@@ -105,26 +105,26 @@
         {{-- INFORMASI KONTAK --}}
         <section class="bg-white rounded-2xl p-6 md:p-8 shadow-sm border border-border mb-8">
             <h2 class="font-heading text-lg md:text-xl font-bold text-gray-900 mb-5 md:mb-6 pb-4 border-b border-border">
-                Informasi Kontak
+                {{ __('app.donasi.form.informasi_kontak') }}
             </h2>
 
             <div class="flex flex-col gap-5">
                 {{-- Nama Donatur --}}
                 <div class="flex flex-col gap-1.5">
-                    <label class="text-sm font-bold text-gray-700">Nama Lengkap Donatur <span class="text-primary">*</span></label>
-                    <input type="text" name="donor_name" required x-model="donor_name" placeholder="Masukkan nama lengkap Anda..."
+                    <label class="text-sm font-bold text-gray-700">{{ __('app.donasi.form.nama_label') }} <span class="text-primary">*</span></label>
+                    <input type="text" name="donor_name" required x-model="donor_name" placeholder="{{ __('app.donasi.form.nama_placeholder') }}"
                         class="w-full px-4 py-3 rounded-xl border border-border text-gray-900 placeholder-gray-400 bg-white focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all">
                 </div>
 
                 {{-- WhatsApp --}}
                 <div class="flex flex-col gap-1.5">
-                    <label class="text-sm font-bold text-gray-700">No. WhatsApp <span class="text-gray-400 font-normal">(Opsional)</span></label>
+                    <label class="text-sm font-bold text-gray-700">{{ __('app.donasi.form.wa_label') }} <span class="text-gray-400 font-normal">{{ __('app.donasi.form.opsional') }}</span></label>
                     <div class="flex rounded-xl border border-border overflow-hidden focus-within:border-primary focus-within:ring-1 focus-within:ring-primary transition-all bg-white">
                         <div class="bg-gray-50 px-4 py-3 border-r border-border text-gray-600 font-bold text-sm shrink-0">+62</div>
                         <input type="number" name="whatsapp" x-model="whatsapp" placeholder="8123456789"
                             class="w-full px-4 py-3 text-gray-900 placeholder-gray-400 bg-transparent focus:outline-none text-sm">
                     </div>
-                    <p class="text-[12px] text-gray-500">Digunakan untuk mengirimkan notifikasi dan sertifikat donasi.</p>
+                    <p class="text-[12px] text-gray-500">{{ __('app.donasi.form.wa_hint') }}</p>
                 </div>
 
                 {{-- Anonymous --}}
@@ -134,8 +134,8 @@
                         <iconify-icon x-show="is_anonymous" icon="lucide:check" style="font-size: 13px;"></iconify-icon>
                     </div>
                     <div>
-                        <span class="text-sm text-gray-900 font-bold block mb-0.5">Sembunyikan nama saya</span>
-                        <span class="text-[13px] text-gray-500 block leading-snug">Tampil sebagai 'Hamba Allah' di daftar donatur.</span>
+                        <span class="text-sm text-gray-900 font-bold block mb-0.5">{{ __('app.donasi.form.anonim_label') }}</span>
+                        <span class="text-[13px] text-gray-500 block leading-snug">{{ __('app.donasi.form.anonim_hint') }}</span>
                     </div>
                 </label>
             </div>
@@ -144,13 +144,13 @@
         {{-- PESAN ATAU DOA --}}
         <section class="mb-8">
             <h2 class="font-heading text-lg md:text-xl font-bold text-gray-900 mb-3 md:mb-4">
-                Pesan atau Doa <span class="text-gray-400 font-normal text-sm md:text-base">(Opsional)</span>
+                {{ __('app.donasi.form.pesan_label') }} <span class="text-gray-400 font-normal text-sm md:text-base">{{ __('app.donasi.form.opsional') }}</span>
             </h2>
-            <textarea name="message" x-model="message" rows="4" placeholder="Tulis doa terbaik Anda..."
+            <textarea name="message" x-model="message" rows="4" placeholder="{{ __('app.donasi.form.pesan_placeholder') }}"
                 class="w-full px-4 py-3 rounded-xl border border-border text-gray-900 placeholder-gray-400 bg-white focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all resize-none mb-3"></textarea>
             <p class="text-sm text-gray-600 italic flex items-start gap-2 bg-gray-50 p-4 rounded-xl border border-border">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-accent shrink-0 mt-0.5 opacity-60"><path d="M3 21c3 0 7-1 7-8V5c0-1.25-.756-2.017-2-2H4c-1.25 0-2 .75-2 1.972V11c0 1.25.75 2 2 2 1 0 1 0 1 1v1c0 1-1 2-2 2s-1 .008-1 1.031V20c0 1 0 1 1 1z"/><path d="M15 21c3 0 7-1 7-8V5c0-1.25-.757-2.017-2-2h-4c-1.25 0-2 .75-2 1.972V11c0 1.25.75 2 2 2h.75c0 2.25.25 4-2.75 4v3c0 1 0 1 1 1z"/></svg>
-                <span>"Semoga setiap donasi menjadi pemberat timbangan kebaikan kita di akhirat kelak."</span>
+                <span>{{ __('app.donasi.form.quote') }}</span>
             </p>
         </section>
 
@@ -158,11 +158,11 @@
         <div class="fixed bottom-0 left-0 right-0 bg-white border-t border-border shadow-[0_-4px_20px_rgba(0,0,0,0.07)] z-40">
             <div class="max-w-3xl mx-auto px-4 md:px-6 py-3.5 md:py-4 flex items-center justify-between gap-3 md:gap-4">
                 <div class="min-w-0 overflow-hidden">
-                    <div class="text-[10px] md:text-[11px] text-gray-500 font-bold uppercase tracking-wider mb-0.5 whitespace-nowrap">Total Donasi</div>
+                    <div class="text-[10px] md:text-[11px] text-gray-500 font-bold uppercase tracking-wider mb-0.5 whitespace-nowrap">{{ __('app.donasi.form.total_donasi') }}</div>
                     <div class="font-heading text-base sm:text-lg md:text-2xl font-bold text-primary leading-none tracking-tight whitespace-nowrap truncate" x-text="'Rp ' + new Intl.NumberFormat('id-ID').format(amount === 'custom' ? (customAmount || 0) : amount)"></div>
                 </div>
                 <button type="submit" class="inline-flex items-center justify-center gap-1.5 md:gap-2 px-4 sm:px-6 md:px-10 py-3 md:py-3.5 bg-primary text-white font-bold font-heading text-[13px] md:text-sm rounded-lg shadow-md hover:bg-primary-dark transition-colors shrink-0">
-                    Lanjut Donasi
+                    {{ __('app.donasi.form.lanjut_donasi') }}
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4 md:w-4 md:h-4"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
                 </button>
             </div>

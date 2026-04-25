@@ -4,14 +4,32 @@
 @push('head')
 <style>
 /* ── Prose styling ─────────────────────────────────────────── */
-.news-prose, .prose-content { font-size: 18px; color: var(--color-gray-800); line-height: 1.8; }
+.news-prose, .prose-content { font-size: 14px; color: var(--color-gray-800); line-height: 1.8; }
 .news-prose p, .prose-content p  { margin-bottom: 24px; }
-.news-prose h2, .prose-content h2 { font-family: var(--font-heading); font-size: 26px; font-weight: 700;
-                 color: var(--color-primary); margin-top: 48px; margin-bottom: 20px; }
-.news-prose h3, .prose-content h3 { font-family: var(--font-heading); font-size: 21px; font-weight: 700;
-                 color: var(--color-gray-900); margin-top: 36px; margin-bottom: 16px; }
-.news-prose h4, .prose-content h4 { font-family: var(--font-heading); font-size: 18px; font-weight: 700;
-                 color: var(--color-gray-900); margin-top: 28px; margin-bottom: 12px; }
+.news-prose h2, .prose-content h2 { font-family: var(--font-heading); font-size: 20px; font-weight: 700;
+                 color: var(--color-primary); margin-top: 32px; margin-bottom: 16px; }
+.news-prose h3, .prose-content h3 { font-family: var(--font-heading); font-size: 18px; font-weight: 700;
+                 color: var(--color-gray-900); margin-top: 24px; margin-bottom: 12px; }
+.news-prose h4, .prose-content h4 { font-family: var(--font-heading); font-size: 16px; font-weight: 700;
+                 color: var(--color-gray-900); margin-top: 20px; margin-bottom: 10px; }
+
+@media (min-width: 768px) {
+    .news-prose, .prose-content { font-size: 16px; }
+    .news-prose h2, .prose-content h2 { font-size: 24px; margin-top: 48px; margin-bottom: 20px; }
+    .news-prose h3, .prose-content h3 { font-size: 20px; margin-top: 36px; margin-bottom: 16px; }
+    .news-prose h4, .prose-content h4 { font-size: 18px; margin-top: 28px; margin-bottom: 12px; }
+}
+
+/* ── Responsive Typography Classes ────────────────────────── */
+.judul-berita { font-size: 24px; font-weight: 700; color: var(--color-gray-900); line-height: 1.4; margin: 0 0 24px; }
+.section-title { font-family: var(--font-heading); font-size: 20px; font-weight: 700; color: var(--color-gray-900); margin: 0 0 24px; }
+.card-title { font-family: var(--font-heading); font-size: 18px; font-weight: 700; color: var(--color-gray-900); margin: 0 0 12px; line-height: 1.4; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+
+@media (min-width: 768px) {
+    .judul-berita { font-size: 32px; margin: 0 0 32px; }
+    .section-title { font-size: 24px; margin: 0 0 40px; }
+    .card-title { font-size: 20px; margin: 0 0 14px; }
+}
 .news-prose ul, .prose-content ul { list-style-type: disc; padding-left: 28px; margin-bottom: 20px; }
 .news-prose ol, .prose-content ol { list-style-type: decimal; padding-left: 28px; margin-bottom: 20px; }
 .news-prose li, .prose-content li { margin-bottom: 8px; display: list-item; }
@@ -27,7 +45,7 @@
     font-size: 20px;
     line-height: 1.6;
 }
-.news-prose a, .prose-content a { color: var(--color-primary); text-decoration: underline; }
+.news-prose a, .prose-content a { color: var(--color-primary); text-decoration-line: underline; text-underline-offset: 4px; text-decoration-thickness: 1px; }
 .news-prose img, .prose-content img { max-width: 100%; border-radius: var(--radius-md);
                   margin: 24px auto; display: block; }
 .news-prose strong, .prose-content strong { font-weight: 700; }
@@ -89,55 +107,56 @@
 <div style="background: var(--color-muted); min-height: 100vh;">
 
 {{-- ════════════════════════════════════ --}}
-{{-- SECTION 1 — NEWS HEADER             --}}
 {{-- ════════════════════════════════════ --}}
-<section style="padding-top: 40px; padding-bottom: 20px;">
-  <div style="max-width: 900px; margin: 0 auto; padding: 0 24px; text-align: center;">
+{{-- SECTION 1 — HERO IMAGE HEADER        --}}
+{{-- ════════════════════════════════════ --}}
+<section style="position: relative; width: 100%; margin-bottom: 40px; overflow: hidden; min-height: 500px; display: flex; align-items: flex-end; background: white;">
+  {{-- Background Image --}}
+  <div style="position: absolute; inset: 0; z-index: 1;">
+    <img src="{{ $news->featured_image ? asset('storage/' . $news->featured_image) : 'https://placehold.co/1200x600/e5e7eb/9ca3af?text=Mimbar+Al-Tauhid' }}"
+         alt="{{ localized($news, 'title') }}"
+         style="width: 100%; height: 100%; object-fit: cover; display: block;">
+    {{-- Gradient Overlay --}}
+    <div style="position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.5) 50%, rgba(0,0,0,0.1) 100%);"></div>
+  </div>
 
+  {{-- Content Container --}}
+  <div style="position: relative; z-index: 10; width: 100%; max-width: 1000px; margin: 0 auto; padding: 120px 24px 40px 24px; display: flex; flex-direction: column; justify-content: flex-end;">
+    
     {{-- Breadcrumb --}}
-    <div style="display: flex; align-items: center; justify-content: center;
-                gap: 8px; color: var(--color-gray-400); font-size: 14px;
-                font-weight: 500; margin-bottom: 24px; flex-wrap: wrap;">
-      <a href="{{ url('/') }}" style="color: inherit; text-decoration: none;">Beranda</a>
+    <div class="hidden md:flex items-center gap-2 text-sm font-medium mb-4 flex-wrap" style="color: rgba(255,255,255,0.8);">
+      <a href="{{ url('/') }}" class="hover:text-white transition-colors">{{ __('app.nav.home') }}</a>
       <iconify-icon icon="lucide:chevron-right" width="14"></iconify-icon>
-      <a href="{{ route('berita.index') }}" style="color: inherit; text-decoration: none;">Kabar Yayasan</a>
+      <a href="{{ route('berita.index') }}" class="hover:text-white transition-colors">{{ __('app.nav.berita') }}</a>
       @if($news->category)
       <iconify-icon icon="lucide:chevron-right" width="14"></iconify-icon>
-      <span style="color: var(--color-gray-900);">{{ $news->category->name }}</span>
+      <span style="color: white;">{{ $news->category->name }}</span>
       @endif
     </div>
+    <a href="{{ route('berita.index') }}" class="flex items-center gap-2 text-sm font-bold mb-4 md:hidden" style="color: white;">
+      <iconify-icon icon="lucide:arrow-left" width="16"></iconify-icon>
+      {{ __('app.news.kembali') }}
+    </a>
 
     {{-- Badge Kategori --}}
     @if($news->category)
-    <div style="display: inline-block; background: var(--color-primary);
-                color: white; padding: 4px 14px;
-                border-radius: var(--radius-sm); font-size: 11px;
-                font-weight: 700; font-family: var(--font-heading);
-                text-transform: uppercase; letter-spacing: 0.07em;
-                margin-bottom: 16px; box-shadow: var(--shadow-card);">
+    <div style="display: inline-block; align-self: flex-start; background: var(--color-primary); color: white; padding: 4px 12px; border-radius: 4px; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 16px; font-family: var(--font-heading);">
       {{ $news->category->name }}
     </div>
     @endif
 
     {{-- Judul --}}
-    <h1 @if(app()->getLocale() === 'ar') 
-          dir="rtl" style="font-family: 'Amiri', 'Scheherazade New', serif; text-align: right; font-size: 40px; font-weight: 700; color: var(--color-gray-900); line-height: 1.4; margin: 0 0 32px;"
-        @else 
-          style="font-family: var(--font-heading); font-size: 40px; font-weight: 700; color: var(--color-gray-900); line-height: 1.4; margin: 0 0 32px;"
-        @endif>
+    <h1 style="color: white; font-weight: 700; line-height: 1.2; margin: 0 0 24px 0; @if(app()->getLocale() === 'ar') font-family: 'Amiri', 'Scheherazade New', serif; text-align: right; @else font-family: var(--font-heading); @endif" class="text-3xl md:text-5xl">
       {{ localized($news, 'title') }}
     </h1>
 
-    {{-- Meta Row --}}
-    <div style="display: flex; flex-wrap: wrap; align-items: center;
-                justify-content: space-between; gap: 16px;
-                border-bottom: 1px solid var(--color-border); padding-bottom: 24px;">
-
+    {{-- Meta & Social Share --}}
+    <div style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 24px; border-top: 1px solid rgba(255,255,255,0.2); padding-top: 24px;">
+      
       {{-- Tanggal + Lokasi --}}
-      <div style="display: flex; align-items: center; gap: 16px; flex-wrap: wrap;">
-        <div style="display: flex; align-items: center; gap: 8px;
-                    color: var(--color-gray-600); font-size: 14px; font-weight: 500;">
-          <iconify-icon icon="lucide:calendar" width="16" style="color: var(--color-primary);"></iconify-icon>
+      <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 16px;">
+        <div style="display: flex; align-items: center; gap: 8px; color: white; font-weight: 500;" class="text-sm md:text-base">
+          <iconify-icon icon="lucide:calendar" width="16" style="color: rgba(255,255,255,0.8);"></iconify-icon>
           <span>
             @if($news->hijri_date)
               {{ $news->hijri_date }} / 
@@ -146,57 +165,34 @@
           </span>
         </div>
         @if($news->location)
-        <span style="width: 4px; height: 4px; border-radius: var(--radius-full);
-                     background: var(--color-border); display: inline-block;"></span>
-        <div style="display: flex; align-items: center; gap: 8px;
-                    color: var(--color-gray-600); font-size: 14px; font-weight: 500;">
-          <iconify-icon icon="lucide:map-pin" width="16" style="color: var(--color-primary);"></iconify-icon>
+        <span style="width: 4px; height: 4px; border-radius: 50%; background: rgba(255,255,255,0.5); display: inline-block;" class="hidden md:inline-block"></span>
+        <div style="display: flex; align-items: center; gap: 8px; color: white; font-weight: 500;" class="text-sm md:text-base">
+          <iconify-icon icon="lucide:map-pin" width="16" style="color: rgba(255,255,255,0.8);"></iconify-icon>
           <span>{{ $news->location }}</span>
         </div>
         @endif
       </div>
 
-      {{-- Share --}}
+      {{-- Share Buttons --}}
       <div x-data="{ copied: false }" style="display: flex; align-items: center; gap: 8px;">
         <a href="https://wa.me/?text={{ urlencode(localized($news, 'title') . ' — ' . request()->fullUrl()) }}"
            target="_blank" rel="noopener"
-           class="share-btn share-btn-wa" title="Bagikan ke WhatsApp">
-          <iconify-icon icon="lucide:message-circle" width="16"></iconify-icon>
+           style="width: 40px; height: 40px; border-radius: 50%; background: rgba(255,255,255,0.1); color: white; display: flex; align-items: center; justify-content: center; border: 1px solid rgba(255,255,255,0.2); transition: background 0.2s;" onmouseover="this.style.background='#25D366'" onmouseout="this.style.background='rgba(255,255,255,0.1)'" title="Bagikan ke WhatsApp">
+          <iconify-icon icon="lucide:message-circle" width="18"></iconify-icon>
         </a>
         <a href="https://www.facebook.com/sharer/sharer.php?u={{ urlencode(request()->fullUrl()) }}"
            target="_blank" rel="noopener"
-           class="share-btn share-btn-fb" title="Bagikan ke Facebook">
-          <iconify-icon icon="lucide:facebook" width="16"></iconify-icon>
+           style="width: 40px; height: 40px; border-radius: 50%; background: rgba(255,255,255,0.1); color: white; display: flex; align-items: center; justify-content: center; border: 1px solid rgba(255,255,255,0.2); transition: background 0.2s;" onmouseover="this.style.background='#1877F2'" onmouseout="this.style.background='rgba(255,255,255,0.1)'" title="Bagikan ke Facebook">
+          <iconify-icon icon="lucide:facebook" width="18"></iconify-icon>
         </a>
         <button @click="navigator.clipboard.writeText(window.location.href).then(() => { copied = true; setTimeout(() => copied = false, 2000) })"
-                class="share-btn" :title="copied ? 'Link disalin!' : 'Salin link'">
-          <iconify-icon x-show="!copied" icon="lucide:link" width="16"></iconify-icon>
-          <iconify-icon x-show="copied" icon="lucide:check" width="16" style="color: var(--color-success);" x-cloak></iconify-icon>
+                style="width: 40px; height: 40px; border-radius: 50%; background: rgba(255,255,255,0.1); color: white; display: flex; align-items: center; justify-content: center; border: 1px solid rgba(255,255,255,0.2); transition: background 0.2s;" onmouseover="this.style.background='rgba(255,255,255,0.3)'" onmouseout="this.style.background='rgba(255,255,255,0.1)'" :title="copied ? 'Link disalin!' : 'Salin link'">
+          <iconify-icon x-show="!copied" icon="lucide:link" width="18"></iconify-icon>
+          <iconify-icon x-show="copied" icon="lucide:check" width="18" style="color: #4ade80;" x-cloak></iconify-icon>
         </button>
       </div>
     </div>
 
-  </div>
-</section>
-
-{{-- ════════════════════════════════════ --}}
-{{-- SECTION 2 — FEATURED IMAGE          --}}
-{{-- ════════════════════════════════════ --}}
-<section style="padding-bottom: 40px;">
-  <div style="max-width: 1000px; margin: 0 auto; padding: 0 24px;">
-    <div style="border-radius: var(--radius-xl); overflow: hidden;
-                box-shadow: var(--shadow-md); border: 1px solid var(--color-border); background: white;">
-      <img src="{{ $news->featured_image ? asset('storage/' . $news->featured_image) : 'https://placehold.co/1000x450/e5e7eb/9ca3af?text=Mimbar+Al-Tauhid' }}"
-           alt="{{ localized($news, 'title') }}"
-           style="width: 100%; height: 450px; object-fit: cover; display: block;">
-      <div style="background: var(--color-muted); border-top: 1px solid var(--color-border);
-                  padding: 12px 24px;">
-        <p style="font-size: 13px; color: var(--color-gray-400); font-style: italic;
-                  text-align: center; margin: 0;">
-          Dokumentasi kegiatan Yayasan Mimbar Al-Tauhid.
-        </p>
-      </div>
-    </div>
   </div>
 </section>
 
@@ -224,9 +220,8 @@
 @if($galleries->count() > 0)
 <section style="padding-bottom: 40px;">
   <div style="max-width: 800px; margin: 0 auto; padding: 0 24px;">
-    <h3 style="font-family: var(--font-heading); font-size: 24px; font-weight: 700;
-               color: var(--color-gray-900); margin: 0 0 24px;">
-      Galeri Dokumentasi
+    <h3 class="section-title">
+      {{ __('app.news.galeri') }}
     </h3>
     <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px;">
       @foreach($galleries as $photo)
@@ -258,25 +253,24 @@
     <div style="background: white; border: 2px solid var(--color-accent);
                 border-radius: var(--radius-xl); padding: 36px 40px; box-shadow: var(--shadow-card);
                 display: flex; flex-wrap: wrap; align-items: center;
-                justify-content: space-between; gap: 28px;">
+                justify-content: space-between; gap: 28px;"
+         @if(app()->getLocale() === 'ar') dir="rtl" @endif>
       <div style="flex: 1; min-width: 200px;">
-        <h3 style="font-family: var(--font-heading); font-size: 24px;
-                   font-weight: 700; color: var(--color-primary); margin: 0 0 10px;">
-          Jazakumullah Khairan
+        <h3 class="section-title" style="color: var(--color-primary); margin: 0 0 10px;">
+          {{ __('app.news.jazakumullah') }}
         </h3>
         <p style="font-size: 15px; color: var(--color-gray-600); line-height: 1.7; margin: 0;">
-          Program ini terlaksana berkat infaq dan sedekah dari para donatur. 
-          Mari terus dukung program sosial kemanusiaan Mimbar Al-Tauhid untuk menebar lebih banyak senyuman.
+          {{ __('app.news.cta_desc') }}
         </p>
       </div>
       <a href="{{ route('donations.index') }}"
-         style="display: inline-flex; align-items: center; gap: 8px;
+         style="display: inline-flex; align-items: center; justify-content: center; gap: 8px;
                 background: var(--color-primary); color: white;
                 padding: 14px 28px; border-radius: var(--radius-lg);
                 font-size: 14px; font-weight: 700; font-family: var(--font-heading);
                 text-decoration: none; white-space: nowrap; box-shadow: var(--shadow-md);
-                flex-shrink: 0;">
-        Ikut Berdonasi
+                flex-shrink: 0;" class="w-full md:w-auto">
+        {{ __('app.news.ikut_donasi') }}
         <iconify-icon icon="lucide:heart-handshake" width="18"></iconify-icon>
       </a>
     </div>
@@ -315,9 +309,8 @@
 <section style="background: white; border-top: 1px solid var(--color-border);
                 padding: 80px 0;">
   <div style="max-width: 1200px; margin: 0 auto; padding: 0 24px;">
-    <h2 style="font-family: var(--font-heading); font-size: 32px; font-weight: 700;
-               color: var(--color-gray-900); text-align: center; margin: 0 0 40px;">
-      Kabar Terbaru Lainnya
+    <h2 class="section-title" style="text-align: center;">
+      {{ __('app.news.terkait') }}
     </h2>
     <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 24px;">
       @foreach($related as $item)
@@ -346,21 +339,18 @@
             <iconify-icon icon="lucide:calendar" width="13"></iconify-icon>
             {{ $item->created_at->translatedFormat('d F Y') }}
           </div>
-          <h3 style="font-family: var(--font-heading); font-size: 18px; font-weight: 700;
-                     color: var(--color-gray-900); margin: 0 0 12px; line-height: 1.4;
-                     display: -webkit-box; -webkit-line-clamp: 3;
-                     -webkit-box-orient: vertical; overflow: hidden;">
-            {{ $item->title }}
+          <h3 class="card-title">
+            {{ localized($item, 'title') }}
           </h3>
           <p style="font-size: 14px; color: var(--color-gray-600); line-height: 1.7;
                     display: -webkit-box; -webkit-line-clamp: 2;
                     -webkit-box-orient: vertical; overflow: hidden;
                     flex-grow: 1; margin: 0 0 24px;">
-            {{ Str::words(strip_tags($item->content), 20, '...') }}
+            {{ Str::words(strip_tags(localized($item, 'content')), 20, '...') }}
           </p>
           <div style="color: var(--color-primary); font-weight: 700; font-size: 14px;
                       display: flex; align-items: center; gap: 6px; margin-top: auto;">
-            Baca Berita <iconify-icon icon="lucide:arrow-right" width="16"></iconify-icon>
+            {{ __('app.news.baca_selengkapnya') }} <iconify-icon icon="lucide:arrow-right" width="16"></iconify-icon>
           </div>
         </div>
       </a>
