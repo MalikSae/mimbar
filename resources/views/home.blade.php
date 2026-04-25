@@ -378,7 +378,7 @@
                 <div class="kebaikan-card" style="background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.2); border-radius: 12px; padding: 28px 24px; display: flex; align-items: center; gap: 20px; backdrop-filter: blur(4px);">
                     <div class="kebaikan-icon-wrap"><img src="{{ asset('storage/images/icon/masjid.svg') }}" alt="Masjid" style="width: 52px; height: 52px; object-fit: contain; flex-shrink: 0; filter: brightness(0) invert(1);"></div>
                     <div class="kebaikan-text-wrap" style="flex: 1;">
-                        <div class="font-headings counter-value" data-target="0" style="font-size: 28px; font-weight: 800; color: white; line-height: 1;">0</div>
+                        <div class="font-headings counter-value" data-target="160" style="font-size: 28px; font-weight: 800; color: white; line-height: 1;">0</div>
                         <div class="kebaikan-label" style="font-size: 13px; color: rgba(255,255,255,0.8); margin-top: 4px;">{{ __('app.stats.masjid') }}</div>
                     </div>
                 </div>
@@ -386,7 +386,7 @@
                 <div class="kebaikan-card" style="background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.2); border-radius: 12px; padding: 28px 24px; display: flex; align-items: center; gap: 20px; backdrop-filter: blur(4px);">
                     <div class="kebaikan-icon-wrap"><img src="{{ asset('storage/images/icon/sumur.svg') }}" alt="Sumur" style="width: 52px; height: 52px; object-fit: contain; flex-shrink: 0; filter: brightness(0) invert(1);"></div>
                     <div class="kebaikan-text-wrap" style="flex: 1;">
-                        <div class="font-headings counter-value" data-target="0" style="font-size: 28px; font-weight: 800; color: white; line-height: 1;">0</div>
+                        <div class="font-headings counter-value" data-target="155" style="font-size: 28px; font-weight: 800; color: white; line-height: 1;">0</div>
                         <div class="kebaikan-label" style="font-size: 13px; color: rgba(255,255,255,0.8); margin-top: 4px;">{{ __('app.stats.sumur') }}</div>
                     </div>
                 </div>
@@ -394,7 +394,7 @@
                 <div class="kebaikan-card" style="background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.2); border-radius: 12px; padding: 28px 24px; display: flex; align-items: center; gap: 20px; backdrop-filter: blur(4px);">
                     <div class="kebaikan-icon-wrap"><img src="{{ asset('storage/images/icon/quran-01.svg') }}" alt="Al-Quran" style="width: 52px; height: 52px; object-fit: contain; flex-shrink: 0; filter: brightness(0) invert(1);"></div>
                     <div class="kebaikan-text-wrap" style="flex: 1;">
-                        <div class="font-headings counter-value" data-target="0" style="font-size: 28px; font-weight: 800; color: white; line-height: 1;">0</div>
+                        <div class="font-headings counter-value" data-target="27969" style="font-size: 28px; font-weight: 800; color: white; line-height: 1;">0</div>
                         <div class="kebaikan-label" style="font-size: 13px; color: rgba(255,255,255,0.8); margin-top: 4px;">{{ __('app.stats.quran') }}</div>
                     </div>
                 </div>
@@ -418,7 +418,7 @@
                 <div class="kebaikan-card" style="background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.2); border-radius: 12px; padding: 28px 24px; display: flex; align-items: center; gap: 20px; backdrop-filter: blur(4px);">
                     <div class="kebaikan-icon-wrap"><img src="{{ asset('storage/images/icon/dai.svg') }}" alt="Da'i" style="width: 52px; height: 52px; object-fit: contain; flex-shrink: 0; filter: brightness(0) invert(1);"></div>
                     <div class="kebaikan-text-wrap" style="flex: 1;">
-                        <div class="font-headings counter-value" data-target="0" style="font-size: 28px; font-weight: 800; color: white; line-height: 1;">0</div>
+                        <div class="font-headings counter-value" data-target="135" style="font-size: 28px; font-weight: 800; color: white; line-height: 1;">0</div>
                         <div class="kebaikan-label" style="font-size: 13px; color: rgba(255,255,255,0.8); margin-top: 4px;">{{ __('app.stats.dai') }}</div>
                     </div>
                 </div>
@@ -426,7 +426,7 @@
                 <div class="kebaikan-card" style="background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.2); border-radius: 12px; padding: 28px 24px; display: flex; align-items: center; gap: 20px; backdrop-filter: blur(4px);">
                     <div class="kebaikan-icon-wrap"><img src="{{ asset('storage/images/icon/quran-02.svg') }}" alt="Pengajaran Quran" style="width: 52px; height: 52px; object-fit: contain; flex-shrink: 0; filter: brightness(0) invert(1);"></div>
                     <div class="kebaikan-text-wrap" style="flex: 1;">
-                        <div class="font-headings counter-value" data-target="0" style="font-size: 28px; font-weight: 800; color: white; line-height: 1;">0</div>
+                        <div class="font-headings counter-value" data-target="947" style="font-size: 28px; font-weight: 800; color: white; line-height: 1;">0</div>
                         <div class="kebaikan-label" style="font-size: 13px; color: rgba(255,255,255,0.8); margin-top: 4px;">{{ __('app.stats.pengajar') }}</div>
                     </div>
                 </div>
@@ -434,7 +434,7 @@
                 <div class="kebaikan-card" style="background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.2); border-radius: 12px; padding: 28px 24px; display: flex; align-items: center; gap: 20px; backdrop-filter: blur(4px);">
                     <div class="kebaikan-icon-wrap"><img src="{{ asset('storage/images/icon/dakwah.svg') }}" alt="Kegiatan Dakwah" style="width: 52px; height: 52px; object-fit: contain; flex-shrink: 0; filter: brightness(0) invert(1);"></div>
                     <div class="kebaikan-text-wrap" style="flex: 1;">
-                        <div class="font-headings counter-value" data-target="0" style="font-size: 28px; font-weight: 800; color: white; line-height: 1;">0</div>
+                        <div class="font-headings counter-value" data-target="500" style="font-size: 28px; font-weight: 800; color: white; line-height: 1;">0</div>
                         <div class="kebaikan-label" style="font-size: 13px; color: rgba(255,255,255,0.8); margin-top: 4px;">{{ __('app.stats.kegiatan') }}</div>
                     </div>
                 </div>
@@ -442,7 +442,7 @@
                 <div class="kebaikan-card" style="background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.2); border-radius: 12px; padding: 28px 24px; display: flex; align-items: center; gap: 20px; backdrop-filter: blur(4px);">
                     <div class="kebaikan-icon-wrap"><img src="{{ asset('storage/images/icon/dakwah-digital.svg') }}" alt="Dakwah Digital" style="width: 52px; height: 52px; object-fit: contain; flex-shrink: 0; filter: brightness(0) invert(1);"></div>
                     <div class="kebaikan-text-wrap" style="flex: 1;">
-                        <div class="font-headings counter-value" data-target="0" style="font-size: 28px; font-weight: 800; color: white; line-height: 1;">0</div>
+                        <div class="font-headings counter-value" data-target="1958" style="font-size: 28px; font-weight: 800; color: white; line-height: 1;">0</div>
                         <div class="kebaikan-label" style="font-size: 13px; color: rgba(255,255,255,0.8); margin-top: 4px;">{{ __('app.stats.digital') }}</div>
                     </div>
                 </div>
@@ -450,7 +450,7 @@
                 <div class="kebaikan-card lg-col-start-2" style="background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.2); border-radius: 12px; padding: 28px 24px; display: flex; align-items: center; gap: 20px; backdrop-filter: blur(4px);">
                     <div class="kebaikan-icon-wrap"><img src="{{ asset('storage/images/icon/sembako.svg') }}" alt="Sembako" style="width: 52px; height: 52px; object-fit: contain; flex-shrink: 0; filter: brightness(0) invert(1);"></div>
                     <div class="kebaikan-text-wrap" style="flex: 1;">
-                        <div class="font-headings counter-value" data-target="0" style="font-size: 28px; font-weight: 800; color: white; line-height: 1;">0</div>
+                        <div class="font-headings counter-value" data-target="3535" style="font-size: 28px; font-weight: 800; color: white; line-height: 1;">0</div>
                         <div class="kebaikan-label" style="font-size: 13px; color: rgba(255,255,255,0.8); margin-top: 4px;">{{ __('app.stats.sembako') }}</div>
                     </div>
                 </div>
