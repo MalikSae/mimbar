@@ -11,7 +11,9 @@ class BulkTranslate extends Command
      *
      * @var string
      */
-    protected $signature = 'translate:bulk {--model=all : Pilihan: articles|news|donations|all}';
+    protected $signature = 'translate:bulk
+        {--model=all : articles|news|donations|all}
+        {--force : Retranslate meskipun _ar sudah ada tapi sama dengan original}';
 
     /**
      * The console command description.
@@ -26,12 +28,20 @@ class BulkTranslate extends Command
     public function handle()
     {
         $option = $this->option('model');
+        $force = $this->option('force');
         $service = app(\App\Services\TranslationService::class);
         $totalTranslated = 0;
 
         if ($option === 'articles' || $option === 'all') {
-            $items = \App\Models\Article::where(function($q) {
-                $q->whereNull('title_ar')->orWhere('title_ar', '');
+            $items = \App\Models\Article::where(function($q) use ($force) {
+                if ($force) {
+                    // Ambil yang null, kosong, ATAU sama dengan title asli (gagal translate)
+                    $q->whereNull('title_ar')
+                      ->orWhere('title_ar', '')
+                      ->orWhereColumn('title_ar', 'title');
+                } else {
+                    $q->whereNull('title_ar')->orWhere('title_ar', '');
+                }
             })->get();
 
             foreach ($items as $item) {
@@ -49,8 +59,14 @@ class BulkTranslate extends Command
         }
 
         if ($option === 'news' || $option === 'all') {
-            $items = \App\Models\News::where(function($q) {
-                $q->whereNull('title_ar')->orWhere('title_ar', '');
+            $items = \App\Models\News::where(function($q) use ($force) {
+                if ($force) {
+                    $q->whereNull('title_ar')
+                      ->orWhere('title_ar', '')
+                      ->orWhereColumn('title_ar', 'title');
+                } else {
+                    $q->whereNull('title_ar')->orWhere('title_ar', '');
+                }
             })->get();
 
             foreach ($items as $item) {
@@ -68,8 +84,14 @@ class BulkTranslate extends Command
         }
 
         if ($option === 'donations' || $option === 'all') {
-            $items = \App\Models\DonationProgram::where(function($q) {
-                $q->whereNull('name_ar')->orWhere('name_ar', '');
+            $items = \App\Models\DonationProgram::where(function($q) use ($force) {
+                if ($force) {
+                    $q->whereNull('name_ar')
+                      ->orWhere('name_ar', '')
+                      ->orWhereColumn('name_ar', 'name');
+                } else {
+                    $q->whereNull('name_ar')->orWhere('name_ar', '');
+                }
             })->get();
 
             foreach ($items as $item) {
