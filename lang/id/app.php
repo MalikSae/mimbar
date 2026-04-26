@@ -10,6 +10,7 @@ return [
     'nav.donasi'     => 'Donasi',
     'nav.kontak'     => 'Kontak',
     'nav.pustaka'    => 'Ebook',
+    'nav.mimbartv'   => 'Mimbar TV',
     'nav.program.pembangunan' => 'Program Pembangunan',
     'nav.program.dakwah'      => 'Program Dakwah',
     'nav.program.pendidikan'  => 'Program Pendidikan',
@@ -474,4 +475,18 @@ return [
     'donasi.form.quote'              => '"Semoga setiap donasi menjadi pemberat timbangan kebaikan kita di akhirat kelak."',
     'donasi.form.total_donasi'       => 'Total Donasi',
     'donasi.form.lanjut_donasi'      => 'Lanjut Donasi',
+
+    // --- MIMBAR TV ---
+    'mimbartv.page_title'    => 'Mimbar TV — Kajian & Ceramah Islami',
+    'mimbartv.hero_badge'    => 'Channel Resmi Yayasan Mimbar Al-Tauhid',
+    'mimbartv.hero_desc'     => 'Tonton kajian, ceramah, dan konten dakwah dari Yayasan Mimbar Al-Tauhid',
+    'mimbartv.latest_videos' => 'Video Terbaru',
+    'mimbartv.visit_channel' => 'Kunjungi Channel Kami',
+    'mimbartv.aria_play'     => 'Putar video:',
+    'mimbartv.empty_title'   => 'Video tidak tersedia saat ini',
+    'mimbartv.empty_desc'    => 'Konten video sedang dalam proses pemuatan atau API belum dikonfigurasi. Kunjungi langsung channel YouTube kami untuk menonton video terbaru.',
+    'mimbartv.open_youtube'  => 'Buka Channel YouTube',
+    'mimbartv.cta_title'     => 'Ingin Menonton Lebih Banyak?',
+    'mimbartv.cta_desc'      => 'Subscribe channel Mimbar TV dan dapatkan notifikasi video kajian & ceramah terbaru setiap harinya.',
+    'mimbartv.close_video'   => 'Tutup video',
 ];

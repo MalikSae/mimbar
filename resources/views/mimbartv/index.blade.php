@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Mimbar TV — Kajian & Ceramah Islami')
+@section('title', __('app.mimbartv.page_title'))
 
 @push('head')
 <style>
@@ -393,13 +393,13 @@
     <div class="mtv-hero-content">
       <div class="mtv-hero-badge">
         <iconify-icon icon="lucide:tv-2" width="15"></iconify-icon>
-        Channel Resmi Yayasan Mimbar Al-Tauhid
+        {{ __('app.mimbartv.hero_badge') }}
       </div>
       <h1 class="mtv-hero-title">
         Mimbar <span>TV</span>
       </h1>
       <p class="mtv-hero-desc">
-        Tonton kajian, ceramah, dan konten dakwah dari Yayasan Mimbar Al-Tauhid
+        {{ __('app.mimbartv.hero_desc') }}
       </p>
 
     </div>
@@ -414,11 +414,11 @@
     <div class="mtv-section-head">
       <h2 class="mtv-section-title">
         <span class="mtv-section-title-dot"></span>
-        Video Terbaru
+        {{ __('app.mimbartv.latest_videos') }}
       </h2>
       <a href="https://www.youtube.com/@mimbartvid" target="_blank" rel="noopener noreferrer" class="mtv-channel-link">
         <iconify-icon icon="lucide:youtube" width="16"></iconify-icon>
-        Kunjungi Channel Kami
+        {{ __('app.mimbartv.visit_channel') }}
       </a>
     </div>
 
@@ -430,7 +430,7 @@
              onclick="mtvOpenModal('{{ $video['video_id'] }}', '{{ addslashes($video['title']) }}', '{{ $video['url'] }}')"
              role="button"
              tabindex="0"
-             aria-label="Putar video: {{ $video['title'] }}"
+             aria-label="{{ __('app.mimbartv.aria_play') }} {{ $video['title'] }}"
              onkeydown="if(event.key==='Enter'||event.key===' ') mtvOpenModal('{{ $video['video_id'] }}', '{{ addslashes($video['title']) }}', '{{ $video['url'] }}')">
 
           {{-- Thumbnail --}}
@@ -452,7 +452,7 @@
             @if($video['published_at'])
             <div class="mtv-card-date">
               <iconify-icon icon="lucide:calendar" width="12"></iconify-icon>
-              {{ \Carbon\Carbon::parse($video['published_at'])->locale('id')->isoFormat('D MMMM YYYY') }}
+            {{ \Carbon\Carbon::parse($video['published_at'])->locale(app()->getLocale())->isoFormat('D MMMM YYYY') }}
             </div>
             @endif
             <h3 class="mtv-card-title">{{ $video['title'] }}</h3>
@@ -466,14 +466,13 @@
       {{-- Empty State --}}
       <div class="mtv-empty">
         <iconify-icon icon="lucide:video-off" class="mtv-empty-icon"></iconify-icon>
-        <div class="mtv-empty-title">Video tidak tersedia saat ini</div>
+        <div class="mtv-empty-title">{{ __('app.mimbartv.empty_title') }}</div>
         <p class="mtv-empty-desc">
-          Konten video sedang dalam proses pemuatan atau API belum dikonfigurasi.<br>
-          Kunjungi langsung channel YouTube kami untuk menonton video terbaru.
+          {{ __('app.mimbartv.empty_desc') }}
         </p>
         <a href="https://www.youtube.com/@mimbartvid" target="_blank" rel="noopener noreferrer" class="mtv-empty-link">
           <iconify-icon icon="lucide:external-link" width="16"></iconify-icon>
-          Buka Channel YouTube
+          {{ __('app.mimbartv.open_youtube') }}
         </a>
       </div>
     @endif
@@ -484,13 +483,13 @@
 {{-- ===== FOOTER CTA ===== --}}
 <section class="mtv-footer-cta">
   <div class="mtv-container">
-    <h2 class="mtv-footer-cta-title">Ingin Menonton Lebih Banyak?</h2>
+    <h2 class="mtv-footer-cta-title">{{ __('app.mimbartv.cta_title') }}</h2>
     <p class="mtv-footer-cta-desc">
-      Subscribe channel Mimbar TV dan dapatkan notifikasi video kajian & ceramah terbaru setiap harinya.
+      {{ __('app.mimbartv.cta_desc') }}
     </p>
     <a href="https://www.youtube.com/@mimbartvid" target="_blank" rel="noopener noreferrer" class="mtv-yt-btn">
       <iconify-icon icon="logos:youtube-icon" class="mtv-yt-btn-icon"></iconify-icon>
-      Kunjungi Channel Kami
+      {{ __('app.mimbartv.visit_channel') }}
     </a>
   </div>
 </section>
@@ -502,7 +501,7 @@
     {{-- Header --}}
     <div class="mtv-modal-header">
       <p id="mtv-modal-title-text" class="mtv-modal-title"></p>
-      <button class="mtv-modal-close" onclick="mtvCloseModal()" aria-label="Tutup video">
+      <button class="mtv-modal-close" onclick="mtvCloseModal()" aria-label="{{ __('app.mimbartv.close_video') }}">
         <iconify-icon icon="lucide:x" width="18"></iconify-icon>
       </button>
     </div>

@@ -85,7 +85,7 @@
             <a href="{{ route('berita.index') }}" class="font-heading text-[15px] font-semibold transition-colors {{ request()->routeIs('berita.*') ? 'text-primary' : 'text-gray-600 hover:text-primary' }}">{{ __('app.nav.berita') }}</a>
             <a href="{{ route('artikel.index') }}" class="font-heading text-[15px] font-semibold transition-colors {{ request()->routeIs('artikel.*') ? 'text-primary' : 'text-gray-600 hover:text-primary' }}">{{ __('app.nav.artikel') }}</a>
             <a href="{{ route('mimbartv.index') }}" class="font-heading text-[15px] font-semibold transition-colors {{ request()->routeIs('mimbartv.*') ? 'text-primary' : 'text-gray-600 hover:text-primary' }}">
-                Mimbar TV
+                {{ __('app.nav.mimbartv') }}
             </a>
         </nav>
 
@@ -173,9 +173,7 @@
             <a href="{{ route('ebooks.index') }}" class="font-heading font-semibold py-2 px-3 rounded-lg {{ request()->routeIs('ebooks.*') ? 'bg-primary-light text-primary' : 'text-gray-600' }}">{{ __('app.nav.pustaka') }}</a>
             <a href="{{ route('berita.index') }}" class="font-heading font-semibold py-2 px-3 rounded-lg {{ request()->routeIs('berita.*') ? 'bg-primary-light text-primary' : 'text-gray-600' }}">{{ __('app.nav.berita') }}</a>
             <a href="{{ route('artikel.index') }}" class="font-heading font-semibold py-2 px-3 rounded-lg {{ request()->routeIs('artikel.*') ? 'bg-primary-light text-primary' : 'text-gray-600' }}">{{ __('app.nav.artikel') }}</a>
-            <a href="{{ route('mimbartv.index') }}" class="font-heading font-semibold py-2 px-3 rounded-lg {{ request()->routeIs('mimbartv.*') ? 'bg-primary-light text-primary' : 'text-gray-600' }}">
-                Mimbar TV
-            </a>
+            <a href="{{ route('mimbartv.index') }}" class="font-heading font-semibold py-2 px-3 rounded-lg {{ request()->routeIs('mimbartv.*') ? 'bg-primary-light text-primary' : 'text-gray-600' }}">{{ __('app.nav.mimbartv') }}</a>
             <a href="{{ route('donations.index') }}" class="mt-2 inline-flex items-center justify-center p-3 bg-primary text-white font-heading font-bold rounded-lg">
                 {{ __('app.btn.donasi') }}
             </a>

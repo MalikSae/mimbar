@@ -9,7 +9,8 @@ return [
     'nav.berita'     => 'الأخبار',
     'nav.donasi'     => 'التبرعات',
     'nav.kontak'     => 'اتصل بنا',
-    'nav.pustaka'    => 'Ebook',
+    'nav.pustaka'    => 'المكتبة الرقمية',
+    'nav.mimbartv'   => 'منبر TV',
     'nav.program.pembangunan' => 'برامج البناء والتشييد',
     'nav.program.dakwah'      => 'برامج الدعوة',
     'nav.program.pendidikan'  => 'برامج التعليم',
@@ -474,4 +475,19 @@ return [
     'donasi.form.quote'              => '"نسأل الله أن يجعل كل تبرع مثقَّلًا في ميزان حسناتنا يوم القيامة."',
     'donasi.form.total_donasi'       => 'إجمالي التبرع',
     'donasi.form.lanjut_donasi'      => 'تابع التبرع',
+
+    // --- MIMBAR TV ---
+    'mimbartv.page_title'   => 'منبر TV — محاضرات ودروس إسلامية',
+    'mimbartv.hero_badge'   => 'القناة الرسمية لمؤسسة منبر التوحيد',
+    'mimbartv.hero_desc'    => 'شاهد المحاضرات والدروس ومحتوى الدعوة من مؤسسة منبر التوحيد',
+    'mimbartv.latest_videos' => 'أحدث الفيديوهات',
+    'mimbartv.visit_channel' => 'زيارة قناتنا',
+    'mimbartv.aria_play'    => 'تشغيل الفيديو:',
+    'mimbartv.empty_title'  => 'لا توجد مقاطع فيديو متاحة حالياً',
+    'mimbartv.empty_desc'   => 'محتوى الفيديو قيد التحميل أو لم يتم تكوين API بعد.
+قم بزيارة قناة YouTube مباشرةً لمشاهدة أحدث الفيديوهات.',
+    'mimbartv.open_youtube' => 'فتح قناة YouTube',
+    'mimbartv.cta_title'    => 'هل تريد مشاهدة المزيد؟',
+    'mimbartv.cta_desc'     => 'اشترك في قناة منبر TV واحصل على إشعارات بأحدث مقاطع المحاضرات والدروس يومياً.',
+    'mimbartv.close_video'  => 'إغلاق الفيديو',
 ];
