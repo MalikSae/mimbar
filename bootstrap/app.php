@@ -14,6 +14,7 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->alias([
             'admin.auth'  => \App\Http\Middleware\AdminAuth::class,
             'author.auth' => \App\Http\Middleware\AuthorAuth::class,
+            'role'        => \App\Http\Middleware\RequireRole::class,
         ]);
 
         // Locale Switcher untuk halaman publik
@@ -21,6 +22,9 @@ return Application::configure(basePath: dirname(__DIR__))
 
         // Hitung visitor di semua request web
         $middleware->appendToGroup('web', \App\Http\Middleware\CountVisitor::class);
+
+        // Security Headers untuk semua response web
+        $middleware->appendToGroup('web', \App\Http\Middleware\SecurityHeaders::class);
     })
     ->withExceptions(function (Exceptions $exceptions): void {
         //

@@ -9,7 +9,7 @@ return [
     'nav.berita'     => 'Berita',
     'nav.donasi'     => 'Donasi',
     'nav.kontak'     => 'Kontak',
-    'nav.pustaka'    => 'Pustaka Digital',
+    'nav.pustaka'    => 'Ebook',
     'nav.program.pembangunan' => 'Program Pembangunan',
     'nav.program.dakwah'      => 'Program Dakwah',
     'nav.program.pendidikan'  => 'Program Pendidikan',

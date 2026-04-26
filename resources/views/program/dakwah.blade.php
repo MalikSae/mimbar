@@ -417,7 +417,7 @@
             </div>
             <div class="hero-stat-item">
                 <span class="stat-icon"><img src="{{ asset('storage/images/icon/dai.svg') }}" alt=""></span>
-                <span><strong>100K+</strong> {{ __('app.program.dakwah.stat_2') }}</span>
+                <span><strong>{{ $pencapaian['jamaah_terjangkau'] }}</strong> {{ __('app.program.dakwah.stat_2') }}</span>
             </div>
             <div class="hero-stat-item">
                 <span class="stat-icon"><img src="{{ asset('storage/images/icon/dakwah.svg') }}" alt=""></span>

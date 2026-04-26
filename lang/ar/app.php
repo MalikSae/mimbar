@@ -9,7 +9,7 @@ return [
     'nav.berita'     => 'الأخبار',
     'nav.donasi'     => 'التبرعات',
     'nav.kontak'     => 'اتصل بنا',
-    'nav.pustaka'    => 'المكتبة الرقمية',
+    'nav.pustaka'    => 'Ebook',
     'nav.program.pembangunan' => 'برامج البناء والتشييد',
     'nav.program.dakwah'      => 'برامج الدعوة',
     'nav.program.pendidikan'  => 'برامج التعليم',

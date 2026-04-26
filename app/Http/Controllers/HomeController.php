@@ -6,7 +6,7 @@ use App\Models\Article;
 use App\Models\DonationProgram;
 use App\Models\Ebook;
 use App\Models\News;
-use App\Models\Video;
+use App\Services\YouTubeService;
 
 class HomeController extends Controller
 {
@@ -19,10 +19,8 @@ class HomeController extends Controller
 
         $featuredProgram = $programs->first();
 
-        $videos = Video::where('is_featured', true)
-            ->orderByDesc('published_at')
-            ->take(4)
-            ->get();
+        // Ambil 4 video terbaru dari YouTube API (cache 6 jam)
+        $videos = collect(app(YouTubeService::class)->getLatestVideos(4));
 
         $ebooks = Ebook::orderByDesc('created_at')
             ->take(4)

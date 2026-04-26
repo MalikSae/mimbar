@@ -6,8 +6,8 @@
 
 | | |
 |---|---|
-| **Versi Dokumen** | 1.1.0 |
-| **Tanggal** | April 2026 (diperbarui post-audit) |
+| **Versi Dokumen** | 1.3.0 |
+| **Tanggal** | April 2026 (final cleanup) |
 | **Disusun oleh** | Malik Saifurrizqi |
 | **Status** | Active Development |
 | **Staging** | dev.mimbar.or.id |
@@ -32,7 +32,7 @@
 
 mimbar.or.id adalah platform digital resmi **Yayasan Mimbar Al-Tauhid** — lembaga dakwah, sosial, dan pendidikan Islam yang berpusat di Indonesia. Platform ini dibangun sebagai pengganti website WordPress lama yang mengalami insiden keamanan (serangan malware), dengan tujuan menghadirkan sistem yang lebih aman, skalabel, dan kaya fitur.
 
-Platform dikembangkan oleh **SaeDigital Agency** menggunakan Laravel 13 sebagai framework utama. Selain berfungsi sebagai website profil organisasi, platform ini menjadi sistem manajemen konten dakwah, platform penggalangan donasi, dan pusat distribusi program sosial yayasan.
+Platform dikembangkan oleh **Malik Saifurrizqi** menggunakan Laravel 13 sebagai framework utama. Selain berfungsi sebagai website profil organisasi, platform ini menjadi sistem manajemen konten dakwah, platform penggalangan donasi, dan pusat distribusi program sosial yayasan.
 
 ### 1.1 Latar Belakang
 
@@ -135,10 +135,9 @@ Platform mendukung program dari 5 departemen utama:
 | `qurban_orders` | Pesanan hewan qurban | `name`, `phone`, `type`, `quantity`, `status` |
 | `bank_accounts` | Rekening penerima donasi | `bank_name`, `account_number`, `is_active` |
 | `ebooks` | Pustaka digital / e-book | `title`, `file_path`, `is_free` |
-| `video_dakwah` | Konten video dakwah | `title`, `youtube_url`, `status` |
 | `authors` | Akun penulis (non-admin) | `name`, `email`, `password`, `bio`, `is_active` |
 | `admins` | Akun administrator | `name`, `email`, `password` |
-| `site_settings` | Pengaturan konten website publik | `key`, `value` (key-value store) |
+| `settings` | Pengaturan konten website publik | `key`, `value` (key-value store) |
 | `program_galleries` | Galeri foto program & kegiatan | `foto`, `tipe_program` |
 | `masjid_proposals` | Pengajuan bantuan pembangunan masjid | `nama_masjid`, `status`, `lokasi` |
 | `landing_pages` | Halaman landing page campaign | `title`, `slug`, `status`, `canvas_mode` |
@@ -177,10 +176,10 @@ landing_pages ───────────────── page_blocks (l
 | 4 | **Berita & Kegiatan** | Daftar & detail berita, lokasi kegiatan, tanggal hijriah | ✅ Selesai |
 | 5 | **Program Donasi** | Daftar program, progress bar target, CTA donasi, badge status | ✅ Selesai |
 | 6 | **Form Donasi** | Input data donatur, pilih rekening, kode unik otomatis, instruksi transfer | ✅ Selesai |
-| 7 | **Konfirmasi Pembayaran** | Halaman instruksi pembayaran & tracking status donasi | ⚠️ Sebagian |
+| 7 | **Instruksi Pembayaran** | Halaman instruksi transfer setelah donasi — tampilkan nomor rekening, nominal, kode unik. Konfirmasi dilakukan manual via WhatsApp/kontak yayasan | ✅ Selesai |
 | 8 | **Program Qurban** | Katalog hewan, form pesanan, instruksi pembayaran multi-rekening | ✅ Selesai |
 | 9 | **Pustaka Digital (Ebook)** | Daftar ebook, preview, download dengan gate infaq | ✅ Selesai |
-| 10 | **Video Dakwah** | Daftar video, embed YouTube, filter kategori | ⚠️ Sebagian |
+| 10 | **Mimbar TV** | Halaman `/mimbartv` — grid 12 video terbaru dari YouTube API, auto-update setiap 6 jam via cache | ✅ Selesai |
 | 11 | **Pengajuan Masjid** | Form pengajuan bantuan pembangunan masjid multi-section dengan upload dokumen | ✅ Selesai |
 | 12 | **Landing Page Publik** | Renderer `/lp/{slug}` untuk campaign pagebuilder, support canvas mode | ✅ Selesai |
 | 13 | **Dual Bahasa ID/AR** | Toggle ID/AR di navbar, layout RTL, font Amiri untuk konten Arab | ✅ Selesai |
@@ -198,14 +197,18 @@ landing_pages ───────────────── page_blocks (l
 | 5 | **Data Donasi** | Daftar transaksi, filter status, verifikasi pembayaran, reject | ✅ Selesai |
 | 6 | **Katalog & Pesanan Qurban** | Kelola hewan qurban, daftar pesanan, update status | ✅ Selesai |
 | 7 | **Katalog Ebook** | CRUD ebook, upload file, setting harga/gratis | ✅ Selesai |
-| 8 | **Video Dakwah** | CRUD video YouTube, kategori, status publish | ✅ Selesai |
-| 9 | **Galeri Program** | Upload foto per tipe program (dakwah, pendidikan, qurban, slider home) | ✅ Selesai |
-| 10 | **Pengajuan Masjid** | Daftar pengajuan, filter status, detail lengkap, update status, export CSV | ✅ Selesai |
-| 11 | **Rekening Bank** | CRUD rekening penerima donasi, aktif/nonaktif | ✅ Selesai |
-| 12 | **Pengaturan Web** | Tab Beranda, Tentang Kami — kelola konten dinamis website publik | ✅ Selesai |
-| 13 | **Manajemen Penulis** | CRUD akun penulis, guard terpisah, artikel hanya milik sendiri, flow approval | ✅ Selesai |
-| 14 | **Pagebuilder** | Drag-drop block editor untuk landing page campaign, 7 tipe blok, per-blok responsive setting | ✅ Selesai |
-| 15 | **Manajemen Campaign** | CRUD campaign UTM, link ke landing page | ✅ Selesai |
+| 8 | **Galeri Program** | Upload foto per tipe program (dakwah, pendidikan, qurban, slider home) | ✅ Selesai |
+| 9 | **Pengajuan Masjid** | Daftar pengajuan, filter status, detail lengkap, update status, export CSV | ✅ Selesai |
+| 10 | **Rekening Bank** | CRUD rekening penerima donasi, aktif/nonaktif | ✅ Selesai |
+| 11 | **Pengaturan Web** | Tab Beranda, Tentang Kami — kelola konten dinamis website publik | ✅ Selesai |
+| 12 | **Manajemen Penulis** | CRUD akun penulis, guard terpisah, artikel hanya milik sendiri, flow approval | ✅ Selesai |
+| 13 | **Pagebuilder** | Drag-drop block editor untuk landing page campaign, 7 tipe blok, per-blok responsive setting. Akses editor via halaman detail landing page | ✅ Selesai |
+| 14 | **Manajemen Campaign** | CRUD campaign UTM, link ke landing page | ✅ Selesai |
+| 15 | **Manajemen Admin** | CRUD akun admin, assignment role (super_admin / publisher), hanya bisa diakses super_admin | ✅ Selesai |
+| 16 | **Ebook Download Logs** | Log download ebook secara global — statistik unduhan per ebook dan per donatur | ✅ Selesai |
+| 17 | **Pengaturan Integrasi** | Manajemen konfigurasi integrasi eksternal (API keys, webhook, dsb) | ✅ Selesai |
+| 18 | **Program Data** | Kelola angka statistik yang ditampilkan di halaman departemen publik | ✅ Selesai |
+| 19 | **Kategori Program Donasi** | CRUD kategori untuk pengelompokan program donasi | ✅ Selesai |
 
 ### 4.3 Fitur Cross-Cutting
 
@@ -217,49 +220,36 @@ landing_pages ───────────────── page_blocks (l
 | **Multi-Rekening** | Semua form pembayaran (donasi, qurban, ebook) menampilkan semua rekening aktif secara dinamis | ✅ Selesai |
 | **Design System** | Halaman `/design-system` sebagai referensi warna, tipografi, komponen UI | ✅ Selesai |
 | **Portal Penulis** | Panel web terpisah di `/penulis` — login, dashboard, kelola artikel sendiri, submit untuk review admin | ✅ Selesai |
+| **YouTube API Integration** | YouTubeService fetch video dari channel `@mimbartvid` — dipakai di `/mimbartv` dan section video homepage, cache 6 jam | ✅ Selesai |
+| **Role System Admin** | Kolom `role` di tabel `admins` — `super_admin` (akses penuh) dan `publisher` (hanya artikel, berita, approval penulis) | ✅ Selesai |
+| **Translation Cache DB** | Model `TranslationCache` + integrasi ke `TranslationService` — hasil terjemahan disimpan ke tabel `translation_caches`, tidak hit API ulang untuk teks yang sama | ✅ Selesai |
+| **Visitor Counter** | Middleware `CountVisitor` tracking total visitor dan visitor hari ini — ditampilkan di footer publik | ✅ Selesai |
 
 ---
 
 ## 5. Fitur dalam Pengembangan
 
-### 5.1 Bulk Translate Konten Lama
+### 5.1 Laporan Donasi & Keuangan
 
-**Status:** Siap implementasi — migration `translation_caches` sudah dibuat
+**Status:** Direncanakan — tabel `reports` sudah ada, UI belum dibuat
 
-**Deskripsi:** Artisan command `php artisan translate:bulk --model=all` untuk menerjemahkan konten lama (artikel, berita, program donasi) yang belum punya versi Arab ke database.
+**Deskripsi:** Modul laporan keuangan untuk admin — rekap donasi per periode, per program, export PDF/Excel. Diakses hanya oleh `super_admin`.
 
-**Catatan teknis:**
-- Menggunakan MyMemory API dengan parameter `&de=admin@mimbar.or.id` (kuota 50K karakter/hari)
-- Jeda `usleep(500000)` antar item untuk menghindari rate limit
-- Hanya memproses record yang `title_ar` masih kosong (tidak overwrite yang sudah ada)
-- Perlu dijalankan saat kuota API tidak sedang habis
+### 5.2 Halaman Laporan Publik Admin
 
-### 5.2 Upload Bukti Transfer (Konfirmasi Pembayaran)
-
-**Status:** Pending — route instruksi sudah ada, form upload belum
+**Status:** Placeholder aktif (`/admin/laporan` redirect ke dashboard)
 
 **Yang dibutuhkan:**
-- Route `POST /donasi/{id}/konfirmasi` di controller publik
-- Form upload bukti transfer dengan validasi file
-- Update status donasi menjadi `pending_verification` setelah upload
+- Implementasi halaman laporan publik yang bisa diakses donatur
+- Download laporan penggunaan dana per program
+- Transparansi keuangan yayasan
 
-### 5.3 Halaman Publik Video Dakwah
-
-**Status:** Pending — admin CRUD sudah ada, halaman publik belum
-
-**Yang dibutuhkan:**
-- Route dan controller publik untuk daftar video
-- View publik dengan embed YouTube dan filter kategori
-
-### 5.4 Sync Storage ke Staging
+### 5.3 Sync Storage ke Staging
 
 **Status:** Partially done — SCP transfer pernah putus di tengah
 
-**Masalah:** `storage/app/public/` dikecualikan dari Git sehingga gambar/file tidak tersync otomatis ke staging.
-
 **Solusi:**
 ```bash
-# Dari local (Windows), jalankan rsync atau SCP ulang
 scp -P 65002 -r C:/laragon/www/mimbar/storage/app/public/ \
   u585715077@145.79.14.106:~/domains/mimbar.or.id/public_html/dev/storage/app/public/
 ```
@@ -272,20 +262,20 @@ scp -P 65002 -r C:/laragon/www/mimbar/storage/app/public/ \
 
 | Fitur | Deskripsi | Estimasi |
 |---|---|---|
-| Tombol Editor di pagebuilder index | Tambahkan tombol langsung ke halaman Editor dari tabel index landing pages | 0.5 hari |
-| Bulk translate konten lama | Jalankan Artisan command translate:bulk setelah IP MyMemory reset | 0.5 hari |
-| Halaman publik Video Dakwah | Buat route + view publik untuk daftar video | 1 hari |
-| Upload bukti transfer | Implementasi form konfirmasi pembayaran donasi | 1 hari |
 | Sync storage staging | Re-run SCP/rsync untuk gambar staging | 0.5 hari |
+| Bulk translate production | Jalankan `translate:bulk` di server production setelah deploy | 0.5 hari |
+| Hapus modul admin/video | Hapus routes, controller, views, model Video dari codebase | 0.5 hari |
+| Hapus ImportWordpress command | Command sudah tidak relevan pasca migrasi | 0.25 hari |
 
 ### Phase 2 — Peningkatan Fitur (Prioritas Menengah)
 
 | Fitur | Deskripsi |
 |---|---|
+| **Laporan Donasi Admin** | Rekap donasi per periode/program, export PDF/Excel menggunakan tabel `reports` yang sudah ada |
+| **Halaman Laporan Publik** | Transparansi keuangan — donatur bisa download laporan penggunaan dana |
 | **WA Notifikasi Otomatis** | Notifikasi WhatsApp ke donatur setelah donasi terverifikasi via Fonnte/WA Business API |
 | **Integrasi Meta Pixel & CAPI** | Tracking konversi donasi untuk iklan Meta (Facebook/Instagram) |
 | **SEO Enhancement** | Meta tags dinamis, Open Graph, sitemap.xml, robots.txt per halaman |
-| **Laporan PDF Publik** | Donatur bisa download laporan penggunaan dana secara publik |
 | **Override Terjemahan Manual** | Admin bisa koreksi hasil terjemahan Arab per-field di dashboard |
 | **Pagebuilder — Blok Baru** | Tambah tipe blok: countdown timer, embed formulir, grid foto |
 
@@ -378,6 +368,8 @@ scp -P 65002 -r "C:/laragon/www/mimbar/storage/app/public/" \
 | Guard terpisah admin vs author | Keamanan — author tidak bisa akses route admin secara tidak sengaja |
 | Terjemahan disimpan di kolom `_ar` | Lebih cepat dari terjemahan real-time, admin bisa koreksi manual |
 | MyMemory API (bukan Google Translate) | Tidak butuh kartu kredit/billing, cukup untuk skala saat ini |
+| YouTube API + cache 6 jam | Video selalu fresh tanpa hit API setiap request, hemat quota |
+| Role system via kolom `role` di `admins` | Lebih simpel dari guard terpisah — satu guard, dua level akses |
 
 ### 8.2 Known Issues & Workarounds
 
@@ -389,6 +381,7 @@ scp -P 65002 -r "C:/laragon/www/mimbar/storage/app/public/" \
 | Tiptap RTL duplicate extension warning | Warning non-fatal, tidak mempengaruhi fungsi — diabaikan untuk saat ini |
 | Tombol Editor tidak ada di tabel index pagebuilder | Masuk backlog Phase 1 — admin harus lewat halaman show dulu |
 | Konten HTML panjang timeout saat terjemahkan | Chunking per kalimat (450 char/chunk) sudah diimplementasi |
+| YouTube API key di .env | Simpan sebagai `YOUTUBE_API_KEY` — jangan hardcode di kode |
 
 ### 8.3 Dependency Penting
 
@@ -449,3 +442,5 @@ mimbar/
 
 *v1.0.0 — April 2026 — Versi awal*
 *v1.1.0 — April 2026 — Post-audit: hapus FAQ, tambah halaman departemen/berita-artikel/portal penulis, update status pagebuilder & known issues*
+*v1.2.0 — April 2026 — Tambah Mimbar TV (YouTube API), role system admin, bulk translate selesai, hapus modul video_dakwah*
+*v1.3.0 — April 2026 — Final cleanup: tambah TranslationCache, CountVisitor, ebook-logs, integrasi, program-data, program-kategori; hapus upload bukti transfer; perbaiki nama tabel settings; update roadmap*

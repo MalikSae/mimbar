@@ -1,11 +1,11 @@
 @extends('layouts.admin')
 
-@section('title', 'Pengaturan Web — Tentang Kami')
+@section('title', 'Pengaturan Konten')
 
 @section('content')
 <div class="mb-6">
-    <h1 class="text-2xl font-bold text-gray-900 mb-1" style="font-family: var(--font-heading)">Pengaturan Web</h1>
-    <p class="text-sm text-gray-600">Kelola tampilan halaman Tentang Kami website publik.</p>
+    <h1 class="text-2xl font-bold text-gray-900 mb-1" style="font-family: var(--font-heading)">Pengaturan Konten</h1>
+    <p class="text-sm text-gray-600">Kelola susunan pengurus untuk halaman Tentang Kami.</p>
 </div>
 
 @if(session('success'))
@@ -18,71 +18,10 @@
 </div>
 @endif
 
-<div x-data="tentangKamiApp()"
+<div x-data="pengurusApp()"
     style="background: var(--color-muted, #f5f5f5); border: 1px solid var(--color-border); border-radius: var(--radius-xl); box-shadow: var(--shadow-card); overflow: hidden;">
     
-    <!-- Tab Nav -->
-    <div class="flex overflow-x-auto border-b bg-gray-50 hide-scrollbar" style="border-color: var(--color-border); background-color: var(--color-muted);">
-
-
-        <button type="button"
-                class="bg-white text-rose-800 font-semibold border-b-transparent px-6 py-4 text-sm whitespace-nowrap border-r border-b-2 outline-none transition-colors"
-                style="border-color: var(--color-border); border-bottom-color: transparent;">
-            Tentang Kami
-        </button>
-
-        <button type="button" disabled title="Segera hadir"
-                class="text-gray-400 cursor-not-allowed bg-gray-50 px-6 py-4 text-sm whitespace-nowrap border-r border-b-2 outline-none transition-colors"
-                style="border-color: var(--color-border); border-bottom-color: transparent;">
-            Donasi
-        </button>
-
-        <button type="button" disabled title="Segera hadir"
-                class="text-gray-400 cursor-not-allowed bg-gray-50 px-6 py-4 text-sm whitespace-nowrap border-r border-b-2 outline-none transition-colors"
-                style="border-color: var(--color-border); border-bottom-color: transparent;">
-            Kontak
-        </button>
-    </div>
-
-    <!-- Form Hero Section -->
-    <form action="{{ route('admin.settings.simpanTentangKami') }}" method="POST" style="padding: 32px;">
-        @csrf
-        <div style="display: flex; flex-direction: column; gap: 24px;">
-
-            <!-- CARD 1: Section Hero -->
-            <div style="background: white; border: 1px solid var(--color-border); border-radius: 12px; padding: 28px;">
-                <h3 class="font-bold text-lg text-gray-900 border-b pb-3 mb-5" style="border-color: var(--color-border)">Section Hero — Tentang Kami</h3>
-                <div class="grid grid-cols-1 gap-5">
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-1">Headline</label>
-                        <input type="text" name="headline" value="{{ old('headline', $settings['headline']) }}" class="w-full px-4 py-2 border rounded-lg focus:ring-1 focus:ring-rose-800" style="border-color: var(--color-border); border-radius: var(--radius-lg)" placeholder="Mengenal Yayasan Mimbar Al-Tauhid">
-                    </div>
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-1">Sub Headline</label>
-                        <textarea name="sub_headline" rows="2" class="w-full px-4 py-2 border rounded-lg focus:ring-1 focus:ring-rose-800" style="border-color: var(--color-border); border-radius: var(--radius-lg)" placeholder="Deskripsi singkat halaman tentang kami">{{ old('sub_headline', $settings['sub_headline']) }}</textarea>
-                    </div>
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-1">Link Video YouTube</label>
-                        <input type="text" name="video_youtube" value="{{ old('video_youtube', $settings['video_youtube']) }}" class="w-full px-4 py-2 border rounded-lg focus:ring-1 focus:ring-rose-800" style="border-color: var(--color-border); border-radius: var(--radius-lg)" placeholder="https://www.youtube.com/watch?v=...">
-                    </div>
-                </div>
-
-                <!-- Simpan Hero -->
-                <div class="mt-6 pt-4 border-t flex justify-end" style="border-color: var(--color-border)">
-                    <button type="submit" 
-                            style="background: var(--color-primary); color: white; border-radius: var(--radius-lg); padding: 10px 24px; font-weight: 500; font-size: 14px; cursor: pointer; transition: background 0.2s; border: none; outline: none; display: inline-flex; align-items: center; gap: 8px;"
-                            onmouseover="this.style.background='var(--color-primary-dark)'"
-                            onmouseout="this.style.background='var(--color-primary)'">
-                        <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
-                        Simpan Hero
-                    </button>
-                </div>
-            </div>
-        </div>
-    </form>
-
-    <!-- CARD 2: Susunan Pengurus (outside of form, uses fetch) -->
-    <div style="padding: 0 32px 32px;">
+    <div style="padding: 32px;">
         <div style="background: white; border: 1px solid var(--color-border); border-radius: 12px; padding: 28px;">
             <h3 class="font-bold text-lg text-gray-900 border-b pb-3 mb-2" style="border-color: var(--color-border)">Susunan Pengurus</h3>
             <p class="text-xs text-gray-500 mb-5">Data ini akan tampil di halaman Tentang Kami → Susunan Pengurus.</p>
@@ -196,7 +135,7 @@
 </div>
 
 <script>
-    function tentangKamiApp() {
+    function pengurusApp() {
         return {
             pengurusList: @json($pengurus),
             newJabatan: '',
@@ -242,7 +181,7 @@
 
             async simpanEdit(id) {
                 try {
-                    const res = await fetch(`/admin/pengaturan/tentang-kami/pengurus/${id}`, {
+                    const res = await fetch(`/admin/pengaturan/pengurus/${id}`, {
                         method: 'PUT',
                         headers: { 'Content-Type': 'application/json', 'X-CSRF-TOKEN': '{{ csrf_token() }}' },
                         body: JSON.stringify({ jabatan: this.editJabatan, nama: this.editNama })
@@ -265,7 +204,7 @@
             async hapusPengurus(id) {
                 if (!confirm('Hapus pengurus ini?')) return;
                 try {
-                    const res = await fetch(`/admin/pengaturan/tentang-kami/pengurus/${id}`, {
+                    const res = await fetch(`/admin/pengaturan/pengurus/${id}`, {
                         method: 'DELETE',
                         headers: { 'Content-Type': 'application/json', 'X-CSRF-TOKEN': '{{ csrf_token() }}' }
                     });

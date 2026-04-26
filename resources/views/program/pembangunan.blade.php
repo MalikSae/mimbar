@@ -413,11 +413,11 @@
         <div class="hero-stats">
             <div class="hero-stat-item">
                 <span class="stat-icon"><img src="{{ asset('storage/images/icon/masjid.svg') }}" alt="Masjid"></span>
-                <span><strong>157</strong> {{ __('app.program.pembangunan.stat_1') }}</span>
+                <span><strong>{{ $pencapaian['masjid'] }}</strong> {{ __('app.program.pembangunan.stat_1') }}</span>
             </div>
             <div class="hero-stat-item">
                 <span class="stat-icon"><img src="{{ asset('storage/images/icon/sumur.svg') }}" alt="Sumur Bor"></span>
-                <span><strong>152</strong> {{ __('app.program.pembangunan.stat_2') }}</span>
+                <span><strong>{{ $pencapaian['sumur'] }}</strong> {{ __('app.program.pembangunan.stat_2') }}</span>
             </div>
             <div class="hero-stat-item">
                 <span class="stat-icon"><img src="{{ asset('storage/images/icon/Map.svg') }}" alt="Tersebar"></span>
@@ -473,15 +473,15 @@
         </div>
         <div class="pencapaian-grid">
             <div class="pencapaian-card" @if(app()->getLocale() === 'ar') dir="rtl" @endif>
-                <div class="angka">157</div>
+                <div class="angka">{{ $pencapaian['masjid'] }}</div>
                 <div class="label">{{ __('app.program.pembangunan.achiev_1_label') }}</div>
             </div>
             <div class="pencapaian-card" @if(app()->getLocale() === 'ar') dir="rtl" @endif>
-                <div class="angka">152</div>
+                <div class="angka">{{ $pencapaian['sumur'] }}</div>
                 <div class="label">{{ __('app.program.pembangunan.achiev_2_label') }}</div>
             </div>
             <div class="pencapaian-card" @if(app()->getLocale() === 'ar') dir="rtl" @endif>
-                <div class="angka">{{ __('app.program.pembangunan.achiev_3_val') }}</div>
+                <div class="angka">{{ $pencapaian['desain'] }}</div>
                 <div class="label">{!! __('app.program.pembangunan.achiev_3_label') !!}</div>
             </div>
         </div>

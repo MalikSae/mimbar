@@ -48,11 +48,20 @@ class TranslationService
 
     private function callApi(string $text): string
     {
+        $hash = hash('sha256', $text);
+
+        // Cek cache DB dulu
+        $cached = \App\Models\TranslationCache::where('source_hash', $hash)
+                  ->where('target_lang', 'ar')
+                  ->first();
+        if ($cached) return $cached->translated_text;
+
+        // Hit API jika tidak ada di cache
         try {
             $url = "https://api.mymemory.translated.net/get?q="
                  . urlencode($text)
                  . "&langpair=id|ar"
-                 . "&de=admin@mimbar.com";
+                 . "&de=admin@mimbar.or.id";
 
             $response = Http::timeout(10)->get($url);
 
@@ -60,10 +69,20 @@ class TranslationService
                 $data = $response->json();
                 $responseStatus = $data['responseStatus'] ?? 200;
 
-                // Jika API return error (mis. 400 query too long), return teks asli
                 if ((int)$responseStatus !== 200) return $text;
 
-                return $data['responseData']['translatedText'] ?? $text;
+                $translated = $data['responseData']['translatedText'] ?? $text;
+
+                // Simpan ke cache DB
+                \App\Models\TranslationCache::create([
+                    'source_hash'     => $hash,
+                    'source_text'     => mb_substr($text, 0, 500),
+                    'translated_text' => $translated,
+                    'source_lang'     => 'id',
+                    'target_lang'     => 'ar',
+                ]);
+
+                return $translated;
             }
             return $text;
         } catch (Exception $e) {

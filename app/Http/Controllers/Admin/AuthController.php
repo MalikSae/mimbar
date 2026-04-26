@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class AuthController extends Controller
 {
@@ -25,8 +26,21 @@ class AuthController extends Controller
         if (auth('admin')->attempt($credentials, $request->boolean('remember'))) {
             $request->session()->regenerate();
             auth('admin')->user()->update(['last_login_at' => now()]);
+
+            Log::info('Admin login berhasil', [
+                'admin' => auth('admin')->user()->email,
+                'ip'    => $request->ip(),
+                'time'  => now()->toDateTimeString(),
+            ]);
+
             return redirect()->intended(route('admin.dashboard'));
         }
+
+        Log::warning('Admin login gagal', [
+            'email' => $request->email,
+            'ip'    => $request->ip(),
+            'time'  => now()->toDateTimeString(),
+        ]);
 
         return back()
             ->withInput($request->only('email'))

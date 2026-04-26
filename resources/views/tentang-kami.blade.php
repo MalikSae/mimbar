@@ -34,13 +34,13 @@
         pointer-events: none;
     }
     .about-hero-inner {
-        max-width: 1200px;
+        max-width: 800px;
         margin: 0 auto;
         padding: 0 24px;
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 56px;
+        display: flex;
+        flex-direction: column;
         align-items: center;
+        text-align: center;
         position: relative;
         z-index: 10;
     }
@@ -48,11 +48,13 @@
     .about-hero-text {
         display: flex;
         flex-direction: column;
+        align-items: center;
         gap: 0;
     }
     .about-hero-breadcrumb {
         display: flex;
         align-items: center;
+        justify-content: center;
         gap: 8px;
         font-size: 13px;
         color: rgba(255,255,255,0.65);
@@ -600,30 +602,7 @@
             </p>
         </div>
 
-        {{-- Kanan: Video YouTube --}}
-        @if(!empty($settings['video_youtube']))
-        @php
-            $ytUrl = $settings['video_youtube'];
-            $ytParts = explode('/', $ytUrl);
-            $ytId = end($ytParts);
-            if(strpos($ytUrl, 'watch?v=') !== false) {
-                $ytQuery = parse_url($ytUrl, PHP_URL_QUERY);
-                parse_str($ytQuery, $ytParams);
-                $ytId = $ytParams['v'] ?? $ytId;
-            }
-            if(app()->getLocale() === 'ar') {
-                $ytId = 'oHnVnvUtYu8';
-            }
-        @endphp
-        <div class="about-hero-video">
-            <iframe
-                src="https://www.youtube.com/embed/{{ $ytId }}?rel=0&modestbranding=1"
-                title="{{ __('app.about.profil.title') }}"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowfullscreen
-            ></iframe>
-        </div>
-        @endif
+
     </div>
 </section>
 

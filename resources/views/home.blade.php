@@ -578,25 +578,24 @@
             <div class="grid lg-grid-cols-2-1 gap-8">
                 @php $bigVideo = $videos->first(); @endphp
                 <div class="rounded-lg overflow-hidden border" style="position: relative; aspect-ratio: 16/9; max-height: 420px; width: 100%; border-color: rgba(255,255,255,0.1);">
-                    <iframe class="w-full h-full object-cover" src="{{ $bigVideo->embed_url }}" frameborder="0" allowfullscreen></iframe>
+                    <iframe class="w-full h-full object-cover" src="{{ $bigVideo['embed_url'] }}" frameborder="0" allowfullscreen></iframe>
                     <div style="position: absolute; bottom: 0; left: 0; right: 0; top: 0; background: linear-gradient(transparent, rgba(0,0,0,0.9)); pointer-events: none; display: flex; flex-direction: column; justify-content: flex-end; padding: 32px;">
                         <div>
-                            <div class="bg-primary font-headings font-bold uppercase" style="color: white; padding: 4px 12px; border-radius: 2px; font-size: 11px; display: inline-block; margin-bottom: 12px; letter-spacing: 0.05em;">{{ localized($bigVideo, 'category') ?: (app()->getLocale() === 'ar' ? 'دروس' : 'Kajian Spesial') }}</div>
-                            <h3 class="font-headings text-2xl font-bold" style="color: white; line-height: 1.3;">{{ localized($bigVideo, 'title') }}</h3>
+                            <div class="bg-primary font-headings font-bold uppercase" style="color: white; padding: 4px 12px; border-radius: 2px; font-size: 11px; display: inline-block; margin-bottom: 12px; letter-spacing: 0.05em;">{{ app()->getLocale() === 'ar' ? 'دروس' : 'Kajian Spesial' }}</div>
+                            <h3 class="font-headings text-2xl font-bold" style="color: white; line-height: 1.3;">{{ $bigVideo['title'] }}</h3>
                         </div>
                     </div>
                 </div>
 
                 <div class="flex flex-col gap-4">
                     @foreach($videos->skip(1)->take(3) as $vid)
-                    @php 
-                        // Ekstrak ID dari URL embed (misal: https://www.youtube.com/embed/abcde)
-                        $urlParts = explode('/', $vid->embed_url);
+                    @php
+                        // Ambil video ID dari embed_url array YouTube API
+                        $urlParts = explode('/', $vid['embed_url']);
                         $yid = end($urlParts);
-                        // Bersihkan jika ada query string
                         $yid = strtok($yid, '?');
                     @endphp
-                    <div onclick="openVideo('{{ $vid->embed_url }}')" class="flex gap-4 items-start rounded-md hover:bg-white/10 transition-colors" style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.05); padding: 16px; cursor: pointer;">
+                    <div onclick="openVideo('{{ $vid['embed_url'] }}')" class="flex gap-4 items-start rounded-md hover:bg-white/10 transition-colors" style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.05); padding: 16px; cursor: pointer;">
                         <div class="relative rounded-md overflow-hidden" style="width: 120px; height: 72px; flex-shrink: 0; background-color: #000;">
                             <img src="https://img.youtube.com/vi/{{ $yid }}/mqdefault.jpg" class="w-full h-full object-cover opacity-80" alt="Thumbnail">
                             <div class="flex items-center justify-center" style="position: absolute; inset: 0;">
@@ -604,8 +603,8 @@
                             </div>
                         </div>
                         <div style="flex: 1;">
-                            <h4 class="font-headings font-semibold text-sm mb-1.5" style="line-height: 1.4; color: white; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; text-overflow: ellipsis;">{{ localized($vid, 'title') }}</h4>
-                            <div style="font-size: 11px; color: rgba(255,255,255,0.6);">{{ $vid->published_at ? \Carbon\Carbon::parse($vid->published_at)->locale(app()->getLocale())->diffForHumans() : (app()->getLocale() === 'ar' ? 'دروس' : 'Kajian') }}</div>
+                            <h4 class="font-headings font-semibold text-sm mb-1.5" style="line-height: 1.4; color: white; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; text-overflow: ellipsis;">{{ $vid['title'] }}</h4>
+                            <div style="font-size: 11px; color: rgba(255,255,255,0.6);">{{ $vid['published_at'] ? \Carbon\Carbon::parse($vid['published_at'])->locale('id')->isoFormat('D MMM YYYY') : (app()->getLocale() === 'ar' ? 'دروس' : 'Kajian') }}</div>
                         </div>
                     </div>
                     @endforeach
