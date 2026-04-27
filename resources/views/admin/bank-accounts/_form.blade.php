@@ -20,7 +20,7 @@
     {{-- Atas Nama --}}
     <div>
         <label style="display:block; font-size:12.5px; font-weight:600; color:var(--color-gray-700); margin-bottom:5px;">Atas Nama <span style="color:#ef4444;">*</span></label>
-        <input type="text" name="account_holder" required value="{{ old('account_holder') }}"
+        <input type="text" name="account_name" required value="{{ old('account_name') }}"
                placeholder="Contoh: Yayasan Mimbar Al-Tauhid" style="{{ $fStyle }}">
     </div>
 

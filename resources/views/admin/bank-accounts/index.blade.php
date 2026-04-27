@@ -82,7 +82,7 @@
                         {{ $account->account_number }}
                     </td>
                     <td style="padding:14px 16px; font-size:13.5px; color:var(--color-gray-800);">
-                        {{ $account->account_holder }}
+                        {{ $account->account_name }}
                     </td>
                     <td style="padding:14px 16px;">
                         <form method="POST" action="{{ route('admin.bank-accounts.toggle', $account->id) }}">
@@ -98,7 +98,7 @@
                     <td style="padding:14px 16px; text-align:right;">
                         <div style="display:flex; align-items:center; gap:6px; justify-content:flex-end;">
                             {{-- Edit --}}
-                            <button onclick="openEdit({{ $account->id }}, '{{ addslashes($account->bank_name) }}', '{{ addslashes($account->account_number) }}', '{{ addslashes($account->account_holder) }}', '{{ addslashes($account->branch ?? '') }}', {{ $account->is_active ? 'true' : 'false' }}, {{ $account->sort_order }})"
+                            <button onclick="openEdit({{ $account->id }}, '{{ addslashes($account->bank_name) }}', '{{ addslashes($account->account_number) }}', '{{ addslashes($account->account_name) }}', '{{ addslashes($account->branch ?? '') }}', {{ $account->is_active ? 'true' : 'false' }}, {{ $account->sort_order }})"
                                     style="padding:6px 12px; border-radius:7px; border:1px solid var(--color-border); background:white; cursor:pointer; font-size:12.5px; font-weight:500; color:var(--color-gray-700); display:flex; align-items:center; gap:5px;">
                                 <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
                                 Edit
@@ -186,7 +186,7 @@
 
 @push('scripts')
 <script>
-function openEdit(id, bank_name, account_number, account_holder, branch, is_active, sort_order) {
+function openEdit(id, bank_name, account_number, account_name, branch, is_active, sort_order) {
     const modal = document.getElementById('modal-edit');
     const form  = document.getElementById('form-edit');
 
@@ -194,7 +194,7 @@ function openEdit(id, bank_name, account_number, account_holder, branch, is_acti
 
     form.querySelector('[name="bank_name"]').value      = bank_name;
     form.querySelector('[name="account_number"]').value = account_number;
-    form.querySelector('[name="account_holder"]').value = account_holder;
+    form.querySelector('[name="account_name"]').value = account_name;
     form.querySelector('[name="branch"]').value         = branch;
     form.querySelector('[name="sort_order"]').value     = sort_order;
 
