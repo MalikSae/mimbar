@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Instruksi Pembayaran')
+@section('title', __('app.donasi_instruksi.page_title'))
 
 @section('content')
 <div class="font-body bg-page-bg text-gray-900 leading-relaxed antialiased min-h-screen flex flex-col" style="background-color: var(--color-page-bg);">
@@ -12,10 +12,10 @@
           <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
         </div>
         <h1 class="font-heading text-3xl md:text-4xl font-bold text-primary mb-4">
-          Hampir Selesai, Jazakumullah Khairan
+          {{ __('app.donasi_instruksi.hampir_selesai') }}
         </h1>
         <p class="text-[18px] text-gray-700 max-w-2xl leading-relaxed">
-          Niat baik Anda untuk program <strong class="text-gray-900 font-heading">"{{ $donation->program->name }}"</strong> telah kami catat. Silakan selesaikan pembayaran sesuai instruksi di bawah ini.
+          {{ __('app.donasi_instruksi.niat_baik') }} <strong class="text-gray-900 font-heading">"{{ $donation->program->name }}"</strong> {{ __('app.donasi_instruksi.telah_dicatat') }}
         </p>
       </div>
     </section>
@@ -27,20 +27,21 @@
         <div class="absolute top-0 left-0 right-0 h-2 bg-primary"></div>
         
         <div class="text-center border-b border-gray-100 pb-8 mb-8">
-          <p class="text-gray-500 font-medium mb-2">Total yang Harus Ditransfer</p>
+          <p class="text-gray-500 font-medium mb-2">{{ __('app.donasi_instruksi.total_transfer') }}</p>
           <h2 class="font-heading text-4xl md:text-5xl font-bold text-primary mb-3">
             Rp {{ number_format($totalTransfer, 0, ',', '.') }}
           </h2>
           <div class="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg text-sm font-medium" style="background-color: var(--color-primary-light); color: var(--color-primary);">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
-            <span>*Termasuk kode unik <strong>{{ $donation->unique_code }}</strong> untuk verifikasi otomatis.</span>
+            <span>{{ __('app.donasi_instruksi.kode_unik_1') }} <strong>{{ $donation->unique_code }}</strong> {{ __('app.donasi_instruksi.kode_unik_2') }}</span>
           </div>
         </div>
 
         <div class="flex flex-col gap-6">
           <div>
-            <p class="text-sm text-gray-500 font-medium mb-3">Transfer ke Rekening:</p>
-            @forelse($bankAccounts as $bankAccount)
+            <p class="text-sm text-gray-500 font-medium mb-3">{{ __('app.donasi_instruksi.transfer_ke') }}</p>
+            <div class="flex flex-col gap-4">
+              @forelse($bankAccounts as $bankAccount)
             <div class="bg-gray-50 border border-gray-200 rounded-xl p-5 flex flex-col gap-4">
               <div class="flex items-center gap-3">
                 <div class="w-12 h-12 bg-white rounded-lg border border-gray-200 flex items-center justify-center text-primary font-heading font-bold text-lg shadow-sm">
@@ -49,7 +50,7 @@
                 <div>
                   <h4 class="font-heading font-bold text-gray-900">{{ $bankAccount->bank_name ?? 'Bank' }}</h4>
                   @if(isset($bankAccount->bank_code))
-                  <p class="text-sm text-gray-500">Kode Bank: {{ $bankAccount->bank_code }}</p>
+                  <p class="text-sm text-gray-500">{{ __('app.donasi_instruksi.kode_bank') }} {{ $bankAccount->bank_code }}</p>
                   @endif
                 </div>
               </div>
@@ -75,20 +76,21 @@
                 " class="flex items-center gap-2 text-primary border border-primary px-4 py-2 rounded-md font-heading font-bold text-sm transition-colors whitespace-nowrap hover:bg-primary/5">
                   <svg x-show="!copied" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
                   <svg x-show="copied" style="display: none;" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
-                  <span x-text="copied ? 'Tersalin' : 'Salin'">Salin</span>
+                  <span x-text="copied ? '{{ __('app.donasi_instruksi.tersalin') }}' : '{{ __('app.donasi_instruksi.salin') }}'">{{ __('app.donasi_instruksi.salin') }}</span>
                 </button>
               </div>
 
               <div class="text-gray-600 text-sm flex items-center gap-2">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-gray-400"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-                Atas Nama: <strong class="text-gray-900">{{ $bankAccount->account_name ?? 'Yayasan Mimbar Al-Tauhid' }}</strong>
+                {{ __('app.donasi_instruksi.atas_nama') }} <strong class="text-gray-900">{{ $bankAccount->account_name ?? 'Yayasan Mimbar Al-Tauhid' }}</strong>
               </div>
             </div>
             @empty
             <div class="bg-gray-50 border border-gray-200 rounded-xl p-5 text-center">
-              <p class="text-gray-600">Hubungi admin untuk informasi rekening.</p>
+              <p class="text-gray-600">{{ __('app.donasi_instruksi.hubungi_admin') }}</p>
             </div>
             @endforelse
+            </div>
           </div>
 
           <div class="bg-red-50 text-red-800 p-4 rounded-xl flex items-center justify-center gap-3 border border-red-100"
@@ -129,9 +131,9 @@
                }">
             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
             <span class="font-medium text-[15px]" x-show="!expired">
-              Selesaikan pembayaran dalam: <strong class="font-mono text-lg font-bold ml-1" x-text="hours + ' : ' + minutes + ' : ' + seconds"></strong>
+              {{ __('app.donasi_instruksi.selesaikan_dalam') }} <strong class="font-mono text-lg font-bold ml-1" x-text="hours + ' : ' + minutes + ' : ' + seconds"></strong>
             </span>
-            <span class="font-medium text-[15px]" x-show="expired" style="display: none;">Waktu pembayaran telah habis</span>
+            <span class="font-medium text-[15px]" x-show="expired" style="display: none;">{{ __('app.donasi_instruksi.waktu_habis') }}</span>
           </div>
         </div>
       </div>
@@ -140,16 +142,21 @@
     
     <section class="px-6 mb-16">
       <div class="max-w-[600px] mx-auto text-center flex flex-col items-center">
-        <h3 class="font-heading text-xl font-bold text-gray-900 mb-3">Sudah Transfer?</h3>
+        <h3 class="font-heading text-xl font-bold text-gray-900 mb-3">{{ __('app.donasi_instruksi.sudah_transfer') }}</h3>
         <p class="text-gray-600 text-[15px] leading-relaxed mb-6 max-w-lg">
-          Biasanya sistem kami mendeteksi otomatis dalam 5 menit. Jika dalam 1 jam status belum berubah, silakan konfirmasi manual.
+          {{ __('app.donasi_instruksi.deteksi_otomatis') }}
         </p>
         @php
-            $waMessage = "Assalamualaikum, saya sudah transfer donasi untuk program {$donation->program->name}. Nama: {$donation->donor_name}, Total Transfer: Rp " . number_format($totalTransfer, 0, ',', '.') . ", Kode Unik: {$donation->unique_code}";
+            $waMessage = __('app.donasi_instruksi.wa_text', [
+        'program' => $donation->program->name,
+        'nama' => $donation->donor_name,
+        'total' => number_format($totalTransfer, 0, ',', '.'),
+        'kode' => $donation->unique_code
+    ]);
         @endphp
         <a href="https://wa.me/6282311119499?text={{ urlencode($waMessage) }}" target="_blank" class="bg-[#25D366] hover:bg-[#1ebd59] text-white border-transparent shadow-md px-8 py-3.5 text-base flex items-center justify-center gap-2 rounded-md font-semibold font-heading transition-colors">
           <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"/></svg>
-          Konfirmasi via WhatsApp
+          {{ __('app.donasi_instruksi.konfirmasi_wa') }}
         </a>
         <p class="text-sm text-gray-400 mt-4 font-medium">+62 823 1111 9499</p>
       </div>
@@ -163,14 +170,14 @@
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21c3 0 7-1 7-8V5c0-1.25-.756-2.017-2-2H4c-1.25 0-2 .75-2 1.972V11c0 1.25.75 2 2 2 1 0 1 0 1 1v1c0 1-1 2-2 2s-1 .008-1 1.031V20c0 1 0 1 1 1z"/><path d="M15 21c3 0 7-1 7-8V5c0-1.25-.757-2.017-2-2h-4c-1.25 0-2 .75-2 1.972V11c0 1.25.75 2 2 2h.75c0 2.25.25 4-2.75 4v3c0 1 0 1 1 1z"/></svg>
           </div>
           <p class="text-gray-800 text-lg leading-relaxed font-serif italic mb-4 mt-2">
-            "Katakanlah: 'Inilah jalanku, aku dan orang-orang yang mengikutiku mengajak (kamu) kepada Allah dengan yakin...'"
+            {{ __('app.donasi_instruksi.ayat_quran') }}
           </p>
           <p class="text-sm font-bold text-accent uppercase tracking-wider font-heading" style="color: var(--color-accent);">
-            (Q.S Yusuf: 108)
+            {{ __('app.donasi_instruksi.ayat_surah') }}
           </p>
         </div>
         <p class="text-gray-600 text-lg font-medium">
-          Semoga sedekah ini menjadi pemberat timbangan kebaikan di akhirat kelak. Aamiin.
+          {{ __('app.donasi_instruksi.doa_penutup') }}
         </p>
       </div>
     </section>
