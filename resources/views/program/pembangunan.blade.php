@@ -420,7 +420,7 @@
                 <span><strong>{{ $pencapaian['sumur'] }}</strong> {{ __('app.program.pembangunan.stat_2') }}</span>
             </div>
             <div class="hero-stat-item">
-                <span class="stat-icon"><img src="{{ asset('storage/images/icon/Map.svg') }}" alt="Tersebar"></span>
+                <span class="stat-icon"><img src="{{ asset('storage/images/icon/map.svg') }}" alt="Tersebar"></span>
                 <span><strong>{{ __('app.program.pembangunan.stat_3') }}</strong></span>
             </div>
         </div>

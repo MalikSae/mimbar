@@ -114,6 +114,15 @@
         #donasi-slider > div > div {
             padding: 16px !important;
         }
+
+        /* Video featured: kecilkan teks judul agar tidak menutup video */
+        .video-featured-title {
+            font-size: 14px !important;
+            line-height: 1.3 !important;
+        }
+        .video-featured-overlay {
+            padding: 14px !important;
+        }
     }
 
     @media (max-width: 1023px) {
@@ -570,7 +579,7 @@
             <div class="flex justify-between items-end mb-10">
                 <div>
                     <h2 class="font-headings text-4xl mb-2" style="color: white;">{{ __('app.section.video') }}</h2>
-                    <p class="text-base" style="color: rgba(255,255,255,0.8);">{{ __('app.video.desc') }}</p>
+                    <p class="text-base" style="color: rgba(255,255,255,0.8);">{{ __('app.home.video_desc') }}</p>
                 </div>
 
             </div>
@@ -579,10 +588,10 @@
                 @php $bigVideo = $videos->first(); @endphp
                 <div class="rounded-lg overflow-hidden border" style="position: relative; aspect-ratio: 16/9; max-height: 420px; width: 100%; border-color: rgba(255,255,255,0.1);">
                     <iframe class="w-full h-full object-cover" src="{{ $bigVideo['embed_url'] }}" frameborder="0" allowfullscreen></iframe>
-                    <div style="position: absolute; bottom: 0; left: 0; right: 0; top: 0; background: linear-gradient(transparent, rgba(0,0,0,0.9)); pointer-events: none; display: flex; flex-direction: column; justify-content: flex-end; padding: 32px;">
+                    <div style="position: absolute; bottom: 0; left: 0; right: 0; top: 0; background: linear-gradient(transparent, rgba(0,0,0,0.9)); pointer-events: none; display: flex; flex-direction: column; justify-content: flex-end; padding: clamp(12px, 3vw, 32px);">
                         <div>
-                            <div class="bg-primary font-headings font-bold uppercase" style="color: white; padding: 4px 12px; border-radius: 2px; font-size: 11px; display: inline-block; margin-bottom: 12px; letter-spacing: 0.05em;">{{ app()->getLocale() === 'ar' ? 'دروس' : 'Kajian Spesial' }}</div>
-                            <h3 class="font-headings text-2xl font-bold" style="color: white; line-height: 1.3;">{{ $bigVideo['title'] }}</h3>
+                            <div class="bg-primary font-headings font-bold uppercase" style="color: white; padding: 4px 12px; border-radius: 2px; font-size: 11px; display: inline-block; margin-bottom: 8px; letter-spacing: 0.05em;">{{ app()->getLocale() === 'ar' ? 'دروس' : 'Kajian Spesial' }}</div>
+                            <h3 class="font-headings font-bold" style="color: white; line-height: 1.3; font-size: clamp(13px, 3.5vw, 24px);">{{ $bigVideo['title'] }}</h3>
                         </div>
                     </div>
                 </div>

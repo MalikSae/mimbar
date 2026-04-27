@@ -85,7 +85,7 @@ return [
     'home.terkumpul' => 'Terkumpul',
     'home.all_programs' => 'Lihat Semua Program',
     'home.video_title' => 'Dokumentasi Kegiatan Yayasan Al-Tauhid',
-    'home.video_desc' => 'Kajian, tausiyah, dan dokumentasi program Yayasan Mimbar Al-Tauhid.',
+    'home.video_desc' => 'Dokumentasi program Yayasan Mimbar Al-Tauhid.',
     'home.all_videos' => 'Lihat Semua Video',
     'home.news_title' => 'Kabar Yayasan',
     'home.see_news' => 'Lihat Kabar',
