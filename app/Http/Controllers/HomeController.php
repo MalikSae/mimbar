@@ -19,8 +19,8 @@ class HomeController extends Controller
 
         $featuredProgram = $programs->first();
 
-        // Ambil 4 video terbaru dari YouTube API (cache 6 jam)
-        $videos = collect(app(YouTubeService::class)->getLatestVideos(4));
+        // Ambil 4 video terbaru dari YouTube API (cache 6 jam) untuk @mimbarorid
+        $videos = collect(app(YouTubeService::class)->getLatestVideos(4, '@mimbarorid'));
 
         $ebooks = Ebook::orderByDesc('created_at')
             ->take(4)

@@ -34,7 +34,7 @@ return [
     'section.berita'  => 'آخر الأخبار',
     'section.artikel' => 'المقالات الإسلامية',
     'section.donasi'  => 'برامج التبرع',
-    'section.video'   => 'شاهد أحدث مقاطع الدعوة',
+    'section.video'   => 'توثيق أنشطة مؤسسة التوحيد',
 
     // About section
     'about.desc' => 'مؤسسة منبر التوحيد هي مؤسسة لجمع الزكاة وإدارة الوقف تسعى لبناء مجتمع إسلامي من خلال برامج الدعوة والتعليم والخدمة الاجتماعية والاقتصاد الأمي.',
@@ -84,7 +84,7 @@ return [
     'home.target' => 'الهدف',
     'home.terkumpul' => 'جُمع',
     'home.all_programs' => 'عرض جميع البرامج',
-    'home.video_title' => 'شاهد أحدث مقاطع الدعوة',
+    'home.video_title' => 'توثيق أنشطة مؤسسة التوحيد',
     'home.video_desc' => 'دروس ومحاضرات وتوثيق برامج مؤسسة منبر التوحيد.',
     'home.all_videos' => 'عرض جميع الفيديوهات',
     'home.news_title' => 'أخبار المؤسسة',
@@ -478,7 +478,7 @@ return [
 
     // --- MIMBAR TV ---
     'mimbartv.page_title'   => 'منبر TV — محاضرات ودروس إسلامية',
-    'mimbartv.hero_badge'   => 'القناة الرسمية لمؤسسة منبر التوحيد',
+    'mimbartv.hero_badge'   => 'القناة الرسمية للإعلام الدعوي بمؤسسة منبر التوحيد',
     'mimbartv.hero_desc'    => 'شاهد المحاضرات والدروس ومحتوى الدعوة من مؤسسة منبر التوحيد',
     'mimbartv.latest_videos' => 'أحدث الفيديوهات',
     'mimbartv.visit_channel' => 'زيارة قناتنا',

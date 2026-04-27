@@ -32,6 +32,18 @@ class ProgramDataController extends Controller
             'stat_sosial_paket_buka_puasa' => '157.099',
             'stat_sosial_pembagian_sembako' => '3.135',
             'stat_sosial_hewan_qurban' => '1.140',
+
+            // Data Home Page
+            'stat_home_masjid' => '160',
+            'stat_home_sumur' => '155',
+            'stat_home_quran' => '27969',
+            'stat_home_buku' => '0',
+            'stat_home_qurban' => '0',
+            'stat_home_dai' => '135',
+            'stat_home_pengajar' => '947',
+            'stat_home_kegiatan' => '500',
+            'stat_home_digital' => '1958',
+            'stat_home_sembako' => '3535',
         ];
 
         $settings = [];

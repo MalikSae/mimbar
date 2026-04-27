@@ -12,7 +12,7 @@ class MimbarTvController extends Controller
      */
     public function index()
     {
-        $videos = app(YouTubeService::class)->getLatestVideos(12);
+        $videos = app(YouTubeService::class)->getLatestVideos(12, '@mimbartvid');
 
         return view('mimbartv.index', compact('videos'));
     }

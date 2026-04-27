@@ -22,6 +22,53 @@
     
     <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); gap: 24px; margin-bottom: 32px;">
         
+        <!-- DATA HOME PAGE -->
+        <div style="background: white; border: 1px solid var(--color-border); border-radius: 12px; padding: 24px; grid-column: 1 / -1;">
+            <h3 class="font-bold text-lg text-gray-900 border-b pb-3 mb-5" style="border-color: var(--color-border)">Data Beranda (Home Page)</h3>
+            <p class="text-sm text-gray-500 mb-4">Catatan: Isikan angka saja (tanpa titik pemisah ribuan) agar animasi perhitungan berjalan dengan baik.</p>
+            <div class="grid grid-cols-2 md:grid-cols-5 gap-4">
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Masjid Dibangun</label>
+                    <input type="text" name="stat_home_masjid" value="{{ old('stat_home_masjid', $settings['stat_home_masjid']) }}" class="w-full px-3 py-2 border rounded-lg focus:ring-1 focus:ring-rose-800 text-sm">
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Sumur Dibangun</label>
+                    <input type="text" name="stat_home_sumur" value="{{ old('stat_home_sumur', $settings['stat_home_sumur']) }}" class="w-full px-3 py-2 border rounded-lg focus:ring-1 focus:ring-rose-800 text-sm">
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Al-Qur'an Dibagikan</label>
+                    <input type="text" name="stat_home_quran" value="{{ old('stat_home_quran', $settings['stat_home_quran']) }}" class="w-full px-3 py-2 border rounded-lg focus:ring-1 focus:ring-rose-800 text-sm">
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Buku Islami Dibagikan</label>
+                    <input type="text" name="stat_home_buku" value="{{ old('stat_home_buku', $settings['stat_home_buku']) }}" class="w-full px-3 py-2 border rounded-lg focus:ring-1 focus:ring-rose-800 text-sm">
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Hewan Qurban</label>
+                    <input type="text" name="stat_home_qurban" value="{{ old('stat_home_qurban', $settings['stat_home_qurban']) }}" class="w-full px-3 py-2 border rounded-lg focus:ring-1 focus:ring-rose-800 text-sm">
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Da'i Dikader</label>
+                    <input type="text" name="stat_home_dai" value="{{ old('stat_home_dai', $settings['stat_home_dai']) }}" class="w-full px-3 py-2 border rounded-lg focus:ring-1 focus:ring-rose-800 text-sm">
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Pengajar Al-Qur'an</label>
+                    <input type="text" name="stat_home_pengajar" value="{{ old('stat_home_pengajar', $settings['stat_home_pengajar']) }}" class="w-full px-3 py-2 border rounded-lg focus:ring-1 focus:ring-rose-800 text-sm">
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Kegiatan Dakwah</label>
+                    <input type="text" name="stat_home_kegiatan" value="{{ old('stat_home_kegiatan', $settings['stat_home_kegiatan']) }}" class="w-full px-3 py-2 border rounded-lg focus:ring-1 focus:ring-rose-800 text-sm">
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Dakwah Digital</label>
+                    <input type="text" name="stat_home_digital" value="{{ old('stat_home_digital', $settings['stat_home_digital']) }}" class="w-full px-3 py-2 border rounded-lg focus:ring-1 focus:ring-rose-800 text-sm">
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Paket Sembako</label>
+                    <input type="text" name="stat_home_sembako" value="{{ old('stat_home_sembako', $settings['stat_home_sembako']) }}" class="w-full px-3 py-2 border rounded-lg focus:ring-1 focus:ring-rose-800 text-sm">
+                </div>
+            </div>
+        </div>
         <!-- DAKWAH -->
         <div style="background: white; border: 1px solid var(--color-border); border-radius: 12px; padding: 24px;">
             <h3 class="font-bold text-lg text-gray-900 border-b pb-3 mb-5" style="border-color: var(--color-border)">Program Dakwah</h3>

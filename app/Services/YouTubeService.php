@@ -12,25 +12,33 @@ class YouTubeService
      * Hasil di-cache selama 6 jam untuk mengurangi kuota API.
      *
      * @param int $maxResults Jumlah video yang diambil (default: 12)
+     * @param string|null $channelIdOrHandle ID atau Handle channel (default: dari config)
      * @return array
      */
-    public function getLatestVideos(int $maxResults = 12): array
+    public function getLatestVideos(int $maxResults = 12, ?string $channelIdOrHandle = null): array
     {
         $apiKey    = config('services.youtube.api_key');
-        $channelId = config('services.youtube.channel_id');
+        $channelId = $channelIdOrHandle ?? config('services.youtube.channel_id');
 
         // Jika API key belum dikonfigurasi, kembalikan array kosong
-        if (empty($apiKey) || $apiKey === 'isi_dengan_api_key') {
+        if (empty($apiKey) || $apiKey === 'isi_dengan_api_key' || empty($channelId)) {
             return [];
         }
 
         return Cache::remember('youtube_videos_' . $channelId . '_' . $maxResults, 60 * 360, function () use ($apiKey, $channelId, $maxResults) {
 
             // Step 1: Ambil uploads playlist ID dari channel
-            $channelUrl = "https://www.googleapis.com/youtube/v3/channels"
-                . "?part=contentDetails"
-                . "&id={$channelId}"
-                . "&key={$apiKey}";
+            if (str_starts_with($channelId, '@')) {
+                $channelUrl = "https://www.googleapis.com/youtube/v3/channels"
+                    . "?part=contentDetails"
+                    . "&forHandle=" . urlencode($channelId)
+                    . "&key={$apiKey}";
+            } else {
+                $channelUrl = "https://www.googleapis.com/youtube/v3/channels"
+                    . "?part=contentDetails"
+                    . "&id={$channelId}"
+                    . "&key={$apiKey}";
+            }
 
             $channelResponse = Http::timeout(10)->get($channelUrl);
 

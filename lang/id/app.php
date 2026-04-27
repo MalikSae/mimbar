@@ -34,7 +34,7 @@ return [
     'section.berita'  => 'Berita Terbaru',
     'section.artikel' => 'Artikel Islami',
     'section.donasi'  => 'Program Donasi',
-    'section.video'   => 'Tonton Video Dakwah Terbaru',
+    'section.video'   => 'Dokumentasi Kegiatan Yayasan Al-Tauhid',
 
     // About section
     'about.desc' => 'Yayasan Mimbar Al-Tauhid adalah sebuah lembaga amil zakat dan nazhir wakaf yang berkhidmat untuk membangun masyarakat Islami melalui program dakwah, pendidikan, sosial, dan ekonomi keumatan.',
@@ -84,7 +84,7 @@ return [
     'home.target' => 'Target',
     'home.terkumpul' => 'Terkumpul',
     'home.all_programs' => 'Lihat Semua Program',
-    'home.video_title' => 'Tonton Video Dakwah Terbaru',
+    'home.video_title' => 'Dokumentasi Kegiatan Yayasan Al-Tauhid',
     'home.video_desc' => 'Kajian, tausiyah, dan dokumentasi program Yayasan Mimbar Al-Tauhid.',
     'home.all_videos' => 'Lihat Semua Video',
     'home.news_title' => 'Kabar Yayasan',
@@ -478,7 +478,7 @@ return [
 
     // --- MIMBAR TV ---
     'mimbartv.page_title'    => 'Mimbar TV — Kajian & Ceramah Islami',
-    'mimbartv.hero_badge'    => 'Channel Resmi Yayasan Mimbar Al-Tauhid',
+    'mimbartv.hero_badge'    => 'Channel Official Media Dakwah Yayasan Mimbar At-Tauhid',
     'mimbartv.hero_desc'     => 'Tonton kajian, ceramah, dan konten dakwah dari Yayasan Mimbar Al-Tauhid',
     'mimbartv.latest_videos' => 'Video Terbaru',
     'mimbartv.visit_channel' => 'Kunjungi Channel Kami',
