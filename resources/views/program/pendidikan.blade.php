@@ -265,6 +265,7 @@
     .galeri-grid.cols-1 { grid-template-columns: 1fr; }
     .galeri-grid.cols-2 { grid-template-columns: repeat(2, 1fr); }
     .galeri-grid.cols-3 { grid-template-columns: repeat(3, 1fr); }
+    .galeri-grid.cols-4 { grid-template-columns: repeat(4, 1fr); }
     .galeri-item {
         position: relative;
         border-radius: var(--radius-xl);
@@ -292,7 +293,7 @@
     }
     .galeri-placeholder-grid {
         display: grid;
-        grid-template-columns: repeat(3, 1fr);
+        grid-template-columns: repeat(4, 1fr);
         gap: 16px;
     }
     .galeri-placeholder {
@@ -376,7 +377,8 @@
         .pendidikan-deskripsi h2 { font-size: 24px; }
         .pencapaian-grid { grid-template-columns: repeat(2, 1fr); }
         .pencapaian-card .angka { font-size: 26px; }
-        .galeri-grid.cols-3 { grid-template-columns: repeat(2, 1fr); }
+        .galeri-grid.cols-3,
+        .galeri-grid.cols-4 { grid-template-columns: repeat(2, 1fr); }
         .galeri-placeholder-grid { grid-template-columns: repeat(2, 1fr); }
         .pendidikan-cta h2 { font-size: 24px; }
         .pendidikan-cta p { font-size: 14px; }
@@ -389,7 +391,8 @@
         .pencapaian-card { padding: 20px 16px; }
         .pencapaian-card .angka { font-size: 22px; }
         .galeri-grid.cols-2,
-        .galeri-grid.cols-3 { grid-template-columns: 1fr; }
+        .galeri-grid.cols-3,
+        .galeri-grid.cols-4 { grid-template-columns: 1fr; }
         .galeri-placeholder-grid { grid-template-columns: 1fr; }
     }
 </style>
@@ -509,7 +512,7 @@
 
         @if($galleries->count() > 0)
             @php
-                $colClass = $galleries->count() === 1 ? 'cols-1' : ($galleries->count() === 2 ? 'cols-2' : 'cols-3');
+                $colClass = $galleries->count() === 1 ? 'cols-1' : ($galleries->count() === 2 ? 'cols-2' : ($galleries->count() === 3 ? 'cols-3' : 'cols-4'));
             @endphp
             <div class="galeri-grid {{ $colClass }}">
                 @foreach($galleries as $photo)
@@ -525,7 +528,7 @@
             </div>
         @else
             <div class="galeri-placeholder-grid">
-                @for($i = 0; $i < 6; $i++)
+                @for($i = 0; $i < 8; $i++)
                     <div class="galeri-placeholder">
                         {{ __('app.program.pendidikan.galeri_empty') }}
                     </div>

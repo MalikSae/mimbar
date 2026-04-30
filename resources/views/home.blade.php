@@ -590,7 +590,6 @@
                     <iframe class="w-full h-full object-cover" src="{{ $bigVideo['embed_url'] }}" frameborder="0" allowfullscreen></iframe>
                     <div style="position: absolute; bottom: 0; left: 0; right: 0; top: 0; background: linear-gradient(transparent, rgba(0,0,0,0.9)); pointer-events: none; display: flex; flex-direction: column; justify-content: flex-end; padding: clamp(12px, 3vw, 32px);">
                         <div>
-                            <div class="bg-primary font-headings font-bold uppercase" style="color: white; padding: 4px 12px; border-radius: 2px; font-size: 11px; display: inline-block; margin-bottom: 8px; letter-spacing: 0.05em;">{{ app()->getLocale() === 'ar' ? 'دروس' : 'Kajian Spesial' }}</div>
                             <h3 class="font-headings font-bold" style="color: white; line-height: 1.3; font-size: clamp(13px, 3.5vw, 24px);">{{ $bigVideo['title'] }}</h3>
                         </div>
                     </div>
