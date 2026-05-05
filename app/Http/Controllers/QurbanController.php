@@ -99,6 +99,20 @@ class QurbanController extends Controller
             ]);
         }
 
+        // Dispatch Meta CAPI Checkout Event
+        $fbp = $request->cookie('_fbp');
+        $fbc = $request->cookie('_fbc');
+        $eventSourceUrl = url()->current();
+
+        \App\Jobs\SendMetaCapiCheckoutEvent::dispatch(
+            $order,
+            $request->ip(),
+            $request->userAgent() ?? '',
+            $fbp,
+            $fbc,
+            $eventSourceUrl
+        );
+
         return redirect()->route('qurban.instruction', $order->id);
     }
 

@@ -142,6 +142,17 @@
                         </div>
                     </label>
 
+                    <label style="display:flex;align-items:center;gap:10px;cursor:pointer;
+                                  padding:10px 12px;border:1px solid var(--color-border);border-radius:var(--radius-lg);">
+                        <input type="checkbox" name="is_campaign" value="1"
+                               {{ old('is_campaign', isset($item) ? $item->is_campaign : false) ? 'checked' : '' }}
+                               style="width:16px;height:16px;accent-color:var(--color-primary);cursor:pointer;">
+                        <div>
+                            <span style="font-size:13px;font-weight:600;color:var(--color-gray-900);display:block;">Jadikan Hewan Campaign Landing Page</span>
+                            <span style="font-size:11px;color:var(--color-gray-400);">Hanya satu hewan yang bisa dijadikan campaign. Mengaktifkan ini akan menonaktifkan hewan campaign sebelumnya.</span>
+                        </div>
+                    </label>
+
                     <button type="submit"
                             style="width:100%;padding:11px;background:var(--color-primary);color:white;border:none;
                                    border-radius:var(--radius-lg);font-size:14px;font-weight:600;cursor:pointer;

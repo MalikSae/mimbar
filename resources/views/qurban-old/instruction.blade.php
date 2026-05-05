@@ -4,15 +4,6 @@
 
 @section('content')
 
-@include('partials.meta_pixel', [
-    'pixelEvent' => 'InitiateCheckout',
-    'pixelEventData' => [
-        'content_ids' => [$order->qurban_item_id],
-        'value' => $totalTransfer,
-        'currency' => 'IDR'
-    ]
-])
-
 {{-- STEP INDICATOR --}}
 <div class="bg-white border-b border-border py-5 px-6">
     <div class="max-w-3xl mx-auto flex items-center justify-between relative">

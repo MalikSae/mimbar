@@ -8,12 +8,13 @@ class QurbanItem extends Model
 {
     protected $fillable = [
         'type', 'name', 'price', 'description',
-        'is_available', 'sort_order', 'weight_info', 'image'
+        'is_available', 'is_campaign', 'sort_order', 'weight_info', 'image'
     ];
 
     protected $casts = [
         'price'        => 'decimal:2',
         'is_available' => 'boolean',
+        'is_campaign'  => 'boolean',
     ];
 
     public function orders()

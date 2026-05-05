@@ -37,7 +37,9 @@
     <div style="display:flex; flex-direction:column; gap:20px;">
     @foreach($schema as $groupKey => $groupDef)
     @php
-        $isActive = optional($settings->get($groupKey.'_active'))->value === '1';
+        $toggleField = collect($groupDef['fields'])->firstWhere('type', 'toggle');
+        $toggleKey = $toggleField ? $toggleField['key'] : $groupKey.'_active';
+        $isActive = optional($settings->get($toggleKey))->value === '1';
     @endphp
     <div style="background:white; border-radius:14px; border:1px solid var(--color-border); overflow:hidden;">
         {{-- Card Header --}}

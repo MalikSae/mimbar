@@ -61,14 +61,15 @@
     <table style="width:100%;border-collapse:collapse;">
         <thead>
             <tr style="background:var(--color-muted);">
-                <th style="padding:12px 16px;text-align:left;font-size:11px;font-weight:500;color:var(--color-gray-600);text-transform:uppercase;letter-spacing:.06em;width:40px;">No</th>
-                <th style="padding:12px 16px;text-align:left;font-size:11px;font-weight:500;color:var(--color-gray-600);text-transform:uppercase;letter-spacing:.06em;width:72px;">Foto</th>
-                <th style="padding:12px 16px;text-align:left;font-size:11px;font-weight:500;color:var(--color-gray-600);text-transform:uppercase;letter-spacing:.06em;">Nama</th>
-                <th style="padding:12px 16px;text-align:left;font-size:11px;font-weight:500;color:var(--color-gray-600);text-transform:uppercase;letter-spacing:.06em;width:120px;">Tipe</th>
-                <th style="padding:12px 16px;text-align:left;font-size:11px;font-weight:500;color:var(--color-gray-600);text-transform:uppercase;letter-spacing:.06em;width:110px;">Berat</th>
-                <th style="padding:12px 16px;text-align:right;font-size:11px;font-weight:500;color:var(--color-gray-600);text-transform:uppercase;letter-spacing:.06em;width:130px;">Harga</th>
-                <th style="padding:12px 16px;text-align:center;font-size:11px;font-weight:500;color:var(--color-gray-600);text-transform:uppercase;letter-spacing:.06em;width:110px;">Ketersediaan</th>
-                <th style="padding:12px 16px;text-align:right;font-size:11px;font-weight:500;color:var(--color-gray-600);text-transform:uppercase;letter-spacing:.06em;width:110px;">Aksi</th>
+                <th style="padding:12px 8px 12px 16px;text-align:left;font-size:11px;font-weight:500;color:var(--color-gray-600);text-transform:uppercase;letter-spacing:.06em;width:36px;">No</th>
+                <th style="padding:12px 8px;text-align:left;font-size:11px;font-weight:500;color:var(--color-gray-600);text-transform:uppercase;letter-spacing:.06em;width:64px;">Foto</th>
+                <th style="padding:12px 12px;text-align:left;font-size:11px;font-weight:500;color:var(--color-gray-600);text-transform:uppercase;letter-spacing:.06em;">Nama</th>
+                <th style="padding:12px 8px;text-align:left;font-size:11px;font-weight:500;color:var(--color-gray-600);text-transform:uppercase;letter-spacing:.06em;width:110px;">Tipe</th>
+                <th style="padding:12px 8px;text-align:left;font-size:11px;font-weight:500;color:var(--color-gray-600);text-transform:uppercase;letter-spacing:.06em;width:120px;">Berat</th>
+                <th style="padding:12px 8px;text-align:right;font-size:11px;font-weight:500;color:var(--color-gray-600);text-transform:uppercase;letter-spacing:.06em;width:120px;">Harga</th>
+                <th style="padding:12px 8px;text-align:center;font-size:11px;font-weight:500;color:var(--color-gray-600);text-transform:uppercase;letter-spacing:.06em;width:105px;">Ketersediaan</th>
+                <th style="padding:12px 8px;text-align:center;font-size:11px;font-weight:500;color:var(--color-gray-600);text-transform:uppercase;letter-spacing:.06em;width:110px;white-space:nowrap;">Campaign LP</th>
+                <th style="padding:12px 16px 12px 8px;text-align:right;font-size:11px;font-weight:500;color:var(--color-gray-600);text-transform:uppercase;letter-spacing:.06em;width:120px;">Aksi</th>
             </tr>
         </thead>
         <tbody>
@@ -100,10 +101,10 @@
                         .finally(() => { this.loading = false; });
                     }
                 }">
-                <td style="padding:12px 16px;font-size:13px;color:var(--color-gray-400);">
+                <td style="padding:12px 8px 12px 16px;font-size:13px;color:var(--color-gray-400);">
                     {{ $items->firstItem() + $loop->index }}
                 </td>
-                <td style="padding:12px 16px;">
+                <td style="padding:12px 8px;">
                     @if($item->image)
                     <img src="{{ Storage::url($item->image) }}" alt="{{ $item->name }}"
                          style="width:60px;height:40px;object-fit:cover;border-radius:var(--radius-md);border:1px solid var(--color-border);">
@@ -116,22 +117,22 @@
                     </div>
                     @endif
                 </td>
-                <td style="padding:12px 16px;">
+                <td style="padding:12px 12px;">
                     <div style="font-size:13px;font-weight:500;color:var(--color-gray-900);">{{ $item->name }}</div>
                 </td>
-                <td style="padding:12px 16px;">
+                <td style="padding:12px 8px;">
                     <span style="display:inline-block;font-size:11px;padding:2px 8px;border-radius:var(--radius-full);
                                  background:{{ $tipeBadge['bg'] }};color:{{ $tipeBadge['color'] }};font-weight:600;">
                         {{ $tipeBadge['label'] }}
                     </span>
                 </td>
-                <td style="padding:12px 16px;font-size:13px;color:var(--color-gray-600);">
+                <td style="padding:12px 8px;font-size:13px;color:var(--color-gray-600);">
                     {{ $item->weight_info ?: '—' }}
                 </td>
-                <td style="padding:12px 16px;text-align:right;font-size:13px;font-weight:600;color:var(--color-gray-900);">
+                <td style="padding:12px 8px;text-align:right;font-size:13px;font-weight:600;color:var(--color-gray-900);">
                     Rp {{ number_format($item->price, 0, ',', '.') }}
                 </td>
-                <td style="padding:12px 16px;text-align:center;">
+                <td style="padding:12px 8px;text-align:center;">
                     <button @click="!loading && toggle()"
                             :class="available ? 'btn-status-active' : 'btn-status-inactive'"
                             class="btn-status"
@@ -139,7 +140,17 @@
                         <span x-text="loading ? '...' : (available ? 'Tersedia' : 'Nonaktif')"></span>
                     </button>
                 </td>
-                <td style="padding:12px 16px;text-align:right;">
+                <td style="padding:12px 8px;text-align:center;">
+                    @if($item->is_campaign)
+                        <span style="display:inline-flex;align-items:center;gap:4px;font-size:11px;font-weight:700;
+                                     padding:3px 10px;border-radius:var(--radius-full);
+                                     background:var(--color-success-surface);color:var(--color-success);">✓ Campaign</span>
+                    @else
+                        <span style="font-size:13px;color:var(--color-gray-400);">—</span>
+                    @endif
+                </td>
+                <td style="padding:12px 16px 12px 8px;text-align:right;">
+
                     <div style="display:flex;gap:6px;justify-content:flex-end;">
                         <a href="{{ route('admin.qurban.items.edit', $item->id) }}"
                            style="padding:5px 12px;font-size:12px;font-weight:500;
@@ -179,7 +190,7 @@
             </tr>
             @empty
             <tr>
-                <td colspan="8" style="padding:48px 20px;text-align:center;">
+                <td colspan="9" style="padding:48px 20px;text-align:center;">
                     <div style="color:var(--color-gray-400);font-size:14px;margin-bottom:12px;">Belum ada hewan qurban</div>
                     <a href="{{ route('admin.qurban.items.create') }}" style="font-size:13px;color:var(--color-primary);font-weight:500;text-decoration:none;">
                         + Tambah hewan pertama

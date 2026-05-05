@@ -33,6 +33,7 @@ class QurbanItemController extends Controller
             'description'  => 'nullable|string',
             'image'        => 'nullable|image|max:4096',
             'is_available' => 'nullable|boolean',
+            'is_campaign'  => 'nullable|boolean',
         ]);
 
         $data = [
@@ -42,10 +43,16 @@ class QurbanItemController extends Controller
             'weight_info'  => $request->weight_info,
             'description'  => $request->description,
             'is_available' => $request->boolean('is_available', true),
+            'is_campaign'  => $request->boolean('is_campaign'),
         ];
 
         if ($request->hasFile('image')) {
             $data['image'] = $request->file('image')->store('qurban', 'public');
+        }
+
+        // Jika hewan ini dijadikan campaign, nonaktifkan is_campaign pada semua item lain
+        if ($data['is_campaign']) {
+            QurbanItem::query()->update(['is_campaign' => false]);
         }
 
         QurbanItem::create($data);
@@ -73,7 +80,15 @@ class QurbanItemController extends Controller
             'description'  => 'nullable|string',
             'image'        => 'nullable|image|max:4096',
             'is_available' => 'nullable|boolean',
+            'is_campaign'  => 'nullable|boolean',
         ]);
+
+        $isCampaign = $request->boolean('is_campaign');
+
+        // Jika hewan ini dijadikan campaign, nonaktifkan is_campaign pada semua item lain
+        if ($isCampaign) {
+            QurbanItem::where('id', '!=', $id)->update(['is_campaign' => false]);
+        }
 
         $data = [
             'name'         => $request->name,
@@ -82,6 +97,7 @@ class QurbanItemController extends Controller
             'weight_info'  => $request->weight_info,
             'description'  => $request->description,
             'is_available' => $request->boolean('is_available', true),
+            'is_campaign'  => $isCampaign,
         ];
 
         if ($request->hasFile('image')) {

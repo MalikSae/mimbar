@@ -75,11 +75,14 @@ Route::get('/donasi/{slug}', [DonationController::class, 'show'])->name('donatio
 Route::get('/donasi/{slug}/form', [DonationController::class, 'form'])->name('donations.form');
 Route::post('/donasi/{slug}/checkout', [DonationController::class, 'checkout'])->name('donations.checkout')->middleware('throttle:donasi');
 
-// Public Routes — Qurban
+// Public Routes — Qurban (Lama) — dikembalikan ke /qurban
 Route::get('/qurban', [App\Http\Controllers\QurbanController::class, 'index'])->name('qurban.index');
 Route::get('/qurban/pesan/{item}', [App\Http\Controllers\QurbanController::class, 'form'])->name('qurban.form');
 Route::post('/qurban/pesan/{item}', [App\Http\Controllers\QurbanController::class, 'store'])->name('qurban.store')->middleware('throttle:qurban');
 Route::get('/qurban/instruksi/{order}', [App\Http\Controllers\QurbanController::class, 'instruction'])->name('qurban.instruction');
+
+// Public Routes — Qurban Campaign 2026 (Baru)
+Route::get('/qurban-2026', [\App\Http\Controllers\QurbanCampaignController::class, 'index'])->name('qurban.campaign.index');
 
 // Public Routes — Pustaka Digital (E-Book)
 Route::get('/pustaka', [EbookController::class, 'index'])->name('ebooks.index');
