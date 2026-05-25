@@ -67,7 +67,7 @@
                             <iconify-icon icon="lucide:share-2" width="20"></iconify-icon>
                         </button>
                     </div>
-                    <img src="{{ $program->featured_image ? asset('storage/' . $program->featured_image) : 'https://placehold.co/800x450/e5e7eb/9ca3af' }}" alt="{{ $program->name }}" class="w-full h-full object-cover" />
+                    <img src="{{ $program->image ? asset('storage/' . $program->image) : 'https://placehold.co/800x450/e5e7eb/9ca3af' }}" alt="{{ $program->name }}" class="w-full h-full object-cover" />
                 </div>
 
                 <div class="p-6 md:p-8 lg:p-10">
@@ -236,7 +236,7 @@
                 @php $rPercent = $row->target_amount > 0 ? min(100, round(($row->collected_amount / $row->target_amount) * 100)) : 0; @endphp
                 <div style="min-width: 300px; max-width: 300px; flex-shrink: 0; scroll-snap-align: start; background: white; border-radius: 12px; border: 1px solid var(--color-border, #e5e7eb); overflow: hidden; box-shadow: 0 1px 3px rgba(0,0,0,0.05); display: flex; flex-direction: column; transition: box-shadow 0.2s;">
                     <!-- Image -->
-                    <img src="{{ $row->featured_image ? asset('storage/' . $row->featured_image) : 'https://placehold.co/400x300/e5e7eb/9ca3af' }}" alt="{{ $row->name }}" style="width: 100%; height: 200px; object-fit: cover; display: block;">
+                    <img src="{{ $row->image ? asset('storage/' . $row->image) : 'https://placehold.co/400x300/e5e7eb/9ca3af' }}" alt="{{ $row->name }}" style="width: 100%; height: 200px; object-fit: cover; display: block;">
                     <!-- Body -->
                     <div style="padding: 24px; flex: 1; display: flex; flex-direction: column;">
                         @if($row->is_featured)

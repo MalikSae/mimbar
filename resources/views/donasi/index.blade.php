@@ -78,7 +78,7 @@
         
         <div class="bg-white rounded-xl border border-gray-100 flex flex-col shadow-[0_10px_40px_-10px_rgba(0,0,0,0.06)] hover:-translate-y-1 hover:shadow-[0_20px_40px_-15px_rgba(0,0,0,0.1)] transition-all duration-300 overflow-hidden group">
           <div class="relative w-full aspect-[4/3] overflow-hidden">
-            <img src="{{ $item->featured_image ? asset('storage/' . $item->featured_image) : 'data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'600\' height=\'400\' viewBox=\'0 0 600 400\'><rect width=\'600\' height=\'400\' fill=\'%23F5E8EE\'/><path d=\'M300 150c-27.6 0-50 22.4-50 50s22.4 50 50 50 50-22.4 50-50-22.4-50-50-50zm0 80c-16.5 0-30-13.5-30-30s13.5-30 30-30 30 13.5 30 30-13.5 30-30 30z\' fill=\'%238B1A4A\' opacity=\'0.1\'/></svg>' }}" alt="{{ $item->name }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+            <img src="{{ $item->image ? asset('storage/' . $item->image) : 'data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'600\' height=\'400\' viewBox=\'0 0 600 400\'><rect width=\'600\' height=\'400\' fill=\'%23F5E8EE\'/><path d=\'M300 150c-27.6 0-50 22.4-50 50s22.4 50 50 50 50-22.4 50-50-22.4-50-50-50zm0 80c-16.5 0-30-13.5-30-30s13.5-30 30-30 30 13.5 30 30-13.5 30-30 30z\' fill=\'%238B1A4A\' opacity=\'0.1\'/></svg>' }}" alt="{{ $item->name }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
             @if($item->category)
             <div class="absolute top-4 left-4 bg-primary text-white px-3 py-1 rounded-full text-[10px] font-bold font-heading uppercase tracking-wider shadow-md border border-white/10">
               {{ $item->category->name }}

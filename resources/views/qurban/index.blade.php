@@ -109,10 +109,12 @@
                     @if($item->image)
                         <img src="{{ asset('storage/' . $item->image) }}"
                              alt="{{ $item->name }}"
+                             loading="lazy"
                              style="width: 100%; height: 200px; object-fit: cover; display: block;">
                     @else
                         <img src="https://placehold.co/640x400/f4f1e6/9ca3af?text={{ urlencode($item->name) }}"
                              alt="{{ $item->name }}"
+                             loading="lazy"
                              style="width: 100%; height: 200px; object-fit: cover; display: block;">
                     @endif
 
@@ -194,10 +196,10 @@
 
                 <div class="grid grid-cols-2 gap-4">
                     <div class="rounded-xl overflow-hidden border border-border" style="aspect-ratio: 1/1; background: #f0ece0;">
-                        <img src="https://placehold.co/400x400/f0ece0/9ca3af?text=Dokumentasi" alt="Dokumentasi" class="w-full h-full object-cover">
+                        <img src="https://placehold.co/400x400/f0ece0/9ca3af?text=Dokumentasi" alt="Dokumentasi" loading="lazy" class="w-full h-full object-cover">
                     </div>
                     <div class="rounded-xl overflow-hidden border border-border" style="aspect-ratio: 3/4; background: #f0ece0; margin-top: 1.5rem;">
-                        <img src="https://placehold.co/300x400/f0ece0/9ca3af?text=Dokumentasi" alt="Dokumentasi" class="w-full h-full object-cover">
+                        <img src="https://placehold.co/300x400/f0ece0/9ca3af?text=Dokumentasi" alt="Dokumentasi" loading="lazy" class="w-full h-full object-cover">
                     </div>
                 </div>
             </div>
@@ -249,12 +251,12 @@
             <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
                 @forelse($galleries as $idx => $photo)
                 <div class="rounded-xl overflow-hidden border border-border group relative aspect-[4/3] bg-muted shadow-sm">
-                    <img src="{{ asset('storage/' . $photo->file_path) }}" alt="{{ $photo->caption ?? 'Dokumentasi Qurban ' . ($idx + 1) }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                    <img src="{{ asset('storage/' . $photo->file_path) }}" alt="{{ $photo->caption ?? 'Dokumentasi Qurban ' . ($idx + 1) }}" loading="lazy" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
                 </div>
                 @empty
                 @for($i = 1; $i <= 6; $i++)
                 <div class="rounded-xl overflow-hidden border border-border group relative aspect-[4/3] bg-muted shadow-sm">
-                    <img src="https://placehold.co/600x450/f0ece0/9ca3af?text=Dokumentasi+{{ $i }}" alt="Dokumentasi Qurban {{ $i }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                    <img src="https://placehold.co/600x450/f0ece0/9ca3af?text=Dokumentasi+{{ $i }}" alt="Dokumentasi Qurban {{ $i }}" loading="lazy" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
                 </div>
                 @endfor
                 @endforelse

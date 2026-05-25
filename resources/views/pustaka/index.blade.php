@@ -1262,6 +1262,7 @@
                 <div class="featured-cover-spine"></div>
                 <img src="{{ $featured->cover_image ? asset('storage/' . $featured->cover_image) : 'https://placehold.co/200x280/e5e7eb/9ca3af?text=E-Book' }}"
                      alt="{{ $featured->title }}"
+                     loading="lazy"
                      onerror="this.src='https://placehold.co/200x280/e5e7eb/9ca3af?text=E-Book'">
             </div>
 
@@ -1308,6 +1309,7 @@
                 <div class="ebook-cover-wrap">
                     <img src="{{ $ebook->cover_image ? asset('storage/' . $ebook->cover_image) : 'https://placehold.co/200x280/e5e7eb/9ca3af?text=E-Book' }}"
                          alt="{{ $ebook->title }}"
+                         loading="lazy"
                          onerror="this.src='https://placehold.co/200x280/e5e7eb/9ca3af?text=E-Book'">
                 </div>
                 @if($ebook->category)

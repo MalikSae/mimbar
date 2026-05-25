@@ -960,6 +960,7 @@
             <div class="book-cover-inner">
                 <img src="{{ $ebook->cover_image ? asset('storage/' . $ebook->cover_image) : 'https://placehold.co/200x280/e5e7eb/9ca3af?text=E-Book' }}"
                      alt="{{ $ebook->title }}"
+                     loading="lazy"
                      onerror="this.src='https://placehold.co/200x280/e5e7eb/9ca3af?text=E-Book'">
                 <div class="book-spine-1"></div>
                 <div class="book-spine-2"></div>
@@ -1144,6 +1145,7 @@
                 <div class="related-cover-wrap">
                     <img src="{{ $rel->cover_image ? asset('storage/' . $rel->cover_image) : 'https://placehold.co/200x280/e5e7eb/9ca3af?text=E-Book' }}"
                          alt="{{ $rel->title }}"
+                         loading="lazy"
                          onerror="this.src='https://placehold.co/200x280/e5e7eb/9ca3af?text=E-Book'">
                 </div>
                 <h4 class="related-title-text">{{ $rel->title }}</h4>

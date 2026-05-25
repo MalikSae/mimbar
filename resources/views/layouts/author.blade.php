@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>@yield('title', 'Portal Penulis') — Mimbar Al-Tauhid</title>
+    <link rel="icon" href="{{ asset('images/favicon-mimbar.png') }}" type="image/png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Inter:wght@400;500&display=swap" rel="stylesheet">
     @vite(['resources/css/app.css', 'resources/js/app.js'])
@@ -20,6 +21,10 @@
 </head>
 <body style="font-family: var(--font-body); background-color: var(--color-muted); margin: 0; overflow: hidden;"
       x-data="{}">
+    <!-- Page Loader -->
+    <div id="page-loader" class="fixed inset-0 z-[9999] flex items-center justify-center bg-white transition-opacity duration-500">
+        <img src="{{ asset('images/favicon-mimbar.png') }}" alt="Loading..." class="h-16 w-16 animate-pulse">
+    </div>
 
     <div style="display: flex; height: 100vh;">
 
@@ -138,5 +143,16 @@
 
     @stack('modals')
     @stack('scripts')
+    <script>
+        window.addEventListener('load', function() {
+            const loader = document.getElementById('page-loader');
+            if (loader) {
+                loader.style.opacity = '0';
+                setTimeout(() => {
+                    loader.style.display = 'none';
+                }, 500);
+            }
+        });
+    </script>
 </body>
 </html>

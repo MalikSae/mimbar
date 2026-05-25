@@ -101,8 +101,8 @@
                     {{ $programs->firstItem() + $loop->index }}
                 </td>
                 <td style="padding:12px 16px;">
-                    @if($item->featured_image)
-                    <img src="{{ Storage::url($item->featured_image) }}" alt="{{ $item->name }}"
+                    @if($item->image)
+                    <img src="{{ Storage::url($item->image) }}" alt="{{ $item->name }}"
                          style="width:60px;height:40px;object-fit:cover;border-radius:var(--radius-md);border:1px solid var(--color-border);">
                     @else
                     <div style="width:60px;height:40px;background:var(--color-muted);border-radius:var(--radius-md);

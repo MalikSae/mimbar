@@ -349,28 +349,32 @@
             <div class="form-section-header">Biodata Calon Imam</div>
             <div class="form-section-body">
 
+            <div style="font-size: 13px; color: var(--color-gray-600); margin-bottom: 20px; padding: 12px; background: var(--color-gray-50); border-radius: var(--radius-md); border-left: 3px solid var(--color-primary);">
+                <i>(Apabila ada Rekomendasi Da'i bisa di input data ini oleh Pengaju, apabila tidak bisa dikosongkan)</i>
+            </div>
+
             <div style="{{ $groupStyle }}">
-                <label style="{{ $labelStyle }}">Nama <span style="color: var(--color-danger);">*</span></label>
+                <label style="{{ $labelStyle }}">Nama</label>
                 <input type="text" name="imam_nama" value="{{ old('imam_nama') }}" style="{{ $fieldStyle }}" placeholder="Nama lengkap calon imam">
             </div>
 
             <div style="{{ $groupStyle }}">
-                <label style="{{ $labelStyle }}">Tempat Tanggal Lahir <span style="color: var(--color-danger);">*</span></label>
+                <label style="{{ $labelStyle }}">Tempat Tanggal Lahir</label>
                 <input type="text" name="imam_ttl" value="{{ old('imam_ttl') }}" style="{{ $fieldStyle }}" placeholder="Contoh: Sukabumi, 1 Januari 1990">
             </div>
 
             <div style="{{ $groupStyle }}">
-                <label style="{{ $labelStyle }}">Alamat <span style="color: var(--color-danger);">*</span></label>
+                <label style="{{ $labelStyle }}">Alamat</label>
                 <textarea name="imam_alamat" rows="2" style="{{ $fieldStyle }} resize: vertical;" placeholder="Alamat lengkap calon imam">{{ old('imam_alamat') }}</textarea>
             </div>
 
             <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; {{ $groupStyle }}">
                 <div>
-                    <label style="{{ $labelStyle }}">No. Telp / HP <span style="color: var(--color-danger);">*</span></label>
+                    <label style="{{ $labelStyle }}">No. Telp / HP</label>
                     <input type="text" name="imam_no_telp" value="{{ old('imam_no_telp') }}" style="{{ $fieldStyle }}" placeholder="08xxxxxxxxxx">
                 </div>
                 <div>
-                    <label style="{{ $labelStyle }}">Email <span style="color: var(--color-danger);">*</span></label>
+                    <label style="{{ $labelStyle }}">Email</label>
                     <input type="email" name="imam_email" value="{{ old('imam_email') }}" style="{{ $fieldStyle }}" placeholder="email@contoh.com">
                 </div>
             </div>

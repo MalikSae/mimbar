@@ -269,7 +269,7 @@ p.is-editor-empty:first-child::before {
             {{-- Card Featured Image --}}
             <div style="background: white; border-radius: var(--radius-xl); border: 1px solid var(--color-border);
                         box-shadow: var(--shadow-card); padding: 20px;"
-                 x-data="{ preview: '{{ isset($program) && $program->featured_image ? Storage::url($program->featured_image) : '' }}' }">
+                 x-data="{ preview: '{{ isset($program) && $program->image ? Storage::url($program->image) : '' }}' }">
                 <h3 style="font-family: var(--font-heading); font-size: 12px; font-weight: 600; color: var(--color-gray-600); text-transform:uppercase; letter-spacing:.06em; margin: 0 0 12px;">
                     Featured Image
                 </h3>

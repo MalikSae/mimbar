@@ -3,10 +3,21 @@
       dir="{{ app()->getLocale() === 'ar' ? 'rtl' : 'ltr' }}"
       class="{{ app()->getLocale() === 'ar' ? 'rtl' : '' }}">
 <head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-SQDXP269KN"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-SQDXP269KN');
+    </script>
+    
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>@yield('title', 'Yayasan Mimbar Al-Tauhid')</title>
+    <link rel="icon" href="{{ asset('images/favicon-mimbar.png') }}" type="image/png">
     
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -39,6 +50,10 @@
     @stack('head')
 </head>
 <body x-data class="antialiased min-h-screen flex flex-col bg-white">
+    <!-- Page Loader -->
+    <div id="page-loader" class="fixed inset-0 z-[9999] flex items-center justify-center bg-white transition-opacity duration-500">
+        <img src="{{ asset('images/favicon-mimbar.png') }}" alt="Loading..." class="h-16 w-16 animate-pulse">
+    </div>
 
     @if(empty($hideHeaderAndFooter))
         @include('partials.header')
@@ -55,5 +70,16 @@
     @endif
 
     @stack('scripts')
+    <script>
+        window.addEventListener('load', function() {
+            const loader = document.getElementById('page-loader');
+            if (loader) {
+                loader.style.opacity = '0';
+                setTimeout(() => {
+                    loader.style.display = 'none';
+                }, 500);
+            }
+        });
+    </script>
 </body>
 </html>

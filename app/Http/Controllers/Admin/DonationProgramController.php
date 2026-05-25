@@ -69,7 +69,7 @@ class DonationProgramController extends Controller
         }
 
         if ($request->hasFile('featured_image')) {
-            $data['featured_image'] = $request->file('featured_image')->store('programs', 'public');
+            $data['image'] = $request->file('featured_image')->store('programs', 'public');
         }
 
         DonationProgram::create($data);
@@ -132,10 +132,10 @@ class DonationProgramController extends Controller
         }
 
         if ($request->hasFile('featured_image')) {
-            if ($program->featured_image) {
-                Storage::disk('public')->delete($program->featured_image);
+            if ($program->image) {
+                Storage::disk('public')->delete($program->image);
             }
-            $data['featured_image'] = $request->file('featured_image')->store('programs', 'public');
+            $data['image'] = $request->file('featured_image')->store('programs', 'public');
         }
 
         $program->update($data);
@@ -147,8 +147,8 @@ class DonationProgramController extends Controller
     public function destroy($id)
     {
         $program = DonationProgram::findOrFail($id);
-        if ($program->featured_image) {
-            Storage::disk('public')->delete($program->featured_image);
+        if ($program->image) {
+            Storage::disk('public')->delete($program->image);
         }
         $program->delete();
         return back()->with('success', 'Program donasi berhasil dihapus.');

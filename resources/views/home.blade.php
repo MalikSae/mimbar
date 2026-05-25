@@ -220,7 +220,7 @@
             @if(isset($sliderImages) && $sliderImages->count() > 0)
                 @foreach($sliderImages as $index => $image)
                     <div class="hero-slide {{ $index === 0 ? 'active' : '' }}">
-                        <img src="{{ asset('storage/' . $image->file_path) }}" alt="Slider Image {{ $index + 1 }}">
+                        <img src="{{ asset('storage/' . $image->file_path) }}" alt="Slider Image {{ $index + 1 }}" {{ $index === 0 ? 'loading=eager' : 'loading=lazy' }}>
                         <div class="hero-slide-overlay"></div>
                     </div>
                 @endforeach
@@ -232,19 +232,19 @@
                 </div>
             @else
                 <div class="hero-slide active">
-                    <img src="https://placehold.co/900x600/8B6F47/ffffff?text=Masjid+Al-Tauhid" alt="Masjid Al-Tauhid">
+                    <img src="https://placehold.co/900x600/8B6F47/ffffff?text=Masjid+Al-Tauhid" alt="Masjid Al-Tauhid" loading="eager">
                     <div class="hero-slide-overlay"></div>
                 </div>
                 <div class="hero-slide">
-                    <img src="https://placehold.co/900x600/5C4A3A/ffffff?text=Program+Dakwah" alt="Program Dakwah">
+                    <img src="https://placehold.co/900x600/5C4A3A/ffffff?text=Program+Dakwah" alt="Program Dakwah" loading="lazy">
                     <div class="hero-slide-overlay"></div>
                 </div>
                 <div class="hero-slide">
-                    <img src="https://placehold.co/900x600/4A6741/ffffff?text=Beasiswa+Santri" alt="Beasiswa Santri">
+                    <img src="https://placehold.co/900x600/4A6741/ffffff?text=Beasiswa+Santri" alt="Beasiswa Santri" loading="lazy">
                     <div class="hero-slide-overlay"></div>
                 </div>
                 <div class="hero-slide">
-                    <img src="https://placehold.co/900x600/2E4A5C/ffffff?text=Distribusi+Al-Quran" alt="Distribusi Al-Quran">
+                    <img src="https://placehold.co/900x600/2E4A5C/ffffff?text=Distribusi+Al-Quran" alt="Distribusi Al-Quran" loading="lazy">
                     <div class="hero-slide-overlay"></div>
                 </div>
                 <!-- Dot indicators -->
@@ -305,9 +305,9 @@
             </p>
             
             <div class="flex flex-wrap justify-center items-center mb-12" style="gap: 24px;">
-                <img src="{{ asset('storage/images/legal/sk kemenkumham.webp') }}" alt="SK Kemenkumham" style="height: clamp(44px, 10vw, 52px); width: auto; object-fit: contain; max-width: 45%;">
-                <img src="{{ asset('storage/images/legal/sk dinsos.webp') }}" alt="SK Dinsos" style="height: clamp(44px, 10vw, 52px); width: auto; object-fit: contain; max-width: 45%;">
-                <img src="{{ asset('storage/images/legal/akta.webp') }}" alt="Akta Yayasan" style="height: clamp(44px, 10vw, 52px); width: auto; object-fit: contain; max-width: 45%;">
+                <img src="{{ asset('storage/images/legal/sk kemenkumham.webp') }}" alt="SK Kemenkumham" loading="lazy" style="height: clamp(44px, 10vw, 52px); width: auto; object-fit: contain; max-width: 45%;">
+                <img src="{{ asset('storage/images/legal/sk dinsos.webp') }}" alt="SK Dinsos" loading="lazy" style="height: clamp(44px, 10vw, 52px); width: auto; object-fit: contain; max-width: 45%;">
+                <img src="{{ asset('storage/images/legal/akta.webp') }}" alt="Akta Yayasan" loading="lazy" style="height: clamp(44px, 10vw, 52px); width: auto; object-fit: contain; max-width: 45%;">
             </div>
 
             <div class="rounded-2xl overflow-hidden shadow-lg" style="position: relative; padding-bottom: 56.25%; height: 0; border: 8px solid white;">
@@ -327,7 +327,7 @@
             <div class="grid lg-grid-cols-4 gap-6">
                 <!-- Dakwah -->
                 <a href="{{ route('program.dakwah') }}" class="program-card">
-                    <img src="{{ asset('storage/images/program/dakwah.png') }}" alt="Dakwah" class="program-icon">
+                    <img src="{{ asset('storage/images/program/dakwah.png') }}" alt="Dakwah" class="program-icon" loading="lazy">
                     <h3 class="program-title">{{ __('app.program.dakwah') }}</h3>
                     <p class="program-desc">{{ __('app.program.dakwah.desc') }}</p>
                     <div class="program-link">
@@ -337,7 +337,7 @@
                 
                 <!-- Pendidikan -->
                 <a href="{{ route('program.pendidikan') }}" class="program-card">
-                    <img src="{{ asset('storage/images/program/pendidikan.png') }}" alt="Pendidikan" class="program-icon">
+                    <img src="{{ asset('storage/images/program/pendidikan.png') }}" alt="Pendidikan" class="program-icon" loading="lazy">
                     <h3 class="program-title">{{ __('app.program.pendidikan') }}</h3>
                     <p class="program-desc">{{ __('app.program.pendidikan.desc') }}</p>
                     <div class="program-link">
@@ -347,7 +347,7 @@
                 
                 <!-- Sosial -->
                 <a href="{{ route('program.sosial') }}" class="program-card">
-                    <img src="{{ asset('storage/images/program/sosial.png') }}" alt="Sosial" class="program-icon">
+                    <img src="{{ asset('storage/images/program/sosial.png') }}" alt="Sosial" class="program-icon" loading="lazy">
                     <h3 class="program-title">{{ __('app.program.sosial') }}</h3>
                     <p class="program-desc">{{ __('app.program.sosial.desc') }}</p>
                     <div class="program-link">
@@ -357,7 +357,7 @@
                 
                 <!-- Pembangunan -->
                 <a href="{{ route('program.pembangunan') }}" class="program-card">
-                    <img src="{{ asset('storage/images/program/pembangunan.png') }}" alt="Pembangunan" class="program-icon">
+                    <img src="{{ asset('storage/images/program/pembangunan.png') }}" alt="Pembangunan" class="program-icon" loading="lazy">
                     <h3 class="program-title">{{ __('app.program.pembangunan') }}</h3>
                     <p class="program-desc">{{ __('app.program.pembangunan.desc') }}</p>
                     <div class="program-link">
@@ -385,7 +385,7 @@
             <div class="grid lg-grid-cols-3 gap-4 kebaikan-grid">
                 <!-- Masjid -->
                 <div class="kebaikan-card" style="background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.2); border-radius: 12px; padding: 28px 24px; display: flex; align-items: center; gap: 20px; backdrop-filter: blur(4px);">
-                    <div class="kebaikan-icon-wrap"><img src="{{ asset('storage/images/icon/masjid.svg') }}" alt="Masjid" style="width: 52px; height: 52px; object-fit: contain; flex-shrink: 0; filter: brightness(0) invert(1);"></div>
+                    <div class="kebaikan-icon-wrap"><img src="{{ asset('storage/images/icon/masjid.svg') }}" alt="Masjid" loading="lazy" style="width: 52px; height: 52px; object-fit: contain; flex-shrink: 0; filter: brightness(0) invert(1);"></div>
                     <div class="kebaikan-text-wrap" style="flex: 1;">
                         <div class="font-headings counter-value" data-target="{{ \App\Models\SiteSetting::get('stat_home_masjid', '160') }}" style="font-size: 28px; font-weight: 800; color: white; line-height: 1;">0</div>
                         <div class="kebaikan-label" style="font-size: 13px; color: rgba(255,255,255,0.8); margin-top: 4px;">{{ __('app.stats.masjid') }}</div>
@@ -393,7 +393,7 @@
                 </div>
                 <!-- Sumur -->
                 <div class="kebaikan-card" style="background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.2); border-radius: 12px; padding: 28px 24px; display: flex; align-items: center; gap: 20px; backdrop-filter: blur(4px);">
-                    <div class="kebaikan-icon-wrap"><img src="{{ asset('storage/images/icon/sumur.svg') }}" alt="Sumur" style="width: 52px; height: 52px; object-fit: contain; flex-shrink: 0; filter: brightness(0) invert(1);"></div>
+                    <div class="kebaikan-icon-wrap"><img src="{{ asset('storage/images/icon/sumur.svg') }}" alt="Sumur" loading="lazy" style="width: 52px; height: 52px; object-fit: contain; flex-shrink: 0; filter: brightness(0) invert(1);"></div>
                     <div class="kebaikan-text-wrap" style="flex: 1;">
                         <div class="font-headings counter-value" data-target="{{ \App\Models\SiteSetting::get('stat_home_sumur', '155') }}" style="font-size: 28px; font-weight: 800; color: white; line-height: 1;">0</div>
                         <div class="kebaikan-label" style="font-size: 13px; color: rgba(255,255,255,0.8); margin-top: 4px;">{{ __('app.stats.sumur') }}</div>
@@ -401,7 +401,7 @@
                 </div>
                 <!-- Al-Qur'an -->
                 <div class="kebaikan-card" style="background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.2); border-radius: 12px; padding: 28px 24px; display: flex; align-items: center; gap: 20px; backdrop-filter: blur(4px);">
-                    <div class="kebaikan-icon-wrap"><img src="{{ asset('storage/images/icon/quran-01.svg') }}" alt="Al-Quran" style="width: 52px; height: 52px; object-fit: contain; flex-shrink: 0; filter: brightness(0) invert(1);"></div>
+                    <div class="kebaikan-icon-wrap"><img src="{{ asset('storage/images/icon/quran-01.svg') }}" alt="Al-Quran" loading="lazy" style="width: 52px; height: 52px; object-fit: contain; flex-shrink: 0; filter: brightness(0) invert(1);"></div>
                     <div class="kebaikan-text-wrap" style="flex: 1;">
                         <div class="font-headings counter-value" data-target="{{ \App\Models\SiteSetting::get('stat_home_quran', '27969') }}" style="font-size: 28px; font-weight: 800; color: white; line-height: 1;">0</div>
                         <div class="kebaikan-label" style="font-size: 13px; color: rgba(255,255,255,0.8); margin-top: 4px;">{{ __('app.stats.quran') }}</div>
@@ -409,7 +409,7 @@
                 </div>
                 <!-- Buku Islami -->
                 <div class="kebaikan-card" style="background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.2); border-radius: 12px; padding: 28px 24px; display: flex; align-items: center; gap: 20px; backdrop-filter: blur(4px);">
-                    <div class="kebaikan-icon-wrap"><img src="{{ asset('storage/images/icon/book-02.svg') }}" alt="Buku Islami" style="width: 52px; height: 52px; object-fit: contain; flex-shrink: 0; filter: brightness(0) invert(1);"></div>
+                    <div class="kebaikan-icon-wrap"><img src="{{ asset('storage/images/icon/book-02.svg') }}" alt="Buku Islami" loading="lazy" style="width: 52px; height: 52px; object-fit: contain; flex-shrink: 0; filter: brightness(0) invert(1);"></div>
                     <div class="kebaikan-text-wrap" style="flex: 1;">
                         <div class="font-headings counter-value" data-target="{{ \App\Models\SiteSetting::get('stat_home_buku', '0') }}" style="font-size: 28px; font-weight: 800; color: white; line-height: 1;">0</div>
                         <div class="kebaikan-label" style="font-size: 13px; color: rgba(255,255,255,0.8); margin-top: 4px;">{{ __('app.stats.buku') }}</div>
@@ -417,7 +417,7 @@
                 </div>
                 <!-- Qurban -->
                 <div class="kebaikan-card" style="background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.2); border-radius: 12px; padding: 28px 24px; display: flex; align-items: center; gap: 20px; backdrop-filter: blur(4px);">
-                    <div class="kebaikan-icon-wrap"><img src="{{ asset('storage/images/icon/qurban.svg') }}" alt="Hewan Qurban" style="width: 52px; height: 52px; object-fit: contain; flex-shrink: 0; filter: brightness(0) invert(1);"></div>
+                    <div class="kebaikan-icon-wrap"><img src="{{ asset('storage/images/icon/qurban.svg') }}" alt="Hewan Qurban" loading="lazy" style="width: 52px; height: 52px; object-fit: contain; flex-shrink: 0; filter: brightness(0) invert(1);"></div>
                     <div class="kebaikan-text-wrap" style="flex: 1;">
                         <div class="font-headings counter-value" data-target="{{ \App\Models\SiteSetting::get('stat_home_qurban', '0') }}" style="font-size: 28px; font-weight: 800; color: white; line-height: 1;">0</div>
                         <div class="kebaikan-label" style="font-size: 13px; color: rgba(255,255,255,0.8); margin-top: 4px;">{{ __('app.stats.qurban') }}</div>
@@ -425,7 +425,7 @@
                 </div>
                 <!-- Da'i -->
                 <div class="kebaikan-card" style="background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.2); border-radius: 12px; padding: 28px 24px; display: flex; align-items: center; gap: 20px; backdrop-filter: blur(4px);">
-                    <div class="kebaikan-icon-wrap"><img src="{{ asset('storage/images/icon/dai.svg') }}" alt="Da'i" style="width: 52px; height: 52px; object-fit: contain; flex-shrink: 0; filter: brightness(0) invert(1);"></div>
+                    <div class="kebaikan-icon-wrap"><img src="{{ asset('storage/images/icon/dai.svg') }}" alt="Da'i" loading="lazy" style="width: 52px; height: 52px; object-fit: contain; flex-shrink: 0; filter: brightness(0) invert(1);"></div>
                     <div class="kebaikan-text-wrap" style="flex: 1;">
                         <div class="font-headings counter-value" data-target="{{ \App\Models\SiteSetting::get('stat_home_dai', '135') }}" style="font-size: 28px; font-weight: 800; color: white; line-height: 1;">0</div>
                         <div class="kebaikan-label" style="font-size: 13px; color: rgba(255,255,255,0.8); margin-top: 4px;">{{ __('app.stats.dai') }}</div>
@@ -433,7 +433,7 @@
                 </div>
                 <!-- Pengajaran Al-Qur'an -->
                 <div class="kebaikan-card" style="background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.2); border-radius: 12px; padding: 28px 24px; display: flex; align-items: center; gap: 20px; backdrop-filter: blur(4px);">
-                    <div class="kebaikan-icon-wrap"><img src="{{ asset('storage/images/icon/quran-02.svg') }}" alt="Pengajaran Quran" style="width: 52px; height: 52px; object-fit: contain; flex-shrink: 0; filter: brightness(0) invert(1);"></div>
+                    <div class="kebaikan-icon-wrap"><img src="{{ asset('storage/images/icon/quran-02.svg') }}" alt="Pengajaran Quran" loading="lazy" style="width: 52px; height: 52px; object-fit: contain; flex-shrink: 0; filter: brightness(0) invert(1);"></div>
                     <div class="kebaikan-text-wrap" style="flex: 1;">
                         <div class="font-headings counter-value" data-target="{{ \App\Models\SiteSetting::get('stat_home_pengajar', '947') }}" style="font-size: 28px; font-weight: 800; color: white; line-height: 1;">0</div>
                         <div class="kebaikan-label" style="font-size: 13px; color: rgba(255,255,255,0.8); margin-top: 4px;">{{ __('app.stats.pengajar') }}</div>
@@ -441,7 +441,7 @@
                 </div>
                 <!-- Kegiatan Dakwah -->
                 <div class="kebaikan-card" style="background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.2); border-radius: 12px; padding: 28px 24px; display: flex; align-items: center; gap: 20px; backdrop-filter: blur(4px);">
-                    <div class="kebaikan-icon-wrap"><img src="{{ asset('storage/images/icon/dakwah.svg') }}" alt="Kegiatan Dakwah" style="width: 52px; height: 52px; object-fit: contain; flex-shrink: 0; filter: brightness(0) invert(1);"></div>
+                    <div class="kebaikan-icon-wrap"><img src="{{ asset('storage/images/icon/dakwah.svg') }}" alt="Kegiatan Dakwah" loading="lazy" style="width: 52px; height: 52px; object-fit: contain; flex-shrink: 0; filter: brightness(0) invert(1);"></div>
                     <div class="kebaikan-text-wrap" style="flex: 1;">
                         <div class="font-headings counter-value" data-target="{{ \App\Models\SiteSetting::get('stat_home_kegiatan', '500') }}" style="font-size: 28px; font-weight: 800; color: white; line-height: 1;">0</div>
                         <div class="kebaikan-label" style="font-size: 13px; color: rgba(255,255,255,0.8); margin-top: 4px;">{{ __('app.stats.kegiatan') }}</div>
@@ -449,7 +449,7 @@
                 </div>
                 <!-- Dakwah Digital -->
                 <div class="kebaikan-card" style="background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.2); border-radius: 12px; padding: 28px 24px; display: flex; align-items: center; gap: 20px; backdrop-filter: blur(4px);">
-                    <div class="kebaikan-icon-wrap"><img src="{{ asset('storage/images/icon/dakwah-digital.svg') }}" alt="Dakwah Digital" style="width: 52px; height: 52px; object-fit: contain; flex-shrink: 0; filter: brightness(0) invert(1);"></div>
+                    <div class="kebaikan-icon-wrap"><img src="{{ asset('storage/images/icon/dakwah-digital.svg') }}" alt="Dakwah Digital" loading="lazy" style="width: 52px; height: 52px; object-fit: contain; flex-shrink: 0; filter: brightness(0) invert(1);"></div>
                     <div class="kebaikan-text-wrap" style="flex: 1;">
                         <div class="font-headings counter-value" data-target="{{ \App\Models\SiteSetting::get('stat_home_digital', '1958') }}" style="font-size: 28px; font-weight: 800; color: white; line-height: 1;">0</div>
                         <div class="kebaikan-label" style="font-size: 13px; color: rgba(255,255,255,0.8); margin-top: 4px;">{{ __('app.stats.digital') }}</div>
@@ -457,7 +457,7 @@
                 </div>
                 <!-- Sembako -->
                 <div class="kebaikan-card lg-col-start-2" style="background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.2); border-radius: 12px; padding: 28px 24px; display: flex; align-items: center; gap: 20px; backdrop-filter: blur(4px);">
-                    <div class="kebaikan-icon-wrap"><img src="{{ asset('storage/images/icon/sembako.svg') }}" alt="Sembako" style="width: 52px; height: 52px; object-fit: contain; flex-shrink: 0; filter: brightness(0) invert(1);"></div>
+                    <div class="kebaikan-icon-wrap"><img src="{{ asset('storage/images/icon/sembako.svg') }}" alt="Sembako" loading="lazy" style="width: 52px; height: 52px; object-fit: contain; flex-shrink: 0; filter: brightness(0) invert(1);"></div>
                     <div class="kebaikan-text-wrap" style="flex: 1;">
                         <div class="font-headings counter-value" data-target="{{ \App\Models\SiteSetting::get('stat_home_sembako', '3535') }}" style="font-size: 28px; font-weight: 800; color: white; line-height: 1;">0</div>
                         <div class="kebaikan-label" style="font-size: 13px; color: rgba(255,255,255,0.8); margin-top: 4px;">{{ __('app.stats.sembako') }}</div>
@@ -528,7 +528,7 @@
                 @php $pPercent = $program->target_amount > 0 ? min(100, round(($program->collected_amount / $program->target_amount) * 100)) : 0; @endphp
                 <div class="card flex flex-col" style="min-width: 320px; max-width: 320px; flex-shrink: 0; scroll-snap-align: start; transition: transform 0.2s; border-radius: var(--radius-xl);">
                     <!-- Image -->
-                    <img src="{{ $program->image ? asset('storage/' . $program->image) : 'https://placehold.co/400x300/e5e7eb/9ca3af' }}" class="w-full" style="height: 200px; object-fit: cover;">
+                    <img src="{{ $program->image ? asset('storage/' . $program->image) : 'https://placehold.co/400x300/e5e7eb/9ca3af' }}" class="w-full" loading="lazy" style="height: 200px; object-fit: cover;">
                     <!-- Body -->
                     <div class="flex flex-col" style="padding: 24px; flex: 1;">
                         @if($program->is_featured == 1 || $loop->first)
@@ -605,7 +605,7 @@
                     @endphp
                     <div onclick="openVideo('{{ $vid['embed_url'] }}')" class="flex gap-4 items-start rounded-md hover:bg-white/10 transition-colors" style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.05); padding: 16px; cursor: pointer;">
                         <div class="relative rounded-md overflow-hidden" style="width: 120px; height: 72px; flex-shrink: 0; background-color: #000;">
-                            <img src="https://img.youtube.com/vi/{{ $yid }}/mqdefault.jpg" class="w-full h-full object-cover opacity-80" alt="Thumbnail">
+                            <img src="https://img.youtube.com/vi/{{ $yid }}/mqdefault.jpg" class="w-full h-full object-cover opacity-80" alt="Thumbnail" loading="lazy">
                             <div class="flex items-center justify-center" style="position: absolute; inset: 0;">
                                 <iconify-icon icon="lucide:play-circle" style="color: white; font-size: 28px; drop-shadow: 0 2px 4px rgba(0,0,0,0.5);"></iconify-icon>
                             </div>
