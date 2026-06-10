@@ -3,7 +3,7 @@
 @section('title', 'Galeri Program')
 
 @section('content')
-<div x-data="{ activeTab: '{{ request('type', 'dakwah') }}' }">
+<div>
 
     {{-- Page Header --}}
     <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 24px; flex-wrap: wrap; gap: 12px;">
@@ -19,15 +19,17 @@
     </div>
 
     {{-- Filter Tabs --}}
-    <div style="display: flex; gap: 8px; margin-bottom: 24px; flex-wrap: wrap;">
-        @foreach($programTypes as $type)
-            <a href="{{ route('admin.program-gallery.index', ['type' => $type]) }}"
+    <div id="gallery-tabs" style="display: flex; gap: 8px; margin-bottom: 24px; flex-wrap: wrap;">
+        @foreach($programTypes as $tabType)
+            <a href="{{ route('admin.program-gallery.index', ['type' => $tabType]) }}"
+               data-type="{{ $tabType }}"
+               class="gallery-tab"
                style="padding: 8px 18px; border-radius: var(--radius-full); font-size: 13px; font-weight: 600;
-                      text-decoration: none; transition: all 0.2s;
-                      {{ request('type', 'dakwah') === $type
+                      text-decoration: none; transition: all 0.2s; cursor: pointer;
+                      {{ $currentType === $tabType
                           ? 'background: var(--color-primary); color: white;'
                           : 'background: var(--color-white); color: var(--color-gray-600); border: 1px solid var(--color-border);' }}">
-                {{ $type === 'slider_home' ? 'Slider Home' : ucfirst($type) }}
+                {{ $tabType === 'slider_home' ? 'Slider Home' : ucfirst($tabType) }}
             </a>
         @endforeach
     </div>
@@ -58,24 +60,22 @@
         <form action="{{ route('admin.program-gallery.store') }}" method="POST" enctype="multipart/form-data">
             @csrf
             <div style="display: grid; grid-template-columns: 180px 1fr auto; gap: 12px; align-items: end;">
-                {{-- Program Type --}}
                 <div>
                     <label style="display: block; font-size: 12px; font-weight: 600; color: var(--color-gray-600); margin-bottom: 6px;">
                         Tipe Program
                     </label>
-                    <select name="program_type"
+                    <select id="upload-type-select" name="program_type"
                             style="width: 100%; padding: 10px 12px; border: 1px solid var(--color-border);
                                    border-radius: var(--radius-lg); font-size: 13px; font-family: var(--font-body);
                                    background: var(--color-white); color: var(--color-gray-900);">
-                        @foreach($programTypes as $type)
-                            <option value="{{ $type }}" {{ request('type', 'dakwah') === $type ? 'selected' : '' }}>
-                                {{ $type === 'slider_home' ? 'Slider Home' : ucfirst($type) }}
+                        @foreach($programTypes as $tabType)
+                            <option value="{{ $tabType }}" {{ $currentType === $tabType ? 'selected' : '' }}>
+                                {{ $tabType === 'slider_home' ? 'Slider Home' : ucfirst($tabType) }}
                             </option>
                         @endforeach
                     </select>
                 </div>
 
-                {{-- File Input --}}
                 <div>
                     <label style="display: block; font-size: 12px; font-weight: 600; color: var(--color-gray-600); margin-bottom: 6px;">
                         Foto (bisa pilih banyak)
@@ -86,7 +86,6 @@
                                   background: var(--color-white);">
                 </div>
 
-                {{-- Submit --}}
                 <button type="submit"
                         style="padding: 10px 20px; background: var(--color-primary); color: white;
                                border: none; border-radius: var(--radius-lg); font-size: 13px; font-weight: 600;
@@ -100,74 +99,81 @@
         </form>
     </div>
 
-    {{-- Gallery Grid --}}
-    <div style="background: var(--color-white); border: 1px solid var(--color-border); border-radius: var(--radius-xl);
-                padding: 24px; box-shadow: var(--shadow-card);">
-        <h3 style="font-family: var(--font-heading); font-size: 15px; font-weight: 700; color: var(--color-gray-900); margin: 0 0 16px;">
-            Foto — {{ request('type', 'dakwah') === 'slider_home' ? 'Slider Home' : ucfirst(request('type', 'dakwah')) }}
-        </h3>
-
-        @if($galleries->count() > 0)
-            <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 16px;">
-                @foreach($galleries as $photo)
-                    <div style="position: relative; border-radius: var(--radius-lg); overflow: hidden; border: 1px solid var(--color-border);"
-                         x-data="{ confirmDelete: false }">
-                        <img src="{{ asset('storage/' . $photo->file_path) }}"
-                             alt="{{ $photo->caption ?? 'Foto program' }}"
-                             style="width: 100%; height: 140px; object-fit: cover; display: block;">
-
-
-                        {{-- Delete button --}}
-                        <button @click="confirmDelete = true"
-                                style="position: absolute; top: 6px; right: 6px; width: 28px; height: 28px;
-                                       background: rgba(0,0,0,0.55); border: none; border-radius: var(--radius-full);
-                                       color: white; cursor: pointer; display: flex; align-items: center;
-                                       justify-content: center; font-size: 14px; transition: background 0.2s;"
-                                onmouseover="this.style.background='var(--color-danger)'"
-                                onmouseout="this.style.background='rgba(0,0,0,0.55)'"
-                                title="Hapus foto">
-                            ✕
-                        </button>
-
-                        {{-- Confirm overlay --}}
-                        <div x-show="confirmDelete" x-cloak
-                             style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8);
-                                    display: flex; flex-direction: column; align-items: center;
-                                    justify-content: center; z-index: 10; padding: 10px; box-sizing: border-box;">
-                            <span style="color: white; font-size: 13px; font-weight: 600; margin-bottom: 12px; text-align: center;">Hapus foto ini?</span>
-                            <div style="display: flex; gap: 8px; justify-content: center; align-items: center;">
-                                <form action="{{ route('admin.program-gallery.destroy', $photo->id) }}" method="POST" style="margin: 0;">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit"
-                                            style="padding: 7px 14px; background: var(--color-danger); color: white;
-                                                   border: none; border-radius: var(--radius-md); font-size: 12px;
-                                                   font-weight: 600; cursor: pointer; font-family: var(--font-body);">
-                                        Ya, Hapus
-                                    </button>
-                                </form>
-                                <button type="button" @click="confirmDelete = false"
-                                        style="padding: 7px 14px; background: rgba(255,255,255,0.15); color: white;
-                                               border: 1px solid rgba(255,255,255,0.4); border-radius: var(--radius-md);
-                                               font-size: 12px; font-weight: 600; cursor: pointer; font-family: var(--font-body); margin: 0;">
-                                    Batal
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                @endforeach
-            </div>
-        @else
-            <div style="text-align: center; padding: 48px 16px; color: var(--color-gray-400);">
-                <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="margin: 0 auto 8px; display: block;"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
-                <p style="font-size: 14px; margin: 0;">Belum ada foto untuk program {{ request('type', 'dakwah') === 'slider_home' ? 'Slider Home' : request('type', 'dakwah') }}</p>
-            </div>
-        @endif
-
-        {{-- Pagination --}}
-        <div style="margin-top: 20px;">
-            {{ $galleries->appends(request()->query())->links() }}
-        </div>
+    {{-- Gallery Grid — zona AJAX --}}
+    <div id="gallery-section" style="background: var(--color-white); border: 1px solid var(--color-border); border-radius: var(--radius-xl);
+                padding: 24px; box-shadow: var(--shadow-card); transition: opacity 0.15s;">
+        @include('admin.program-gallery._grid', ['galleries' => $galleries, 'currentType' => $currentType])
     </div>
 </div>
+
+<script>
+(function () {
+    const BASE_URL = '{{ route('admin.program-gallery.index') }}';
+    let activeType  = '{{ $currentType }}';
+    let isFetching  = false;
+
+    const section   = document.getElementById('gallery-section');
+    const tabsWrap  = document.getElementById('gallery-tabs');
+    const typeSelect = document.getElementById('upload-type-select');
+
+    function setTabActive(type) {
+        tabsWrap.querySelectorAll('.gallery-tab').forEach(tab => {
+            const on = tab.dataset.type === type;
+            tab.style.background = on ? 'var(--color-primary)' : 'var(--color-white)';
+            tab.style.color      = on ? 'white' : 'var(--color-gray-600)';
+            tab.style.border     = on ? 'none' : '1px solid var(--color-border)';
+        });
+        if (typeSelect) typeSelect.value = type;
+    }
+
+    async function loadGallery(type, push) {
+        if (isFetching) return;
+        isFetching = true;
+        activeType = type;
+
+        setTabActive(type);
+        section.style.opacity = '0.4';
+        section.style.pointerEvents = 'none';
+
+        const url = BASE_URL + '?type=' + encodeURIComponent(type);
+
+        try {
+            const res  = await fetch(url, { headers: { 'X-Requested-With': 'XMLHttpRequest' } });
+            const html = await res.text();
+
+            const doc        = new DOMParser().parseFromString(html, 'text/html');
+            const newSection = doc.getElementById('gallery-section');
+            if (newSection) {
+                section.innerHTML = newSection.innerHTML;
+                // Re-init Alpine untuk elemen baru
+                if (window.Alpine) {
+                    section.querySelectorAll('[x-data]').forEach(el => Alpine.initTree(el));
+                }
+            }
+
+            if (push) window.history.pushState({ type }, '', url);
+        } catch (_) {
+            window.location.href = BASE_URL + '?type=' + encodeURIComponent(type);
+        } finally {
+            section.style.opacity = '1';
+            section.style.pointerEvents = '';
+            isFetching = false;
+        }
+    }
+
+    // Intercept klik tab
+    tabsWrap.addEventListener('click', function (e) {
+        const tab = e.target.closest('.gallery-tab');
+        if (!tab) return;
+        e.preventDefault();
+        if (tab.dataset.type !== activeType) loadGallery(tab.dataset.type, true);
+    });
+
+    // Handle browser back/forward
+    window.addEventListener('popstate', function (e) {
+        const type = (e.state && e.state.type) || 'dakwah';
+        if (type !== activeType) loadGallery(type, false);
+    });
+})();
+</script>
 @endsection
