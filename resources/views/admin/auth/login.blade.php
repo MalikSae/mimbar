@@ -14,13 +14,9 @@
 
         {{-- Logo --}}
         <div style="text-align: center; margin-bottom: 32px;">
-            <div style="font-family: var(--font-heading); font-weight: 700;
-                        font-size: 22px; color: var(--color-primary);">
-                Mimbar Al-Tauhid
-            </div>
-            <div style="font-size: 13px; color: var(--color-gray-600); margin-top: 4px;">
-                Panel Administrator
-            </div>
+            <img src="{{ asset('storage/images/logo/LOGO-MIMBAR-LIGHT-MODE.webp') }}" 
+                 alt="Logo Mimbar Al-Tauhid" 
+                 style="height: 80px; width: auto; object-fit: contain; margin: 0 auto;">
         </div>
 
         {{-- Card --}}
@@ -52,7 +48,7 @@
                     </label>
                     <input type="email" name="email" value="{{ old('email') }}"
                            required autofocus
-                           placeholder="admin@mimbar.or.id"
+                           placeholder="email@domain.com"
                            style="width: 100%; padding: 10px 14px;
                                   border: 1px solid {{ $errors->has('email') ? 'var(--color-danger)' : 'var(--color-border)' }};
                                   border-radius: var(--radius-lg); font-size: 14px;
@@ -71,13 +67,30 @@
                                   color: var(--color-gray-900); margin-bottom: 6px;">
                         Password
                     </label>
-                    <input type="password" name="password" required
-                           placeholder="••••••••"
-                           style="width: 100%; padding: 10px 14px;
-                                  border: 1px solid var(--color-border);
-                                  border-radius: var(--radius-lg); font-size: 14px;
-                                  outline: none; font-family: var(--font-body);
-                                  box-sizing: border-box;">
+                    <div style="position: relative;">
+                        <input type="password" name="password" id="password" required
+                               placeholder="••••••••"
+                               style="width: 100%; padding: 10px 40px 10px 14px;
+                                      border: 1px solid var(--color-border);
+                                      border-radius: var(--radius-lg); font-size: 14px;
+                                      outline: none; font-family: var(--font-body);
+                                      box-sizing: border-box;">
+                        <button type="button" onclick="togglePassword()"
+                                style="position: absolute; right: 12px; top: 50%; transform: translateY(-50%);
+                                       background: none; border: none; padding: 0; cursor: pointer;
+                                       color: var(--color-gray-500); display: flex; align-items: center;">
+                            <svg id="eye-icon" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"></path>
+                                <circle cx="12" cy="12" r="3"></circle>
+                            </svg>
+                            <svg id="eye-off-icon" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: none;">
+                                <path d="M9.88 9.88a3 3 0 1 0 4.24 4.24"></path>
+                                <path d="M10.73 5.08A10.43 10.43 0 0 1 12 5c7 0 10 7 10 7a13.16 13.16 0 0 1-1.67 2.68"></path>
+                                <path d="M6.61 6.61A13.526 13.526 0 0 0 2 12s3 7 10 7a9.74 9.74 0 0 0 5.39-1.61"></path>
+                                <line x1="2" y1="2" x2="22" y2="22"></line>
+                            </svg>
+                        </button>
+                    </div>
                 </div>
 
                 {{-- Remember me --}}
@@ -106,5 +119,22 @@
         </div>
     </div>
 
+    <script>
+        function togglePassword() {
+            const input = document.getElementById('password');
+            const eyeIcon = document.getElementById('eye-icon');
+            const eyeOffIcon = document.getElementById('eye-off-icon');
+            
+            if (input.type === 'password') {
+                input.type = 'text';
+                eyeIcon.style.display = 'none';
+                eyeOffIcon.style.display = 'block';
+            } else {
+                input.type = 'password';
+                eyeIcon.style.display = 'block';
+                eyeOffIcon.style.display = 'none';
+            }
+        }
+    </script>
 </body>
 </html>

@@ -45,4 +45,14 @@ class DonationProgram extends Model
     {
         return $query->where('status', 'active')->orderBy('sort_order');
     }
+
+    protected static function booted()
+    {
+        static::saved(function ($model) {
+            \App\Http\Controllers\SitemapController::generateXml();
+        });
+        static::deleted(function ($model) {
+            \App\Http\Controllers\SitemapController::generateXml();
+        });
+    }
 }

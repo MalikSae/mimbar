@@ -1,6 +1,8 @@
 @extends('layouts.app')
 
 @section('title', $ebook->title . ' — Pustaka Digital Mimbar Al-Tauhid')
+@section('meta_description', Str::limit(strip_tags($ebook->synopsis), 150))
+@section('og_image', $ebook->cover_image ? asset('storage/' . $ebook->cover_image) : null)
 
 @push('head')
 <style>

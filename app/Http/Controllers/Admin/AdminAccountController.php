@@ -27,7 +27,7 @@ class AdminAccountController extends Controller
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:admins',
             'password' => 'required|string|min:8',
-            'role' => ['required', Rule::in(['super_admin', 'publisher'])],
+            'role' => ['required', Rule::in(['super_admin', 'publisher', 'pembangun'])],
         ]);
 
         $validated['password'] = Hash::make($validated['password']);
@@ -48,7 +48,7 @@ class AdminAccountController extends Controller
         $validated = $request->validate([
             'name' => 'required|string|max:255',
             'email' => ['required', 'string', 'email', 'max:255', Rule::unique('admins')->ignore($adminAccount->id)],
-            'role' => ['required', Rule::in(['super_admin', 'publisher'])],
+            'role' => ['required', Rule::in(['super_admin', 'publisher', 'pembangun'])],
             'password' => 'nullable|string|min:8',
         ]);
 

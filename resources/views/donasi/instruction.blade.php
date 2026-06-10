@@ -37,61 +37,99 @@
           </div>
         </div>
 
-        <div class="flex flex-col gap-6">
-          <div>
-            <p class="text-sm text-gray-500 font-medium mb-3">{{ __('app.donasi_instruksi.transfer_ke') }}</p>
-            <div class="flex flex-col gap-4">
-              @forelse($bankAccounts as $bankAccount)
-            <div class="bg-gray-50 border border-gray-200 rounded-xl p-5 flex flex-col gap-4">
-              <div class="flex items-center gap-3">
-                <div class="w-12 h-12 bg-white rounded-lg border border-gray-200 flex items-center justify-center text-primary font-heading font-bold text-lg shadow-sm">
-                  {{ substr($bankAccount->bank_name ?? 'BANK', 0, 3) }}
-                </div>
-                <div>
-                  <h4 class="font-heading font-bold text-gray-900">{{ $bankAccount->bank_name ?? 'Bank' }}</h4>
-                  @if(isset($bankAccount->bank_code))
-                  <p class="text-sm text-gray-500">{{ __('app.donasi_instruksi.kode_bank') }} {{ $bankAccount->bank_code }}</p>
-                  @endif
-                </div>
-              </div>
+        <div class="flex flex-col gap-4" x-data="{ activeAccordion: 'bank' }">
+          
+          {{-- ACCORDION TRANSFER BANK --}}
+          <div class="border border-gray-200 rounded-xl overflow-hidden bg-white shadow-sm">
+            <button @click="activeAccordion = activeAccordion === 'bank' ? '' : 'bank'" 
+                    class="w-full flex items-center justify-between p-5 bg-white hover:bg-gray-50 transition-colors focus:outline-none">
+              <span class="font-heading font-bold text-gray-900 text-[16px]">Transfer Bank</span>
+              <svg :class="{'rotate-180': activeAccordion === 'bank'}" class="w-5 h-5 text-gray-500 transition-transform duration-200" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+            </button>
+            
+            <div x-show="activeAccordion === 'bank'" style="display: none;" class="p-5 border-t border-gray-200 bg-gray-50/50">
+              <p class="text-sm text-gray-500 font-medium mb-3">{{ __('app.donasi_instruksi.transfer_ke') }}</p>
+              <div class="flex flex-col gap-4">
+                @forelse($bankAccounts as $bankAccount)
+                <div class="bg-white border border-gray-200 rounded-xl p-5 flex flex-col gap-4 shadow-sm">
+                  <div class="flex items-center gap-3">
+                    @if($bankAccount->logo)
+                    <div class="w-12 h-12 bg-white rounded-lg border border-gray-100 flex items-center justify-center shadow-sm overflow-hidden p-1 shrink-0">
+                      <img src="{{ Storage::url($bankAccount->logo) }}" alt="{{ $bankAccount->bank_name }}" class="w-full h-full object-contain">
+                    </div>
+                    @else
+                    <div class="w-12 h-12 bg-gray-50 rounded-lg border border-gray-100 flex items-center justify-center text-primary font-heading font-bold text-lg shadow-sm shrink-0">
+                      {{ substr($bankAccount->bank_name ?? 'BANK', 0, 3) }}
+                    </div>
+                    @endif
+                    <div>
+                      <h4 class="font-heading font-bold text-gray-900">{{ $bankAccount->bank_name ?? 'Bank' }}</h4>
+                      @if(isset($bankAccount->bank_code))
+                      <p class="text-sm text-gray-500">{{ __('app.donasi_instruksi.kode_bank') }} {{ $bankAccount->bank_code }}</p>
+                      @endif
+                    </div>
+                  </div>
 
-              <div class="flex items-center justify-between bg-white border border-gray-200 p-4 rounded-lg" x-data="{ copied: false }">
-                <div class="font-mono text-2xl font-bold text-gray-900 tracking-wider">
-                  {{ $bankAccount->account_number ?? '' }}
-                </div>
-                <button @click="
-                    let text = '{{ $bankAccount->account_number ?? '' }}';
-                    if (navigator.clipboard && window.isSecureContext) {
-                        navigator.clipboard.writeText(text);
-                    } else {
-                        let textArea = document.createElement('textarea');
-                        textArea.value = text;
-                        textArea.style.position = 'fixed';
-                        document.body.appendChild(textArea);
-                        textArea.select();
-                        try { document.execCommand('copy'); } catch (err) {}
-                        document.body.removeChild(textArea);
-                    }
-                    copied = true; setTimeout(() => copied = false, 2000);
-                " class="flex items-center gap-2 text-primary border border-primary px-4 py-2 rounded-md font-heading font-bold text-sm transition-colors whitespace-nowrap hover:bg-primary/5">
-                  <svg x-show="!copied" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
-                  <svg x-show="copied" style="display: none;" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
-                  <span x-text="copied ? '{{ __('app.donasi_instruksi.tersalin') }}' : '{{ __('app.donasi_instruksi.salin') }}'">{{ __('app.donasi_instruksi.salin') }}</span>
-                </button>
-              </div>
+                  <div class="flex items-center justify-between bg-gray-50 border border-gray-200 p-4 rounded-lg" x-data="{ copied: false }">
+                    <div class="font-mono text-xl md:text-2xl font-bold text-gray-900 tracking-wider break-all">
+                      {{ $bankAccount->account_number ?? '' }}
+                    </div>
+                    <button @click="
+                        let text = '{{ $bankAccount->account_number ?? '' }}';
+                        if (navigator.clipboard && window.isSecureContext) {
+                            navigator.clipboard.writeText(text);
+                        } else {
+                            let textArea = document.createElement('textarea');
+                            textArea.value = text;
+                            textArea.style.position = 'fixed';
+                            document.body.appendChild(textArea);
+                            textArea.select();
+                            try { document.execCommand('copy'); } catch (err) {}
+                            document.body.removeChild(textArea);
+                        }
+                        copied = true; setTimeout(() => copied = false, 2000);
+                    " class="flex items-center gap-2 text-primary border border-primary px-4 py-2 rounded-md font-heading font-bold text-sm transition-colors whitespace-nowrap hover:bg-primary/5 ml-4 shrink-0 bg-white">
+                      <svg x-show="!copied" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
+                      <svg x-show="copied" style="display: none;" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+                      <span x-text="copied ? '{{ __('app.donasi_instruksi.tersalin') }}' : '{{ __('app.donasi_instruksi.salin') }}'">{{ __('app.donasi_instruksi.salin') }}</span>
+                    </button>
+                  </div>
 
-              <div class="text-gray-600 text-sm flex items-center gap-2">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-gray-400"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-                {{ __('app.donasi_instruksi.atas_nama') }} <strong class="text-gray-900">{{ $bankAccount->account_name ?? 'Yayasan Mimbar Al-Tauhid' }}</strong>
+                  <div class="text-gray-600 text-sm flex items-center gap-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-gray-400 shrink-0"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                    <span>{{ __('app.donasi_instruksi.atas_nama') }} <strong class="text-gray-900">{{ $bankAccount->account_name ?? 'Yayasan Mimbar Al-Tauhid' }}</strong></span>
+                  </div>
+                </div>
+                @empty
+                <div class="bg-white border border-gray-200 rounded-xl p-5 text-center shadow-sm">
+                  <p class="text-gray-600">{{ __('app.donasi_instruksi.hubungi_admin') }}</p>
+                </div>
+                @endforelse
               </div>
-            </div>
-            @empty
-            <div class="bg-gray-50 border border-gray-200 rounded-xl p-5 text-center">
-              <p class="text-gray-600">{{ __('app.donasi_instruksi.hubungi_admin') }}</p>
-            </div>
-            @endforelse
             </div>
           </div>
+
+          {{-- ACCORDION SCAN QRIS --}}
+          @if(isset($qrisImage) && $qrisImage)
+          <div class="border border-gray-200 rounded-xl overflow-hidden bg-white shadow-sm">
+            <button @click="activeAccordion = activeAccordion === 'qris' ? '' : 'qris'" 
+                    class="w-full flex items-center justify-between p-5 bg-white hover:bg-gray-50 transition-colors focus:outline-none">
+              <span class="font-heading font-bold text-gray-900 text-[16px]">Scan QRIS</span>
+              <svg :class="{'rotate-180': activeAccordion === 'qris'}" class="w-5 h-5 text-gray-500 transition-transform duration-200" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+            </button>
+            
+            <div x-show="activeAccordion === 'qris'" style="display: none;" class="p-5 border-t border-gray-200 bg-gray-50/50">
+              <p class="text-sm text-gray-500 font-medium mb-4 text-center">Buka aplikasi mobile banking atau e-wallet Anda dan scan QRIS berikut</p>
+              <div class="flex flex-col items-center justify-center pb-2">
+                <img src="{{ Storage::url($qrisImage) }}" alt="QRIS Yayasan Mimbar Al-Tauhid" class="w-full max-w-[280px] h-auto rounded-xl shadow-sm border-2 border-white bg-white p-2 mb-5">
+                <a href="{{ Storage::url($qrisImage) }}" download="QRIS_Yayasan_Mimbar_Al_Tauhid.png" target="_blank" class="inline-flex items-center gap-2 px-4 py-2 bg-primary/10 text-primary hover:bg-primary/20 rounded-md text-sm font-bold font-heading transition-colors">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/></svg>
+                  Download QRIS
+                </a>
+              </div>
+            </div>
+          </div>
+          @endif
 
           <div class="bg-red-50 text-red-800 p-4 rounded-xl flex items-center justify-center gap-3 border border-red-100"
                x-data="{

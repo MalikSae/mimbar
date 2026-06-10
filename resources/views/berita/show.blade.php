@@ -1,5 +1,8 @@
 @extends('layouts.app')
 @section('title', localized($news, 'title') . ' — Yayasan Mimbar Al-Tauhid')
+@section('meta_description', Str::limit(strip_tags(localized($news, 'content')), 150))
+@section('meta_keywords', implode(', ', $tags ?? []))
+@section('og_image', $news->featured_image ? asset('storage/' . $news->featured_image) : null)
 
 @push('head')
 <style>

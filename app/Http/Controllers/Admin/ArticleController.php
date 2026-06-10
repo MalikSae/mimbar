@@ -10,6 +10,7 @@ use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
+use App\Services\ImageOptimizerService;
 
 class ArticleController extends Controller
 {
@@ -97,10 +98,10 @@ class ArticleController extends Controller
         ];
 
         if ($request->hasFile('featured_image')) {
-            $data['featured_image'] = $request->file('featured_image')->store('articles', 'public');
+            $data['featured_image'] = ImageOptimizerService::optimizeAndStore($request->file('featured_image'), 'articles');
         }
         if ($request->hasFile('author_photo')) {
-            $data['author_photo'] = $request->file('author_photo')->store('authors', 'public');
+            $data['author_photo'] = ImageOptimizerService::optimizeAndStore($request->file('author_photo'), 'authors');
         }
 
         Article::create($data);
@@ -167,14 +168,14 @@ class ArticleController extends Controller
             if ($article->featured_image) {
                 Storage::disk('public')->delete($article->featured_image);
             }
-            $data['featured_image'] = $request->file('featured_image')->store('articles', 'public');
+            $data['featured_image'] = ImageOptimizerService::optimizeAndStore($request->file('featured_image'), 'articles');
         }
 
         if ($request->hasFile('author_photo')) {
             if ($article->author_photo) {
                 Storage::disk('public')->delete($article->author_photo);
             }
-            $data['author_photo'] = $request->file('author_photo')->store('authors', 'public');
+            $data['author_photo'] = ImageOptimizerService::optimizeAndStore($request->file('author_photo'), 'authors');
         }
 
         $article->update($data);
@@ -253,7 +254,7 @@ class ArticleController extends Controller
             'image' => 'required|image|mimes:jpg,jpeg,png,webp,gif|max:4096',
         ]);
 
-        $path = $request->file('image')->store('articles/inline', 'public');
+        $path = ImageOptimizerService::optimizeAndStore($request->file('image'), 'articles/inline');
 
         return response()->json([
             'success' => true,

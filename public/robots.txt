@@ -1,2 +1,4 @@
 User-agent: *
 Disallow:
+
+Sitemap: https://mimbar.or.id/sitemap.xml

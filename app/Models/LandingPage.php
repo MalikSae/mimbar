@@ -50,4 +50,14 @@ class LandingPage extends Model
     {
         return $this->canvas_mode === 'full_page';
     }
+
+    protected static function booted()
+    {
+        static::saved(function ($model) {
+            \App\Http\Controllers\SitemapController::generateXml();
+        });
+        static::deleted(function ($model) {
+            \App\Http\Controllers\SitemapController::generateXml();
+        });
+    }
 }

@@ -1,4 +1,7 @@
 @extends('layouts.app')
+@section('title', localized($program, 'name') . ' — Yayasan Mimbar Al-Tauhid')
+@section('meta_description', Str::limit(strip_tags(localized($program, 'description')), 150))
+@section('og_image', $program->image ? asset('storage/' . $program->image) : null)
 
 @push('head')
 <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>

@@ -45,4 +45,14 @@ class Ebook extends Model
     {
         $this->increment('download_count');
     }
+
+    protected static function booted()
+    {
+        static::saved(function ($model) {
+            \App\Http\Controllers\SitemapController::generateXml();
+        });
+        static::deleted(function ($model) {
+            \App\Http\Controllers\SitemapController::generateXml();
+        });
+    }
 }

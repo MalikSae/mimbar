@@ -26,11 +26,13 @@
             'wa_fonnte'  => '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>',
             'meta_pixel' => '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>',
             'meta_capi'  => '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>',
+            'google_analytics' => '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M18 17V9"/><path d="M13 17V5"/><path d="M8 17v-3"/></svg>',
         ];
         $groupColors = [
             'wa_fonnte'  => '#22c55e',
             'meta_pixel' => '#3b82f6',
             'meta_capi'  => '#8b5cf6',
+            'google_analytics' => '#f59e0b',
         ];
     @endphp
 
@@ -55,6 +57,7 @@
                     @if($groupKey === 'wa_fonnte') Kirim notifikasi WhatsApp otomatis ke donatur via Fonnte
                     @elseif($groupKey === 'meta_pixel') Lacak konversi dan event dari website ke Meta Ads
                     @elseif($groupKey === 'meta_capi') Kirim event server-side langsung ke Meta Conversions API
+                    @elseif($groupKey === 'google_analytics') Tampilkan statistik pergerakan traffic pengunjung website di Dashboard
                     @endif
                 </div>
             </div>
@@ -67,7 +70,7 @@
         </div>
 
         {{-- Form --}}
-        <form method="POST" action="{{ route('admin.integrations.update', $groupKey) }}" style="padding:20px 24px;">
+        <form method="POST" action="{{ route('admin.integrations.update', $groupKey) }}" style="padding:20px 24px;" enctype="multipart/form-data">
             @csrf @method('PUT')
 
             <div style="display:grid; gap:16px;">
@@ -116,6 +119,22 @@
                         @endif
                     </div>
 
+                @elseif($field['type'] === 'file')
+                    <div>
+                        <label for="field_{{ $field['key'] }}" style="display:block; font-size:12.5px; font-weight:600; color:var(--color-gray-700); margin-bottom:5px;">
+                            {{ $field['label'] }}
+                        </label>
+                        <input type="file" id="field_{{ $field['key'] }}" name="{{ $field['key'] }}"
+                               accept=".json"
+                               style="width:100%; padding:9px 12px; border:1px solid var(--color-border); border-radius:8px;
+                                      font-size:13.5px; font-family:var(--font-body); color:var(--color-gray-800); box-sizing:border-box; outline:none; background:white;">
+                        @if($currentVal)
+                        <p style="font-size:11.5px; color:var(--color-success); margin:4px 0 0;">
+                            ✓ File kredensial sudah tersimpan. Upload ulang hanya jika ingin mengganti.
+                        </p>
+                        @endif
+                    </div>
+
                 @else
                     <div>
                         <label for="field_{{ $field['key'] }}" style="display:block; font-size:12.5px; font-weight:600; color:var(--color-gray-700); margin-bottom:5px;">
@@ -129,6 +148,30 @@
                 @endif
                 @endforeach
             </div>
+
+            @if($groupKey === 'google_analytics')
+            <div style="margin-top:20px; padding:16px; background:#f0f9ff; border:1px solid #bae6fd; border-radius:8px;">
+                <details>
+                    <summary style="cursor:pointer; font-size:13.5px; font-weight:600; color:#0284c7; outline:none; display:flex; align-items:center; gap:6px; list-style:none;">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+                        Lihat Panduan Konfigurasi GA4
+                    </summary>
+                    <div style="margin-top:16px; font-size:13px; color:#334155; line-height:1.6;">
+                        <strong style="display:block; margin-bottom:8px; color:#0f172a;">Langkah-langkah mendapatkan kredensial:</strong>
+                        <ol style="margin:0; padding-left:24px; list-style-type:decimal;">
+                            <li style="margin-bottom:8px;">Buka <a href="https://analytics.google.com/" target="_blank" style="color:#0284c7;">Google Analytics</a> > <strong>Admin</strong> > <strong>Property Settings</strong>.</li>
+                            <li style="margin-bottom:8px;">Salin <strong>Property ID</strong> (kumpulan angka) dan isikan ke kolom <em>GA4 Property ID</em>.</li>
+                            <li style="margin-bottom:8px;">Buka <a href="https://console.cloud.google.com/" target="_blank" style="color:#0284c7;">Google Cloud Console</a>, pilih Project Anda, lalu cari dan aktifkan <strong>Google Analytics API</strong>.</li>
+                            <li style="margin-bottom:8px;">Ke menu <strong>IAM & Admin > Service Accounts</strong>, lalu buat <em>Service Account</em> baru.</li>
+                            <li style="margin-bottom:8px;">Salin <strong>Alamat Email</strong> dari Service Account tersebut.</li>
+                            <li style="margin-bottom:8px;">Kembali ke Google Analytics > <strong>Admin > Property Access Management</strong>. Tambahkan email Service Account tadi dengan hak akses minimal <strong>Viewer</strong>.</li>
+                            <li style="margin-bottom:8px;">Di Google Cloud Console (halaman Service Account), buka tab <strong>Keys</strong> > <strong>Add Key</strong> > <strong>Create new key</strong>. Pilih format <strong>JSON</strong>.</li>
+                            <li style="margin-bottom:8px;">Unggah file `.json` yang terunduh tersebut ke kolom <em>Service Account Credentials</em>.</li>
+                        </ol>
+                    </div>
+                </details>
+            </div>
+            @endif
 
             <div style="margin-top:20px; display:flex; justify-content:flex-end;">
                 <button type="submit"

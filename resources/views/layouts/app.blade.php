@@ -16,7 +16,39 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>@yield('title', 'Yayasan Mimbar Al-Tauhid')</title>
+    
+    @php
+        $defaultTitle = \App\Models\Setting::get('seo_meta_title', 'Yayasan Mimbar Al-Tauhid');
+        $defaultDesc = \App\Models\Setting::get('seo_meta_description', '');
+        $defaultKeywords = \App\Models\Setting::get('seo_meta_keywords', '');
+        $gscCode = \App\Models\Setting::get('seo_google_site_verification', '');
+        $ogImage = \App\Models\Setting::get('seo_og_image');
+        $ogImageUrl = $ogImage ? \Illuminate\Support\Facades\Storage::url($ogImage) : asset('images/favicon-mimbar.png');
+    @endphp
+
+    <title>@yield('title', $defaultTitle)</title>
+    
+    @if(!empty(trim($gscCode)))
+    <meta name="google-site-verification" content="{{ $gscCode }}" />
+    @endif
+
+    <meta name="description" content="@yield('meta_description', $defaultDesc)">
+    <meta name="keywords" content="@yield('meta_keywords', $defaultKeywords)">
+    <link rel="canonical" href="{{ url()->current() }}">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="{{ url()->current() }}">
+    <meta property="og:title" content="@yield('title', $defaultTitle)">
+    <meta property="og:description" content="@yield('meta_description', $defaultDesc)">
+    <meta property="og:image" content="@yield('og_image', $ogImageUrl)">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="{{ url()->current() }}">
+    <meta property="twitter:title" content="@yield('title', $defaultTitle)">
+    <meta property="twitter:description" content="@yield('meta_description', $defaultDesc)">
+    <meta property="twitter:image" content="@yield('og_image', $ogImageUrl)">
     <link rel="icon" href="{{ asset('images/favicon-mimbar.png') }}" type="image/png">
     
     <!-- Google Fonts -->

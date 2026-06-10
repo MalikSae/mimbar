@@ -122,6 +122,78 @@
         @endif
     </div>
 
+    {{-- Pengaturan QRIS --}}
+    <div style="margin-top: 32px;">
+        <h2 style="font-size:18px; font-weight:700; color:var(--color-gray-900); margin:0 0 16px;">Opsi Pembayaran QRIS</h2>
+        <div style="background:white; border-radius:14px; border:1px solid var(--color-border); padding:24px;">
+            @if($qrisImage)
+            <div style="display:flex; align-items:flex-start; gap:24px; margin-bottom:24px;">
+                <div style="padding:12px; border:1px solid var(--color-border); border-radius:12px; background:#fafafa;">
+                    <img src="{{ Storage::url($qrisImage) }}" alt="QRIS" style="width:200px; height:auto; border-radius:8px;">
+                </div>
+                <div>
+                    <h3 style="font-size:15px; font-weight:600; color:var(--color-gray-900); margin:0 0 8px;">QRIS Aktif</h3>
+                    <p style="font-size:13.5px; color:var(--color-gray-500); margin:0 0 16px; max-width:400px;">
+                        Gambar QRIS di atas sedang digunakan di semua halaman instruksi pembayaran publik.
+                    </p>
+                    <form method="POST" action="{{ route('admin.bank-accounts.qris.destroy') }}" onsubmit="return confirm('Hapus gambar QRIS ini?');">
+                        @csrf @method('DELETE')
+                        <button type="submit" style="padding:8px 16px; border-radius:8px; border:1px solid #fecaca; background:#fff5f5; cursor:pointer; font-size:13px; font-weight:600; color:#dc2626; display:flex; align-items:center; gap:6px;">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6"/><path d="M14 11v6"/><path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"/></svg>
+                            Hapus QRIS
+                        </button>
+                    </form>
+                </div>
+            </div>
+            @endif
+
+            <style>
+                .custom-file-input::-webkit-file-upload-button {
+                    background: #f3f4f6;
+                    border: 1px solid var(--color-border);
+                    border-radius: 6px;
+                    padding: 6px 12px;
+                    margin-right: 12px;
+                    color: var(--color-gray-700);
+                    font-weight: 600;
+                    cursor: pointer;
+                    transition: background 0.2s;
+                }
+                .custom-file-input::-webkit-file-upload-button:hover {
+                    background: #e5e7eb;
+                }
+                .custom-file-input::file-selector-button {
+                    background: #f3f4f6;
+                    border: 1px solid var(--color-border);
+                    border-radius: 6px;
+                    padding: 6px 12px;
+                    margin-right: 12px;
+                    color: var(--color-gray-700);
+                    font-weight: 600;
+                    cursor: pointer;
+                    transition: background 0.2s;
+                }
+                .custom-file-input::file-selector-button:hover {
+                    background: #e5e7eb;
+                }
+            </style>
+            <form method="POST" action="{{ route('admin.bank-accounts.qris.update') }}" enctype="multipart/form-data">
+                @csrf
+                <div style="margin-bottom:16px;">
+                    <label style="display:block; font-size:13px; font-weight:600; color:var(--color-gray-700); margin-bottom:8px;">
+                        {{ $qrisImage ? 'Ganti Gambar QRIS' : 'Upload Gambar QRIS' }}
+                    </label>
+                    <input type="file" name="qris_image" accept="image/*" required class="custom-file-input"
+                           style="display:block; width:100%; max-width:400px; padding:6px; border:1px solid var(--color-border); border-radius:8px; font-size:13.5px; color:var(--color-gray-600); cursor:pointer;">
+                    <p style="font-size:12px; color:var(--color-gray-500); margin-top:6px;">Format: JPG, PNG. Maksimal 2MB.</p>
+                </div>
+                <button type="submit" style="padding:10px 20px; border-radius:8px; border:none; background:var(--color-primary); color:white; font-size:13.5px; font-weight:600; cursor:pointer;">
+                    Simpan QRIS
+                </button>
+            </form>
+        </div>
+    </div>
+
 </div>
 
 {{-- ===== MODAL TAMBAH ===== --}}

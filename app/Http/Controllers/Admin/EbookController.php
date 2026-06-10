@@ -8,6 +8,7 @@ use App\Models\EbookDownload;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
+use App\Services\ImageOptimizerService;
 
 class EbookController extends Controller
 {
@@ -88,7 +89,7 @@ class EbookController extends Controller
 
         // Upload cover image
         if ($request->hasFile('cover_image')) {
-            $data['cover_image'] = $request->file('cover_image')->store('ebooks/covers', 'public');
+            $data['cover_image'] = ImageOptimizerService::optimizeAndStore($request->file('cover_image'), 'ebooks/covers');
         }
 
         // Upload file PDF
@@ -167,7 +168,7 @@ class EbookController extends Controller
             if ($ebook->cover_image) {
                 Storage::disk('public')->delete($ebook->cover_image);
             }
-            $data['cover_image'] = $request->file('cover_image')->store('ebooks/covers', 'public');
+            $data['cover_image'] = ImageOptimizerService::optimizeAndStore($request->file('cover_image'), 'ebooks/covers');
         }
 
         // Replace file PDF
@@ -279,7 +280,7 @@ class EbookController extends Controller
     {
         try {
             $request->validate(['image' => 'required|image|mimes:jpg,jpeg,png,webp,gif|max:4096']);
-            $path = $request->file('image')->store('ebooks/images', 'public');
+            $path = ImageOptimizerService::optimizeAndStore($request->file('image'), 'ebooks/images');
             return response()->json([
                 'success' => true,
                 'url'     => Storage::url($path),

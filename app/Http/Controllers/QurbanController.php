@@ -136,6 +136,8 @@ class QurbanController extends Controller
             ->where('is_active', true)
             ->get();
 
-        return view('qurban.instruction', compact('order', 'totalTransfer', 'shohibulNames', 'bankAccounts'));
+        $qrisImage = \App\Models\Setting::get('qris_image');
+
+        return view('qurban.instruction', compact('order', 'totalTransfer', 'shohibulNames', 'bankAccounts', 'qrisImage'));
     }
 }

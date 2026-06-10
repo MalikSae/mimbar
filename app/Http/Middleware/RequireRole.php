@@ -17,6 +17,12 @@ class RequireRole
     {
         $admin = auth('admin')->user();
 
+        \Log::info('RequireRole hit', [
+            'admin' => $admin ? $admin->id : null,
+            'role' => $admin ? $admin->role : null,
+            'roles_required' => $roles
+        ]);
+
         if (!$admin || !in_array($admin->role, $roles)) {
             if ($request->expectsJson()) {
                 return response()->json(['message' => 'Unauthorized.'], 403);

@@ -36,6 +36,14 @@ class IntegrationController extends Controller
                 ['key' => 'capi_active',       'label' => 'Aktifkan CAPI',         'type' => 'toggle'],
             ],
         ],
+        'google_analytics' => [
+            'label'  => 'Google Analytics 4 (GA4)',
+            'fields' => [
+                ['key' => 'ga4_property_id',       'label' => 'GA4 Property ID',              'type' => 'text',     'placeholder' => 'Contoh: 312345678'],
+                ['key' => 'ga4_credentials_json',  'label' => 'Service Account Credentials (.json)', 'type' => 'file',     'placeholder' => 'Upload file JSON kredensial'],
+                ['key' => 'ga4_active',            'label' => 'Aktifkan Grafik Analytics',    'type' => 'toggle'],
+            ],
+        ],
     ];
 
     public function index()
@@ -64,6 +72,15 @@ class IntegrationController extends Controller
             if ($field['type'] === 'toggle') {
                 $value    = $request->boolean($key) ? '1' : '0';
                 $isActive = (bool) $value;
+            } elseif ($field['type'] === 'file') {
+                if ($request->hasFile($key)) {
+                    $path = $request->file($key)->store('analytics');
+                    $value = $path;
+                    $isActive = true;
+                } else {
+                    // Jika tidak ada file baru diupload, skip
+                    continue;
+                }
             } else {
                 $value    = $request->input($key);
                 $isActive = true;

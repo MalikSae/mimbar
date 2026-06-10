@@ -29,4 +29,14 @@ class News extends Model
                      ->whereNotNull('published_at')
                      ->orderByDesc('published_at');
     }
+
+    protected static function booted()
+    {
+        static::saved(function ($model) {
+            \App\Http\Controllers\SitemapController::generateXml();
+        });
+        static::deleted(function ($model) {
+            \App\Http\Controllers\SitemapController::generateXml();
+        });
+    }
 }

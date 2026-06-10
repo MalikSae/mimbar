@@ -23,4 +23,9 @@ class Admin extends Authenticatable
     {
         return $this->role === 'publisher';
     }
+
+    public function isPembangun(): bool
+    {
+        return $this->role === 'pembangun';
+    }
 }

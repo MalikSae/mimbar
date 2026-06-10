@@ -47,8 +47,9 @@
                     <option value="" disabled {{ !isset($admin) ? 'selected' : '' }}>-- Pilih Role --</option>
                     <option value="super_admin" {{ old('role', $admin->role ?? '') === 'super_admin' ? 'selected' : '' }}>Super Admin</option>
                     <option value="publisher" {{ old('role', $admin->role ?? '') === 'publisher' ? 'selected' : '' }}>Publisher</option>
+                    <option value="pembangun" {{ old('role', $admin->role ?? '') === 'pembangun' ? 'selected' : '' }}>Pembangun</option>
                 </select>
-                <p style="font-size: 12px; color: var(--color-gray-500); margin: 6px 0 0;">Super Admin memiliki akses penuh. Publisher hanya dapat mengelola artikel dan berita.</p>
+                <p style="font-size: 12px; color: var(--color-gray-500); margin: 6px 0 0;">Super Admin memiliki akses penuh. Publisher dapat mengelola konten. Pembangun mengelola Pengajuan Masjid.</p>
                 @error('role')
                     <div style="color: #ef4444; font-size: 12px; margin-top: 6px;">{{ $message }}</div>
                 @enderror

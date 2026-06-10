@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\DB;
+use App\Services\ImageOptimizerService;
 
 class NewsController extends Controller
 {
@@ -81,7 +82,7 @@ class NewsController extends Controller
         ];
 
         if ($request->hasFile('featured_image')) {
-            $data['featured_image'] = $request->file('featured_image')->store('news', 'public');
+            $data['featured_image'] = ImageOptimizerService::optimizeAndStore($request->file('featured_image'), 'news');
         }
 
         $news = News::create($data);
@@ -89,7 +90,7 @@ class NewsController extends Controller
         // Upload gallery
         if ($request->hasFile('gallery')) {
             foreach ($request->file('gallery') as $index => $file) {
-                $path = $file->store('news/gallery', 'public');
+                $path = ImageOptimizerService::optimizeAndStore($file, 'news/gallery');
                 DB::table('news_galleries')->insert([
                     'news_id'    => $news->id,
                     'file_path'  => $path,
@@ -159,7 +160,7 @@ class NewsController extends Controller
             if ($news->featured_image) {
                 Storage::disk('public')->delete($news->featured_image);
             }
-            $data['featured_image'] = $request->file('featured_image')->store('news', 'public');
+            $data['featured_image'] = ImageOptimizerService::optimizeAndStore($request->file('featured_image'), 'news');
         }
 
         $news->update($data);
@@ -168,7 +169,7 @@ class NewsController extends Controller
         if ($request->hasFile('gallery')) {
             $lastOrder = DB::table('news_galleries')->where('news_id', $id)->max('order') ?? -1;
             foreach ($request->file('gallery') as $index => $file) {
-                $path = $file->store('news/gallery', 'public');
+                $path = ImageOptimizerService::optimizeAndStore($file, 'news/gallery');
                 DB::table('news_galleries')->insert([
                     'news_id'    => $news->id,
                     'file_path'  => $path,
@@ -261,7 +262,7 @@ class NewsController extends Controller
             'image' => 'required|image|mimes:jpg,jpeg,png,webp,gif|max:4096',
         ]);
 
-        $path = $request->file('image')->store('news/inline', 'public');
+        $path = ImageOptimizerService::optimizeAndStore($request->file('image'), 'news/inline');
 
         return response()->json([
             'success' => true,

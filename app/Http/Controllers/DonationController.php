@@ -127,6 +127,8 @@ class DonationController extends Controller
             ->where('is_active', true)
             ->get();
 
-        return view('donasi.instruction', compact('donation', 'totalTransfer', 'bankAccounts'));
+        $qrisImage = \App\Models\Setting::get('qris_image');
+
+        return view('donasi.instruction', compact('donation', 'totalTransfer', 'bankAccounts', 'qrisImage'));
     }
 }

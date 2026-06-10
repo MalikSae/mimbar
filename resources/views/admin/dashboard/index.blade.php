@@ -19,6 +19,7 @@
 <div style="display: grid; grid-template-columns: repeat(3, 1fr);
             gap: 16px; margin-bottom: 24px;">
 
+    @if ($isSuperAdmin)
     {{-- Donasi Bulan Ini --}}
     <div style="background: white; border-radius: var(--radius-xl);
                 border: 1px solid var(--color-border);
@@ -77,6 +78,7 @@
             Donatur unik terverifikasi
         </div>
     </div>
+    @endif
 
     {{-- Artikel Published --}}
     <div style="background: white; border-radius: var(--radius-xl);
@@ -95,6 +97,7 @@
         </div>
     </div>
 
+    @if ($isSuperAdmin)
     {{-- Pesanan Qurban --}}
     <div style="background: white; border-radius: var(--radius-xl);
                 border: 1px solid var(--color-border);
@@ -128,9 +131,105 @@
             Total unduhan seluruh ebook
         </div>
     </div>
+    @endif
 
 </div>
 
+{{-- GA4 Analytics Graph --}}
+@if (isset($gaConfigured) && $gaConfigured && $analyticsData)
+    <div style="background: white; border-radius: var(--radius-xl); border: 1px solid var(--color-border); box-shadow: var(--shadow-card); padding: 20px; margin-bottom: 24px;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+            <h2 style="font-family: var(--font-heading); font-size: 16px; font-weight: 600; color: var(--color-gray-900); margin: 0;">
+                Statistik Kunjungan (7 Hari Terakhir)
+            </h2>
+            <div style="font-size: 12px; color: var(--color-gray-500); display: flex; align-items: center; gap: 6px;">
+                <span style="display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: var(--color-success);"></span>
+                Terkoneksi ke GA4
+            </div>
+        </div>
+        <div style="position: relative; height: 300px; width: 100%;">
+            <canvas id="trafficChart"></canvas>
+        </div>
+    </div>
+    
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const ctx = document.getElementById('trafficChart').getContext('2d');
+            
+            const rawData = @json($analyticsData);
+            const labels = [];
+            const visitors = [];
+            const pageViews = [];
+            
+            rawData.forEach(item => {
+                let dateStr = item.date;
+                if (typeof dateStr === 'object' && dateStr.date) dateStr = dateStr.date.substring(0, 10);
+                else if (typeof dateStr === 'string') dateStr = dateStr.substring(0, 10);
+                
+                labels.push(dateStr);
+                visitors.push(item.activeUsers || item.visitors || 0); 
+                pageViews.push(item.screenPageViews || item.pageViews || 0); 
+            });
+
+            new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: labels,
+                    datasets: [
+                        {
+                            label: 'Pengunjung Aktif',
+                            data: visitors,
+                            borderColor: '#3b82f6',
+                            backgroundColor: 'rgba(59, 130, 246, 0.1)',
+                            borderWidth: 2,
+                            fill: true,
+                            tension: 0.4
+                        },
+                        {
+                            label: 'Tampilan Halaman (Page Views)',
+                            data: pageViews,
+                            borderColor: '#f59e0b',
+                            backgroundColor: 'rgba(245, 158, 11, 0.1)',
+                            borderWidth: 2,
+                            fill: true,
+                            tension: 0.4
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { position: 'top' }
+                    },
+                    scales: {
+                        y: { beginAtZero: true }
+                    }
+                }
+            });
+        });
+    </script>
+@elseif (isset($gaConfigured) && $gaConfigured && $analyticsError)
+    <div style="background: #fef2f2; border: 1px solid #fecaca; border-radius: 8px; padding: 16px; margin-bottom: 24px; color: #991b1b;">
+        <div style="font-weight: 600; margin-bottom: 4px;">Gagal mengambil data Analytics</div>
+        <div style="font-size: 13px;">{{ $analyticsError }}</div>
+        <a href="{{ route('admin.integrations.index') }}" style="font-size: 12px; color: #b91c1c; text-decoration: underline; margin-top: 8px; display: inline-block;">Periksa Konfigurasi GA4</a>
+    </div>
+@else
+    <div style="background: white; border-radius: var(--radius-xl); border: 1px dashed var(--color-border); padding: 32px 20px; text-align: center; margin-bottom: 24px;">
+        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--color-gray-400)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: block; margin: 0 auto 12px auto;"><path d="M3 3v18h18"/><path d="M18 17V9"/><path d="M13 17V5"/><path d="M8 17v-3"/></svg>
+        <h3 style="font-family: var(--font-heading); font-size: 15px; font-weight: 600; color: var(--color-gray-900); margin: 0 0 4px;">Google Analytics Belum Dikonfigurasi</h3>
+        <p style="font-size: 13px; color: var(--color-gray-500); margin: 0 0 16px; max-width: 400px; margin-left: auto; margin-right: auto;">
+            Hubungkan website ini dengan Google Analytics 4 untuk melihat pergerakan pengunjung harian dan pageviews secara langsung di dashboard ini.
+        </p>
+        <a href="{{ route('admin.integrations.index') }}" style="display: inline-block; padding: 8px 16px; background: var(--color-gray-900); color: white; border-radius: 6px; font-size: 13px; font-weight: 500; text-decoration: none;">
+            Konfigurasi Sekarang
+        </a>
+    </div>
+@endif
+
+@if ($isSuperAdmin)
 {{-- ROW 2: Donasi Terbaru + Program Donasi --}}
 <div style="display: grid; grid-template-columns: 1fr 1fr;
             gap: 16px; margin-bottom: 24px;">
@@ -249,6 +348,7 @@
     </div>
 
 </div>
+@endif
 
 {{-- ROW 3: Artikel Terbaru --}}
 <div style="background: white; border-radius: var(--radius-xl);

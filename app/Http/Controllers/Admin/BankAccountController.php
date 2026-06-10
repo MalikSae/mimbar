@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\BankAccount;
+use App\Models\Setting;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -12,7 +13,8 @@ class BankAccountController extends Controller
     public function index()
     {
         $accounts = BankAccount::orderBy('sort_order')->orderBy('bank_name')->get();
-        return view('admin.bank-accounts.index', compact('accounts'));
+        $qrisImage = Setting::get('qris_image');
+        return view('admin.bank-accounts.index', compact('accounts', 'qrisImage'));
     }
 
     public function store(Request $request)
@@ -86,5 +88,33 @@ class BankAccountController extends Controller
         $account = BankAccount::findOrFail($id);
         $account->update(['is_active' => !$account->is_active]);
         return back()->with('success', 'Status rekening diperbarui.');
+    }
+
+    public function updateQris(Request $request)
+    {
+        $request->validate([
+            'qris_image' => 'required|image|mimes:png,jpg,jpeg,svg,webp|max:2048',
+        ]);
+
+        $oldImage = Setting::get('qris_image');
+        if ($oldImage) {
+            Storage::disk('public')->delete($oldImage);
+        }
+
+        $path = $request->file('qris_image')->store('bank-logos', 'public');
+        Setting::set('qris_image', $path);
+
+        return back()->with('success', 'Gambar QRIS berhasil diperbarui.');
+    }
+
+    public function destroyQris()
+    {
+        $oldImage = Setting::get('qris_image');
+        if ($oldImage) {
+            Storage::disk('public')->delete($oldImage);
+            Setting::set('qris_image', null);
+        }
+
+        return back()->with('success', 'Gambar QRIS berhasil dihapus.');
     }
 }

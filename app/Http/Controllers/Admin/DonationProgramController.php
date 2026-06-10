@@ -8,6 +8,7 @@ use App\Models\DonationProgram;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
+use App\Services\ImageOptimizerService;
 
 class DonationProgramController extends Controller
 {
@@ -69,7 +70,7 @@ class DonationProgramController extends Controller
         }
 
         if ($request->hasFile('featured_image')) {
-            $data['image'] = $request->file('featured_image')->store('programs', 'public');
+            $data['image'] = ImageOptimizerService::optimizeAndStore($request->file('featured_image'), 'programs');
         }
 
         DonationProgram::create($data);
@@ -135,7 +136,7 @@ class DonationProgramController extends Controller
             if ($program->image) {
                 Storage::disk('public')->delete($program->image);
             }
-            $data['image'] = $request->file('featured_image')->store('programs', 'public');
+            $data['image'] = ImageOptimizerService::optimizeAndStore($request->file('featured_image'), 'programs');
         }
 
         $program->update($data);
@@ -196,7 +197,7 @@ class DonationProgramController extends Controller
             'image' => 'required|image|mimes:jpg,jpeg,png,webp,gif|max:4096',
         ]);
 
-        $path = $request->file('image')->store('programs/inline', 'public');
+        $path = ImageOptimizerService::optimizeAndStore($request->file('image'), 'programs/inline');
 
         return response()->json([
             'success' => true,

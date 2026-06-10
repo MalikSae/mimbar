@@ -27,6 +27,7 @@ use App\Http\Controllers\MasjidProposalController;
 use App\Http\Controllers\Admin\MasjidProposalController as AdminMasjidProposalController;
 use App\Http\Controllers\Admin\TranslationController;
 use App\Http\Controllers\Admin\AdminAccountController;
+use App\Http\Controllers\Admin\SeoSettingController;
 
 // === ADMIN: Manajemen Penulis & Approval ===
 use App\Http\Controllers\Admin\PenulisController;
@@ -112,38 +113,40 @@ Route::prefix('admin')->name('admin.')->middleware('admin.auth')->group(function
     // Route Translation
     Route::post('/translate', [TranslationController::class, 'translate'])->name('translate')->middleware('throttle:translate');
 
-    // Route Kategori
-    Route::resource('kategori', CategoryController::class)->except(['create', 'show', 'edit']);
+    Route::middleware('role:super_admin,publisher')->group(function () {
+        // Route Kategori
+        Route::resource('kategori', CategoryController::class)->except(['create', 'show', 'edit']);
 
-    // Route Artikel
-    Route::prefix('artikel')->name('articles.')->group(function () {
-        Route::get('/',           [AdminArticleController::class, 'index'])->name('index');
-        Route::get('/tambah',     [AdminArticleController::class, 'create'])->name('create');
-        Route::post('/',          [AdminArticleController::class, 'store'])->name('store');
-        Route::post('/kategori', [AdminArticleController::class, 'storeCategory'])
-            ->name('store-category');
-        Route::post('/upload-image', [AdminArticleController::class, 'uploadImage'])
-            ->name('upload-image');
-        Route::get('/{id}/edit',  [AdminArticleController::class, 'edit'])->name('edit');
-        Route::put('/{id}',       [AdminArticleController::class, 'update'])->name('update');
-        Route::delete('/{id}',    [AdminArticleController::class, 'destroy'])->name('destroy');
-        Route::patch('/{id}/toggle-status', [AdminArticleController::class, 'toggleStatus'])->name('toggle-status');
-        Route::patch('/{id}/toggle',        [AdminArticleController::class, 'toggle'])->name('toggle');
-    });
+        // Route Artikel
+        Route::prefix('artikel')->name('articles.')->group(function () {
+            Route::get('/',           [AdminArticleController::class, 'index'])->name('index');
+            Route::get('/tambah',     [AdminArticleController::class, 'create'])->name('create');
+            Route::post('/',          [AdminArticleController::class, 'store'])->name('store');
+            Route::post('/kategori', [AdminArticleController::class, 'storeCategory'])
+                ->name('store-category');
+            Route::post('/upload-image', [AdminArticleController::class, 'uploadImage'])
+                ->name('upload-image');
+            Route::get('/{id}/edit',  [AdminArticleController::class, 'edit'])->name('edit');
+            Route::put('/{id}',       [AdminArticleController::class, 'update'])->name('update');
+            Route::delete('/{id}',    [AdminArticleController::class, 'destroy'])->name('destroy');
+            Route::patch('/{id}/toggle-status', [AdminArticleController::class, 'toggleStatus'])->name('toggle-status');
+            Route::patch('/{id}/toggle',        [AdminArticleController::class, 'toggle'])->name('toggle');
+        });
 
-    // Route Berita
-    Route::prefix('berita')->name('news.')->group(function () {
-        Route::get('/',           [AdminNewsController::class, 'index'])->name('index');
-        Route::get('/tambah',     [AdminNewsController::class, 'create'])->name('create');
-        Route::post('/',          [AdminNewsController::class, 'store'])->name('store');
-        Route::post('/kategori', [AdminNewsController::class, 'storeCategory'])->name('store-category');
-        Route::post('/upload-image', [AdminNewsController::class, 'uploadImage'])->name('upload-image');
-        Route::get('/{id}/edit',  [AdminNewsController::class, 'edit'])->name('edit');
-        Route::put('/{id}',       [AdminNewsController::class, 'update'])->name('update');
-        Route::delete('/{id}',    [AdminNewsController::class, 'destroy'])->name('destroy');
-        Route::patch('/{id}/toggle-status', [AdminNewsController::class, 'toggleStatus'])->name('toggle-status');
-        Route::patch('/{id}/toggle',        [AdminNewsController::class, 'toggle'])->name('toggle');
-        Route::delete('/gallery/{id}',      [AdminNewsController::class, 'destroyGallery'])->name('gallery.destroy');
+        // Route Berita
+        Route::prefix('berita')->name('news.')->group(function () {
+            Route::get('/',           [AdminNewsController::class, 'index'])->name('index');
+            Route::get('/tambah',     [AdminNewsController::class, 'create'])->name('create');
+            Route::post('/',          [AdminNewsController::class, 'store'])->name('store');
+            Route::post('/kategori', [AdminNewsController::class, 'storeCategory'])->name('store-category');
+            Route::post('/upload-image', [AdminNewsController::class, 'uploadImage'])->name('upload-image');
+            Route::get('/{id}/edit',  [AdminNewsController::class, 'edit'])->name('edit');
+            Route::put('/{id}',       [AdminNewsController::class, 'update'])->name('update');
+            Route::delete('/{id}',    [AdminNewsController::class, 'destroy'])->name('destroy');
+            Route::patch('/{id}/toggle-status', [AdminNewsController::class, 'toggleStatus'])->name('toggle-status');
+            Route::patch('/{id}/toggle',        [AdminNewsController::class, 'toggle'])->name('toggle');
+            Route::delete('/gallery/{id}',      [AdminNewsController::class, 'destroyGallery'])->name('gallery.destroy');
+        });
     });
 
     Route::middleware('role:super_admin')->group(function () {
@@ -229,6 +232,8 @@ Route::prefix('admin')->name('admin.')->middleware('admin.auth')->group(function
         Route::prefix('rekening')->name('bank-accounts.')->group(function () {
             Route::get('/',              [BankAccountController::class, 'index'])->name('index');
             Route::post('/',             [BankAccountController::class, 'store'])->name('store');
+            Route::post('/qris',         [BankAccountController::class, 'updateQris'])->name('qris.update');
+            Route::delete('/qris',       [BankAccountController::class, 'destroyQris'])->name('qris.destroy');
             Route::put('/{id}',          [BankAccountController::class, 'update'])->name('update');
             Route::delete('/{id}',       [BankAccountController::class, 'destroy'])->name('destroy');
             Route::patch('/{id}/toggle', [BankAccountController::class, 'toggle'])->name('toggle');
@@ -248,6 +253,13 @@ Route::prefix('admin')->name('admin.')->middleware('admin.auth')->group(function
             Route::post('/pengurus', [\App\Http\Controllers\Admin\PengaturanController::class, 'tambahPengurus'])->name('tambahPengurus');
             Route::put('/pengurus/{id}', [\App\Http\Controllers\Admin\PengaturanController::class, 'updatePengurus'])->name('updatePengurus');
             Route::delete('/pengurus/{id}', [\App\Http\Controllers\Admin\PengaturanController::class, 'hapusPengurus'])->name('hapusPengurus');
+        });
+
+        // Route Pengaturan SEO & Sitemap
+        Route::prefix('seo')->name('seo-settings.')->group(function () {
+            Route::get('/', [SeoSettingController::class, 'index'])->name('index');
+            Route::put('/', [SeoSettingController::class, 'update'])->name('update');
+            Route::post('/sitemap', [\App\Http\Controllers\SitemapController::class, 'generate'])->name('sitemap');
         });
 
         // Route Data Program
@@ -277,6 +289,9 @@ Route::prefix('admin')->name('admin.')->middleware('admin.auth')->group(function
             Route::delete('/{id}', [\App\Http\Controllers\Admin\ProgramGalleryController::class, 'destroy'])->name('destroy');
         });
 
+    }); // close role:super_admin
+
+    Route::middleware('role:super_admin,pembangun')->group(function () {
         // Route Pengajuan Masjid — export SEBELUM {id}
         Route::prefix('pengajuan-masjid')->name('masjid.')->group(function () {
             Route::get('/export',  [AdminMasjidProposalController::class, 'export'])->name('export');
@@ -287,10 +302,10 @@ Route::prefix('admin')->name('admin.')->middleware('admin.auth')->group(function
             Route::delete('/{id}', [AdminMasjidProposalController::class, 'destroy'])->name('destroy');
         });
     });
-});
+}); // close admin.auth
 
 // === ADMIN: Manajemen Penulis ===
-Route::prefix('admin')->middleware('admin.auth')->name('admin.')->group(function () {
+Route::prefix('admin')->middleware(['admin.auth', 'role:super_admin,publisher'])->name('admin.')->group(function () {
     Route::get('/penulis', [PenulisController::class, 'index'])->name('penulis.index');
     Route::get('/penulis/tambah', [PenulisController::class, 'create'])->name('penulis.create');
     Route::post('/penulis', [PenulisController::class, 'store'])->name('penulis.store');

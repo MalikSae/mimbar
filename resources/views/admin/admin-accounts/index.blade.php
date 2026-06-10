@@ -47,6 +47,8 @@
                     <td style="padding: 16px 20px;">
                         @if($admin->role === 'super_admin')
                             <span style="display: inline-block; padding: 4px 8px; border-radius: 6px; background: #eef2ff; color: #4338ca; font-size: 12px; font-weight: 600;">Super Admin</span>
+                        @elseif($admin->role === 'pembangun')
+                            <span style="display: inline-block; padding: 4px 8px; border-radius: 6px; background: #fffbeb; color: #d97706; font-size: 12px; font-weight: 600;">Pembangun</span>
                         @else
                             <span style="display: inline-block; padding: 4px 8px; border-radius: 6px; background: #ecfdf5; color: #059669; font-size: 12px; font-weight: 600;">Publisher</span>
                         @endif

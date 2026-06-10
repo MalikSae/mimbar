@@ -60,4 +60,14 @@ class Article extends Model
             ?? $this->getRawOriginal('author_bio')
             ?? 'Yayasan Mimbar Al-Tauhid hadir dengan program dakwah yang menarik dan inovatif.';
     }
+
+    protected static function booted()
+    {
+        static::saved(function ($model) {
+            \App\Http\Controllers\SitemapController::generateXml();
+        });
+        static::deleted(function ($model) {
+            \App\Http\Controllers\SitemapController::generateXml();
+        });
+    }
 }
