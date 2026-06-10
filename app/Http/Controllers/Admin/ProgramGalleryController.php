@@ -11,14 +11,17 @@ class ProgramGalleryController extends Controller
 {
     public function index()
     {
+        $type = request('type', 'dakwah');
+
         $galleries = DB::table('program_galleries')
-            ->orderBy('program_type')
+            ->where('program_type', $type)
             ->orderBy('order')
+            ->orderByDesc('created_at')
             ->paginate(20);
 
         $programTypes = ['dakwah', 'pendidikan', 'sosial', 'pembangunan', 'qurban', 'slider_home'];
 
-        return view('admin.program-gallery.index', compact('galleries', 'programTypes'));
+        return view('admin.program-gallery.index', compact('galleries', 'programTypes', 'type'));
     }
 
     public function store(Request $request)

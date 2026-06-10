@@ -107,13 +107,9 @@
             Foto — {{ request('type', 'dakwah') === 'slider_home' ? 'Slider Home' : ucfirst(request('type', 'dakwah')) }}
         </h3>
 
-        @php
-            $filtered = $galleries->filter(fn($g) => $g->program_type === request('type', 'dakwah'));
-        @endphp
-
-        @if($filtered->count() > 0)
+        @if($galleries->count() > 0)
             <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 16px;">
-                @foreach($filtered as $photo)
+                @foreach($galleries as $photo)
                     <div style="position: relative; border-radius: var(--radius-lg); overflow: hidden; border: 1px solid var(--color-border);"
                          x-data="{ confirmDelete: false }">
                         <img src="{{ asset('storage/' . $photo->file_path) }}"
