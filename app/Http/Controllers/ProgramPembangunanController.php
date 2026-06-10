@@ -11,7 +11,7 @@ class ProgramPembangunanController extends Controller
     public function index()
     {
         // Pencapaian dari settings — 1 query batch, di-cache 1 jam (semula: 3 query terpisah)
-        $pencapaian = Cache::remember('pencapaian_pembangunan', 3600, function () {
+        $pencapaian = Cache::remember('pencapaian_pembangunan_v2', 3600, function () {
             $keys = [
                 'stat_pembangunan_masjid',
                 'stat_pembangunan_sumur',
@@ -30,7 +30,7 @@ class ProgramPembangunanController extends Controller
         });
 
         // Galeri portofolio — di-cache 6 jam
-        $galleries = Cache::remember('galleries_pembangunan', 21600, function () {
+        $galleries = Cache::remember('galleries_pembangunan_v2', 21600, function () {
             return DB::table('program_galleries')
                 ->where('program_type', 'pembangunan')
                 ->orderBy('order')

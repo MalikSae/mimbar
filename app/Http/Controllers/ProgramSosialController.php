@@ -12,7 +12,7 @@ class ProgramSosialController extends Controller
     public function index()
     {
         // Pencapaian dari settings — 1 query batch, di-cache 1 jam (semula: 4 query terpisah)
-        $pencapaian = Cache::remember('pencapaian_sosial', 3600, function () {
+        $pencapaian = Cache::remember('pencapaian_sosial_v2', 3600, function () {
             $keys = [
                 'stat_sosial_paket_buka_puasa',
                 'stat_sosial_pembagian_sembako',

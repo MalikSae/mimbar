@@ -11,7 +11,7 @@ class ProgramDakwahController extends Controller
     public function index()
     {
         // Pencapaian dari settings — 1 query batch, di-cache 1 jam (semula: 9 query terpisah)
-        $pencapaian = Cache::remember('pencapaian_dakwah', 3600, function () {
+        $pencapaian = Cache::remember('pencapaian_dakwah_v2', 3600, function () {
             $keys = [
                 'stat_dakwah_kajian', 'stat_jamaah', 'stat_dakwah_kaderisasi',
                 'stat_dakwah_pengislaman', 'stat_dakwah_markaz', 'stat_dakwah_kafalah',
@@ -36,7 +36,7 @@ class ProgramDakwahController extends Controller
         });
 
         // Galeri portofolio — di-cache 6 jam
-        $galleries = Cache::remember('galleries_dakwah', 21600, function () {
+        $galleries = Cache::remember('galleries_dakwah_v2', 21600, function () {
             return DB::table('program_galleries')
                 ->where('program_type', 'dakwah')
                 ->orderBy('order')

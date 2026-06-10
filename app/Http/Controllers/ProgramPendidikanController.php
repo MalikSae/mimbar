@@ -11,7 +11,7 @@ class ProgramPendidikanController extends Controller
     public function index()
     {
         // Pencapaian dari settings — 1 query batch, di-cache 1 jam (semula: 4 query terpisah)
-        $pencapaian = Cache::remember('pencapaian_pendidikan', 3600, function () {
+        $pencapaian = Cache::remember('pencapaian_pendidikan_v2', 3600, function () {
             $keys = [
                 'stat_pendidikan_markaz',
                 'stat_pendidikan_kaderisasi',
