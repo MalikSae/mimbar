@@ -38,13 +38,6 @@ class ProgramPembangunanController extends Controller
                 ->get();
         });
 
-        // Campaign donasi aktif — di-cache 30 menit (shared key dengan controller lain)
-        $campaigns = Cache::remember('campaigns_active_3', 1800, function () {
-            return DonationProgram::where('status', 'active')
-                ->take(3)
-                ->get();
-        });
-
-        return view('program.pembangunan', compact('galleries', 'campaigns', 'pencapaian'));
+        return view('program.pembangunan', compact('galleries', 'pencapaian'));
     }
 }

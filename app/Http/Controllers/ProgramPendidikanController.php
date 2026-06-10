@@ -33,7 +33,7 @@ class ProgramPendidikanController extends Controller
 
         // Galeri program pendidikan — di-cache 6 jam
         $galleries = Cache::remember('galleries_pendidikan', 21600, function () {
-            return ProgramGallery::where('program_type', 'pendidikan')
+            return DB::table('program_galleries')->where('program_type', 'pendidikan')
                 ->orderBy('order', 'asc')
                 ->orderBy('created_at', 'desc')
                 ->take(10)

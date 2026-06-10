@@ -44,13 +44,6 @@ class ProgramDakwahController extends Controller
                 ->get();
         });
 
-        // Campaign donasi aktif — di-cache 30 menit
-        $campaigns = Cache::remember('campaigns_active_3', 1800, function () {
-            return DonationProgram::where('status', 'active')
-                ->take(3)
-                ->get();
-        });
-
-        return view('program.dakwah', compact('pencapaian', 'galleries', 'campaigns'));
+        return view('program.dakwah', compact('pencapaian', 'galleries'));
     }
 }

@@ -34,7 +34,7 @@ class ProgramSosialController extends Controller
 
         // Galeri program sosial — di-cache 6 jam
         $galleries = Cache::remember('galleries_sosial', 21600, function () {
-            return ProgramGallery::where('program_type', 'sosial')
+            return DB::table('program_galleries')->where('program_type', 'sosial')
                 ->orderBy('order', 'asc')
                 ->orderBy('created_at', 'desc')
                 ->take(10)
