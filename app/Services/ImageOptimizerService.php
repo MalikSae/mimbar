@@ -20,26 +20,35 @@ class ImageOptimizerService
      */
     public static function optimizeAndStore(UploadedFile $file, string $directory, int $maxWidth = 1200, int $quality = 80): string
     {
-        // Inisialisasi ImageManager menggunakan GD Driver
-        $manager = new ImageManager(new Driver());
-        
-        // Membaca image dari UploadedFile
-        $image = $manager->read($file->getRealPath());
+        try {
+            // Naikkan memory limit sementara untuk mencegah error saat memproses gambar beresolusi tinggi (misal dari HP client)
+            ini_set('memory_limit', '256M');
 
-        // Cek apakah lebar lebih besar dari $maxWidth
-        if ($image->width() > $maxWidth) {
-            $image->scaleDown(width: $maxWidth);
+            // Inisialisasi ImageManager menggunakan GD Driver
+            $manager = new ImageManager(new Driver());
+            
+            // Membaca image dari UploadedFile
+            $image = $manager->read($file->getRealPath());
+
+            // Cek apakah lebar lebih besar dari $maxWidth
+            if ($image->width() > $maxWidth) {
+                $image->scaleDown(width: $maxWidth);
+            }
+
+            // Encode ke WebP
+            $encodedImage = $image->toWebp(quality: $quality);
+
+            // Generate nama file unik dengan ekstensi .webp
+            $filename = $directory . '/' . uniqid() . '_' . time() . '.webp';
+
+            // Simpan ke storage publik
+            Storage::disk('public')->put($filename, $encodedImage->toString());
+
+            return $filename;
+        } catch (\Throwable $e) {
+            \Illuminate\Support\Facades\Log::error('Image optimization failed: ' . $e->getMessage());
+            // Fallback: simpan gambar asli tanpa optimasi jika GD gagal / tidak support WebP
+            return $file->store($directory, 'public');
         }
-
-        // Encode ke WebP
-        $encodedImage = $image->toWebp(quality: $quality);
-
-        // Generate nama file unik dengan ekstensi .webp
-        $filename = $directory . '/' . uniqid() . '_' . time() . '.webp';
-
-        // Simpan ke storage publik
-        Storage::disk('public')->put($filename, $encodedImage->toString());
-
-        return $filename;
     }
 }

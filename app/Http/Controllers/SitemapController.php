@@ -78,9 +78,13 @@ class SitemapController extends Controller
 
         $xml .= '</urlset>';
 
-        // Save to public path
-        $path = public_path('sitemap.xml');
-        file_put_contents($path, $xml);
+        try {
+            // Save to public path
+            $path = public_path('sitemap.xml');
+            file_put_contents($path, $xml);
+        } catch (\Throwable $e) {
+            \Illuminate\Support\Facades\Log::error('Gagal generate sitemap: ' . $e->getMessage());
+        }
 
         return count($urls);
     }
